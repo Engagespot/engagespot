@@ -1,0 +1,51 @@
+{
+  "name": "@engagespot/react-hooks",
+  "version": "1.0.0",
+  "main": "./lib/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "clean": "rm -rf lib",
+    "build2": "yarn run tsc && cross-env NODE_ENV=production rollup -c",
+    "start": "yarn run tsc && rollup -c -w",
+    "tsc": "tsc",
+    "prepare": "yarn run build",
+    "test:dev": "jest --watchAll",
+    "test": "cross-env CI=true jest",
+    "lint:css": "stylelint './src/**/*.js'",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "peerDependencies": {
+    "react": "^17.0.1"
+  },
+  "dependencies": {
+    "@engagespot/core": "1.0.0",
+    "@popperjs/core": "2.9.1",
+    "@types/react": "17.0.37",
+    "intersection-observer": "0.12.0",
+    "react-popper": "2.2.4"
+  },
+  "devDependencies": {
+    "ts-jest": "26.5.3",
+    "tsup": "5.10.0",
+    "react": "17.0.2",
+    "typescript": "4.2.4"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

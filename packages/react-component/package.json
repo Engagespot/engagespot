@@ -1,0 +1,63 @@
+{
+  "name": "@engagespot/react-component",
+  "version": "1.0.0",
+  "main": "./lib/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib/**/*"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "buildvite": "tsc && vite build",
+    "build2": "yarn run tsc && cross-env NODE_ENV=production rollup -c",
+    "start": "yarn run tsc && rollup -c -w",
+    "tsc": "tsc",
+    "clean": "rm -rf lib",
+    "prepare": "yarn run build",
+    "test:dev": "jest --watchAll",
+    "test": "cross-env CI=true jest",
+    "lint:css": "stylelint './src/**/*.js'",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "peerDependencies": {
+    "react": "^17.0.1"
+  },
+  "dependencies": {
+    "@engagespot/react-hooks": "^1.0.0",
+    "@popperjs/core": "2.9.1",
+    "@types/react-transition-group": "4.4.4",
+    "i18next": "19.9.2",
+    "intersection-observer": "0.12.0",
+    "lodash.mapkeys": "4.6.0",
+    "lodash.merge": "4.6.2",
+    "react-i18next": "11.8.10",
+    "react-popper": "2.2.4",
+    "react-transition-group": "4.4.1",
+    "styled-components": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/lodash.mapkeys": "4.6.6",
+    "@types/styled-components": "5.1.15",
+    "@vitejs/plugin-react": "^1.0.0",
+    "esbuild-plugin-svgr": "0.0.3",
+    "react": "17.0.2",
+    "ts-jest": "26.5.3",
+    "tsup": "5.10.0",
+    "typescript": "4.2.4",
+    "vite": "^2.6.4"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

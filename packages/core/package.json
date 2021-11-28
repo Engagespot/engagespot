@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Engagespot Javascript Core Functions",
   "main": "./lib/index.js",
-  "module": "./lib/index.mjs",
+  "module": "./lib/esm/index.js",
   "types": "./lib/index.d.ts",
   "files": [
     "lib/**/*"
@@ -15,6 +15,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "yarn run lint -- --fix",
     "test": "jest",
+    "clean": "rm -rf lib",
     "prepare": "yarn run build",
     "prepublishOnly": "yarn test && yarn run lint",
     "preversion": "yarn run lint",
