@@ -10,7 +10,6 @@
 **/build/**
 **/dist/**
 **/lib/**
-**/.yarn/**
 
 # misc
 .DS_Store
