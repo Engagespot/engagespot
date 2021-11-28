@@ -7,7 +7,8 @@
   ],
   "version": "1.0.0",
   "scripts": {
-    "build": "lerna bootstrap",
+    "build": "lerna bootstrap && lerna run build",
+    "build:examples": "lerna run build:examples",
     "ci": "yarn install --frozen-lockfile",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "lerna run lint -- --fix",
