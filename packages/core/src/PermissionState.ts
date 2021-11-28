@@ -1,0 +1,5 @@
+export enum PermissionState {
+  PERMISSION_REQUIRED,
+  PERMISSION_GRANTED,
+  PERMISSION_DENIED,
+}

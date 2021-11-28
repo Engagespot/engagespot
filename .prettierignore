@@ -1,0 +1,10 @@
+**/dist/**
+**/build/**
+**/node_modules/**
+**/*.test.{js,jsx,ts,tsx}
+**/*.spec.{js,jsx,ts,tsx}
+**/config-overrides.js
+**/coverage/**
+**/lib/**
+*.config.js
+**/example/**
