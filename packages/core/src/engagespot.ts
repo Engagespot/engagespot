@@ -577,7 +577,7 @@ export default class Engagespot {
    * Subscriber function for REALTIME_NOTIFICATION_RECEIVED
    * @param handler
    */
-  onNotificationReceived(handler: Function) {
+  onNotificationReceive(handler: Function) {
     this.eventListenerStore.REALTIME_NOTIFICATION_RECEIVED.push(handler);
     //return this.eventListenerStore.REALTIME_NOTIFICATION_RECEIVED;
     return true;
@@ -587,7 +587,7 @@ export default class Engagespot {
    * Subscriber function for NOTIFICATION_CLICKED
    * @param handler
    */
-  onNotificationClicked(handler: Function) {
+  onNotificationClick(handler: Function) {
     this.eventListenerStore.NOTIFICATION_CLICKED.push(handler);
     return true;
   }
@@ -596,7 +596,7 @@ export default class Engagespot {
    * Subscriber function for NOTIFICATION_DELETED
    * @param handler
    */
-   onNotificationDeleted(handler: Function) {
+   onNotificationDelete(handler: Function) {
     this.eventListenerStore.NOTIFICATION_DELETED.push(handler);
     return true;
   }

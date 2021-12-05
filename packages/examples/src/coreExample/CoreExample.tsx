@@ -9,11 +9,13 @@ export default function CoreExample() {
       enableNonHttpsWebPush: true,
     });
 
-    engagespotClient.onNotificationReceived(notification => {
+    //window.engagespot =engagespotClient;
+
+    engagespotClient.onNotificationReceive(notification => {
       console.log('New notification received');
       console.log(notification);
     });
-    
+
   }, []);
 
   return <></>;
