@@ -64,6 +64,7 @@ export default class Engagespot {
   subscribableEvents = [
     'REALTIME_NOTIFICATION_RECEIVED',
     'NOTIFICATION_CLICKED',
+    'NOTIFICATION_DELETED'
   ];
 
   /**
@@ -72,7 +73,8 @@ export default class Engagespot {
    */
   eventListenerStore: EventListenerStore = {
     REALTIME_NOTIFICATION_RECEIVED: [],
-    NOTIFICATION_CLICKED: []
+    NOTIFICATION_CLICKED: [],
+    NOTIFICATION_DELETED: []
   }
 
   /**
@@ -270,7 +272,10 @@ export default class Engagespot {
   
   }
 
-  //Handle incoming realtime message
+  /**
+   * Incoming Realtime Message Handler. This function is used by realtimeConnect() function
+   * @param message 
+   */
   handleIncomingRealtimeMessage(message: Types.Message) {
 
     console.log(message);
@@ -299,26 +304,14 @@ export default class Engagespot {
   }
 
 
-  //Get all notifications
+  /**
+   * Returns a new empty NotificationList object
+   * @returns 
+   */
   getNotificationList() {
-    //await this._resolveInstanceState();
 
     return new NotificationList(this);
 
-    // const options: apiRequestOptions = {
-    //     url:this.baseURL+'/notifications?pageNo='+startPage+'&limit='+itemsPerPage,
-    //     method:'GET',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'X-ENGAGESPOT-API-KEY': this.apiKey,
-    //         'X-ENGAGESPOT-USER-ID': this.userId,
-    //         ...this.userSignature && {'X-ENGAGESPOT-USER-SIGNATURE': this.userSignature}
-    //       }
-    // }
-
-    // const response = await sendRequest(options);
-
-    // return response;
   }
 
   /**
@@ -360,6 +353,10 @@ export default class Engagespot {
     return window.navigator.serviceWorker.ready;
   }
 
+  /**
+   * Trigger browser permission prompt for Notification Subscription
+   * @returns 
+   */
   async askWebPushPermission(): Promise<string> {
     return new Promise(function (resolve, reject) {
       const permissionResult = Notification.requestPermission(function (
@@ -375,7 +372,7 @@ export default class Engagespot {
   }
 
   /**
-   *
+   * Get WebPush Subscription
    * @param publicKey
    */
   async getWebPushSubscription(publicKey: string) {
@@ -396,7 +393,7 @@ export default class Engagespot {
   }
 
   /**
-   *
+   * Clear WebPush Subscription
    */
   async clearWebPushSubscription() {
     return navigator.serviceWorker.ready
@@ -407,7 +404,7 @@ export default class Engagespot {
   }
 
   /**
-   *
+   * Check if the current browser supports WebPush
    */
   checkWebPushSupport() {
     if (!('serviceWorker' in navigator)) {
@@ -513,7 +510,7 @@ export default class Engagespot {
   }
 
   /**
-   * Mark a notification as clicked
+   * @deprecated use Notification.markAsClicked() instead
    */
   async markNotificationAsClicked(id: number) {
     await this._resolveInstanceState();
@@ -544,29 +541,10 @@ export default class Engagespot {
 
     return response;
 
-    // return fetch(this.baseURL+'/notifications/'+id+'/click',{
-    //     method:'POST',
-    //     cache: 'no-cache',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'X-ENGAGESPOT-API-KEY': this.apiKey,
-    //         'X-ENGAGESPOT-USER-ID': this.userId,
-    //         'X-ENGAGESPOT-USER-SIGNATURE': this.userSignature
-    //       } as any
-    // }).then((response) => {
-    //     return response.json()
-    // }).then((response) => {
-
-    //     return true;
-
-    // }).catch(error => {
-    //     const errorMessage = new Error('Failed to mark notification as clicked - '+error);
-    //     Promise.reject(errorMessage);
-    // });
   }
 
   /**
-   * Delete Notification
+   * @deprecated use Notification.delete() instead
    * @id
    */
   async deleteNotification(id: string) {
@@ -613,6 +591,17 @@ export default class Engagespot {
     this.eventListenerStore.NOTIFICATION_CLICKED.push(handler);
     return true;
   }
+
+  /**
+   * Subscriber function for NOTIFICATION_DELETED
+   * @param handler
+   */
+   onNotificationDeleted(handler: Function) {
+    this.eventListenerStore.NOTIFICATION_DELETED.push(handler);
+    return true;
+  }
+
+
 }
 
 function checkApiKey(key: string) {

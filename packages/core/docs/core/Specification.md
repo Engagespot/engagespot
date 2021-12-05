@@ -44,7 +44,8 @@ This ensures none of your users can fake their identity!
 | endPointOverride | String | No | Can be used for internal testing, to ovveride API Base URL | https://localhost/api/v2 |
 
 
-## Fetching Notification List
+## NotificationList
+Engagespot stores all notifications in a `NotificationList` object. 
 To get the list of notifications anytime, use
 
 ```javascript
@@ -53,18 +54,40 @@ const notificationList = engagespot.getNotificationList()
 This returns an `NotificationList` object.
 
 Use the `fetch()` method to pull the notifications from server, and refresh the `NotificationList` object.
+The `fetch()` method accepts two parameters.
+
+| Param | Type | Description | Default Value |
+| ----- | ---- | ----------- | ------------- |
+| page  | Number | Page Number to Fetch | 1 |
+| itemsPerPage | Number | Notifications Per Page | 15 |
 
 ```javascript
-notificationList.fetch()
+notificationList.fetch(1, 15)
 ```
 
 ### Reading Notifications from NotificationList
-To read the notifications from NotificationList object (Make sure you've called the `fetch` method first), use
+To read the notifications from NotificationList object (Make sure you've called the `fetch()` method first), use
 
 ```javascript
 const notifications = notificationList.data
 ```
 This returns `NotificationItem[]`
+
+## NotificationItem
+
+`NotificationItem` represents a single Notification entity.
+
+### Mark a Notification as Clicked
+
+```javascript
+notificationItem.markAsClicked()
+```
+
+### Delete a Notification
+
+```javascript
+notificationItem.delete()
+```
 
 ## Event Listeners
 
@@ -76,6 +99,24 @@ This event is triggered whenever a notification is received.
 
 ```javascript
 engagespot.onRealtimeNotificationRecieved = (notification) => {
+  //notification object has the details of notification
+}
+```
+
+### Notification Clicked
+This event is triggered whenever a notification is clicked.
+
+```javascript
+engagespot.onRealtimeNotificationClicked = (notification) => {
+  //notification object has the details of notification
+}
+```
+
+### Notification Deleted
+This event is triggered whenever a notification is deleted.
+
+```javascript
+engagespot.onRealtimeNotificationDeleted = (notification) => {
   //notification object has the details of notification
 }
 ```
