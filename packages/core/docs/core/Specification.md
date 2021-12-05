@@ -21,7 +21,7 @@ const options = {
 const engagespot = new Engagespot(apiKey,options)
 ```
 
-I will try to add a few more information about each of the parameters.
+I will try to add a few more information about each of the parameters mentioned in the above example.
 
 ### userID
 As you know, Engagespot is built for building user-specific notifications in your app. So, every user in your app must uniquely identify themselves to the Engagespot CoreJS Client. Also, keep in mind that, this same identifier is needed when you want to send a notification to this user later. So, you can either use the user's email id, or a unique username, or a numerical user id or whatever it is.
@@ -32,6 +32,39 @@ If you're smart, you might have already understood a potential security risk in 
 userSignature is an additional signed Signature generated using your app's API_SECRET from your secure backend. This signed value should be passed to your front-end (via an API call or something), and then you should pass this value to the Engagespot JSCore client.
 
 This ensures none of your users can fake their identity!
+
+### Full List of Optional Parameters
+
+|   Param  | Type   | Required?   | Description | Example |
+| -------- | ----   | ----------- | ----------- | ------- |
+| userId   | String | Yes | Unique id to identify your app user | abcd@example.com |
+| userSignature | String | Yes if HMAC Auth is Enabled in Dashboard | Added Security Signature | 4bJshlAop96gbrlGq2Cxlp= |
+| enableNonHttpsWebPush | Boolean | No | Enable WebPush Notification for non HTTPS browsers | |
+| serviceWorkerRegistration | ServiceWorkerRegistration | No | If your website already have a serviceWorker registered, just pass that variable | |
+| endPointOverride | String | No | Can be used for internal testing, to ovveride API Base URL | https://localhost/api/v2 |
+
+
+## Fetching Notification List
+To get the list of notifications anytime, use
+
+```javascript
+const notificationList = engagespot.getNotificationList()
+```
+This returns an `NotificationList` object.
+
+Use the `fetch()` method to pull the notifications from server, and refresh the `NotificationList` object.
+
+```javascript
+notificationList.fetch()
+```
+
+### Reading Notifications from NotificationList
+To read the notifications from NotificationList object (Make sure you've called the `fetch` method first), use
+
+```javascript
+const notifications = notificationList.data
+```
+This returns `NotificationItem[]`
 
 ## Event Listeners
 
