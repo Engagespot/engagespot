@@ -2,12 +2,6 @@ import styled, { createGlobalStyle } from 'styled-components';
 
 import { Engagespot } from '@engagespot/react-component';
 
-import {useTable} from 'react-table'
-
-console.log('enga', Engagespot)
-
-console.log('useTable', useTable)
-
 const GlobalStyles = createGlobalStyle`
 
 body {

@@ -1,10 +1,11 @@
+import React from 'react';
 import {
   NotificationButtonStyled,
   buttonTypes,
 } from './NotificationButton.styled';
 import { UnreadBadgeCount } from '../unreadBadgeCount';
 import { useEngagespotReturnType } from '../engagespot/Engagespot';
-// import { ReactComponent as NotificationBellIcon } from '../../assets/icons/bellIcon.svg';
+import { Bell as NotificationBellIcon } from '../icons/Bell';
 
 export interface NotificationButtonProps {
   /**
@@ -13,8 +14,6 @@ export interface NotificationButtonProps {
   type?: buttonTypes;
   buttonProps: useEngagespotReturnType['getButtonProps'];
 }
-
-import React from 'react';
 
 export function NotificationButton({
   type = 'normal',
@@ -27,7 +26,7 @@ export function NotificationButton({
       {...buttonProps?.()}
     >
       <UnreadBadgeCount count={2} />
-      {/* <NotificationBellIcon /> */}
+      <NotificationBellIcon />
     </NotificationButtonStyled>
   );
 }

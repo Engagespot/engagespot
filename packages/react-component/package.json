@@ -1,19 +1,19 @@
 {
   "name": "@engagespot/react-component",
   "version": "1.0.0",
-  "main": "./lib/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./lib/index.d.ts",
+  "source": "./src/index.ts",
+  "main": "./dist/engagespot-react.js",
+  "module": "./dist/engagespot-react.esm.js",
+  "unpkg": "./dist/engagespot-react.umd.js",
+  "types": "./dist/index.d.ts",
+  "amdName": "EngagespotReact",
   "files": [
-    "lib/**/*"
+    "dist/**/*"
   ],
   "scripts": {
-    "build": "tsup",
-    "buildvite": "tsc && vite build",
-    "build2": "yarn run tsc && cross-env NODE_ENV=production rollup -c",
-    "start": "yarn run tsc && rollup -c -w",
+    "build": "microbundle --jsx React.createElement",
+    "dev": "microbundle watch --jsx React.createElement",
     "tsc": "tsc",
-    "clean": "rm -rf lib",
     "prepare": "yarn run build",
     "test:dev": "jest --watchAll",
     "test": "cross-env CI=true jest",
@@ -22,31 +22,30 @@
     "build-storybook": "build-storybook"
   },
   "peerDependencies": {
-    "react": "^17.0.1"
+    "react": "^16.8.3 || ^17.0.0-0"
   },
   "dependencies": {
     "@engagespot/react-hooks": "^1.0.0",
-    "@popperjs/core": "2.9.1",
-    "@types/react-transition-group": "4.4.4",
+    "@popperjs/core": "^2.9.1",
     "i18next": "19.9.2",
     "intersection-observer": "0.12.0",
     "lodash.mapkeys": "4.6.0",
     "lodash.merge": "4.6.2",
     "react-i18next": "11.8.10",
-    "react-popper": "2.2.4",
+    "react-popper": "^2.2.5",
     "react-transition-group": "4.4.1",
     "styled-components": "^5.2.1"
   },
   "devDependencies": {
     "@types/lodash.mapkeys": "4.6.6",
+    "@types/lodash.merge": "^4.6.6",
+    "@types/react-transition-group": "4.4.4",
     "@types/styled-components": "5.1.15",
-    "@vitejs/plugin-react": "^1.0.0",
-    "esbuild-plugin-svgr": "0.0.3",
-    "react": "17.0.2",
+    "cross-env": "7.0.3",
+    "microbundle": "0.14.2",
     "ts-jest": "26.5.3",
-    "tsup": "5.10.0",
-    "typescript": "4.2.4",
-    "vite": "^2.6.4"
+    "tslib": "2.3.1",
+    "typescript": "4.2.4"
   },
   "browserslist": {
     "production": [

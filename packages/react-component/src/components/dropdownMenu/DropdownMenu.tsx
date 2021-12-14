@@ -8,7 +8,7 @@ import {
   DropdownButton,
   DropdownArrow,
 } from './DropdownMenu.styled';
-// import { ReactComponent as MoreIcon } from '../../assets/icons/ellipsis.svg';
+import { Ellipsis as MoreIcon } from '../icons/Ellipsis';
 
 export interface DropdownMenuProps {
   items: string[];
@@ -68,16 +68,20 @@ export function DropdownMenu({ items = [] }: DropdownMenuProps) {
         ref={referenceRef}
         onClick={handleDropdownMenuClick}
       >
-        {/* <MoreIcon /> */}
+        <MoreIcon />
       </DropdownButton>
       <DropdownOverlay
         ref={popperRef}
         style={styles.popper}
         {...attributes.popper}
       >
-        {/* <DropdownArrow ref={setArrowRef} style={styles.arrow} visible={visible} /> */}
+        <DropdownArrow
+          ref={setArrowRef as any}
+          style={styles.arrow}
+          visible={visible}
+        />
         <DropdownMenuContainer style={styles.offset} visible={visible}>
-          {items.map((item) => {
+          {items.map(item => {
             return <DropdownMenuItem key={item}>{item}</DropdownMenuItem>;
           })}
         </DropdownMenuContainer>

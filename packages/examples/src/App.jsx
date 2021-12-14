@@ -1,7 +1,7 @@
 import { useState, React } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { NotificationHook } from './notificationHook/NotificationHook';
+// import { NotificationHook } from './notificationHook/NotificationHook';
 import { SimpleNotification } from './simpleNotification/SimpleNotification';
 
 function App() {

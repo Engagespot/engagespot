@@ -1,12 +1,10 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "outDir": "dist",
-    "emitDeclarationOnly": true,
-    "declaration": true,
-    "declarationDir": "./dist",
     "allowJs": true,
+    "noEmit": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -26,7 +24,6 @@
     "examples",
     "**/stories",
     "**/*.stories.*",
-    "**/*.test.*",
-    "rollup.config.js"
+    "**/*.test.*"
   ]
 }
