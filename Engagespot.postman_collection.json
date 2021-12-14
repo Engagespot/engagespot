@@ -1,0 +1,371 @@
+{
+	"info": {
+		"_postman_id": "f2124709-1f44-4859-a9d6-3e96ce45d3a7",
+		"name": "Engagespot",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CoreAPI",
+			"item": [
+				{
+					"name": "/clients",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"ananditwiz@gmail.com\",\n    \"password\":\"2015tesssap\",\n    \"first_name\":\"Anand2\",\n    \"agree_tos\":1,\n    \"marketing_optin\":1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://coreapi.staging.engagespot.co/api/v1/clients",
+							"protocol": "http",
+							"host": [
+								"coreapi",
+								"staging",
+								"engagespot",
+								"co"
+							],
+							"path": [
+								"api",
+								"v1",
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/auth",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"anandrmedia@gmail.com\",\n    \"password\":\"2015tesssap\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://coreapi.staging.engagespot.co/api/v1/auth",
+							"protocol": "http",
+							"host": [
+								"coreapi",
+								"staging",
+								"engagespot",
+								"co"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/sdk/ablyTokenRequests",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://coreapi.staging.engagespot.co/api/v1/sdk/ablyTokenRequests",
+							"protocol": "http",
+							"host": [
+								"coreapi",
+								"staging",
+								"engagespot",
+								"co"
+							],
+							"path": [
+								"api",
+								"v1",
+								"sdk",
+								"ablyTokenRequests"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DevAPI",
+			"item": [
+				{
+					"name": "/notifications",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-ENGAGESPOT-API-KEY",
+								"value": "shiynklpz18l3ktqyy6d9a",
+								"type": "text"
+							},
+							{
+								"key": "X-ENGAGESPOT-USER-ID",
+								"value": "anand",
+								"type": "text"
+							},
+							{
+								"key": "X-ENGAGESPOT-DEVICE-ID",
+								"value": "anand",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://api.staging.engagespot.co/v3/notifications",
+							"protocol": "http",
+							"host": [
+								"api",
+								"staging",
+								"engagespot",
+								"co"
+							],
+							"path": [
+								"v3",
+								"notifications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/notifications",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-ENGAGESPOT-API-KEY",
+								"value": "shiynklpz18l3ktqyy6d9a",
+								"type": "text"
+							},
+							{
+								"key": "X-ENGAGESPOT-API-SECRET",
+								"value": "dpgf5ar2y3p2z1vnov44kr",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"notification\":{\n        \"title\":\"Hey, how are you?\",\n        \"message\":\"Am I doing good?\",\n        \"icon\":\"https://logidots.com/favicon.png\",\n        \"url\":\"https://engagespot.co\"\n    },\n    \"recipients\":[\"anand\"]\n    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://api.staging.engagespot.co/v3/notifications",
+							"protocol": "http",
+							"host": [
+								"api",
+								"staging",
+								"engagespot",
+								"co"
+							],
+							"path": [
+								"v3",
+								"notifications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/sdk/connect",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-ENGAGESPOT-API-KEY",
+								"value": "shiynklpz18l3ktqyy6d9a",
+								"type": "text"
+							},
+							{
+								"key": "X-ENGAGESPOT-USER-ID",
+								"value": "anand",
+								"type": "text"
+							},
+							{
+								"key": "X-ENGAGESPOT-DEVICE-ID",
+								"value": "anand",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"deviceType\":\"browser\",\n    \"browserType\":\"chrome\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://api.staging.engagespot.co/v3/sdk/connect",
+							"protocol": "http",
+							"host": [
+								"api",
+								"staging",
+								"engagespot",
+								"co"
+							],
+							"path": [
+								"v3",
+								"sdk",
+								"connect"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/sdk/realtimeTokenRequests",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-ENGAGESPOT-API-KEY",
+								"value": "shiynklpz18l3ktqyy6d9a",
+								"type": "text"
+							},
+							{
+								"key": "X-ENGAGESPOT-USER-ID",
+								"value": "anand",
+								"type": "text"
+							},
+							{
+								"key": "X-ENGAGESPOT-DEVICE-ID",
+								"value": "anand",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"deviceType\":\"browser\",\n    \"browserType\":\"chrome\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://api.staging.engagespot.co/v3/sdk/realtimeTokenRequests",
+							"protocol": "http",
+							"host": [
+								"api",
+								"staging",
+								"engagespot",
+								"co"
+							],
+							"path": [
+								"v3",
+								"sdk",
+								"realtimeTokenRequests"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/notifications/:id/click",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-ENGAGESPOT-API-KEY",
+								"value": "shiynklpz18l3ktqyy6d9a",
+								"type": "text"
+							},
+							{
+								"key": "X-ENGAGESPOT-API-SECRET",
+								"value": "dpgf5ar2y3p2z1vnov44kr",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "X-ENGAGESPOT-USER-ID",
+								"value": "anand",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"notification\":{\n        \"title\":\"Hey, how are you?\",\n        \"message\":\"Am I doing good?\",\n        \"icon\":\"https://logidots.com/favicon.png\",\n        \"url\":\"https://engagespot.co\"\n    },\n    \"recipients\":[\"anand\"]\n    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://api.staging.engagespot.co/v3/notifications/428019/click",
+							"protocol": "http",
+							"host": [
+								"api",
+								"staging",
+								"engagespot",
+								"co"
+							],
+							"path": [
+								"v3",
+								"notifications",
+								"428019",
+								"click"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

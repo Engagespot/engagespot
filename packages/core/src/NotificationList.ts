@@ -4,6 +4,7 @@ import NotificationItem from './interfaces/NotificationItem';
 import Notification from './Notification';
 
 export default class NotificationList implements NotificationList {
+  
   client: Engagespot;
   unreadCount: number;
   totalCount: number;
@@ -13,6 +14,10 @@ export default class NotificationList implements NotificationList {
 
   data: NotificationItem[];
 
+  /**
+   * Constructor, Initializes NotificationList with an Empty List
+   * @param client 
+   */
   constructor(client: Engagespot) {
     this.client = client;
     this.unreadCount = 0;
@@ -23,6 +28,12 @@ export default class NotificationList implements NotificationList {
     this.totalPages = 0;
   }
 
+  /**
+   * Fetch Notifications from server and store into this list.
+   * @param page 
+   * @param itemsPerPage 
+   * @returns 
+   */
   async fetch(page = 1, itemsPerPage = 15) {
     const options: apiRequestOptions = {
       url:
@@ -44,18 +55,20 @@ export default class NotificationList implements NotificationList {
 
     const response = await sendRequest(options);
 
-    //Set the properties after fetch
+    
     this.unreadCount = response.unreadCount;
     this.totalCount = response.pagination.totalCount;
     this.currentPage = page;
     this.itemsPerPage = itemsPerPage;
     this.totalPages = Math.ceil(this.totalCount / this.itemsPerPage);
 
+    //Set the Unread Properties of JSCore Instance after fetch
+    this.client.unreadCount = response.unreadCount;
+
     //let count = 0;
     //Create Notification objects and save it to data array.
     response.data.forEach((notification: NotificationItem) => {
-      //count++;
-      //console.log(count);
+      
       const notificationItem = new Notification(this.client, {
         id: notification.id,
         title: notification.title,

@@ -6,26 +6,56 @@ import { utils } from './utils';
 import sendRequest, { apiRequestOptions } from './apiRequest';
 import NotificationList from './NotificationList';
 import { PermissionState } from './PermissionState';
+import { Realtime, Types } from 'ably';
+import { AblyTokenRequest } from './interfaces/AblyTokenRequest';
+import EngagespotNotification from './Notification';
 
 export default class Engagespot {
   /*  STATIC VARIABLES */
   static isReady = false;
   SERVICE_WORKER_URL = '/service-worker.js?sdkVersion=3.0.0';
 
-  /* INSTANCE PROPERTIES */
+  /**
+   * API Key for this app. (Please don't confuse with API_SECRET, which is never used in front-end apps)
+   */
   apiKey: string;
+
+  /**
+   * This is the unique identifier for the user, as set by the developer
+   */
   userId: string;
+
+  /**
+   * HMAC Signature for this user, for added security
+   */
   userSignature: string | null = null;
+
   instanceState: 'none' | 'connecting' | 'connected' | 'errored' = 'none';
   endPoint: string | null = null;
 
-  socket: WebSocket | null = null;
+  /**
+   * @deprecated Realtime Websocket
+   * 
+   */
+  socket: WebSocket | null = null; //@deprecated. Instead use realtimeClient
+
+  /**
+   * Ably Realtime Client
+   */
+  realtimeClient!: Realtime;
+
   _ready: Promise<unknown>;
   enableNonHttpsWebPush = false;
 
-  /* VARIABLES */
+  /**
+   * Unread notifications count.
+   */
   unreadCount = 0;
-  deviceId: string | null = null;
+
+  /**
+   * Unique identifier for this device.
+   */
+  deviceId!: string;
   hideBranding = false;
   serviceWorkerRegistration: ServiceWorkerRegistration | null = null;
   publicKey = '';
@@ -34,11 +64,26 @@ export default class Engagespot {
   subscribableEvents = [
     'REALTIME_NOTIFICATION_RECEIVED',
     'NOTIFICATION_CLICKED',
+    'NOTIFICATION_DELETED'
   ];
 
-  /* STORAGE VARIABLES */
-  eventListenerStore: EventListenerStore | null = null;
+  /**
+   * EventListenerStore Object
+   * This is where the developer's custom eventListeners are stored for different allowed events.
+   */
+  eventListenerStore: EventListenerStore = {
+    REALTIME_NOTIFICATION_RECEIVED: [],
+    NOTIFICATION_CLICKED: [],
+    NOTIFICATION_DELETED: []
+  }
 
+  /**
+   * Constructor
+   * Initializes Engagespot and sets all required class variables.
+   * @param apiKey 
+   * @param options 
+   */
+  
   constructor(apiKey: string, options: Options) {
     checkApiKey(apiKey);
 
@@ -85,13 +130,27 @@ export default class Engagespot {
     }
   }
 
+  /**
+   * Initializes Engagespot Instance
+   * 
+   * @returns 
+   */
   async init() {
-    if (this.deviceId !== null) {
-      return;
+
+    // This is to prevent init from being called multiple times in the same page
+    if (this.deviceId) {
+      return this;
     }
 
     //Read from localstorage to know if this device already has an id. If yes, then save it.
-    this.deviceId = this.getDeviceId();
+    //If not create a new device id and save.
+    const locallySavedDeviceId = this.getDeviceId();
+
+    if(locallySavedDeviceId){
+      this.deviceId = locallySavedDeviceId;
+    }else{
+      this.deviceId = this.createNewDevice();
+    }
 
     if (!this.enableNonHttpsWebPush) {
       if (this.serviceWorkerRegistration) {
@@ -104,15 +163,16 @@ export default class Engagespot {
       }
     }
 
-    await this.connect();
+    return await this.connect();
   }
 
-  //Connect to Realtime Server
+  
+  /**
+   * Connects to Engagespot Server
+   */
   async connect() {
-    this.instanceState = 'connecting';
 
-    //If this is a new device, then generate a device id.
-    if (!this.deviceId) this.deviceId = this.createNewDevice();
+    this.instanceState = 'connecting';
 
     //Call sdk connect API
     const options: apiRequestOptions = {
@@ -135,28 +195,6 @@ export default class Engagespot {
 
     const response = await sendRequest(options);
 
-    // return fetch(this.baseURL+'/sdk/connect',{
-    //     method:'POST',
-    //     cache: 'no-cache',
-    //     body:JSON.stringify(),
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'X-ENGAGESPOT-API-KEY': this.apiKey,
-    //         'X-ENGAGESPOT-USER-ID': this.userId,
-    //         'X-ENGAGESPOT-USER-SIGNATURE': this.userSignature,
-    //         'X-ENGAGESPOT-DEVICE-ID': this.deviceId
-    //       } as any
-    // }).then((response) => {
-    //     if(!response.ok){
-    //         if(response.status === 401)
-    //             throw new Error('Engagespot connection failed. Invalid API Key')
-    //         else
-    //             throw new Error('Some error occured while trying to connect to Engagespot')
-    //     }else{
-    //         return response.json()
-    //     }
-    // }).then((response) => {
-
     //Save Values
     this.unreadCount = response.unreadCount;
     this.hideBranding = response.app.hideBranding;
@@ -166,87 +204,114 @@ export default class Engagespot {
     try {
       this.realtimeConnect();
     } catch (error) {
-      Promise.reject(new Error(error));
+      throw error;
     }
 
-    //If all fine, then resolve
+    //If all fine, then return connected instance state
     this.instanceState = 'connected';
-    Promise.resolve(this.instanceState);
+    return this;
 
-    // }).catch(error => {
-    //     Promise.reject(error);
-    // });
+  }
+
+
+  /**
+   * _createTokenRequest
+   * Generates AblyTokenRequest by calling Engagespot API
+   */
+
+  async _createTokenRequest(){
+    
+    const options: apiRequestOptions = {
+      url: this.baseURL + '/sdk/realtimeTokenRequests',
+      method: 'POST',
+      body: {
+        deviceType: 'browser',
+        browserType: utils.findBrowser(),
+      },
+      headers: {
+        'Content-Type': 'application/json',
+        'X-ENGAGESPOT-API-KEY': this.apiKey,
+        'X-ENGAGESPOT-USER-ID': this.userId,
+        ...(this.userSignature && {
+          'X-ENGAGESPOT-USER-SIGNATURE': this.userSignature,
+        }),
+        'X-ENGAGESPOT-DEVICE-ID': this.deviceId,
+      },
+    };
+
+    const response = await sendRequest(options);
+
+    return response;
   }
 
   /**
-   * Connect to Engagespot RTM Server
+   * Connect to Ably Realtime.
+   * It also subscribes to channel with name in the format - APIKEY_UserID
    */
   realtimeConnect() {
-    this.socket = new WebSocket(Defaults.wssHost);
 
-    this.socket.onopen = event => {
-      this.instanceState = 'connected';
-      //Send the device Id to identify to this websocket
+     this.realtimeClient = new Realtime({
+      authCallback: async (tokenParams, callback) => {
+          try {
+              const tokenRequest = await this._createTokenRequest() // Make a network request to your server
+              callback('', tokenRequest)
+          } catch (error) {
+              callback(error as string, '')
+          }
+      }
+    });
 
-      if (!this.socket)
-        throw new Error('Something wrong happened with websocket connection');
-
-      this.socket.send(JSON.stringify(this.deviceId));
-    };
-
-    //Attach a global listener to handle incoming realtime messages
-    // this.socket.onmessage = (event => {
-    // this.handleIncomingRealtimeMessage(event.data)
-    // })
+    //As soon as realtime client is connected, subscribe to this user's channel
+    this.realtimeClient.connection.on('connected', () => {
+      console.log("Subscribing to "+this.apiKey+'_'+this.userId);
+      var channel = this.realtimeClient.channels.get(this.apiKey+'_'+this.userId);
+      channel.subscribe((message) => {
+        this.handleIncomingRealtimeMessage(message)
+      });
+    })
+  
   }
 
-  //Handle incoming realtime message
-  handleIncomingRealtimeMessage(message: string) {
-    if (!this.socket) throw new Error('A socket connection is not active');
+  /**
+   * Incoming Realtime Message Handler. This function is used by realtimeConnect() function
+   * @param message 
+   */
+  handleIncomingRealtimeMessage(message: Types.Message) {
 
-    const parsedMessage = JSON.parse(message);
-    if (parsedMessage == '__ping__') {
-      this.socket.send(
-        JSON.stringify({ uuid: this.deviceId, msg: '__pong__' })
-      );
-    } else {
-      // This is a realtime push notification.
-      // We should send this to any event listeners attached to REALTIME_NOTIFICATION_RECEIVED
-      // if(this.eventListenerStore.REALTIME_NOTIFICATION_RECEIVED){
-      //     this.eventListenerStore.REALTIME_NOTIFICATION_RECEIVED(parsedMessage);
-      // }
+    console.log(message);
+    if(message.name === 'NEW_NOTIFICATION'){
+      
+      //convert this into notification object
+      const notification = new EngagespotNotification(this, {
+        id:message.data.notification.id,
+        title:message.data.notification.title,
+        message: message.data.notification.description,
+        icon: message.data.notification.icon,
+        url: message.data.notification.url,
+      });
+
+      //Now let's publish this to all listeners who need
+      let count = 0;
+      this.eventListenerStore.REALTIME_NOTIFICATION_RECEIVED.forEach( (listener) => {
+        listener(notification);
+        count++
+      });
+
+      console.log("Published to "+count+" listeners");
+
     }
+  
   }
 
-  // //Binding Functions
-  // bind(eventName: string, callback){
-  //     if(this.subscribableEvents.indexOf(eventName) === -1){
-  //         throw new Error('Invalid event - '+eventName);
-  //     }
 
-  //     this.eventListenerStore[eventName] = callback;
-  // }
-
-  //Get all notifications
+  /**
+   * Returns a new empty NotificationList object
+   * @returns 
+   */
   getNotificationList() {
-    //await this._resolveInstanceState();
 
     return new NotificationList(this);
 
-    // const options: apiRequestOptions = {
-    //     url:this.baseURL+'/notifications?pageNo='+startPage+'&limit='+itemsPerPage,
-    //     method:'GET',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'X-ENGAGESPOT-API-KEY': this.apiKey,
-    //         'X-ENGAGESPOT-USER-ID': this.userId,
-    //         ...this.userSignature && {'X-ENGAGESPOT-USER-SIGNATURE': this.userSignature}
-    //       }
-    // }
-
-    // const response = await sendRequest(options);
-
-    // return response;
   }
 
   /**
@@ -288,6 +353,10 @@ export default class Engagespot {
     return window.navigator.serviceWorker.ready;
   }
 
+  /**
+   * Trigger browser permission prompt for Notification Subscription
+   * @returns 
+   */
   async askWebPushPermission(): Promise<string> {
     return new Promise(function (resolve, reject) {
       const permissionResult = Notification.requestPermission(function (
@@ -303,7 +372,7 @@ export default class Engagespot {
   }
 
   /**
-   *
+   * Get WebPush Subscription
    * @param publicKey
    */
   async getWebPushSubscription(publicKey: string) {
@@ -324,7 +393,7 @@ export default class Engagespot {
   }
 
   /**
-   *
+   * Clear WebPush Subscription
    */
   async clearWebPushSubscription() {
     return navigator.serviceWorker.ready
@@ -335,7 +404,7 @@ export default class Engagespot {
   }
 
   /**
-   *
+   * Check if the current browser supports WebPush
    */
   checkWebPushSupport() {
     if (!('serviceWorker' in navigator)) {
@@ -441,13 +510,13 @@ export default class Engagespot {
   }
 
   /**
-   * Mark a notification as clicked
+   * @deprecated use Notification.markAsClicked() instead
    */
   async markNotificationAsClicked(id: number) {
     await this._resolveInstanceState();
 
     //Publish to all event subscribers.
-    this.eventListenerStore?.NOTIFICATION_CLICKED.forEach(handler => {
+    this.eventListenerStore.NOTIFICATION_CLICKED.forEach(handler => {
       handler(id);
     });
 
@@ -472,29 +541,10 @@ export default class Engagespot {
 
     return response;
 
-    // return fetch(this.baseURL+'/notifications/'+id+'/click',{
-    //     method:'POST',
-    //     cache: 'no-cache',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'X-ENGAGESPOT-API-KEY': this.apiKey,
-    //         'X-ENGAGESPOT-USER-ID': this.userId,
-    //         'X-ENGAGESPOT-USER-SIGNATURE': this.userSignature
-    //       } as any
-    // }).then((response) => {
-    //     return response.json()
-    // }).then((response) => {
-
-    //     return true;
-
-    // }).catch(error => {
-    //     const errorMessage = new Error('Failed to mark notification as clicked - '+error);
-    //     Promise.reject(errorMessage);
-    // });
   }
 
   /**
-   * Delete Notification
+   * @deprecated use Notification.delete() instead
    * @id
    */
   async deleteNotification(id: string) {
@@ -527,8 +577,9 @@ export default class Engagespot {
    * Subscriber function for REALTIME_NOTIFICATION_RECEIVED
    * @param handler
    */
-  onNotificationReceived(handler: Function) {
-    this.eventListenerStore?.REALTIME_NOTIFICATION_RECEIVED.push(handler);
+  onNotificationReceive(handler: Function) {
+    this.eventListenerStore.REALTIME_NOTIFICATION_RECEIVED.push(handler);
+    //return this.eventListenerStore.REALTIME_NOTIFICATION_RECEIVED;
     return true;
   }
 
@@ -536,10 +587,21 @@ export default class Engagespot {
    * Subscriber function for NOTIFICATION_CLICKED
    * @param handler
    */
-  onNotificationClicked(handler: Function) {
-    this.eventListenerStore?.NOTIFICATION_CLICKED.push(handler);
+  onNotificationClick(handler: Function) {
+    this.eventListenerStore.NOTIFICATION_CLICKED.push(handler);
     return true;
   }
+
+  /**
+   * Subscriber function for NOTIFICATION_DELETED
+   * @param handler
+   */
+   onNotificationDelete(handler: Function) {
+    this.eventListenerStore.NOTIFICATION_DELETED.push(handler);
+    return true;
+  }
+
+
 }
 
 function checkApiKey(key: string) {

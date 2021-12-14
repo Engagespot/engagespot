@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 // import { NotificationHook } from './notificationHook/NotificationHook';
 import { SimpleNotification } from './simpleNotification/SimpleNotification';
+import CoreExample from './coreExample/coreExample';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -10,7 +11,8 @@ function App() {
   return (
     <div className="App">
       {/* <NotificationHook /> */}
-      <SimpleNotification />
+      {/* <SimpleNotification /> */}
+      <CoreExample/>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>Hello Vite + React!</p>

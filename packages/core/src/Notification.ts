@@ -52,7 +52,40 @@ export default class Notification implements NotificationItem {
 
       return false;
     } catch (error) {
-      throw new Error(error);
+      throw error;
+    }
+  }
+
+  /**
+   * Deletes a Notification
+   * @returns 
+   */
+  async delete() {
+    this._client.eventListenerStore?.NOTIFICATION_DELETED.forEach(handler => {
+      handler(this);
+    });
+
+    const options: apiRequestOptions = {
+      url: this._client.baseURL + '/notifications/' + this.id,
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-ENGAGESPOT-API-KEY': this._client.apiKey,
+        'X-ENGAGESPOT-USER-ID': this._client.userId,
+        ...(this._client.userSignature && {
+          'X-ENGAGESPOT-USER-SIGNATURE': this._client.userSignature,
+        }),
+      },
+    };
+
+    try {
+      const response = await sendRequest(options);
+
+      if (response) return this;
+
+      return false;
+    } catch (error) {
+      throw error;
     }
   }
 }
