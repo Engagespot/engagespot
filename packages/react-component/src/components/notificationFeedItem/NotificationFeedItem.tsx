@@ -100,7 +100,7 @@ export function NotificationFeedItem({
         <FeedItemTimeAgo>{time}</FeedItemTimeAgo>
       </FeedItemTextContent>
       <FeedItemMenu>
-        {isMenuVisible ? <DropdownMenu items={dropDownItems} /> : null}
+        <DropdownMenu items={dropDownItems} isVisible={isMenuVisible} />
         {!read ? <FeedItemReadDot /> : null}
       </FeedItemMenu>
     </FeedItemStyled>

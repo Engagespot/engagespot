@@ -12,9 +12,10 @@ import { Ellipsis as MoreIcon } from '../icons/Ellipsis';
 
 export interface DropdownMenuProps {
   items: string[];
+  isVisible: boolean;
 }
 
-export function DropdownMenu({ items = [] }: DropdownMenuProps) {
+export function DropdownMenu({ items = [], isVisible }: DropdownMenuProps) {
   const [visible, setVisibility] = useState(false);
 
   const referenceRef = useRef<HTMLButtonElement>(null);
@@ -66,6 +67,7 @@ export function DropdownMenu({ items = [] }: DropdownMenuProps) {
       <DropdownButton
         aria-label="More"
         ref={referenceRef}
+        style={{ visibility: isVisible ? 'visible' : 'hidden' }}
         onClick={handleDropdownMenuClick}
       >
         <MoreIcon />
