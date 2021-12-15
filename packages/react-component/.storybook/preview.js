@@ -13,22 +13,18 @@ export const parameters = {
 };
 
 export const decorators = [
-  (Story, context) => {
+  Story => {
     return (
       <div style={{ fontFamily: 'sans-serif' }}>
-        {context.kind.startsWith('examples/') ? (
+        <EngagespotProvider
+          state={{
+            panelVisibility: null,
+            togglePanelVisibility: null,
+            scroll: null,
+          }}
+        >
           <Story />
-        ) : (
-          <EngagespotProvider
-            state={{
-              panelVisibility: null,
-              togglePanelVisibility: null,
-              scroll: null,
-            }}
-          >
-            <Story />
-          </EngagespotProvider>
-        )}
+        </EngagespotProvider>
       </div>
     );
   },

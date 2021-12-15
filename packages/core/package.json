@@ -17,10 +17,7 @@
     "tsc": "tsc",
     "prepare": "yarn run build",
     "test:dev": "jest --watchAll",
-    "test": "cross-env CI=true jest",
-    "lint:css": "stylelint './src/**/*.js'",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "test": "cross-env CI=true jest"
   },
   "keywords": [
     "engagespot",

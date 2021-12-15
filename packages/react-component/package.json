@@ -18,8 +18,8 @@
     "test:dev": "jest --watchAll",
     "test": "cross-env CI=true jest",
     "lint:css": "stylelint './src/**/*.js'",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "storybook": "start-storybook -p 6006"
   },
   "peerDependencies": {
     "react": "^16.8.3 || ^17.0.0-0"
@@ -27,6 +27,7 @@
   "dependencies": {
     "@engagespot/react-hooks": "^1.0.0",
     "@popperjs/core": "^2.9.1",
+    "date-fns": "2.27.0",
     "i18next": "19.9.2",
     "intersection-observer": "0.12.0",
     "lodash.mapkeys": "4.6.0",
@@ -37,10 +38,16 @@
     "styled-components": "^5.2.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.16.5",
+    "@storybook/addon-actions": "^6.4.9",
+    "@storybook/addon-essentials": "^6.4.9",
+    "@storybook/addon-links": "^6.4.9",
+    "@storybook/react": "^6.4.9",
     "@types/lodash.mapkeys": "4.6.6",
     "@types/lodash.merge": "^4.6.6",
     "@types/react-transition-group": "4.4.4",
     "@types/styled-components": "5.1.15",
+    "babel-loader": "^8.2.3",
     "cross-env": "7.0.3",
     "microbundle": "0.14.2",
     "ts-jest": "26.5.3",

@@ -1,16 +1,31 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import EngagespotCore, { Options, PermissionState } from '@engagespot/core';
+import { format, formatDistance, formatRelative, subDays } from 'date-fns';
 
+import EngagespotCore, {
+  Options,
+  PermissionState,
+  NotificationItem,
+} from '@engagespot/core';
+
+import { useJumpToTop } from './useJumpToTop';
 import { useFloatingNotification } from './useFloatingNotification';
 import { useInfiniteScroll } from './useInfiniteScroll';
 
+const dateFunctions = {
+  format,
+  formatDistance,
+  formatRelative,
+  subDays,
+};
+
 export interface UseEngagespotOptions extends Options {
   apiKey: string;
+  formatDate?: (dateString: string, dateFns: typeof dateFunctions) => string;
 }
 
 function initializeNotifications() {
   return {
-    data: [],
+    data: [] as NotificationItem[],
   };
 }
 
@@ -31,9 +46,14 @@ function getEngagespotClient(
 export function useEngagespot({
   apiKey,
   userId,
+  formatDate = dateString => {
+    return formatDistance(subDays(new Date(dateString), 3), new Date(), {
+      addSuffix: true,
+    });
+  },
   ...options
 }: UseEngagespotOptions) {
-  let engagespotInstance = useRef(
+  const engagespotInstance = useRef(
     getEngagespotClient(apiKey, userId, options)
   ).current;
   const [notifications, setNotifications] = useState(initializeNotifications);
@@ -73,20 +93,27 @@ export function useEngagespot({
         currentPage,
         itemsPerPage,
       } = await engagespotInstance.getNotificationList().fetch(page);
+      let transformedData = data.map(notificationItem => {
+        console.log('notification item is ', notificationItem);
+        return {
+          ...notificationItem,
+          seenAt: formatDate(notificationItem?.seenAt ?? '', dateFunctions),
+        };
+      });
       if (page < totalPages) {
         setHasMore(true);
       } else {
         setHasMore(false);
       }
       console.log('current page', currentPage, 'Page ', page);
-      setNotifications(({ data: previousData }: any) => {
+      setNotifications(({ data: previousData }) => {
         return {
           unreadCount,
           totalCount,
           totalPages,
           currentPage,
           itemsPerPage,
-          data: previousData.concat(data),
+          data: previousData.concat(transformedData),
         };
       });
     }
@@ -120,7 +147,7 @@ export function useEngagespot({
     getButtonProps,
     getPanelProps,
     getPanelOffsetProps,
-    useJumpToTop: {},
+    useJumpToTop,
     notifications,
     notificationPermissionState,
     scroll: {

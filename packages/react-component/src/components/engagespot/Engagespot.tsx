@@ -1,5 +1,4 @@
 import mapKeys from 'lodash.mapkeys';
-import React from 'react';
 import { useEngagespot, UseEngagespotOptions } from '@engagespot/react-hooks';
 import { EngagespotProvider } from '../engagespotProvider';
 import { NotificationPanel } from '../notificationPanel';

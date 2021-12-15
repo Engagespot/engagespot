@@ -53,17 +53,21 @@ export function SimpleNotification() {
             <Engagespot
               apiKey="shiynklpz18l3ktqyy6d9a"
               userId="anand"
-              theme={{
-                colors: {
-                  brandingPrimary: '#1d3c78',
-                },
-                panel: {
-                  boxShadow: 'none',
-                  borderBottomRightRadius: '0',
-                  borderBottomLeftRadius: '0',
-                  height: '90vh',
-                },
-              }}
+              // formatDate={(dateString) => {
+              //   console.log('Date is ', dateString)
+              //   return new Date().toString();
+              // }}
+              // theme={{
+              //   colors: {
+              //     brandingPrimary: '#1d3c78',
+              //   },
+              //   panel: {
+              //     boxShadow: 'none',
+              //     borderBottomRightRadius: '0',
+              //     borderBottomLeftRadius: '0',
+              //     height: '90vh',
+              //   },
+              // }}
             />
           </NavItem>
         </NavList>
