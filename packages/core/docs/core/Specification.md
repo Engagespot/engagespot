@@ -33,9 +33,9 @@ userSignature is an additional signed Signature generated using your app's API_S
 
 This ensures none of your users can fake their identity!
 
-### Full List of Optional Parameters
+### Full List of Available Options
 
-|   Param  | Type   | Required?   | Description | Example |
+|   Option  | Type   | Required?   | Description | Example |
 | -------- | ----   | ----------- | ----------- | ------- |
 | userId   | String | Yes | Unique id to identify your app user | abcd@example.com |
 | userSignature | String | Yes if HMAC Auth is Enabled in Dashboard | Added Security Signature | 4bJshlAop96gbrlGq2Cxlp= |
