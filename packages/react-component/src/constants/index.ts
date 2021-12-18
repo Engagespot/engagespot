@@ -1,0 +1,1 @@
+export const AVATAR_PLACEHOLDER = 'https://cdn.engagespot.co/placeholder.svg';

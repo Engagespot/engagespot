@@ -48,12 +48,16 @@ export function SimpleNotification() {
         <NavList>
           <NavItem>Home</NavItem>
           <NavItem>About</NavItem>
-          <NavItem style={{ marginRight: 'auto' }}>Login</NavItem>
+          <NavItem style={{ marginRight: '10rem' }}>Login</NavItem>
           <NavItem>
             <Engagespot
               apiKey="shiynklpz18l3ktqyy6d9a"
               userId="anand"
-              // formatDate={(dateString) => {
+              placementOptions={{
+                placement: 'auto',
+                enableArrow: true
+              }}
+              // formatDate={(dateString, ) => {
               //   console.log('Date is ', dateString)
               //   return new Date().toString();
               // }}

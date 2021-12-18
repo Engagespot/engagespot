@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import merge from 'lodash.merge';
 import { format, formatDistance, formatRelative, subDays } from 'date-fns';
 
 import EngagespotCore, {
@@ -8,7 +9,11 @@ import EngagespotCore, {
 } from '@engagespot/core';
 
 import { useJumpToTop } from './useJumpToTop';
-import { useFloatingNotification } from './useFloatingNotification';
+import {
+  PlacementOptions,
+  defaultPlacementOptions,
+  useFloatingNotification,
+} from './useFloatingNotification';
 import { useInfiniteScroll } from './useInfiniteScroll';
 
 const dateFunctions = {
@@ -21,6 +26,7 @@ const dateFunctions = {
 export interface UseEngagespotOptions extends Options {
   apiKey: string;
   formatDate?: (dateString: string, dateFns: typeof dateFunctions) => string;
+  placementOptions?: PlacementOptions;
 }
 
 function initializeNotifications() {
@@ -47,24 +53,30 @@ export function useEngagespot({
   apiKey,
   userId,
   formatDate = dateString => {
-    return formatDistance(subDays(new Date(dateString), 3), new Date(), {
+    return formatDistance(new Date(dateString), new Date(), {
       addSuffix: true,
     });
   },
+  placementOptions = defaultPlacementOptions,
   ...options
 }: UseEngagespotOptions) {
-  const engagespotInstance = useRef(
-    getEngagespotClient(apiKey, userId, options)
-  ).current;
+  const engagespotRef = useRef<EngagespotCore | null>(null);
+  if (engagespotRef.current == null) {
+    engagespotRef.current = getEngagespotClient(apiKey, userId, options);
+  }
+  const engagespotInstance = engagespotRef.current;
   const [notifications, setNotifications] = useState(initializeNotifications);
   const [hasMore, setHasMore] = useState(false);
   const [isValid, setIsValid] = useState(false);
   const [panelVisibility, togglePanelVisibility] = useState(false);
   const [notificationPermissionState, setNotificationPermissionState] =
     useState(PermissionState.PERMISSION_REQUIRED);
-  const { buttonRef, panelRef, styles, attributes } = useFloatingNotification(
-    togglePanelVisibility
-  );
+  const { buttonRef, panelRef, arrowRef, styles, attributes, update } =
+    useFloatingNotification(
+      togglePanelVisibility,
+      merge(defaultPlacementOptions, placementOptions)
+    );
+  console.log('update popper', update);
   const { page, loaderRef, containerRef } = useInfiniteScroll({ hasMore });
 
   useEffect(() => {
@@ -94,10 +106,13 @@ export function useEngagespot({
         itemsPerPage,
       } = await engagespotInstance.getNotificationList().fetch(page);
       let transformedData = data.map(notificationItem => {
-        console.log('notification item is ', notificationItem);
+        // console.log('notification item is ', notificationItem);
         return {
           ...notificationItem,
-          seenAt: formatDate(notificationItem?.seenAt ?? '', dateFunctions),
+          createdAt: formatDate(
+            notificationItem?.createdAt ?? '',
+            dateFunctions
+          ),
         };
       });
       if (page < totalPages) {
@@ -105,7 +120,7 @@ export function useEngagespot({
       } else {
         setHasMore(false);
       }
-      console.log('current page', currentPage, 'Page ', page);
+      //console.log('current page', currentPage, 'Page ', page);
       setNotifications(({ data: previousData }) => {
         return {
           unreadCount,
@@ -123,21 +138,32 @@ export function useEngagespot({
 
   const onButtonClick = <T>(event: React.MouseEvent<T, MouseEvent>) => {
     togglePanelVisibility(visibility => !visibility);
+    update?.();
   };
 
-  const getButtonProps = useCallback(() => {
+  const getButtonProps = () => {
     return { onClick: onButtonClick, ref: buttonRef };
-  }, [buttonRef]);
+  };
 
-  const getPanelProps = useCallback(() => {
+  const getPanelProps = () => {
     return { ref: panelRef, style: styles.popper, ...attributes.popper };
-  }, [panelRef]);
+  };
 
-  const getPanelOffsetProps = useCallback(() => {
+  const getPanelOffsetProps = () => {
     return {
       style: styles.offset,
     };
-  }, []);
+  };
+
+  const getArrowProps = () => {
+    return {
+      ref: arrowRef,
+      style: {
+        ...styles.arrow,
+        display: panelVisibility && placementOptions.enableArrow ? 'block' : 'none',
+      },
+    };
+  };
 
   return {
     isValid,
@@ -146,6 +172,7 @@ export function useEngagespot({
     panelVisibility,
     getButtonProps,
     getPanelProps,
+    getArrowProps,
     getPanelOffsetProps,
     useJumpToTop,
     notifications,

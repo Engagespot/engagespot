@@ -20,7 +20,7 @@ const notificationItemResponseMap = {
   icon: 'imageUrl',
   url: 'clickable',
   id: 'id',
-  seenAt: 'time',
+  createdAt: 'time',
 };
 
 const transformNotificationItem = (
@@ -52,6 +52,7 @@ export function Engagespot({
     panelVisibility,
     getButtonProps,
     getPanelProps,
+    getArrowProps,
     scroll,
     getPanelOffsetProps,
     togglePanelVisibility,
@@ -66,6 +67,7 @@ export function Engagespot({
           visible={panelVisibility}
           panelProps={getPanelProps}
           panelOffsetProps={getPanelOffsetProps}
+          arrowProps={getArrowProps}
           notifications={
             notifications.data ? notifications.data.map(transformFeedItem) : []
           }

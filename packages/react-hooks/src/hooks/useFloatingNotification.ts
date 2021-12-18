@@ -1,14 +1,30 @@
+import { Placement } from '@popperjs/core';
 import { useEffect, useRef } from 'react';
-
 import { usePopper } from 'react-popper';
 
 type panelVisibility = React.Dispatch<React.SetStateAction<boolean>>;
 
+export interface PlacementOptions {
+  placement?: Placement;
+  preventOverflow?: boolean;
+  offset?: [number, number];
+  enableArrow?: boolean;
+}
+
+export const defaultPlacementOptions: PlacementOptions = {
+  placement: 'bottom-end',
+  preventOverflow: true,
+  enableArrow: true,
+  offset: [0, 10],
+};
+
 export function useFloatingNotification(
-  togglePanelVisibility: panelVisibility
+  togglePanelVisibility: panelVisibility,
+  placementOptions: PlacementOptions
 ) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLElement>(null);
+  const arrowRef = useRef<HTMLElement>(null);
 
   function handleDocumentClick(event: MouseEvent) {
     if (
@@ -28,17 +44,25 @@ export function useFloatingNotification(
     };
   }, []);
 
-  const { styles, attributes } = usePopper(
+  const { styles, attributes, update } = usePopper(
     buttonRef.current,
     panelRef.current,
     {
-      placement: 'bottom',
+      placement: placementOptions.placement,
       modifiers: [
+        { name: 'preventOverflow', enabled: placementOptions.preventOverflow },
         {
           name: 'offset',
           enabled: true,
           options: {
-            offset: [0, 0],
+            offset: placementOptions.offset,
+          },
+        },
+        {
+          name: 'arrow',
+          enabled: placementOptions.enableArrow,
+          options: {
+            element: arrowRef.current,
           },
         },
       ],
@@ -48,7 +72,9 @@ export function useFloatingNotification(
   return {
     buttonRef,
     panelRef,
+    arrowRef,
     styles,
     attributes,
+    update,
   };
 }

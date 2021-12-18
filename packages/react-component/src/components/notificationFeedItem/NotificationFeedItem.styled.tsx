@@ -18,11 +18,9 @@ export const FeedItemStyled = styled.div<{
   }
 `;
 
-export const FeedItemImage = styled.div<{ background?: string }>`
+export const FeedItemImage = styled.div`
   height: 4.5rem;
   width: 4.5rem;
-  background: ${({ background }) => (background ? background : 'papayawhip')};
-  background-size: cover;
   flex-shrink: 0;
   border-radius: 50%;
 `;
@@ -34,7 +32,7 @@ export const FeedItemTextContent = styled.div`
   flex-flow: column nowrap;
   justify-content: flex-start;
   align-items: flex-start;
-  padding-right: 2.6rem;
+  padding-right: .5rem;
   margin-left: 1.2rem;
 
   p,

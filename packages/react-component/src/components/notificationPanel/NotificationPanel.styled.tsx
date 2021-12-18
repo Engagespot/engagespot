@@ -21,3 +21,20 @@ export const NotificationPanelStyled = styled.div<{ visible: boolean }>`
   align-items: stretch;
   justify-content: flex-start;
 `;
+
+export const NotificationPanelArrowStyled = styled.div`
+  position: absolute;
+  width: 10px;
+  height: 10px;
+
+  &:after {
+    content: ' ';
+    transform: rotate(45deg);
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: -5px;
+    left: 0;
+    background-color: ${({ theme }) => theme.colors.brandingPrimary};
+  }
+`;

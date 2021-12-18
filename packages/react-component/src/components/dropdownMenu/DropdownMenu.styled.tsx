@@ -53,22 +53,3 @@ export const DropdownMenuItem = styled.div`
     background-color: ${({ theme }) => theme.colors.colorGreyLighter};
   }
 `;
-
-export const DropdownArrow = styled.div<DropdownMenuStyledProps>`
-  position: absolute;
-  display: ${({ visible }) => (visible ? 'flex' : 'none')};
-  width: 10px;
-  height: 10px;
-
-  &:after {
-    content: ' ';
-    position: absolute;
-    top: -25px;
-    left: 0;
-    transform: rotate(45deg);
-    width: 10px;
-    height: 10px;
-    background-color: white;
-    box-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
-  }
-`;

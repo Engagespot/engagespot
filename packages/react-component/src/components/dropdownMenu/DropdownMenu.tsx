@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { usePopper } from 'react-popper';
 
 import {
@@ -6,7 +6,6 @@ import {
   DropdownMenuContainer,
   DropdownMenuItem,
   DropdownButton,
-  DropdownArrow,
 } from './DropdownMenu.styled';
 import { Ellipsis as MoreIcon } from '../icons/Ellipsis';
 
@@ -17,33 +16,27 @@ export interface DropdownMenuProps {
 
 export function DropdownMenu({ items = [], isVisible }: DropdownMenuProps) {
   const [visible, setVisibility] = useState(false);
-
   const referenceRef = useRef<HTMLButtonElement>(null);
   const popperRef = useRef<HTMLDivElement>(null);
-  const [arrowRef, setArrowRef] = useState(null);
 
-  const { styles, attributes } = usePopper(
+  const { styles, attributes, update } = usePopper(
     referenceRef.current,
     popperRef.current,
     {
       placement: 'bottom',
       modifiers: [
-        {
-          name: 'arrow',
-          options: {
-            element: arrowRef,
-          },
-        },
+        { name: 'preventOverflow', enabled: true },
         {
           name: 'offset',
           enabled: true,
           options: {
-            offset: [-40, 10],
+            offset: [-10, 10],
           },
         },
       ],
     }
   );
+
   useEffect(() => {
     // listen for clicks and close dropdownMenu on body
     document.addEventListener('mousedown', handleDocumentClick);
@@ -60,6 +53,7 @@ export function DropdownMenu({ items = [], isVisible }: DropdownMenuProps) {
   }
   function handleDropdownMenuClick() {
     setVisibility(!visible);
+    update?.();
   }
 
   return (
@@ -77,11 +71,6 @@ export function DropdownMenu({ items = [], isVisible }: DropdownMenuProps) {
         style={styles.popper}
         {...attributes.popper}
       >
-        <DropdownArrow
-          ref={setArrowRef as any}
-          style={styles.arrow}
-          visible={visible}
-        />
         <DropdownMenuContainer style={styles.offset} visible={visible}>
           {items.map(item => {
             return <DropdownMenuItem key={item}>{item}</DropdownMenuItem>;

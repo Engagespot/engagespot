@@ -15,7 +15,6 @@ import {
 } from '../notificationFeedItem';
 
 import { JumpToTop } from '../jumpToTop';
-import { useJumpToTop } from '@engagespot/react-hooks';
 
 import { useEngagespotContext } from '../engagespotProvider';
 
@@ -63,7 +62,6 @@ const renderNotificationContent = (
   notification: NotificationFeedItemProps,
   customRenderer: customNotificationContentType
 ): React.ReactNode => {
-
   return (
     customRenderer?.(notification) || (
       <NotificationFeedItem
@@ -88,21 +86,21 @@ export function NotificationFeed({
   placeholderText = `Shh! It's quiet around here...`,
 }: NotificationFeedProps) {
   const engagespotContext = useEngagespotContext();
-  const {onNotificationScroll, jumpToTop, showJumpToTop} = useJumpToTop();
+  const { onNotificationScroll, jumpToTop, showJumpToTop } =
+    engagespotContext.useJumpToTop?.() || {};
   const { loaderRef, containerRef, hasMore } = engagespotContext.scroll || {};
 
   function onJumpToTopClick(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) {
     const notificationFeedEl = evt.currentTarget.parentNode?.parentElement;
-    jumpToTop(notificationFeedEl as HTMLElement);
+    jumpToTop?.(notificationFeedEl as HTMLElement);
   }
 
   return (
     <NotificationFeedStyled
       empty={empty}
       ref={containerRef}
-      // TODO:- Throttle onScroll calls
       onScroll={onNotificationScroll}
     >
       <Transition in={showJumpToTop} timeout={duration}>
@@ -123,7 +121,7 @@ export function NotificationFeed({
         renderPlaceholderContent(placeholderText)
       ) : (
         <>
-          {notifications.map((notification) => {
+          {notifications.map(notification => {
             return renderNotificationContent(
               notification,
               renderCustomNotificationContent
