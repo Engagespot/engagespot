@@ -1,5 +1,5 @@
 import Engagespot from './engagespot';
-export { Options } from './options';
+export type { Options } from './options';
+export type { NotificationItem } from './interfaces/NotificationItem';
 export { PermissionState } from './PermissionState';
-
 export default Engagespot;

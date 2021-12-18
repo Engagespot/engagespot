@@ -1,10 +1,9 @@
 import sendRequest, { apiRequestOptions } from './apiRequest';
 import Engagespot from './engagespot';
-import NotificationItem from './interfaces/NotificationItem';
+import { NotificationItem } from './interfaces/NotificationItem';
 import Notification from './Notification';
 
 export default class NotificationList implements NotificationList {
-  
   client: Engagespot;
   unreadCount: number;
   totalCount: number;
@@ -16,7 +15,7 @@ export default class NotificationList implements NotificationList {
 
   /**
    * Constructor, Initializes NotificationList with an Empty List
-   * @param client 
+   * @param client
    */
   constructor(client: Engagespot) {
     this.client = client;
@@ -30,9 +29,9 @@ export default class NotificationList implements NotificationList {
 
   /**
    * Fetch Notifications from server and store into this list.
-   * @param page 
-   * @param itemsPerPage 
-   * @returns 
+   * @param page
+   * @param itemsPerPage
+   * @returns
    */
   async fetch(page = 1, itemsPerPage = 15) {
     const options: apiRequestOptions = {
@@ -55,7 +54,6 @@ export default class NotificationList implements NotificationList {
 
     const response = await sendRequest(options);
 
-    
     this.unreadCount = response.unreadCount;
     this.totalCount = response.pagination.totalCount;
     this.currentPage = page;
@@ -68,7 +66,6 @@ export default class NotificationList implements NotificationList {
     //let count = 0;
     //Create Notification objects and save it to data array.
     response.data.forEach((notification: NotificationItem) => {
-      
       const notificationItem = new Notification(this.client, {
         id: notification.id,
         title: notification.title,

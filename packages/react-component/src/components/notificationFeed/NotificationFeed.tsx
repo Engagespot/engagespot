@@ -6,7 +6,7 @@ import {
   NotificationEmptyPlaceholderText,
   JumpToTopPositioning,
 } from './NotificationFeed.styled';
-// import { ReactComponent as NotificationEmptyPlaceholder } from '../../assets/icons/notificationEmpty.svg';
+import { NotificationEmpty as NotificationEmptyPlaceholder } from '../icons/NotificationEmpty';
 
 import {
   NotificationFeedItem,
@@ -51,7 +51,7 @@ export interface NotificationFeedProps {
 const renderPlaceholderContent = (placeholderText: string): React.ReactNode => {
   return (
     <>
-      {/* <NotificationEmptyPlaceholder /> */}
+      <NotificationEmptyPlaceholder />
       <NotificationEmptyPlaceholderText>
         {placeholderText}
       </NotificationEmptyPlaceholderText>

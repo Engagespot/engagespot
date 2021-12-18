@@ -2,25 +2,22 @@
   "name": "@engagespot/core",
   "version": "1.0.0",
   "description": "Engagespot Javascript Core Functions",
-  "main": "./lib/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./lib/index.d.ts",
+  "source": "./src/index.ts",
+  "main": "./dist/engagespot-core.js",
+  "module": "./dist/engagespot-core.esm.js",
+  "unpkg": "./dist/engagespot-core.umd.js",
+  "types": "./dist/index.d.ts",
+  "amdName": "EngagespotCore",
   "files": [
-    "lib/**/*"
+    "dist/**/*"
   ],
   "scripts": {
-    "build": "tsup",
-    "prepublish": "tsc",
-    "start": "node lib/index.js",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "lint:fix": "yarn run lint -- --fix",
-    "test": "jest",
-    "clean": "rm -rf lib",
+    "build": "microbundle",
+    "dev": "microbundle watch",
+    "tsc": "tsc",
     "prepare": "yarn run build",
-    "prepublishOnly": "yarn test && yarn run lint",
-    "preversion": "yarn run lint",
-    "version": "yarn run format && git add -A src",
-    "postversion": "git push && git push --tags"
+    "test:dev": "jest --watchAll",
+    "test": "cross-env CI=true jest"
   },
   "keywords": [
     "engagespot",
@@ -31,7 +28,7 @@
   "author": "Engagespot",
   "license": "MIT",
   "devDependencies": {
-    "tsup": "5.10.0",
+    "microbundle": "0.14.2",
     "typescript": "4.2.4"
   },
   "dependencies": {

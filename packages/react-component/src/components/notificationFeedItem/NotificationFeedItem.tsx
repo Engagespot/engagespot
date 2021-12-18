@@ -18,7 +18,7 @@ import {
 
 import { DropdownMenu } from '../dropdownMenu';
 
-// import { ReactComponent as FeedItemReadDot } from '../../assets/icons/circle.svg';
+import { Circle as FeedItemReadDot } from '../icons/Circle';
 
 export interface NotificationFeedItemProps {
   heading: string;
@@ -100,8 +100,8 @@ export function NotificationFeedItem({
         <FeedItemTimeAgo>{time}</FeedItemTimeAgo>
       </FeedItemTextContent>
       <FeedItemMenu>
-        {isMenuVisible ? <DropdownMenu items={dropDownItems} /> : null}
-        {/* {!read ? <FeedItemReadDot /> : null} */}
+        <DropdownMenu items={dropDownItems} isVisible={isMenuVisible} />
+        {!read ? <FeedItemReadDot /> : null}
       </FeedItemMenu>
     </FeedItemStyled>
   );

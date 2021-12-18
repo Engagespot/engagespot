@@ -8,13 +8,14 @@ import {
   DropdownButton,
   DropdownArrow,
 } from './DropdownMenu.styled';
-// import { ReactComponent as MoreIcon } from '../../assets/icons/ellipsis.svg';
+import { Ellipsis as MoreIcon } from '../icons/Ellipsis';
 
 export interface DropdownMenuProps {
   items: string[];
+  isVisible: boolean;
 }
 
-export function DropdownMenu({ items = [] }: DropdownMenuProps) {
+export function DropdownMenu({ items = [], isVisible }: DropdownMenuProps) {
   const [visible, setVisibility] = useState(false);
 
   const referenceRef = useRef<HTMLButtonElement>(null);
@@ -66,18 +67,23 @@ export function DropdownMenu({ items = [] }: DropdownMenuProps) {
       <DropdownButton
         aria-label="More"
         ref={referenceRef}
+        style={{ visibility: isVisible ? 'visible' : 'hidden' }}
         onClick={handleDropdownMenuClick}
       >
-        {/* <MoreIcon /> */}
+        <MoreIcon />
       </DropdownButton>
       <DropdownOverlay
         ref={popperRef}
         style={styles.popper}
         {...attributes.popper}
       >
-        {/* <DropdownArrow ref={setArrowRef} style={styles.arrow} visible={visible} /> */}
+        <DropdownArrow
+          ref={setArrowRef as any}
+          style={styles.arrow}
+          visible={visible}
+        />
         <DropdownMenuContainer style={styles.offset} visible={visible}>
-          {items.map((item) => {
+          {items.map(item => {
             return <DropdownMenuItem key={item}>{item}</DropdownMenuItem>;
           })}
         </DropdownMenuContainer>

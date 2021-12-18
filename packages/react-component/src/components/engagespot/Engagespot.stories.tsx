@@ -10,10 +10,16 @@ export default {
   },
 } as Meta;
 
-const Template: Story<EngagespotProps> = (args) => <Engagespot {...args} />;
+const Template: Story<EngagespotProps> = args => <Engagespot {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  apiKey: '33o5wp1l2fettiyc73ddcc',
-  userId: 'anandsmac@localhost',
+  apiKey: 'shiynklpz18l3ktqyy6d9a',
+  userId: 'anand',
+};
+
+export const EmptyNotifications = Template.bind({});
+EmptyNotifications.args = {
+  apiKey: 'sdf',
+  userId: 'anand',
 };

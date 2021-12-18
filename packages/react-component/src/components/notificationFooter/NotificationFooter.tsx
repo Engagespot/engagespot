@@ -4,7 +4,7 @@ import {
   NotificationFooterLinkStyled,
   NotificationFooterTextStyled,
 } from './NotificationFooter.styled';
-// import { ReactComponent as EngagespotIcon } from '../../assets/icons/engagespotIcon.svg';
+import { EngagespotLogo as EngagespotIcon } from '../icons/EngagespotLogo';
 
 export interface NotificationFooterProps {
   label: string;
@@ -18,7 +18,7 @@ export function NotificationFooter({ label }: NotificationFooterProps) {
         target="__blank"
         aria-label="Engagespot Logo"
       >
-        {/* <EngagespotIcon /> */}
+        <EngagespotIcon />
       </NotificationFooterLinkStyled>
       <NotificationFooterTextStyled>{label}</NotificationFooterTextStyled>
     </NotificationFooterStyled>

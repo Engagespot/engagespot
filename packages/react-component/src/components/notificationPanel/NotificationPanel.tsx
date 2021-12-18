@@ -29,7 +29,7 @@ export function NotificationPanel({
   visible = false,
 }: NotificationPanelProps) {
   return (
-    <NotificationPanelPopper {...panelProps() as PanelProps}>
+    <NotificationPanelPopper {...(panelProps() as PanelProps)}>
       <NotificationPanelStyled {...panelOffsetProps()} visible={visible}>
         <NotificationHeader label="Notifications" />
         <NotificationFeed

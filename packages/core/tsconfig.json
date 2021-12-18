@@ -1,15 +1,28 @@
 {
   "compilerOptions": {
-    "target": "es2015",
-    "module": "esnext",
-    "outDir": "./lib",
-    "rootDir": "./src",
-    "strict": true,
+    "target": "esnext",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "outDir": "dist",
+    "allowJs": true,
     "noEmit": true,
+    "skipLibCheck": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node"
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true
   },
-  "exclude": ["node_modules", "lib", "__tests", "example"]
+  "include": ["src"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "examples",
+    "**/stories",
+    "**/*.stories.*",
+    "**/*.test.*"
+  ]
 }

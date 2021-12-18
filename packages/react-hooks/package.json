@@ -1,17 +1,18 @@
 {
   "name": "@engagespot/react-hooks",
   "version": "1.0.0",
-  "main": "./lib/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./lib/index.d.ts",
+  "source": "./src/index.ts",
+  "main": "./dist/engagespot-hooks.js",
+  "module": "./dist/engagespot-hooks.esm.js",
+  "unpkg": "./dist/engagespot-hooks.umd.js",
+  "types": "./dist/index.d.ts",
+  "amdName": "EngagespotHooks",
   "files": [
-    "lib/**/*"
+    "dist/**/*"
   ],
   "scripts": {
-    "build": "tsup",
-    "clean": "rm -rf lib",
-    "build2": "yarn run tsc && cross-env NODE_ENV=production rollup -c",
-    "start": "yarn run tsc && rollup -c -w",
+    "build": "microbundle --jsx React.createElement",
+    "dev": "microbundle watch --jsx React.createElement",
     "tsc": "tsc",
     "prepare": "yarn run build",
     "test:dev": "jest --watchAll",
@@ -21,19 +22,20 @@
     "build-storybook": "build-storybook"
   },
   "peerDependencies": {
-    "react": "^17.0.1"
+    "react": "^16.8.3 || ^17.0.0-0"
   },
   "dependencies": {
     "@engagespot/core": "1.0.0",
-    "@popperjs/core": "2.9.1",
-    "@types/react": "17.0.37",
+    "@popperjs/core": "^2.9.1",
+    "date-fns": "2.27.0",
     "intersection-observer": "0.12.0",
-    "react-popper": "2.2.4"
+    "react-popper": "^2.2.5"
   },
   "devDependencies": {
-    "ts-jest": "26.5.3",
-    "tsup": "5.10.0",
+    "@types/react": "17.0.37",
+    "microbundle": "0.14.2",
     "react": "17.0.2",
+    "ts-jest": "26.5.3",
     "typescript": "4.2.4"
   },
   "browserslist": {

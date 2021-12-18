@@ -1,6 +1,6 @@
 import sendRequest, { apiRequestOptions } from './apiRequest';
 import Engagespot from './engagespot';
-import NotificationItem from './interfaces/NotificationItem';
+import { NotificationItem } from './interfaces/NotificationItem';
 
 export default class Notification implements NotificationItem {
   _client: Engagespot;
@@ -58,7 +58,7 @@ export default class Notification implements NotificationItem {
 
   /**
    * Deletes a Notification
-   * @returns 
+   * @returns
    */
   async delete() {
     this._client.eventListenerStore?.NOTIFICATION_DELETED.forEach(handler => {

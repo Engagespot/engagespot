@@ -1,4 +1,4 @@
-import NotificationItem from './NotificationItem';
+import { NotificationItem } from './NotificationItem';
 
 export interface NotificationList {
   unreadCount: number;
