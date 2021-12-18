@@ -29,6 +29,7 @@ export interface NotificationFeedItemProps {
   clickable: boolean;
   time: string;
   id: string;
+  placeholderImage: string;
 }
 
 const dropDownItems = ['Mark as Read', 'Delete'];
@@ -71,6 +72,7 @@ export function NotificationFeedItem({
   description,
   imageUrl,
   clickable,
+  placeholderImage,
   read,
   time,
 }: NotificationFeedItemProps) {
@@ -94,7 +96,7 @@ export function NotificationFeedItem({
       onBlur={onItemLeave}
     >
       <FeedItemImage
-        //src={isImageBroken ? AVATAR_PLACEHOLDER : imageUrl}
+        src={isImageBroken ? placeholderImage : imageUrl}
         onError={() => {
           setImageBroken(true);
         }}

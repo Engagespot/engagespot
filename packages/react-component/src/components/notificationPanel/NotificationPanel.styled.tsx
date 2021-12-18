@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const NotificationPanelPopper = styled.div``;
 
@@ -23,18 +23,19 @@ export const NotificationPanelStyled = styled.div<{ visible: boolean }>`
 `;
 
 export const NotificationPanelArrowStyled = styled.div`
-  position: absolute;
-  width: 10px;
-  height: 10px;
-
-  &:after {
-    content: ' ';
-    transform: rotate(45deg);
-    width: 10px;
-    height: 10px;
+  ${({ theme: { panel, colors } }) => css`
     position: absolute;
-    top: -5px;
-    left: 0;
-    background-color: ${({ theme }) => theme.colors.brandingPrimary};
-  }
+    width: ${panel.arrowSize};
+    height: ${panel.arrowSize};
+
+    &:after {
+      content: ' ';
+      transform: rotate(45deg);
+      width: ${panel.arrowSize};
+      height: ${panel.arrowSize};
+      position: absolute;
+      inset: ${panel.arrowInset};
+      background-color: ${colors.brandingPrimary};
+    }
+  `}
 `;

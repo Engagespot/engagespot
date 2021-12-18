@@ -1,10 +1,12 @@
 import mapKeys from 'lodash.mapkeys';
 import { useEngagespot, UseEngagespotOptions } from '@engagespot/react-hooks';
+
 import { EngagespotProvider } from '../engagespotProvider';
 import { NotificationPanel } from '../notificationPanel';
 import { NotificationButton } from '../notificationButton';
 import { ThemeOverrides, Mode } from '../../theme/theme';
 import { NotificationFeedItemProps } from '../notificationFeedItem';
+import { EngagespotStyled } from './Engagespot.styled';
 
 export type useEngagespotReturnType = ReturnType<typeof useEngagespot>;
 
@@ -12,6 +14,7 @@ export interface EngagespotProps extends UseEngagespotOptions {
   theme?: ThemeOverrides;
   mode?: Mode;
   panelOnly?: boolean;
+  placeholderImage?: string;
 }
 
 const notificationItemResponseMap = {
@@ -42,6 +45,7 @@ export function Engagespot({
   mode,
   apiKey,
   panelOnly = false,
+  placeholderImage,
   userId,
   ...options
 }: EngagespotProps) {
@@ -78,13 +82,20 @@ export function Engagespot({
 
   console.log('Notifications is', notifications, 'current page', page);
 
+
   return (
     <EngagespotProvider
       theme={theme}
       mode={mode}
-      state={{ panelVisibility, togglePanelVisibility, useJumpToTop, scroll }}
+      state={{
+        panelVisibility,
+        placeholderImage,
+        togglePanelVisibility,
+        useJumpToTop,
+        scroll,
+      }}
     >
-      {isValid && renderButtonAndPanel()}
+      <EngagespotStyled>{isValid && renderButtonAndPanel()}</EngagespotStyled>
     </EngagespotProvider>
   );
 }

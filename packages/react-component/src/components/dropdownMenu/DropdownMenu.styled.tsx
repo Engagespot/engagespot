@@ -1,55 +1,61 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 interface DropdownMenuStyledProps {
   visible: boolean;
 }
 
 export const DropdownButton = styled.button`
-  display: flex;
-  border-width: 0;
-  margin: 0;
-  margin-right: 0.5rem;
-  padding: 0.5rem;
-  box-sizing: border-box;
-  outline: none;
-  user-select: none;
-  cursor: pointer;
-  background-color: transparent;
+  ${({ theme: { dropdown, colors } }) => css`
+    display: flex;
+    border-width: ${dropdown.borderWidth};
+    margin: ${dropdown.margin};
+    padding: ${dropdown.padding};
+    box-sizing: border-box;
+    outline: ${dropdown.outline};
+    user-select: none;
+    cursor: pointer;
+    background-color: ${dropdown.background};
 
-  svg {
-    fill: ${({ theme }) => theme.colors.colorTertiary};
-    stroke: ${({ theme }) => theme.colors.colorTertiary};
-    height: 0.6rem;
-    width: 0.5rem;
-  }
+    svg {
+      fill: ${dropdown.iconFill};
+      stroke: ${dropdown.iconFill};
+      height: ${dropdown.iconHeight};
+      width: ${dropdown.iconWidth};
+    }
 
-  &:hover {
-    transition: all 0.2s;
-    fill: ${({ theme }) => theme.colors.brandingPrimary};
-    stroke: ${({ theme }) => theme.colors.brandingPrimary};
-    background: ${({ theme }) => theme.colors.colorGreyLight};
-  }
+    &:hover {
+      transition: ${dropdown.transition};
+      fill: ${colors.brandingPrimary};
+      stroke: ${colors.brandingPrimary};
+      background: ${dropdown.hoverBackground};
+    }
+  `}
 `;
 
 export const DropdownOverlay = styled.div``;
 
 export const DropdownMenuContainer = styled.div<DropdownMenuStyledProps>`
-  display: ${({ visible }) => (visible ? 'flex' : 'none')};
-  flex-direction: column;
-  background: ${({ theme }) => theme.colors.background};
-  border-radius: 2px;
-  font-family: sans-serif;
-  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.14);
+  ${({ theme: { dropdown }, visible }) => css`
+    display: ${visible ? 'flex' : 'none'};
+    flex-direction: column;
+    background: ${dropdown.menuBackground};
+    border-radius: ${dropdown.menuBorderRadius};
+    font-family: sans-serif;
+    box-shadow: ${dropdown.menuShadow}; ;
+  `}
 `;
 
 export const DropdownMenuItem = styled.div`
-  justify-content: flex-start;
-  display: flex;
-  cursor: pointer;
-  padding: 0.5rem 0.7rem;
-  align-items: center;
+  ${({ theme: { dropdown } }) => css`
+    justify-content: flex-start;
+    color: ${dropdown.menuItemTextColor};
+    display: flex;
+    cursor: pointer;
+    padding: ${dropdown.menuItemPadding};
+    align-items: center;
 
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.colorGreyLighter};
-  }
+    &:hover {
+      background-color: ${dropdown.menuItemHoverBackground};
+    }
+  `}
 `;

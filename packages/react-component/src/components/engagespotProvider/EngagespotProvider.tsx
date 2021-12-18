@@ -10,9 +10,12 @@ export interface EngagespotProviderProps {
   children: React.ReactNode;
 }
 
-export type EngagespotState = Partial<ReturnType<typeof useEngagespot>>;
+export interface EngagespotContextProps
+  extends Partial<ReturnType<typeof useEngagespot>> {
+  placeholderImage?: string;
+}
 
-const EngagespotContext = createContext<EngagespotState>({});
+const EngagespotContext = createContext<EngagespotContextProps>({});
 
 export const useEngagespotContext = () => {
   return useContext(EngagespotContext);

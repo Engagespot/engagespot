@@ -17,6 +17,7 @@ import {
 import { JumpToTop } from '../jumpToTop';
 
 import { useEngagespotContext } from '../engagespotProvider';
+import { PLACEHOLDER_DEFAULT } from '../../constants';
 
 type customPlaceholderContentType = (() => React.ReactNode) | undefined;
 
@@ -60,7 +61,8 @@ const renderPlaceholderContent = (placeholderText: string): React.ReactNode => {
 
 const renderNotificationContent = (
   notification: NotificationFeedItemProps,
-  customRenderer: customNotificationContentType
+  customRenderer: customNotificationContentType,
+  placeholderImage: string
 ): React.ReactNode => {
   return (
     customRenderer?.(notification) || (
@@ -71,6 +73,7 @@ const renderNotificationContent = (
         imageUrl={notification.imageUrl}
         read={notification.read}
         time={notification.time}
+        placeholderImage={placeholderImage}
         //key={notification.id}
         id={notification.id}
       />
@@ -89,6 +92,7 @@ export function NotificationFeed({
   const { onNotificationScroll, jumpToTop, showJumpToTop } =
     engagespotContext.useJumpToTop?.() || {};
   const { loaderRef, containerRef, hasMore } = engagespotContext.scroll || {};
+  const { placeholderImage = PLACEHOLDER_DEFAULT } = engagespotContext;
 
   function onJumpToTopClick(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -124,7 +128,8 @@ export function NotificationFeed({
           {notifications.map(notification => {
             return renderNotificationContent(
               notification,
-              renderCustomNotificationContent
+              renderCustomNotificationContent,
+              placeholderImage
             );
           })}
           {hasMore && <FeedItemPlaceholder loaderRef={loaderRef} />}
