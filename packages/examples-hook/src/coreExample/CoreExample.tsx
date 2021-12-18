@@ -7,6 +7,7 @@ export default function CoreExample() {
       userId: 'anand',
       endPointOverride: 'http://api.staging.engagespot.co/v3/',
       enableNonHttpsWebPush: true,
+      debug: true,
     });
 
     //window.engagespot =engagespotClient;

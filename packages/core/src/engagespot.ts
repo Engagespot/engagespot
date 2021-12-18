@@ -11,6 +11,12 @@ import { AblyTokenRequest } from './interfaces/AblyTokenRequest';
 import EngagespotNotification from './Notification';
 
 export default class Engagespot {
+
+  /**
+   * Toggle Debug Mode
+   */
+  debug: boolean = false;
+
   /*  STATIC VARIABLES */
   static isReady = false;
   SERVICE_WORKER_URL = '/service-worker.js?sdkVersion=3.0.0';
@@ -107,6 +113,8 @@ export default class Engagespot {
 
     if (options.endPointOverride) this.endPoint = options.endPointOverride;
 
+    if (options.debug) this.debug = options.debug;
+
     this._ready = this.init();
   }
 
@@ -139,6 +147,7 @@ export default class Engagespot {
 
     // This is to prevent init from being called multiple times in the same page
     if (this.deviceId) {
+      this._log('Instance already have a deviceId. So skipping init()');
       return this;
     }
 
@@ -153,6 +162,9 @@ export default class Engagespot {
     }
 
     if (!this.enableNonHttpsWebPush) {
+
+      this._log('enableNonHttpsWebPush is false');
+
       if (this.serviceWorkerRegistration) {
         //If they passed their own serviceWorker, then wait until it's ready.
         await window.navigator.serviceWorker.ready;
@@ -161,6 +173,10 @@ export default class Engagespot {
         this.serviceWorkerRegistration =
           await this.getServiceWorkerRegistration();
       }
+    }else{
+
+      //Just for debugging.
+      this._log('enableNonHttpsWebPush is true');
     }
 
     return await this.connect();
@@ -263,7 +279,7 @@ export default class Engagespot {
 
     //As soon as realtime client is connected, subscribe to this user's channel
     this.realtimeClient.connection.on('connected', () => {
-      console.log("Subscribing to "+this.apiKey+'_'+this.userId);
+      this._log("Subscribing to "+this.apiKey+'_'+this.userId);
       var channel = this.realtimeClient.channels.get(this.apiKey+'_'+this.userId);
       channel.subscribe((message) => {
         this.handleIncomingRealtimeMessage(message)
@@ -278,7 +294,7 @@ export default class Engagespot {
    */
   handleIncomingRealtimeMessage(message: Types.Message) {
 
-    console.log(message);
+    this._log(message);
     if(message.name === 'NEW_NOTIFICATION'){
       
       //convert this into notification object
@@ -297,8 +313,17 @@ export default class Engagespot {
         count++
       });
 
-      console.log("Published to "+count+" listeners");
+      this._log("Published to "+count+" listeners");
 
+      //Whenever a new notification is received, that means we should update the unreadCount
+      //The best strategy to fetch the latest unread count is by getting the value from server!
+
+    }
+
+    if(message.name === 'NOTIFICATION_DELETED'){
+      this.eventListenerStore.NOTIFICATION_DELETED.forEach( (listener) => {
+        listener(message.data.notification.id);
+      });
     }
   
   }
@@ -340,6 +365,9 @@ export default class Engagespot {
    * Registers the service worker to the browser
    */
   async getServiceWorkerRegistration() {
+
+    this._log('getServiceWorkerRegistration called');
+
     // Check is the service-worker.js file exists
     const serviceWorkerExists = await fetch(this.SERVICE_WORKER_URL);
     if (serviceWorkerExists.status !== 200) {
@@ -509,69 +537,7 @@ export default class Engagespot {
     return localStorage.getItem('_engagespotDeviceId');
   }
 
-  /**
-   * @deprecated use Notification.markAsClicked() instead
-   */
-  async markNotificationAsClicked(id: number) {
-    await this._resolveInstanceState();
-
-    //Publish to all event subscribers.
-    this.eventListenerStore.NOTIFICATION_CLICKED.forEach(handler => {
-      handler(id);
-    });
-
-    if (!id) {
-      throw new Error('Expecting id of the notification to be deleted');
-    }
-
-    const options: apiRequestOptions = {
-      url: this.baseURL + '/notifications/' + id + '/click',
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-ENGAGESPOT-API-KEY': this.apiKey,
-        'X-ENGAGESPOT-USER-ID': this.userId,
-        ...(this.userSignature && {
-          'X-ENGAGESPOT-USER-SIGNATURE': this.userSignature,
-        }),
-      },
-    };
-
-    const response: NotificationList = await sendRequest(options);
-
-    return response;
-
-  }
-
-  /**
-   * @deprecated use Notification.delete() instead
-   * @id
-   */
-  async deleteNotification(id: string) {
-    await this._resolveInstanceState();
-    return fetch(this.baseURL + '/notifications/' + id, {
-      method: 'DELETE',
-      cache: 'no-cache',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-ENGAGESPOT-API-KEY': this.apiKey,
-        'X-ENGAGESPOT-USER-ID': this.userId,
-        'X-ENGAGESPOT-USER-SIGNATURE': this.userSignature,
-      } as any,
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(response => {
-        return true;
-      })
-      .catch(error => {
-        const errorMessage = new Error(
-          'Failed to delete notification - ' + error
-        );
-        Promise.reject(errorMessage);
-      });
-  }
+  
 
   /**
    * Subscriber function for REALTIME_NOTIFICATION_RECEIVED
@@ -601,8 +567,18 @@ export default class Engagespot {
     return true;
   }
 
+  /**
+ * Wrapper for this._log which considers this.debug value
+ * @param message 
+ */
+  _log(message: string | any){
+    if (this.debug) { 
+      console.log(message);
+    }
+  }
 
 }
+
 
 function checkApiKey(key: string) {
   if (key === null || key === undefined) {
