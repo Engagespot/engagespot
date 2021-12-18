@@ -80,6 +80,20 @@ export function useEngagespot({
   const { page, loaderRef, containerRef } = useInfiniteScroll({ hasMore });
 
   useEffect(() => {
+    engagespotInstance.onNotificationReceive(
+      (notificationItem: NotificationItem) => {
+        console.log('Notification received', notificationItem);
+        setNotifications(({ data: previousData, ...oldNotifications }) => {
+          return {
+            ...oldNotifications,
+            data: [notificationItem, ...previousData],
+          };
+        });
+      }
+    );
+  }, [engagespotInstance]);
+
+  useEffect(() => {
     async function checkIsValid() {
       //TODO:- check if validation is success
       const isValid = true;
@@ -160,7 +174,8 @@ export function useEngagespot({
       ref: arrowRef,
       style: {
         ...styles.arrow,
-        display: panelVisibility && placementOptions.enableArrow ? 'block' : 'none',
+        display:
+          panelVisibility && placementOptions.enableArrow ? 'block' : 'none',
       },
     };
   };
