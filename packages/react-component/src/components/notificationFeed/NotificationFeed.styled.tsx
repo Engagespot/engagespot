@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const NotificationFeedStyled = styled.div<{ empty: boolean }>`
   display: flex;
@@ -17,15 +17,17 @@ export const NotificationFeedStyled = styled.div<{ empty: boolean }>`
 `;
 
 export const NotificationEmptyPlaceholderText = styled.p`
-  font-size: ${({ theme }) => theme.feed.placeholderTextSize};
-  margin: 0;
-  margin-top: 1rem;
-  font-weight: 300;
-  color: ${({ theme }) => theme.colors.colorTertiary};
+  ${({ theme }) => css`
+    font-size: ${theme.feed.placeholderTextSize};
+    margin: ${theme.feed.placeholderMargin};
+    font-weight: ${theme.feed.placeholderFontWeight};
+    color: ${theme.feed.placeholderTextColor};
+  `}
 `;
 
 export const JumpToTopPositioning = styled.div`
-  position: absolute;
-  top: 1.5rem;
-  right: 7rem;
+  ${({ theme }) => css`
+    position: absolute;
+    inset: ${theme.jumpToTop.inset};
+  `}
 `;

@@ -23,3 +23,10 @@ EmptyNotifications.args = {
   apiKey: 'sdf',
   userId: 'anand',
 };
+
+export const DarkMode: Story<EngagespotProps> = Template.bind({});
+DarkMode.args = {
+  apiKey: 'shiynklpz18l3ktqyy6d9a',
+  userId: 'anand',
+  mode: 'dark'
+};

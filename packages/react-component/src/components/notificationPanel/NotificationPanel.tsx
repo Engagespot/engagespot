@@ -2,6 +2,7 @@ import React from 'react';
 import {
   NotificationPanelPopper,
   NotificationPanelStyled,
+  NotificationPanelArrowStyled,
 } from './NotificationPanel.styled';
 import { NotificationHeader } from '../notificationHeader';
 import { NotificationFeed } from '../notificationFeed';
@@ -14,6 +15,7 @@ export interface NotificationPanelProps {
   visible: boolean;
   panelType?: 'normal' | 'floating';
   panelProps: useEngagespotReturnType['getPanelProps'];
+  arrowProps: useEngagespotReturnType['getArrowProps'];
   panelOffsetProps: useEngagespotReturnType['getPanelOffsetProps'];
 }
 
@@ -22,14 +24,23 @@ type PanelProps = {
   style: React.CSSProperties;
 };
 
+type ArrowProps = {
+  ref: React.RefObject<HTMLDivElement>;
+  style: React.CSSProperties;
+};
+
 export function NotificationPanel({
   notifications = [],
   panelProps,
+  arrowProps,
   panelOffsetProps,
   visible = false,
 }: NotificationPanelProps) {
+  console.log('arrow props ', arrowProps());
+
   return (
     <NotificationPanelPopper {...(panelProps() as PanelProps)}>
+      <NotificationPanelArrowStyled {...(arrowProps() as ArrowProps)} />
       <NotificationPanelStyled {...panelOffsetProps()} visible={visible}>
         <NotificationHeader label="Notifications" />
         <NotificationFeed

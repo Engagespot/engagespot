@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import {
   FeedItemStyled,
@@ -19,6 +19,7 @@ import {
 import { DropdownMenu } from '../dropdownMenu';
 
 import { Circle as FeedItemReadDot } from '../icons/Circle';
+import { AVATAR_PLACEHOLDER } from '../../constants';
 
 export interface NotificationFeedItemProps {
   heading: string;
@@ -28,6 +29,7 @@ export interface NotificationFeedItemProps {
   clickable: boolean;
   time: string;
   id: string;
+  placeholderImage: string;
 }
 
 const dropDownItems = ['Mark as Read', 'Delete'];
@@ -70,10 +72,12 @@ export function NotificationFeedItem({
   description,
   imageUrl,
   clickable,
+  placeholderImage,
   read,
   time,
 }: NotificationFeedItemProps) {
   const [isMenuVisible, setMenuVisibility] = useState(false);
+  const [isImageBroken, setImageBroken] = useState(false);
 
   const onItemEnter = () => {
     setMenuVisibility(true);
@@ -92,7 +96,10 @@ export function NotificationFeedItem({
       onBlur={onItemLeave}
     >
       <FeedItemImage
-        background={imageUrl ? `url('${imageUrl}')` : 'papayawhip'}
+        src={isImageBroken ? placeholderImage : imageUrl}
+        onError={() => {
+          setImageBroken(true);
+        }}
       />
       <FeedItemTextContent>
         <FeedItemHeader>{heading}</FeedItemHeader>

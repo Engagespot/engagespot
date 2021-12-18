@@ -1,16 +1,17 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const UnreadBadgeCountStyled = styled.span`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: ${({ theme }) => theme.unreadBadgeCount.background};
-  color: ${({ theme }) => theme.unreadBadgeCount.color};
-  position: absolute;
-  font-size: 0.6rem;
-  border-radius: ${({ theme }) => theme.unreadBadgeCount.borderRadius};
-  top: -4px;
-  right: -4px;
-  height: 1rem;
-  width: 1rem;
+  ${({ theme: { unreadBadgeCount } }) => css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: ${unreadBadgeCount.background};
+    color: ${unreadBadgeCount.color};
+    position: absolute;
+    font-size: ${unreadBadgeCount.fontSize};
+    border-radius: ${unreadBadgeCount.borderRadius};
+    inset: ${unreadBadgeCount.inset};
+    height: ${unreadBadgeCount.size};
+    width: ${unreadBadgeCount.size};
+  `}
 `;
