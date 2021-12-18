@@ -1,6 +1,7 @@
 {
   "name": "examples",
   "version": "0.1.1-alpha.0",
+  "private": true,
   "scripts": {
     "dev:hooks": "vite",
     "build:examples": "vite build",
