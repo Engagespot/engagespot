@@ -43,7 +43,6 @@ function getEngagespotClient(
   const engagespotClient = new EngagespotCore(apiKey, {
     ...options,
     userId,
-    endPointOverride: 'http://api.staging.engagespot.co/v3/',
     enableNonHttpsWebPush: true,
   });
   return engagespotClient;
@@ -58,11 +57,15 @@ export function useEngagespot({
     });
   },
   placementOptions = defaultPlacementOptions,
+  endPointOverride = 'https://api.staging.engagespot.co/v3/',
   ...options
 }: UseEngagespotOptions) {
   const engagespotRef = useRef<EngagespotCore | null>(null);
   if (engagespotRef.current == null) {
-    engagespotRef.current = getEngagespotClient(apiKey, userId, options);
+    engagespotRef.current = getEngagespotClient(apiKey, userId, {
+      endPointOverride,
+      ...options,
+    });
   }
   const engagespotInstance = engagespotRef.current;
   const [notifications, setNotifications] = useState(initializeNotifications);
@@ -76,7 +79,6 @@ export function useEngagespot({
       togglePanelVisibility,
       merge(defaultPlacementOptions, placementOptions)
     );
-  console.log('update popper', update);
   const { page, loaderRef, containerRef } = useInfiniteScroll({ hasMore });
 
   useEffect(() => {
@@ -119,8 +121,7 @@ export function useEngagespot({
         currentPage,
         itemsPerPage,
       } = await engagespotInstance.getNotificationList().fetch(page);
-      let transformedData = data.map(notificationItem => {
-        // console.log('notification item is ', notificationItem);
+      const transformedData = data.map(notificationItem => {
         return {
           ...notificationItem,
           createdAt: formatDate(
@@ -134,7 +135,6 @@ export function useEngagespot({
       } else {
         setHasMore(false);
       }
-      //console.log('current page', currentPage, 'Page ', page);
       setNotifications(({ data: previousData }) => {
         return {
           unreadCount,
@@ -150,7 +150,7 @@ export function useEngagespot({
     getNotifications();
   }, [page]);
 
-  const onButtonClick = <T>(event: React.MouseEvent<T, MouseEvent>) => {
+  const onButtonClick = () => {
     togglePanelVisibility(visibility => !visibility);
     update?.();
   };

@@ -6,7 +6,6 @@ export function useJumpToTop(offset = SCROLL_OFFSET) {
   const [showJumpToTop, setShowJumpToTop] = useState(false);
 
   function onNotificationScroll(evt: React.UIEvent<HTMLElement>) {
-    console.log('current', evt.currentTarget);
     if (evt.currentTarget?.scrollTop > offset) {
       setShowJumpToTop(true);
     } else {

@@ -36,8 +36,6 @@ export function NotificationPanel({
   panelOffsetProps,
   visible = false,
 }: NotificationPanelProps) {
-  console.log('arrow props ', arrowProps());
-
   return (
     <NotificationPanelPopper {...(panelProps() as PanelProps)}>
       <NotificationPanelArrowStyled {...(arrowProps() as ArrowProps)} />
