@@ -129,7 +129,8 @@ export const FeedItemDescriptionPlaceholder = styled(FeedItemDescription)`
   `}
 `;
 
-export const PlaceholderAnimation = styled.div<{ circle?: boolean }>`
+export const PlaceholderAnimation = styled.span<{ circle?: boolean }>`
+  display: block;
   @keyframes placeHolderShimmer {
     0% {
       background-position: -468px 0;

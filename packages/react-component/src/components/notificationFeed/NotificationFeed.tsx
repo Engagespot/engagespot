@@ -74,7 +74,7 @@ const renderNotificationContent = (
         read={notification.read}
         time={notification.time}
         placeholderImage={placeholderImage}
-        //key={notification.id}
+        key={notification.id}
         id={notification.id}
       />
     )

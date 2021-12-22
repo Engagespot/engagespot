@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import merge from 'lodash.merge';
-import { format, formatDistance, formatRelative, subDays } from 'date-fns';
 
 import EngagespotCore, {
   Options,
@@ -15,13 +14,11 @@ import {
   useFloatingNotification,
 } from './useFloatingNotification';
 import { useInfiniteScroll } from './useInfiniteScroll';
-
-const dateFunctions = {
-  format,
-  formatDistance,
-  formatRelative,
-  subDays,
-};
+import {
+  dateFunctions,
+  defaultDateFormatter,
+  dateTransformer,
+} from '../utils/dateUtils';
 
 export interface UseEngagespotOptions extends Options {
   apiKey: string;
@@ -51,11 +48,7 @@ function getEngagespotClient(
 export function useEngagespot({
   apiKey,
   userId,
-  formatDate = dateString => {
-    return formatDistance(new Date(dateString), new Date(), {
-      addSuffix: true,
-    });
-  },
+  formatDate = defaultDateFormatter,
   placementOptions = defaultPlacementOptions,
   endPointOverride = 'https://api.staging.engagespot.co/v3/',
   ...options
@@ -80,6 +73,8 @@ export function useEngagespot({
       merge(defaultPlacementOptions, placementOptions)
     );
   const { page, loaderRef, containerRef } = useInfiniteScroll({ hasMore });
+  console.log('current page', page);
+  const transformDate = dateTransformer(formatDate);
 
   useEffect(() => {
     engagespotInstance.onNotificationReceive(
@@ -88,7 +83,7 @@ export function useEngagespot({
         setNotifications(({ data: previousData, ...oldNotifications }) => {
           return {
             ...oldNotifications,
-            data: [notificationItem, ...previousData],
+            data: [transformDate(notificationItem), ...previousData],
           };
         });
       }
@@ -113,6 +108,7 @@ export function useEngagespot({
 
   useEffect(() => {
     async function getNotifications() {
+      console.log('Inside fetch');
       const {
         data,
         unreadCount,
@@ -121,15 +117,14 @@ export function useEngagespot({
         currentPage,
         itemsPerPage,
       } = await engagespotInstance.getNotificationList().fetch(page);
-      const transformedData = data.map(notificationItem => {
-        return {
-          ...notificationItem,
-          createdAt: formatDate(
-            notificationItem?.createdAt ?? '',
-            dateFunctions
-          ),
-        };
-      });
+      console.log(
+        'Notifications...',
+        data,
+        totalCount,
+        totalPages,
+        currentPage
+      );
+      const transformedData = data.map(transformDate);
       if (page < totalPages) {
         setHasMore(true);
       } else {

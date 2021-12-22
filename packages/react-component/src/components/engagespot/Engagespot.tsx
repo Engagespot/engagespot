@@ -80,7 +80,7 @@ export function Engagespot({
     );
   };
 
-  console.log('Notifications is', notifications, 'current page', page);
+  //console.log('Notifications is', notifications, 'current page', page);
 
   return (
     <EngagespotProvider

@@ -48,10 +48,11 @@ export default {
     dateColor: '#888888',
     menuMargin: '0 1rem 0 0',
     placeHolderBackground: 'rgb(230, 230, 230)',
-    placeHolderGradient: 'linear-gradient(to right, #eeeeee 10%, #dddddd 18%, #eeeeee 33%)'
+    placeHolderGradient:
+      'linear-gradient(to right, #eeeeee 10%, #dddddd 18%, #eeeeee 33%)',
   },
   notificationButton: {
-    background: 'white',
+    background: 'transparent',
     iconFill: '#888888',
     iconSize: '1.5rem',
     outline: 'none',
