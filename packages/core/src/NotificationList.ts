@@ -11,7 +11,7 @@ export default class NotificationList implements NotificationList {
   itemsPerPage: number;
   totalPages: number;
 
-  data: NotificationItem[];
+  data: Notification[];
 
   /**
    * Constructor, Initializes NotificationList with an Empty List
@@ -36,7 +36,7 @@ export default class NotificationList implements NotificationList {
   async fetch(page = 1, itemsPerPage = 15) {
     this.currentPage = page;
     this.itemsPerPage = itemsPerPage;
-    
+
     const options: apiRequestOptions = {
       url:
         this.client.baseURL +

@@ -5,6 +5,7 @@ import EngagespotCore, {
   Options,
   PermissionState,
   NotificationItem,
+  Notification,
 } from '@engagespot/core';
 
 import { useJumpToTop } from './useJumpToTop';
@@ -73,21 +74,42 @@ export function useEngagespot({
       merge(defaultPlacementOptions, placementOptions)
     );
   const { page, loaderRef, containerRef } = useInfiniteScroll({ hasMore });
-  console.log('current page', page);
   const transformDate = dateTransformer(formatDate);
 
-  useEffect(() => {
-    engagespotInstance.onNotificationReceive(
-      (notificationItem: NotificationItem) => {
-        console.log('Notification received', notificationItem);
+  const transformNotification = (notification: Notification) => {
+    return {
+      ...transformDate(notification),
+      markAsClicked: () => {
+        return notification.markAsClicked();
+      },
+      deleteNotification: () => {
+        notification.delete();
         setNotifications(({ data: previousData, ...oldNotifications }) => {
           return {
             ...oldNotifications,
-            data: [transformDate(notificationItem), ...previousData],
+            data: previousData.filter(data => data.id !== notification.id),
+          };
+        });
+      },
+    };
+  };
+
+  useEffect(() => {
+    engagespotInstance.onNotificationReceive(
+      (notificationItem: Notification) => {
+        setNotifications(({ data: previousData, ...oldNotifications }) => {
+          return {
+            ...oldNotifications,
+            data: [transformNotification(notificationItem), ...previousData],
           };
         });
       }
     );
+
+    engagespotInstance.onNotificationDelete((notificationId: any) => {
+      console.log('Notification deleted', notificationId);
+      return {};
+    });
   }, [engagespotInstance]);
 
   useEffect(() => {
@@ -108,7 +130,6 @@ export function useEngagespot({
 
   useEffect(() => {
     async function getNotifications() {
-      console.log('Inside fetch');
       const {
         data,
         unreadCount,
@@ -117,14 +138,8 @@ export function useEngagespot({
         currentPage,
         itemsPerPage,
       } = await engagespotInstance.getNotificationList().fetch(page);
-      console.log(
-        'Notifications...',
-        data,
-        totalCount,
-        totalPages,
-        currentPage
-      );
-      const transformedData = data.map(transformDate);
+      const notifications = data.map(transformNotification);
+
       if (page < totalPages) {
         setHasMore(true);
       } else {
@@ -137,7 +152,7 @@ export function useEngagespot({
           totalPages,
           currentPage,
           itemsPerPage,
-          data: previousData.concat(transformedData),
+          data: previousData.concat(notifications),
         };
       });
     }
