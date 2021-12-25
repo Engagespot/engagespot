@@ -11,7 +11,8 @@ export interface UnreadBadgeCountProps {
 export function UnreadBadgeCount({ count }: UnreadBadgeCountProps) {
   return (
     <UnreadBadgeCountStyled>
-      {count > 10 ? '10+' : count}
+      {count}
+      {/* {count > 10 ? '10+' : count} */}
     </UnreadBadgeCountStyled>
   );
 }
