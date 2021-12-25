@@ -68,14 +68,16 @@ const renderNotificationContent = (
     customRenderer?.(notification) || (
       <NotificationFeedItem
         heading={notification.heading}
-        clickable={notification.clickable}
+        clickableUrl={notification.clickableUrl}
         description={notification.description}
         imageUrl={notification.imageUrl}
-        read={notification.read}
+        read={notification.clickedAt != null}
         time={notification.time}
         placeholderImage={placeholderImage}
-        //key={notification.id}
+        key={notification.id}
         id={notification.id}
+        markAsClicked={notification.markAsClicked}
+        deleteNotification={notification.deleteNotification}
       />
     )
   );
@@ -100,6 +102,8 @@ export function NotificationFeed({
     const notificationFeedEl = evt.currentTarget.parentNode?.parentElement;
     jumpToTop?.(notificationFeedEl as HTMLElement);
   }
+
+  console.log('Notifications ', notifications);
 
   return (
     <NotificationFeedStyled

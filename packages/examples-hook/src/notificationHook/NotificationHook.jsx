@@ -57,9 +57,6 @@ export function NotificationHook() {
     useJumpToTop,
   } = useEngagespot({ apiKey, userId });
 
-  console.log(getButtonProps());
-  console.log('data is ', notifications);
-
   return (
     <>
       <GlobalStyles />

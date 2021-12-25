@@ -7,11 +7,16 @@ export default {
   component: UnreadBadgeCount,
 } as Meta;
 
-const Template: Story<UnreadBadgeCountProps> = (args) => (
+const Template: Story<UnreadBadgeCountProps> = args => (
   <UnreadBadgeCount {...args} />
 );
 
 export const Default = Template.bind({});
 Default.args = {
   count: 5,
+};
+
+export const MoreCount = Template.bind({});
+MoreCount.args = {
+  count: 100,
 };

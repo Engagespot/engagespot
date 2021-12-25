@@ -1,6 +1,6 @@
 {
   "name": "@engagespot/core",
-  "version": "1.0.0",
+  "version": "0.1.1-alpha.3",
   "description": "Engagespot Javascript Core Functions",
   "source": "./src/index.ts",
   "main": "./dist/engagespot-core.js",
@@ -33,5 +33,8 @@
   },
   "dependencies": {
     "ably": "^1.2.15"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

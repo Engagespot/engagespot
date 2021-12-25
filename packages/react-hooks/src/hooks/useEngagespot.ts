@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import merge from 'lodash.merge';
-import { format, formatDistance, formatRelative, subDays } from 'date-fns';
 
 import EngagespotCore, {
   Options,
   PermissionState,
   NotificationItem,
+  Notification,
 } from '@engagespot/core';
 
 import { useJumpToTop } from './useJumpToTop';
@@ -15,13 +15,11 @@ import {
   useFloatingNotification,
 } from './useFloatingNotification';
 import { useInfiniteScroll } from './useInfiniteScroll';
-
-const dateFunctions = {
-  format,
-  formatDistance,
-  formatRelative,
-  subDays,
-};
+import {
+  dateFunctions,
+  defaultDateFormatter,
+  dateTransformer,
+} from '../utils/dateUtils';
 
 export interface UseEngagespotOptions extends Options {
   apiKey: string;
@@ -43,7 +41,6 @@ function getEngagespotClient(
   const engagespotClient = new EngagespotCore(apiKey, {
     ...options,
     userId,
-    endPointOverride: 'http://api.staging.engagespot.co/v3/',
     enableNonHttpsWebPush: true,
   });
   return engagespotClient;
@@ -52,17 +49,17 @@ function getEngagespotClient(
 export function useEngagespot({
   apiKey,
   userId,
-  formatDate = dateString => {
-    return formatDistance(new Date(dateString), new Date(), {
-      addSuffix: true,
-    });
-  },
+  formatDate = defaultDateFormatter,
   placementOptions = defaultPlacementOptions,
+  endPointOverride = 'https://api.staging.engagespot.co/v3/',
   ...options
 }: UseEngagespotOptions) {
   const engagespotRef = useRef<EngagespotCore | null>(null);
   if (engagespotRef.current == null) {
-    engagespotRef.current = getEngagespotClient(apiKey, userId, options);
+    engagespotRef.current = getEngagespotClient(apiKey, userId, {
+      endPointOverride,
+      ...options,
+    });
   }
   const engagespotInstance = engagespotRef.current;
   const [notifications, setNotifications] = useState(initializeNotifications);
@@ -76,8 +73,44 @@ export function useEngagespot({
       togglePanelVisibility,
       merge(defaultPlacementOptions, placementOptions)
     );
-  console.log('update popper', update);
   const { page, loaderRef, containerRef } = useInfiniteScroll({ hasMore });
+  const transformDate = dateTransformer(formatDate);
+
+  const transformNotification = (notification: Notification) => {
+    return {
+      ...transformDate(notification),
+      markAsClicked: () => {
+        return notification.markAsClicked();
+      },
+      deleteNotification: () => {
+        notification.delete();
+        setNotifications(({ data: previousData, ...oldNotifications }) => {
+          return {
+            ...oldNotifications,
+            data: previousData.filter(data => data.id !== notification.id),
+          };
+        });
+      },
+    };
+  };
+
+  useEffect(() => {
+    engagespotInstance.onNotificationReceive(
+      (notificationItem: Notification) => {
+        setNotifications(({ data: previousData, ...oldNotifications }) => {
+          return {
+            ...oldNotifications,
+            data: [transformNotification(notificationItem), ...previousData],
+          };
+        });
+      }
+    );
+
+    engagespotInstance.onNotificationDelete((notificationId: any) => {
+      console.log('Notification deleted', notificationId);
+      return {};
+    });
+  }, [engagespotInstance]);
 
   useEffect(() => {
     async function checkIsValid() {
@@ -105,22 +138,13 @@ export function useEngagespot({
         currentPage,
         itemsPerPage,
       } = await engagespotInstance.getNotificationList().fetch(page);
-      let transformedData = data.map(notificationItem => {
-        // console.log('notification item is ', notificationItem);
-        return {
-          ...notificationItem,
-          createdAt: formatDate(
-            notificationItem?.createdAt ?? '',
-            dateFunctions
-          ),
-        };
-      });
+      const notifications = data.map(transformNotification);
+
       if (page < totalPages) {
         setHasMore(true);
       } else {
         setHasMore(false);
       }
-      //console.log('current page', currentPage, 'Page ', page);
       setNotifications(({ data: previousData }) => {
         return {
           unreadCount,
@@ -128,7 +152,7 @@ export function useEngagespot({
           totalPages,
           currentPage,
           itemsPerPage,
-          data: previousData.concat(transformedData),
+          data: previousData.concat(notifications),
         };
       });
     }
@@ -136,7 +160,7 @@ export function useEngagespot({
     getNotifications();
   }, [page]);
 
-  const onButtonClick = <T>(event: React.MouseEvent<T, MouseEvent>) => {
+  const onButtonClick = () => {
     togglePanelVisibility(visibility => !visibility);
     update?.();
   };
@@ -160,7 +184,8 @@ export function useEngagespot({
       ref: arrowRef,
       style: {
         ...styles.arrow,
-        display: panelVisibility && placementOptions.enableArrow ? 'block' : 'none',
+        display:
+          panelVisibility && placementOptions.enableArrow ? 'block' : 'none',
       },
     };
   };

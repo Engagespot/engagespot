@@ -19,8 +19,6 @@ export function NotificationButton({
   type = 'normal',
   buttonProps,
 }: NotificationButtonProps) {
-
-  // console.log('button props ', buttonProps?.())
   return (
     <NotificationButtonStyled
       buttonType={type}

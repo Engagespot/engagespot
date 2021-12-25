@@ -21,9 +21,12 @@ const notificationItemResponseMap = {
   title: 'heading',
   message: 'description',
   icon: 'imageUrl',
-  url: 'clickable',
+  url: 'clickableUrl',
   id: 'id',
   createdAt: 'time',
+  clickedAt: 'clickedAt',
+  markAsClicked: 'markAsClicked',
+  deleteNotification: 'deleteNotification',
 };
 
 const transformNotificationItem = (
@@ -51,7 +54,6 @@ export function Engagespot({
 }: EngagespotProps) {
   const {
     isValid,
-    page,
     notifications,
     panelVisibility,
     getButtonProps,
@@ -79,9 +81,6 @@ export function Engagespot({
       </>
     );
   };
-
-  console.log('Notifications is', notifications, 'current page', page);
-
 
   return (
     <EngagespotProvider

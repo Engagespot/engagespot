@@ -26,5 +26,6 @@ And finally, to run the preview do
 
 ## Versioning and Publishing
 
-
+Use `lerna publish [major | minor | patch prerelease]` to publish a version
+Lerna will compare changes with the previous versions and only publishes the packages which have the changes.
 

@@ -11,7 +11,7 @@ export default class NotificationList implements NotificationList {
   itemsPerPage: number;
   totalPages: number;
 
-  data: NotificationItem[];
+  data: Notification[];
 
   /**
    * Constructor, Initializes NotificationList with an Empty List
@@ -34,6 +34,9 @@ export default class NotificationList implements NotificationList {
    * @returns
    */
   async fetch(page = 1, itemsPerPage = 15) {
+    this.currentPage = page;
+    this.itemsPerPage = itemsPerPage;
+
     const options: apiRequestOptions = {
       url:
         this.client.baseURL +
@@ -56,8 +59,6 @@ export default class NotificationList implements NotificationList {
 
     this.unreadCount = response.unreadCount;
     this.totalCount = response.pagination.totalCount;
-    this.currentPage = page;
-    this.itemsPerPage = itemsPerPage;
     this.totalPages = Math.ceil(this.totalCount / this.itemsPerPage);
 
     //Set the Unread Properties of JSCore Instance after fetch

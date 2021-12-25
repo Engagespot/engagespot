@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import {
   FeedItemStyled,
@@ -15,24 +15,22 @@ import {
   FeedItemHeaderPlaceholder,
   PlaceholderAnimation,
 } from './NotificationFeedItem.styled';
-
 import { DropdownMenu } from '../dropdownMenu';
-
 import { Circle as FeedItemReadDot } from '../icons/Circle';
-import { AVATAR_PLACEHOLDER } from '../../constants';
 
 export interface NotificationFeedItemProps {
   heading: string;
   description: string;
   imageUrl: string;
   read: boolean;
-  clickable: boolean;
+  clickableUrl: string;
   time: string;
   id: string;
+  clickedAt?: string;
   placeholderImage: string;
+  markAsClicked: () => unknown;
+  deleteNotification: () => unknown;
 }
-
-const dropDownItems = ['Mark as Read', 'Delete'];
 
 export function FeedItemPlaceholder({ loaderRef }: any) {
   return (
@@ -71,13 +69,20 @@ export function NotificationFeedItem({
   heading,
   description,
   imageUrl,
-  clickable,
+  clickableUrl,
   placeholderImage,
   read,
   time,
+  id,
+  markAsClicked,
+  deleteNotification,
 }: NotificationFeedItemProps) {
   const [isMenuVisible, setMenuVisibility] = useState(false);
   const [isImageBroken, setImageBroken] = useState(false);
+  const [isNotificationClicked, setNotificationClicked] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const dropDownItems = [{ name: 'Delete', action: deleteNotification }];
 
   const onItemEnter = () => {
     setMenuVisibility(true);
@@ -87,13 +92,23 @@ export function NotificationFeedItem({
     setMenuVisibility(false);
   };
 
+  const onClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (dropdownRef.current?.contains(event.target as Node)) {
+      return;
+    }
+    setNotificationClicked(true);
+    markAsClicked();
+    window.open(clickableUrl, '__blank');
+  };
+
   return (
     <FeedItemStyled
-      clickable={clickable}
+      clickable={clickableUrl != null}
       onMouseEnter={onItemEnter}
       onMouseLeave={onItemLeave}
       onFocus={onItemEnter}
       onBlur={onItemLeave}
+      onClick={onClick}
     >
       <FeedItemImage
         src={isImageBroken ? placeholderImage : imageUrl}
@@ -106,9 +121,13 @@ export function NotificationFeedItem({
         <FeedItemDescription>{description}</FeedItemDescription>
         <FeedItemTimeAgo>{time}</FeedItemTimeAgo>
       </FeedItemTextContent>
-      <FeedItemMenu>
-        <DropdownMenu items={dropDownItems} isVisible={isMenuVisible} />
-        {!read ? <FeedItemReadDot /> : null}
+      <FeedItemMenu ref={dropdownRef}>
+        <DropdownMenu
+          items={dropDownItems}
+          isVisible={isMenuVisible}
+          notificationId={id}
+        />
+        {!read && !isNotificationClicked ? <FeedItemReadDot /> : null}
       </FeedItemMenu>
     </FeedItemStyled>
   );

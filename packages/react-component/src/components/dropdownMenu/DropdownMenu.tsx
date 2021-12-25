@@ -10,11 +10,16 @@ import {
 import { Ellipsis as MoreIcon } from '../icons/Ellipsis';
 
 export interface DropdownMenuProps {
-  items: string[];
+  items: { name: string; action: () => unknown }[];
   isVisible: boolean;
+  notificationId: string;
 }
 
-export function DropdownMenu({ items = [], isVisible }: DropdownMenuProps) {
+export function DropdownMenu({
+  items = [],
+  isVisible,
+  notificationId,
+}: DropdownMenuProps) {
   const [visible, setVisibility] = useState(false);
   const referenceRef = useRef<HTMLButtonElement>(null);
   const popperRef = useRef<HTMLDivElement>(null);
@@ -46,7 +51,10 @@ export function DropdownMenu({ items = [], isVisible }: DropdownMenuProps) {
   }, []);
 
   function handleDocumentClick(event: MouseEvent) {
-    if (referenceRef.current?.contains(event.target as Node)) {
+    const targetEl = event.target as HTMLElement;
+    if (targetEl.dataset.id == notificationId) {
+      items.find(item => item.name == targetEl.dataset.name)?.action();
+    } else if (referenceRef.current?.contains(event.target as Node)) {
       return;
     }
     setVisibility(false);
@@ -73,7 +81,15 @@ export function DropdownMenu({ items = [], isVisible }: DropdownMenuProps) {
       >
         <DropdownMenuContainer style={styles.offset} visible={visible}>
           {items.map(item => {
-            return <DropdownMenuItem key={item}>{item}</DropdownMenuItem>;
+            return (
+              <DropdownMenuItem
+                key={item.name}
+                data-name={item.name}
+                data-id={notificationId}
+              >
+                {item.name}
+              </DropdownMenuItem>
+            );
           })}
         </DropdownMenuContainer>
       </DropdownOverlay>
