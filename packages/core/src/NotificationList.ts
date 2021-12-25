@@ -83,4 +83,30 @@ export default class NotificationList implements NotificationList {
 
     return this;
   }
+
+  /**
+   * Marks all notifications as seen
+   */
+  async markAllAsSeen() {
+
+    const options: apiRequestOptions = {
+      url:
+        this.client.baseURL +
+        '/markAllNotificationsAsSeen',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-ENGAGESPOT-API-KEY': this.client.apiKey,
+        'X-ENGAGESPOT-USER-ID': this.client.userId,
+        ...(this.client.userSignature && {
+          'X-ENGAGESPOT-USER-SIGNATURE': this.client.userSignature,
+        }),
+      },
+    };
+
+    const response = await sendRequest(options);
+
+    return this;
+
+  }
 }

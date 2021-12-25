@@ -73,9 +73,20 @@ const notifications = notificationList.data
 ```
 This returns `NotificationItem[]`
 
+### Marking all Items in the list as Seen
+```javascript
+notificationList.markAllAsSeen()
+```
+
 ## NotificationItem
 
 `NotificationItem` represents a single Notification entity.
+
+### Fetch a Notification (Also Marks it as Seen)
+
+```javascript
+notificationItem.fetch()
+```
 
 ### Mark a Notification as Clicked
 
