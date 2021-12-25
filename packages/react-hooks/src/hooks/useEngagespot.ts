@@ -107,8 +107,12 @@ export function useEngagespot({
     );
 
     engagespotInstance.onNotificationDelete((notificationId: any) => {
-      console.log('Notification deleted', notificationId);
-      return {};
+      setNotifications(({ data: previousData, ...oldNotifications }) => {
+        return {
+          ...oldNotifications,
+          data: previousData.filter(data => data.id !== notificationId),
+        };
+      });
     });
   }, [engagespotInstance]);
 
