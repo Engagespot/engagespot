@@ -92,7 +92,7 @@ export default class NotificationList implements NotificationList {
     const options: apiRequestOptions = {
       url:
         this.client.baseURL +
-        '/markAllNotificationsAsSeen',
+        '/notifications/markAllNotificationsAsSeen',
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
