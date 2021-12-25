@@ -326,6 +326,12 @@ export default class Engagespot {
         listener(message.data.notification.id);
       });
     }
+
+    if(message.name === 'NOTIFICATION_CLICKED'){
+      this.eventListenerStore.NOTIFICATION_CLICKED.forEach( (listener) => {
+        listener(message.data.notification);
+      });
+    }
   
   }
 

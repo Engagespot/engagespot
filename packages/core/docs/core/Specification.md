@@ -116,7 +116,7 @@ engagespot.onNotificationClick = (notification) => {
 This event is triggered whenever a notification is deleted.
 
 ```javascript
-engagespot.onRealtimeNotificationDelete = (notification) => {
+engagespot.onNotificationDelete = (notification) => {
   //notification object has the details of notification
 }
 ```
