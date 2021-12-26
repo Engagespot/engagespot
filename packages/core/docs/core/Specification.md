@@ -109,8 +109,8 @@ As of now, the following events can be subscribed.
 This event is triggered whenever a notification is received.
 
 ```javascript
-engagespot.onRealtimeNotificationRecieve = (notification) => {
-  //notification object has the details of notification
+engagespot.onRealtimeNotificationRecieve = (notification: NotificationItem) => {
+  
 }
 ```
 
@@ -118,8 +118,8 @@ engagespot.onRealtimeNotificationRecieve = (notification) => {
 This event is triggered whenever a notification is clicked.
 
 ```javascript
-engagespot.onNotificationClick = (notification) => {
-  //notification object has the details of notification
+engagespot.onNotificationClick = (notificationId: number) => {
+  
 }
 ```
 
@@ -127,8 +127,17 @@ engagespot.onNotificationClick = (notification) => {
 This event is triggered whenever a notification is deleted.
 
 ```javascript
-engagespot.onNotificationDelete = (notification) => {
-  //notification object has the details of notification
+engagespot.onNotificationDelete = (notificationId: number) => {
+  
+}
+```
+
+### Notification Seen
+This event is triggered whenever a notification is seen.
+
+```javascript
+engagespot.onNotificationSee = (notificationId: number) => {
+  
 }
 ```
 

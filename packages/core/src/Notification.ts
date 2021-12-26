@@ -32,9 +32,11 @@ export default class Notification implements NotificationItem {
    * @returns 
    */
   async markAsClicked() {
-    this._client.eventListenerStore?.NOTIFICATION_CLICKED.forEach(handler => {
-      handler(this);
-    });
+
+    //Donot publish to eventListeners here. Incorrect implementation. Commenting!
+    // this._client.eventListenerStore?.NOTIFICATION_CLICKED.forEach(handler => {
+    //   handler(this);
+    // });
 
     const options: apiRequestOptions = {
       url: this._client.baseURL + '/notifications/' + this.id + '/click',
@@ -65,9 +67,6 @@ export default class Notification implements NotificationItem {
    * @returns 
    */
   async fetch() {
-    this._client.eventListenerStore?.NOTIFICATION_CLICKED.forEach(handler => {
-      handler(this);
-    });
 
     const options: apiRequestOptions = {
       url: this._client.baseURL + '/notifications/' + this.id,
@@ -111,9 +110,11 @@ export default class Notification implements NotificationItem {
    * @returns
    */
   async delete() {
-    this._client.eventListenerStore?.NOTIFICATION_DELETED.forEach(handler => {
-      handler(this);
-    });
+
+    //Donot publish to eventListeners here. Incorrect implementation. Commenting!
+    // this._client.eventListenerStore?.NOTIFICATION_DELETED.forEach(handler => {
+    //   handler(this);
+    // });
 
     const options: apiRequestOptions = {
       url: this._client.baseURL + '/notifications/' + this.id,
