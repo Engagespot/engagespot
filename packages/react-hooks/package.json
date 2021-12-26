@@ -5,15 +5,17 @@
   "main": "./dist/engagespot-hooks.js",
   "module": "./dist/engagespot-hooks.esm.js",
   "unpkg": "./dist/engagespot-hooks.umd.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/engagespot-hooks.d.ts",
   "amdName": "EngagespotHooks",
   "files": [
     "dist/**/*"
   ],
   "scripts": {
-    "build": "microbundle --jsx React.createElement",
+    "build": "yarn clean && yarn tsc && microbundle --jsx React.createElement && yarn declarations",
     "dev": "microbundle watch --jsx React.createElement",
     "tsc": "tsc",
+    "declarations": "api-extractor run --local --verbose",
+    "clean": "rimraf dist",
     "prepare": "yarn run build",
     "test:dev": "jest --watchAll",
     "test": "cross-env CI=true jest",
@@ -33,9 +35,12 @@
     "react-popper": "^2.2.5"
   },
   "devDependencies": {
+    "@microsoft/api-documenter": "^7.13.77",
+    "@microsoft/api-extractor": "7.19.2",
     "@types/react": "17.0.37",
     "microbundle": "0.14.2",
     "react": "17.0.2",
+    "rimraf": "^3.0.2",
     "ts-jest": "26.5.3",
     "typescript": "4.2.4"
   },

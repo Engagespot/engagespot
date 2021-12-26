@@ -1,3 +1,4 @@
 {
-  "eslint.workingDirectories": ["./*"]
+  "eslint.workingDirectories": ["./*"],
+  "files.associations": { "*.json": "jsonc" }
 }

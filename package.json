@@ -9,6 +9,7 @@
   "scripts": {
     "start": "lerna run --parallel dev",
     "build": "lerna bootstrap && lerna run build",
+    "clean": "lerna run clean && lerna clean",
     "build:examples": "lerna run build:examples",
     "deploy:docs": "netlify deploy --dir=./packages/docs/build",
     "ci": "yarn install --frozen-lockfile",

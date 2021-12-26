@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Fragment } from 'react';
 import { usePopper } from 'react-popper';
 
 import {
@@ -65,7 +65,7 @@ export function DropdownMenu({
   }
 
   return (
-    <>
+    <Fragment>
       <DropdownButton
         aria-label="More"
         ref={referenceRef}
@@ -93,6 +93,6 @@ export function DropdownMenu({
           })}
         </DropdownMenuContainer>
       </DropdownOverlay>
-    </>
+    </Fragment>
   );
 }

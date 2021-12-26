@@ -10,6 +10,7 @@
 **/build/**
 **/dist/**
 **/lib/**
+**/temp/**
 
 # misc
 .DS_Store

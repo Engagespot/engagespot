@@ -4,6 +4,8 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "outDir": "dist",
     "allowJs": true,
+    "declaration": true,
+    "declarationMap": true,
     "noEmit": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -17,11 +19,11 @@
     "isolatedModules": true,
     "jsx": "react-jsx"
   },
-  "include": ["src"],
+  "include": ["**/src"],
   "exclude": [
-    "node_modules",
-    "dist",
-    "examples",
+    "**/node_modules",
+    "**/dist",
+    "**/examples",
     "**/stories",
     "**/*.stories.*",
     "**/*.test.*"

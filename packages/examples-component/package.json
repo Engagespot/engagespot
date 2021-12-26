@@ -14,7 +14,7 @@
   },
   "scripts": {
     "dev": "react-scripts start",
-    "build": "react-scripts build",
+    "build:examples": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -31,6 +31,9 @@
     ]
   },
   "devDependencies": {
-    "eslint-plugin-prettier": "4.0.0"
+    "@microsoft/api-documenter": "^7.13.77",
+    "@microsoft/api-extractor": "^7.19.2",
+    "eslint-plugin-prettier": "4.0.0",
+    "rimraf": "^3.0.2"
   }
 }

@@ -4,15 +4,10 @@
   "useWorkspaces": true,
   "command": {
     "publish": {
-      "ignoreChanges": [
-        "ignored-file",
-        "*.md"
-      ],
-      "message": "chore(release): publish"
+      "ignoreChanges": ["ignored-file", "*.md"],
+      "message": "chore(release): :bookmark publish version"
     },
     "bootstrap": {}
   },
-  "packages": [
-    "packages/*"
-  ]
+  "packages": ["packages/*"]
 }
