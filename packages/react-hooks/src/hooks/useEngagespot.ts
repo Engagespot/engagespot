@@ -30,6 +30,7 @@ export interface UseEngagespotOptions extends Options {
 function initializeNotifications() {
   return {
     data: [] as NotificationItem[],
+    unreadCount: 0,
   };
 }
 
@@ -65,7 +66,21 @@ export function useEngagespot({
   const [notifications, setNotifications] = useState(initializeNotifications);
   const [hasMore, setHasMore] = useState(false);
   const [isValid, setIsValid] = useState(false);
-  const [panelVisibility, togglePanelVisibility] = useState(false);
+  const [panelVisibility, toggleNotificationPanelVisibility] = useState(false);
+  const panelVisibilityRef = useRef<boolean>(false);
+  panelVisibilityRef.current = panelVisibility;
+  const togglePanelVisibility = () => {
+    if (panelVisibilityRef.current) {
+      engagespotInstance.getNotificationList().markAllAsSeen();
+      setNotifications(oldNotifications => {
+        return {
+          ...oldNotifications,
+          unreadCount: 0,
+        };
+      });
+    }
+    toggleNotificationPanelVisibility(visibility => !visibility);
+  };
   const [notificationPermissionState, setNotificationPermissionState] =
     useState(PermissionState.PERMISSION_REQUIRED);
   const { buttonRef, panelRef, arrowRef, styles, attributes, update } =
@@ -75,6 +90,8 @@ export function useEngagespot({
     );
   const { page, loaderRef, containerRef } = useInfiniteScroll({ hasMore });
   const transformDate = dateTransformer(formatDate);
+
+  console.log('notifications ', notifications);
 
   const transformNotification = (notification: Notification) => {
     return {
@@ -101,12 +118,15 @@ export function useEngagespot({
           return {
             ...oldNotifications,
             data: [transformNotification(notificationItem), ...previousData],
+            unreadCount: panelVisibilityRef.current
+              ? oldNotifications.unreadCount
+              : oldNotifications.unreadCount + 1,
           };
         });
       }
     );
 
-    engagespotInstance.onNotificationDelete((notificationId: any) => {
+    engagespotInstance.onNotificationDelete((notificationId: string) => {
       setNotifications(({ data: previousData, ...oldNotifications }) => {
         return {
           ...oldNotifications,
@@ -164,8 +184,10 @@ export function useEngagespot({
     getNotifications();
   }, [page]);
 
+  console.log('panel', panelVisibility);
+
   const onButtonClick = () => {
-    togglePanelVisibility(visibility => !visibility);
+    togglePanelVisibility();
     update?.();
   };
 

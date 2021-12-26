@@ -68,7 +68,13 @@ export function Engagespot({
   const renderButtonAndPanel = () => {
     return (
       <>
-        {!panelOnly && <NotificationButton buttonProps={getButtonProps} />}
+        {!panelOnly && (
+          <NotificationButton
+            buttonProps={getButtonProps}
+            unreadCount={notifications.unreadCount}
+            panelOpen={panelVisibility}
+          />
+        )}
         <NotificationPanel
           visible={panelVisibility}
           panelProps={getPanelProps}

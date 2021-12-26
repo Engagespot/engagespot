@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   NotificationButtonStyled,
   buttonTypes,
@@ -13,11 +12,15 @@ export interface NotificationButtonProps {
    */
   type?: buttonTypes;
   buttonProps: useEngagespotReturnType['getButtonProps'];
+  unreadCount: number;
+  panelOpen: boolean;
 }
 
 export function NotificationButton({
   type = 'normal',
   buttonProps,
+  unreadCount,
+  panelOpen,
 }: NotificationButtonProps) {
   return (
     <NotificationButtonStyled
@@ -25,7 +28,9 @@ export function NotificationButton({
       aria-label="Notifications"
       {...buttonProps?.()}
     >
-      <UnreadBadgeCount count={2} />
+      {unreadCount && !panelOpen ? (
+        <UnreadBadgeCount count={unreadCount} />
+      ) : null}
       <NotificationBellIcon />
     </NotificationButtonStyled>
   );

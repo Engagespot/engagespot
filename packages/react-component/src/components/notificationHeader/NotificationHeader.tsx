@@ -17,7 +17,7 @@ export function NotificationHeader({ label }: NotificationHeaderProps) {
       <NotificationHeaderTextStyled>{label}</NotificationHeaderTextStyled>
       <NotificationHeaderCloseButtonStyled
         onClick={() => {
-          togglePanelVisibility?.(false);
+          togglePanelVisibility?.();
         }}
       >
         &times;
