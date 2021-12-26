@@ -43,6 +43,15 @@ This ensures none of your users can fake their identity!
 | serviceWorkerRegistration | ServiceWorkerRegistration | No | If your website already have a serviceWorker registered, just pass that variable | |
 | endPointOverride | String | No | Can be used for internal testing, to ovveride API Base URL | https://localhost/api/v2 |
 
+## Events
+Engagespot server sends several events to notify core. These events can be subscribed by one or more listener functions.
+
+|       Event        |         Description          | Subscriber Function | Input Passed to Listeners |
+| ------------------ | ---------------------------- | ------------------- | ------------------------- |
+|  NEW_NOTIFICATION  | When a new notification is received | onNotificationReceive | notification: NotificationItem |
+|  NOTIFICATION_SEEN | When a notification is seen by user | onNotificationSee | notificationId: number |
+|  NOTIFICATION_CLICKED | When a notification is clicked | onNotificationClick | notificationId: number |
+|  NOTIFICATION_DELETED | When a notification is deleted | onNotificationDelete | notificationId: number |
 
 ## NotificationList
 Engagespot stores all notifications in a `NotificationList` object. 
