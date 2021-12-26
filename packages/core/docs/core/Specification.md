@@ -43,6 +43,15 @@ This ensures none of your users can fake their identity!
 | serviceWorkerRegistration | ServiceWorkerRegistration | No | If your website already have a serviceWorker registered, just pass that variable | |
 | endPointOverride | String | No | Can be used for internal testing, to ovveride API Base URL | https://localhost/api/v2 |
 
+## Events
+Engagespot server sends several events to notify core. These events can be subscribed by one or more listener functions.
+
+|       Event        |         Description          | Subscriber Function | Input Passed to Listeners |
+| ------------------ | ---------------------------- | ------------------- | ------------------------- |
+|  NEW_NOTIFICATION  | When a new notification is received | onNotificationReceive | notification: NotificationItem |
+|  NOTIFICATION_SEEN | When a notification is seen by user | onNotificationSee | notificationId: number |
+|  NOTIFICATION_CLICKED | When a notification is clicked | onNotificationClick | notificationId: number |
+|  NOTIFICATION_DELETED | When a notification is deleted | onNotificationDelete | notificationId: number |
 
 ## NotificationList
 Engagespot stores all notifications in a `NotificationList` object. 
@@ -109,8 +118,8 @@ As of now, the following events can be subscribed.
 This event is triggered whenever a notification is received.
 
 ```javascript
-engagespot.onRealtimeNotificationRecieve = (notification) => {
-  //notification object has the details of notification
+engagespot.onRealtimeNotificationRecieve = (notification: NotificationItem) => {
+  
 }
 ```
 
@@ -118,8 +127,8 @@ engagespot.onRealtimeNotificationRecieve = (notification) => {
 This event is triggered whenever a notification is clicked.
 
 ```javascript
-engagespot.onNotificationClick = (notification) => {
-  //notification object has the details of notification
+engagespot.onNotificationClick = (notificationId: number) => {
+  
 }
 ```
 
@@ -127,8 +136,17 @@ engagespot.onNotificationClick = (notification) => {
 This event is triggered whenever a notification is deleted.
 
 ```javascript
-engagespot.onNotificationDelete = (notification) => {
-  //notification object has the details of notification
+engagespot.onNotificationDelete = (notificationId: number) => {
+  
+}
+```
+
+### Notification Seen
+This event is triggered whenever a notification is seen.
+
+```javascript
+engagespot.onNotificationSee = (notificationId: number) => {
+  
 }
 ```
 

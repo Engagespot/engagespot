@@ -80,7 +80,8 @@ export default class Engagespot {
   eventListenerStore: EventListenerStore = {
     REALTIME_NOTIFICATION_RECEIVED: [],
     NOTIFICATION_CLICKED: [],
-    NOTIFICATION_DELETED: []
+    NOTIFICATION_DELETED: [],
+    NOTIFICATION_SEEN:[]
   }
 
   /**
@@ -329,7 +330,13 @@ export default class Engagespot {
 
     if(message.name === 'NOTIFICATION_CLICKED'){
       this.eventListenerStore.NOTIFICATION_CLICKED.forEach( (listener) => {
-        listener(message.data.notification);
+        listener(message.data.notification.id);
+      });
+    }
+
+    if(message.name === 'NOTIFICATION_SEEN'){
+      this.eventListenerStore.NOTIFICATION_SEEN.forEach( (listener) => {
+        listener(message.data.notification.id);
       });
     }
   
@@ -571,6 +578,15 @@ export default class Engagespot {
    */
    onNotificationDelete(handler: Function) {
     this.eventListenerStore.NOTIFICATION_DELETED.push(handler);
+    return true;
+  }
+
+  /**
+   * Subscriber function for NOTIFICATION_SEEN
+   * @param handler
+   */
+   onNotificationSee(handler: Function) {
+    this.eventListenerStore.NOTIFICATION_SEEN.push(handler);
     return true;
   }
 
