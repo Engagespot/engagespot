@@ -19,7 +19,7 @@
     "declarations": "api-extractor run --local --verbose",
     "prepare": "yarn run build",
     "test:dev": "jest --watchAll",
-    "test": "cross-env CI=true jest"
+    "test": "jest"
   },
   "keywords": [
     "engagespot",
@@ -32,8 +32,13 @@
   "devDependencies": {
     "@microsoft/api-documenter": "^7.13.77",
     "@microsoft/api-extractor": "^7.19.2",
+    "@testing-library/dom": "^8.11.1",
+    "@types/jest": "^27.0.3",
+    "jest": "^27.4.5",
     "microbundle": "0.14.2",
+    "msw": "^0.36.3",
     "rimraf": "^3.0.2",
+    "ts-jest": "27.1.2",
     "typescript": "4.2.4"
   },
   "dependencies": {
@@ -41,5 +46,10 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "eslintConfig": {
+    "extends": [
+      "../../.eslint.rc.js"
+    ]
   }
 }

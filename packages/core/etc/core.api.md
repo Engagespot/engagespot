@@ -49,6 +49,7 @@ class Engagespot {
     onNotificationClick(handler: Function): boolean;
     onNotificationDelete(handler: Function): boolean;
     onNotificationReceive(handler: Function): boolean;
+    onNotificationSee(handler: Function): boolean;
     // (undocumented)
     publicKey: string;
     // (undocumented)

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1640614771641" clover="3.2.0">
+  <project timestamp="1640614771641" name="All files">
+    <metrics statements="20" coveredstatements="19" conditionals="9" coveredconditionals="8" methods="6" coveredmethods="6" elements="35" coveredelements="33" complexity="0" loc="20" ncloc="20" packages="1" files="1" classes="1"/>
+    <file name="fetch.js" path="/Users/hemandev/engagespot/engagespot/packages/react-component/src/fetch.js">
+      <metrics statements="20" coveredstatements="19" conditionals="9" coveredconditionals="8" methods="6" coveredmethods="6"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="2" count="1" type="stmt"/>
+      <line num="4" count="1" type="stmt"/>
+      <line num="10" count="2" type="cond" truecount="2" falsecount="1"/>
+      <line num="12" count="1" type="stmt"/>
+      <line num="18" count="1" type="stmt"/>
+      <line num="24" count="0" type="stmt"/>
+      <line num="29" count="1" type="stmt"/>
+      <line num="30" count="5" type="stmt"/>
+      <line num="34" count="5" type="stmt"/>
+      <line num="36" count="5" type="stmt"/>
+      <line num="37" count="2" type="stmt"/>
+      <line num="40" count="1" type="stmt"/>
+      <line num="41" count="1" type="stmt"/>
+      <line num="42" count="1" type="stmt"/>
+      <line num="43" count="1" type="stmt"/>
+      <line num="46" count="1" type="stmt"/>
+      <line num="49" count="5" type="cond" truecount="2" falsecount="0"/>
+      <line num="51" count="5" type="stmt"/>
+      <line num="53" count="2" type="stmt"/>
+    </file>
+  </project>
+</coverage>

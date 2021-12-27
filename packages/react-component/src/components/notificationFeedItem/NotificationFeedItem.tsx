@@ -79,7 +79,6 @@ export function NotificationFeedItem({
 }: NotificationFeedItemProps) {
   const [isMenuVisible, setMenuVisibility] = useState(false);
   const [isImageBroken, setImageBroken] = useState(false);
-  const [isNotificationClicked, setNotificationClicked] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const dropDownItems = [{ name: 'Delete', action: deleteNotification }];
@@ -93,10 +92,12 @@ export function NotificationFeedItem({
   };
 
   const onClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (!clickableUrl) {
+      return;
+    }
     if (dropdownRef.current?.contains(event.target as Node)) {
       return;
     }
-    setNotificationClicked(true);
     markAsClicked();
     window.open(clickableUrl, '__blank');
   };
@@ -127,7 +128,7 @@ export function NotificationFeedItem({
           isVisible={isMenuVisible}
           notificationId={id}
         />
-        {!read && !isNotificationClicked ? <FeedItemReadDot /> : null}
+        {!read ? <FeedItemReadDot /> : null}
       </FeedItemMenu>
     </FeedItemStyled>
   );
