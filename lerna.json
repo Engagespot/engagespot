@@ -8,7 +8,7 @@
         "ignored-file",
         "*.md"
       ],
-      "message": "chore(release): :bookmark publish version"
+      "message": "chore(release): 🏷 publish version"
     },
     "bootstrap": {}
   },
