@@ -90,23 +90,42 @@ export function useEngagespot({
     );
   const { page, loaderRef, containerRef } = useInfiniteScroll({ hasMore });
   const transformDate = dateTransformer(formatDate);
-
+  const markNotificationStateAsClicked = (notificationId: string) => {
+    setNotifications(({ data: previousData, ...oldNotifications }) => {
+      return {
+        ...oldNotifications,
+        data: previousData.map(notification => {
+          if (notification.id === notificationId && !notification.clickedAt) {
+            return {
+              ...notification,
+              clickedAt: new Date().toUTCString(),
+            };
+          }
+          return notification;
+        }),
+      };
+    });
+  };
+  const deleteNotificationFromState = (notificationId: string) => {
+    setNotifications(({ data: previousData, ...oldNotifications }) => {
+      return {
+        ...oldNotifications,
+        data: previousData.filter(data => data.id !== notificationId),
+      };
+    });
+  };
   console.log('notifications ', notifications);
 
   const transformNotification = (notification: Notification) => {
     return {
       ...transformDate(notification),
       markAsClicked: () => {
-        return notification.markAsClicked();
+        notification.markAsClicked();
+        markNotificationStateAsClicked(notification.id);
       },
       deleteNotification: () => {
         notification.delete();
-        setNotifications(({ data: previousData, ...oldNotifications }) => {
-          return {
-            ...oldNotifications,
-            data: previousData.filter(data => data.id !== notification.id),
-          };
-        });
+        deleteNotificationFromState(notification.id);
       },
     };
   };
@@ -114,6 +133,7 @@ export function useEngagespot({
   useEffect(() => {
     engagespotInstance.onNotificationReceive(
       (notificationItem: Notification) => {
+        console.log('Notification recieved', notificationItem);
         setNotifications(({ data: previousData, ...oldNotifications }) => {
           return {
             ...oldNotifications,
@@ -127,12 +147,22 @@ export function useEngagespot({
     );
 
     engagespotInstance.onNotificationDelete((notificationId: string) => {
-      setNotifications(({ data: previousData, ...oldNotifications }) => {
-        return {
-          ...oldNotifications,
-          data: previousData.filter(data => data.id !== notificationId),
-        };
-      });
+      deleteNotificationFromState(notificationId);
+    });
+
+    engagespotInstance.onNotificationClick((notificationId: string) => {
+      console.log('Notification clicked', notificationId);
+      markNotificationStateAsClicked(notificationId);
+    });
+
+    engagespotInstance.onNotificationSee((notificationId: string) => {
+      console.log('Notification seen', notificationId);
+      // setNotifications(({ data: previousData, ...oldNotifications }) => {
+      //   return {
+      //     ...oldNotifications,
+      //     data: previousData.filter(data => data.id !== notificationId),
+      //   };
+      // });
     });
   }, [engagespotInstance]);
 

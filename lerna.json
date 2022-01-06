@@ -1,5 +1,5 @@
 {
-  "version": "0.1.1-alpha.3",
+  "version": "0.1.1-alpha.4",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
@@ -8,7 +8,7 @@
         "ignored-file",
         "*.md"
       ],
-      "message": "chore(release): publish"
+      "message": "chore(release): 🏷 publish version"
     },
     "bootstrap": {}
   },

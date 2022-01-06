@@ -1,22 +1,24 @@
 {
   "name": "@engagespot/react-component",
-  "version": "0.1.1-alpha.3",
+  "version": "0.1.1-alpha.4",
   "source": "./src/index.ts",
   "main": "./dist/engagespot-react.js",
   "module": "./dist/engagespot-react.esm.js",
   "unpkg": "./dist/engagespot-react.umd.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/engagespot-react.d.ts",
   "amdName": "EngagespotReact",
   "files": [
     "dist/**/*"
   ],
   "scripts": {
-    "build": "microbundle --jsx React.createElement",
+    "build": "yarn clean && yarn tsc && microbundle --jsx React.createElement && yarn declarations",
     "dev": "microbundle watch --jsx React.createElement",
     "tsc": "tsc",
+    "clean": "rimraf dist",
+    "declarations": "api-extractor run --local --verbose",
     "prepare": "yarn run build",
     "test:dev": "jest --watchAll",
-    "test": "cross-env CI=true jest",
+    "test": "jest",
     "lint:css": "stylelint './src/**/*.js'",
     "build-storybook": "build-storybook",
     "storybook": "start-storybook -p 6006"
@@ -25,7 +27,7 @@
     "react": "^16.8.3 || ^17.0.0-0"
   },
   "dependencies": {
-    "@engagespot/react-hooks": "^0.1.1-alpha.3",
+    "@engagespot/react-hooks": "^0.1.1-alpha.4",
     "@popperjs/core": "^2.9.1",
     "date-fns": "2.27.0",
     "i18next": "19.9.2",
@@ -36,23 +38,33 @@
     "react-i18next": "11.8.10",
     "react-popper": "^2.2.5",
     "react-transition-group": "4.4.1",
-    "styled-components": "^5.2.1"
+    "styled-components": "^5.2.1",
+    "ts-jest": "27.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.16.5",
+    "@microsoft/api-documenter": "^7.13.77",
+    "@microsoft/api-extractor": "^7.19.2",
     "@storybook/addon-actions": "^6.4.9",
     "@storybook/addon-essentials": "^6.4.9",
     "@storybook/addon-links": "^6.4.9",
     "@storybook/react": "^6.4.9",
+    "@testing-library/react": "^12.1.2",
+    "@types/jest": "^27.0.3",
     "@types/lodash.mapkeys": "4.6.6",
     "@types/lodash.merge": "^4.6.6",
     "@types/lodash.throttle": "4.1.6",
     "@types/react-transition-group": "4.4.4",
     "@types/styled-components": "5.1.15",
+    "axios": "^0.24.0",
     "babel-loader": "^8.2.3",
     "cross-env": "7.0.3",
+    "jest": "^27.4.5",
     "microbundle": "0.14.2",
-    "ts-jest": "26.5.3",
+    "msw": "^0.36.3",
+    "node-fetch": "^3.1.0",
+    "rimraf": "^3.0.2",
+    "ts-jest": "27.1.2",
     "tslib": "2.3.1",
     "typescript": "4.2.4"
   },
@@ -70,5 +82,10 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "eslintConfig": {
+    "extends": [
+      "../../.eslint.rc.js"
+    ]
   }
 }

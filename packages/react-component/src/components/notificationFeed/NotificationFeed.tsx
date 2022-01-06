@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Transition } from 'react-transition-group';
 
 import {
@@ -50,12 +50,12 @@ export interface NotificationFeedProps {
 
 const renderPlaceholderContent = (placeholderText: string): React.ReactNode => {
   return (
-    <>
+    <Fragment>
       <NotificationEmptyPlaceholder />
       <NotificationEmptyPlaceholderText>
         {placeholderText}
       </NotificationEmptyPlaceholderText>
-    </>
+    </Fragment>
   );
 };
 

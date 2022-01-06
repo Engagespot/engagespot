@@ -15,4 +15,12 @@ module.exports = {
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
   ],
+  overrides: [
+    {
+      files: ['**/*.test.(js|ts)', '**/*.test.(jsx | tsx)'],
+      env: {
+        jest: true,
+      },
+    },
+  ],
 };

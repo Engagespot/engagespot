@@ -1,3 +1,4 @@
+import React, { Fragment } from 'react';
 import mapKeys from 'lodash.mapkeys';
 import { useEngagespot, UseEngagespotOptions } from '@engagespot/react-hooks';
 
@@ -67,7 +68,7 @@ export function Engagespot({
 
   const renderButtonAndPanel = () => {
     return (
-      <>
+      <Fragment>
         {!panelOnly && (
           <NotificationButton
             buttonProps={getButtonProps}
@@ -84,7 +85,7 @@ export function Engagespot({
             notifications.data ? notifications.data.map(transformFeedItem) : []
           }
         />
-      </>
+      </Fragment>
     );
   };
 
