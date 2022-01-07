@@ -1,6 +1,6 @@
 {
   "name": "docs",
-  "version": "0.1.1-alpha.4",
+  "version": "0.1.1-alpha.5",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
@@ -17,8 +17,8 @@
   "dependencies": {
     "@docusaurus/core": "2.0.0-beta.14",
     "@docusaurus/preset-classic": "2.0.0-beta.14",
-    "@engagespot/react-component": "^0.1.1-alpha.4",
-    "@engagespot/react-hooks": "^0.1.1-alpha.4",
+    "@engagespot/react-component": "^0.1.1-alpha.5",
+    "@engagespot/react-hooks": "^0.1.1-alpha.5",
     "@mdx-js/react": "^1.6.21",
     "clsx": "^1.1.1",
     "prism-react-renderer": "^1.2.1",
