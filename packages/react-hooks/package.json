@@ -1,6 +1,6 @@
 {
   "name": "@engagespot/react-hooks",
-  "version": "0.1.1-alpha.4",
+  "version": "0.1.1-alpha.59+e5e5222",
   "source": "./src/index.ts",
   "main": "./dist/engagespot-hooks.js",
   "module": "./dist/engagespot-hooks.esm.js",
@@ -68,5 +68,6 @@
     "extends": [
       "../../.eslint.rc.js"
     ]
-  }
+  },
+  "gitHead": "e5e52221b7c1ecdc41947b20fd054e8513c59c51"
 }

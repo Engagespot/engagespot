@@ -23,7 +23,7 @@ import { subDays } from 'date-fns';
 export function useEngagespot({ apiKey, userId, formatDate, placementOptions, endPointOverride, ...options }: UseEngagespotOptions): {
     isValid: boolean;
     page: number;
-    togglePanelVisibility: () => void;
+    togglePanelVisibility: (panelUpdateFn?: (visibility: boolean) => boolean) => void;
     panelVisibility: boolean;
     getButtonProps: () => {
         onClick: () => void;
@@ -856,7 +856,7 @@ export interface UseEngagespotOptions extends Options {
 
 // Warnings were encountered during analysis:
 //
-// src/hooks/useEngagespot.ts:57:24 - (ae-forgotten-export) The symbol "useJumpToTop" needs to be exported by the entry point index.d.ts
+// src/hooks/useEngagespot.ts:72:70 - (ae-forgotten-export) The symbol "useJumpToTop" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 

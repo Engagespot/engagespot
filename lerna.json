@@ -6,7 +6,8 @@
     "publish": {
       "ignoreChanges": [
         "ignored-file",
-        "*.md"
+        "*.md",
+        "**/etc/**"
       ],
       "message": "chore(release): 🏷 publish version"
     },

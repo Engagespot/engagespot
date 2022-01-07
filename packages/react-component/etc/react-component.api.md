@@ -6,13 +6,16 @@
 
 /// <reference types="react" />
 
+import { default as React_2 } from 'react';
 import { UseEngagespotOptions } from '@engagespot/react-hooks';
 
 // @public (undocumented)
-export function Engagespot({ theme, mode, apiKey, panelOnly, placeholderImage, userId, ...options }: EngagespotProps): JSX.Element;
+export function Engagespot({ theme, mode, apiKey, panelOnly, placeholderImage, userId, renderNotificationIcon, renderEmptyPlaceholderImage, renderNotificationContent, ...options }: EngagespotProps): JSX.Element;
 
 // @public (undocumented)
 export interface EngagespotProps extends UseEngagespotOptions {
+    // (undocumented)
+    hideNotificationAvatar: boolean;
     // Warning: (ae-forgotten-export) The symbol "Mode" needs to be exported by the entry point index.d.ts
     //
     // (undocumented)
@@ -21,6 +24,18 @@ export interface EngagespotProps extends UseEngagespotOptions {
     panelOnly?: boolean;
     // (undocumented)
     placeholderImage?: string;
+    // Warning: (ae-forgotten-export) The symbol "customPlaceholderContentType" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
+    renderEmptyPlaceholderImage?: customPlaceholderContentType;
+    // Warning: (ae-forgotten-export) The symbol "customNotificationContentType" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
+    renderNotificationContent?: customNotificationContentType;
+    // Warning: (ae-forgotten-export) The symbol "customNotificationIcon" needs to be exported by the entry point index.d.ts
+    //
+    // (undocumented)
+    renderNotificationIcon?: customNotificationIcon;
     // Warning: (ae-forgotten-export) The symbol "ThemeOverrides" needs to be exported by the entry point index.d.ts
     //
     // (undocumented)
