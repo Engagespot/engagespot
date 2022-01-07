@@ -19,9 +19,9 @@ import { JumpToTop } from '../jumpToTop';
 import { useEngagespotContext } from '../engagespotProvider';
 import { PLACEHOLDER_DEFAULT } from '../../constants';
 
-type customPlaceholderContentType = (() => React.ReactNode) | undefined;
+export type customPlaceholderContentType = (() => React.ReactNode) | undefined;
 
-type customNotificationContentType =
+export type customNotificationContentType =
   | ((notification: NotificationFeedItemProps) => React.ReactNode)
   | undefined;
 
@@ -102,8 +102,6 @@ export function NotificationFeed({
     const notificationFeedEl = evt.currentTarget.parentNode?.parentElement;
     jumpToTop?.(notificationFeedEl as HTMLElement);
   }
-
-  console.log('Notifications ', notifications);
 
   return (
     <NotificationFeedStyled

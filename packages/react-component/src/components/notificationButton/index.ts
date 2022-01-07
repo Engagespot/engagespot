@@ -1,2 +1,5 @@
 export { NotificationButton } from './NotificationButton';
-export type { NotificationButtonProps } from './NotificationButton';
+export type {
+  NotificationButtonProps,
+  customNotificationIcon,
+} from './NotificationButton';

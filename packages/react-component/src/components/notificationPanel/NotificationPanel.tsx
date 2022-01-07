@@ -5,7 +5,11 @@ import {
   NotificationPanelArrowStyled,
 } from './NotificationPanel.styled';
 import { NotificationHeader } from '../notificationHeader';
-import { NotificationFeed } from '../notificationFeed';
+import {
+  NotificationFeed,
+  customNotificationContentType,
+  customPlaceholderContentType,
+} from '../notificationFeed';
 import { NotificationFooter } from '../notificationFooter';
 import { NotificationFeedItemProps } from '../notificationFeedItem';
 import { useEngagespotReturnType } from '../engagespot/Engagespot';
@@ -17,6 +21,8 @@ export interface NotificationPanelProps {
   panelProps: useEngagespotReturnType['getPanelProps'];
   arrowProps: useEngagespotReturnType['getArrowProps'];
   panelOffsetProps: useEngagespotReturnType['getPanelOffsetProps'];
+  renderNotificationContent?: customNotificationContentType;
+  renderEmptyPlaceholderImage?: customPlaceholderContentType;
 }
 
 type PanelProps = {
@@ -34,6 +40,8 @@ export function NotificationPanel({
   panelProps,
   arrowProps,
   panelOffsetProps,
+  renderNotificationContent,
+  renderEmptyPlaceholderImage,
   visible = false,
 }: NotificationPanelProps) {
   return (
@@ -44,6 +52,8 @@ export function NotificationPanel({
         <NotificationFeed
           notifications={notifications}
           empty={notifications.length === 0}
+          renderCustomNotificationContent={renderNotificationContent}
+          renderCustomPlaceholderContent={renderEmptyPlaceholderImage}
         />
         <NotificationFooter label="Powered by Engagespot" />
       </NotificationPanelStyled>

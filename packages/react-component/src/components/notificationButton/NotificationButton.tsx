@@ -8,6 +8,8 @@ import { UnreadBadgeCount } from '../unreadBadgeCount';
 import { useEngagespotReturnType } from '../engagespot/Engagespot';
 import { Bell as NotificationBellIcon } from '../icons/Bell';
 
+export type customNotificationIcon = (() => React.ReactNode) | undefined;
+
 export interface NotificationButtonProps {
   /**
    * Type of button
@@ -16,6 +18,7 @@ export interface NotificationButtonProps {
   buttonProps: useEngagespotReturnType['getButtonProps'];
   unreadCount: number;
   panelOpen: boolean;
+  renderNotificationIcon?: customNotificationIcon;
 }
 
 export function NotificationButton({
@@ -23,6 +26,7 @@ export function NotificationButton({
   buttonProps,
   unreadCount,
   panelOpen,
+  renderNotificationIcon,
 }: NotificationButtonProps) {
   return (
     <NotificationButtonStyled
@@ -33,7 +37,11 @@ export function NotificationButton({
       {unreadCount && !panelOpen ? (
         <UnreadBadgeCount count={unreadCount} />
       ) : null}
-      <NotificationBellIcon />
+      {renderNotificationIcon ? (
+        renderNotificationIcon()
+      ) : (
+        <NotificationBellIcon />
+      )}
     </NotificationButtonStyled>
   );
 }

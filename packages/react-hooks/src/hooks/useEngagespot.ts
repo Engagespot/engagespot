@@ -69,7 +69,7 @@ export function useEngagespot({
   const [panelVisibility, toggleNotificationPanelVisibility] = useState(false);
   const panelVisibilityRef = useRef<boolean>(false);
   panelVisibilityRef.current = panelVisibility;
-  const togglePanelVisibility = () => {
+  const togglePanelVisibility = (panelUpdateFn = (visibility: boolean) => !visibility) => {
     if (panelVisibilityRef.current) {
       engagespotInstance.getNotificationList().markAllAsSeen();
       setNotifications(oldNotifications => {
@@ -79,12 +79,13 @@ export function useEngagespot({
         };
       });
     }
-    toggleNotificationPanelVisibility(visibility => !visibility);
+    toggleNotificationPanelVisibility(panelUpdateFn);
   };
   const [notificationPermissionState, setNotificationPermissionState] =
     useState(PermissionState.PERMISSION_REQUIRED);
   const { buttonRef, panelRef, arrowRef, styles, attributes, update } =
     useFloatingNotification(
+      panelVisibility,
       togglePanelVisibility,
       merge(defaultPlacementOptions, placementOptions)
     );
@@ -114,7 +115,6 @@ export function useEngagespot({
       };
     });
   };
-  console.log('notifications ', notifications);
 
   const transformNotification = (notification: Notification) => {
     return {
@@ -133,7 +133,6 @@ export function useEngagespot({
   useEffect(() => {
     engagespotInstance.onNotificationReceive(
       (notificationItem: Notification) => {
-        console.log('Notification recieved', notificationItem);
         setNotifications(({ data: previousData, ...oldNotifications }) => {
           return {
             ...oldNotifications,
@@ -151,19 +150,10 @@ export function useEngagespot({
     });
 
     engagespotInstance.onNotificationClick((notificationId: string) => {
-      console.log('Notification clicked', notificationId);
       markNotificationStateAsClicked(notificationId);
     });
 
-    engagespotInstance.onNotificationSee((notificationId: string) => {
-      console.log('Notification seen', notificationId);
-      // setNotifications(({ data: previousData, ...oldNotifications }) => {
-      //   return {
-      //     ...oldNotifications,
-      //     data: previousData.filter(data => data.id !== notificationId),
-      //   };
-      // });
-    });
+    engagespotInstance.onNotificationSee((notificationId: string) => {});
   }, [engagespotInstance]);
 
   useEffect(() => {
@@ -213,8 +203,6 @@ export function useEngagespot({
 
     getNotifications();
   }, [page]);
-
-  console.log('panel', panelVisibility);
 
   const onButtonClick = () => {
     togglePanelVisibility();

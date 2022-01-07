@@ -4,9 +4,16 @@ import { useEngagespot, UseEngagespotOptions } from '@engagespot/react-hooks';
 
 import { EngagespotProvider } from '../engagespotProvider';
 import { NotificationPanel } from '../notificationPanel';
-import { NotificationButton } from '../notificationButton';
+import {
+  NotificationButton,
+  customNotificationIcon,
+} from '../notificationButton';
 import { ThemeOverrides, Mode } from '../../theme/theme';
 import { NotificationFeedItemProps } from '../notificationFeedItem';
+import {
+  customPlaceholderContentType,
+  customNotificationContentType,
+} from '../notificationFeed';
 import { EngagespotStyled } from './Engagespot.styled';
 
 export type useEngagespotReturnType = ReturnType<typeof useEngagespot>;
@@ -16,6 +23,10 @@ export interface EngagespotProps extends UseEngagespotOptions {
   mode?: Mode;
   panelOnly?: boolean;
   placeholderImage?: string;
+  hideNotificationAvatar: boolean;
+  renderNotificationIcon?: customNotificationIcon;
+  renderEmptyPlaceholderImage?: customPlaceholderContentType;
+  renderNotificationContent?: customNotificationContentType;
 }
 
 const notificationItemResponseMap = {
@@ -51,6 +62,9 @@ export function Engagespot({
   panelOnly = false,
   placeholderImage,
   userId,
+  renderNotificationIcon,
+  renderEmptyPlaceholderImage,
+  renderNotificationContent,
   ...options
 }: EngagespotProps) {
   const {
@@ -74,6 +88,7 @@ export function Engagespot({
             buttonProps={getButtonProps}
             unreadCount={notifications.unreadCount}
             panelOpen={panelVisibility}
+            renderNotificationIcon={renderNotificationIcon}
           />
         )}
         <NotificationPanel
@@ -81,6 +96,8 @@ export function Engagespot({
           panelProps={getPanelProps}
           panelOffsetProps={getPanelOffsetProps}
           arrowProps={getArrowProps}
+          renderNotificationContent={renderNotificationContent}
+          renderEmptyPlaceholderImage={renderEmptyPlaceholderImage}
           notifications={
             notifications.data ? notifications.data.map(transformFeedItem) : []
           }

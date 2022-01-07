@@ -2,7 +2,9 @@ import { Placement } from '@popperjs/core';
 import { useEffect, useRef } from 'react';
 import { usePopper } from 'react-popper';
 
-type panelVisibility = React.Dispatch<React.SetStateAction<boolean>>;
+type panelVisibility = (
+  panelUpdateFn?: (visibility: boolean) => boolean
+) => void;
 
 export interface PlacementOptions {
   placement?: Placement;
@@ -19,6 +21,7 @@ export const defaultPlacementOptions: PlacementOptions = {
 };
 
 export function useFloatingNotification(
+  panelVisibility: boolean,
   togglePanelVisibility: panelVisibility,
   placementOptions: PlacementOptions
 ) {
@@ -27,13 +30,18 @@ export function useFloatingNotification(
   const arrowRef = useRef<HTMLElement>(null);
 
   function handleDocumentClick(event: MouseEvent) {
-    if (
-      panelRef.current?.contains(event.target as Node) ||
-      buttonRef.current?.contains(event.target as Node)
-    ) {
-      return;
-    }
-    togglePanelVisibility(false);
+    togglePanelVisibility(visible => {
+      if (!visible) {
+        return visible;
+      }
+      if (
+        panelRef.current?.contains(event.target as Node) ||
+        buttonRef.current?.contains(event.target as Node)
+      ) {
+        return visible;
+      }
+      return false;
+    });
   }
 
   useEffect(() => {

@@ -28,6 +28,7 @@ const NavList = styled.ul`
   height: 100%;
   display: flex;
   justify-content: flex-start;
+  flex-wrap: wrap;
   align-items: center;
 `;
 
@@ -57,7 +58,6 @@ export function SimpleNotification() {
                 placement: 'auto',
                 enableArrow: true,
               }}
-              mode="dark"
               theme={{
                 notificationButton: {
                   //background: 'transparent',
@@ -65,7 +65,6 @@ export function SimpleNotification() {
               }}
               // placeholderImage='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICAgIDxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjUwIiBmaWxsPSJwYXBheWF3aGlwIiAvPgo8L3N2Zz4='
               // formatDate={(dateString, ) => {
-              //   console.log('Date is ', dateString)
               //   return new Date().toString();
               // }}
               // theme={{
