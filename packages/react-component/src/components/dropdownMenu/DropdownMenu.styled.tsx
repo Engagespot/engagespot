@@ -53,6 +53,7 @@ export const DropdownMenuItem = styled.div`
     cursor: pointer;
     padding: ${dropdown.menuItemPadding};
     align-items: center;
+    font-size:0.9rem;
 
     &:hover {
       background-color: ${dropdown.menuItemHoverBackground};

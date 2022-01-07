@@ -57,7 +57,7 @@ export function SimpleNotification() {
                 placement: 'auto',
                 enableArrow: true,
               }}
-              //mode="dark"
+              mode="dark"
               theme={{
                 notificationButton: {
                   //background: 'transparent',

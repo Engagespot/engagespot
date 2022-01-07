@@ -13,6 +13,7 @@ export const FeedItemStyled = styled.div<{
     border-bottom: ${feedItem.border};
     background: ${feedItem.background};
     font-family: sans-serif;
+    line-height: normal;
     &:hover {
       transition: ${feedItem.hoverTransition};
       background: ${feedItem.hoverBackground};
@@ -38,7 +39,7 @@ export const FeedItemTextContent = styled.div`
     align-items: flex-start;
     padding: ${feedItem.textContentPadding};
     margin: ${feedItem.textContentMargin};
-
+    line-height:normal;
     p,
     h4 {
       margin: 0;

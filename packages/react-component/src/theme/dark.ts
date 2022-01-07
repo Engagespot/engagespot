@@ -13,7 +13,7 @@ export default {
     borderTopLeftRadius: '0',
     borderTopRightRadius: '0',
     arrowSize: '10px',
-    arrowInset: '-5px auto auto 0',
+    arrowInset: '-5px auto auto 0'
   },
   feed: {
     height: '30rem',
@@ -21,7 +21,7 @@ export default {
     placeholderTextSize: '1rem',
     placeholderTextColor: '#888888',
     placeholderMargin: '1rem 0 0 0',
-    placeholderFontWeight: '300',
+    placeholderFontWeight: '300'
   },
   feedItem: {
     height: '30rem',
@@ -38,7 +38,7 @@ export default {
     textContentPadding: '0 .5rem 0 0',
     textContentMargin: '0 auto 0 1.2rem',
     headerFontWeight: '400',
-    headerSize: '1.2rem',
+    headerSize: '1rem',
     headerPadding: '0 0 0.3rem 0',
     headerColor: 'rgb(203, 198, 192)',
     descriptionSize: '0.9rem',
