@@ -53,7 +53,7 @@ export default {
   },
   notificationButton: {
     background: 'transparent',
-    iconFill: 'rgb(157, 148, 136)',
+    iconFill: '#ccc',
     iconSize: '1.5rem',
     outline: 'none',
     margin: '0',

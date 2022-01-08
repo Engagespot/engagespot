@@ -32,7 +32,7 @@ export const NotificationButtonStyled = styled.button<NotificationButtonStyledPr
     svg {
       height: ${notificationButton.iconSize};
       width: ${notificationButton.iconSize};
-      fill: ${notificationButton.iconFill};
+      stroke: ${notificationButton.iconFill};
     }
   `}
 `;
