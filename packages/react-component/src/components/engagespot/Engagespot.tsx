@@ -23,7 +23,8 @@ export interface EngagespotProps extends UseEngagespotOptions {
   mode?: Mode;
   panelOnly?: boolean;
   placeholderImage?: string;
-  hideNotificationAvatar: boolean;
+  hideNotificationAvatar?: boolean;
+  hideJumpToTop?: boolean;
   renderNotificationIcon?: customNotificationIcon;
   renderEmptyPlaceholderImage?: customPlaceholderContentType;
   renderNotificationContent?: customNotificationContentType;
