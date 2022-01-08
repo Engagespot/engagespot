@@ -15,7 +15,7 @@ export function Engagespot({ theme, mode, apiKey, panelOnly, placeholderImage, u
 // @public (undocumented)
 export interface EngagespotProps extends UseEngagespotOptions {
     // (undocumented)
-    hideNotificationAvatar: boolean;
+    hideNotificationAvatar?: boolean;
     // Warning: (ae-forgotten-export) The symbol "Mode" needs to be exported by the entry point index.d.ts
     //
     // (undocumented)

@@ -7,32 +7,34 @@ export interface NotificationButtonStyledProps {
 }
 
 export const NotificationButtonStyled = styled.button<NotificationButtonStyledProps>`
-  ${({ theme: { notificationButton }, buttonType }) => css`
-    display: flex;
-    justify-items: center;
-    align-content: center;
-    box-shadow: ${buttonType === 'floating' &&
-    notificationButton.floatingButtonShadow};
-    border-width: ${notificationButton.borderWidth};
-    border-radius: ${buttonType === 'floating'
-      ? notificationButton.floatingButtonRadius
-      : notificationButton.normalButtonRadius};
-    margin: ${notificationButton.margin};
-    padding: ${notificationButton.padding};
-    box-sizing: border-box;
-    outline: ${notificationButton.outline};
-    user-select: none;
-    cursor: pointer;
-    position: relative;
-    background-color: ${notificationButton.background};
+  && {
+    ${({ theme: { notificationButton }, buttonType }) => css`
+      display: flex;
+      justify-items: center;
+      align-content: center;
+      box-shadow: ${buttonType === 'floating' &&
+      notificationButton.floatingButtonShadow};
+      border-width: ${notificationButton.borderWidth};
+      border-radius: ${buttonType === 'floating'
+        ? notificationButton.floatingButtonRadius
+        : notificationButton.normalButtonRadius};
+      margin: ${notificationButton.margin};
+      padding: ${notificationButton.padding};
+      box-sizing: border-box;
+      outline: ${notificationButton.outline};
+      user-select: none;
+      cursor: pointer;
+      position: relative;
+      background-color: ${notificationButton.background};
 
-    &:hover {
-    }
+      &:hover {
+      }
 
-    svg {
-      height: ${notificationButton.iconSize};
-      width: ${notificationButton.iconSize};
-      fill: ${notificationButton.iconFill};
-    }
-  `}
+      svg {
+        height: ${notificationButton.iconSize};
+        width: ${notificationButton.iconSize};
+        fill: ${notificationButton.iconFill};
+      }
+    `}
+  }
 `;
