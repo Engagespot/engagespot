@@ -31,6 +31,7 @@ export const EngagespotStyled = styled.div`
     vertical-align: baseline;
     line-height: normal;
     text-align: left;
+    box-sizing: border-box;
   }
 
   a {
@@ -43,4 +44,5 @@ export const EngagespotStyled = styled.div`
     padding: 5px;
     cursor: pointer;
   }
+  
 `;

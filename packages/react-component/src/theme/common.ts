@@ -71,7 +71,7 @@ export default {
   header: {
     fontSize: '1.2rem',
     fontWeight: '400',
-    height: '2.5rem',
+    height: '3rem',
     padding: '0.5rem 1rem',
     closeButtonOutline: 'none',
     closeButtonPadding: '5px',
@@ -80,7 +80,7 @@ export default {
   },
   footer: {
     fontWeight: '400',
-    height: '2.5rem',
+    height: '3rem',
     padding: '0.5rem 1rem',
     fontSize: '0.9rem',
     linkMargin: '0 0.5rem 0 0',

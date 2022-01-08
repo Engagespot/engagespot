@@ -6,7 +6,7 @@ export const NotificationFeedStyled = styled.div<{ empty: boolean }>`
     position: relative;
     flex: 1;
     flex-direction: column;
-    overflow-y: scroll;
+    overflow-y: auto;
     height: ${({ theme }) => theme.feed.height};
     align-items: ${({ empty }) => (empty ? 'center' : 'stretch')};
     justify-content: ${({ empty }) => (empty ? 'center' : 'flex-start')};
