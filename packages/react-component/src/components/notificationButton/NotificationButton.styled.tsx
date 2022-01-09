@@ -30,11 +30,10 @@ export const NotificationButtonStyled = styled.button<NotificationButtonStyledPr
       &:hover {
       }
 
-      svg {
-        height: ${notificationButton.iconSize};
-        width: ${notificationButton.iconSize};
-        fill: ${notificationButton.iconFill};
-      }
-    `}
-  }
+    svg {
+      height: ${notificationButton.iconSize};
+      width: ${notificationButton.iconSize};
+      stroke: ${notificationButton.iconFill};
+    }
+  `}
 `;
