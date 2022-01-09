@@ -36,7 +36,7 @@ const notificationItemResponseMap = {
   icon: 'imageUrl',
   url: 'clickableUrl',
   id: 'id',
-  createdAt: 'time',
+  created: 'time',
   clickedAt: 'clickedAt',
   markAsClicked: 'markAsClicked',
   deleteNotification: 'deleteNotification',

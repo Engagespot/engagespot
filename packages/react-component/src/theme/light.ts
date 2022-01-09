@@ -25,7 +25,7 @@ export default {
   },
   notificationButton: {
     background: 'transparent',
-    iconFill: '#888888',
+    iconFill: '#fff',
     floatingButtonShadow:
       '0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)',
   },

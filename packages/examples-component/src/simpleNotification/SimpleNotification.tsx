@@ -60,7 +60,6 @@ export function SimpleNotification() {
               }}
               mode="light"
               theme={{
-          
                 notificationButton: {
                   // iconFill: '#000',
                 },

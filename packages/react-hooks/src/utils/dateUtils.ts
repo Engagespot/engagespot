@@ -12,21 +12,18 @@ export const defaultDateFormatter = (dateString: string) => {
   });
 };
 
-export function dateTransformer(dateFormatter: DateFormat) {
-  return (notificationItem: NotificationItem) => {
-    return {
-      ...notificationItem,
-      createdAt: dateFormatter(
-        notificationItem?.createdAt ?? '',
-        dateFunctions
-      ),
-    };
-  };
-}
-
 export const dateFunctions = {
   format,
   formatDistance,
   formatRelative,
   subDays,
 };
+
+export function dateTransformer(dateFormatter: DateFormat) {
+  return (notificationItem: NotificationItem) => {
+    return {
+      ...notificationItem,
+      created: dateFormatter(notificationItem?.createdAt ?? '', dateFunctions),
+    };
+  };
+}

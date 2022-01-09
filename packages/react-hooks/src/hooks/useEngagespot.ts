@@ -63,18 +63,22 @@ export function useEngagespot({
     });
   }
   const engagespotInstance = engagespotRef.current;
+  const transformDate = dateTransformer(formatDate);
   const [notifications, setNotifications] = useState(initializeNotifications);
   const [hasMore, setHasMore] = useState(false);
   const [isValid, setIsValid] = useState(false);
   const [panelVisibility, toggleNotificationPanelVisibility] = useState(false);
   const panelVisibilityRef = useRef<boolean>(false);
   panelVisibilityRef.current = panelVisibility;
-  const togglePanelVisibility = (panelUpdateFn = (visibility: boolean) => !visibility) => {
-    if (panelVisibilityRef.current) {
+  const togglePanelVisibility = (
+    panelUpdateFn = (visibility: boolean) => !visibility
+  ) => {
+    if (!panelVisibilityRef.current) {
       engagespotInstance.getNotificationList().markAllAsSeen();
       setNotifications(oldNotifications => {
         return {
           ...oldNotifications,
+          data: oldNotifications.data.map(transformDate),
           unreadCount: 0,
         };
       });
@@ -84,13 +88,8 @@ export function useEngagespot({
   const [notificationPermissionState, setNotificationPermissionState] =
     useState(PermissionState.PERMISSION_REQUIRED);
   const { buttonRef, panelRef, arrowRef, styles, attributes, update } =
-    useFloatingNotification(
-      panelVisibility,
-      togglePanelVisibility,
-      merge(defaultPlacementOptions, placementOptions)
-    );
+    useFloatingNotification(merge(defaultPlacementOptions, placementOptions));
   const { page, loaderRef, containerRef } = useInfiniteScroll({ hasMore });
-  const transformDate = dateTransformer(formatDate);
   const markNotificationStateAsClicked = (notificationId: string) => {
     setNotifications(({ data: previousData, ...oldNotifications }) => {
       return {
@@ -129,6 +128,26 @@ export function useEngagespot({
       },
     };
   };
+
+  function handleDocumentClick(event: MouseEvent) {
+    if (
+      panelRef.current?.contains(event.target as Node) ||
+      buttonRef.current?.contains(event.target as Node)
+    ) {
+      return;
+    }
+    if (panelVisibilityRef.current) {
+      togglePanelVisibility();
+    }
+  }
+
+  useEffect(() => {
+    // listen for clicks and close dropdown on body
+    document.addEventListener('mousedown', handleDocumentClick);
+    return () => {
+      document.removeEventListener('mousedown', handleDocumentClick);
+    };
+  }, []);
 
   useEffect(() => {
     engagespotInstance.onNotificationReceive(

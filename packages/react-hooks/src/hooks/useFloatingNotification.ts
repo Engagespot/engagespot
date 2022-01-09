@@ -1,10 +1,6 @@
 import { Placement } from '@popperjs/core';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { usePopper } from 'react-popper';
-
-type panelVisibility = (
-  panelUpdateFn?: (visibility: boolean) => boolean
-) => void;
 
 export interface PlacementOptions {
   placement?: Placement;
@@ -20,37 +16,10 @@ export const defaultPlacementOptions: PlacementOptions = {
   offset: [0, 10],
 };
 
-export function useFloatingNotification(
-  panelVisibility: boolean,
-  togglePanelVisibility: panelVisibility,
-  placementOptions: PlacementOptions
-) {
+export function useFloatingNotification(placementOptions: PlacementOptions) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLElement>(null);
   const arrowRef = useRef<HTMLElement>(null);
-
-  function handleDocumentClick(event: MouseEvent) {
-    togglePanelVisibility(visible => {
-      if (!visible) {
-        return visible;
-      }
-      if (
-        panelRef.current?.contains(event.target as Node) ||
-        buttonRef.current?.contains(event.target as Node)
-      ) {
-        return visible;
-      }
-      return false;
-    });
-  }
-
-  useEffect(() => {
-    // listen for clicks and close dropdown on body
-    document.addEventListener('mousedown', handleDocumentClick);
-    return () => {
-      document.removeEventListener('mousedown', handleDocumentClick);
-    };
-  }, []);
 
   const { styles, attributes, update } = usePopper(
     buttonRef.current,
