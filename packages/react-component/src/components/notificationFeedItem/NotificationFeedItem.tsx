@@ -118,8 +118,10 @@ export function NotificationFeedItem({
         }}
       />
       <FeedItemTextContent>
-        <FeedItemHeader>{heading}</FeedItemHeader>
-        <FeedItemDescription>{description}</FeedItemDescription>
+        <FeedItemHeader dangerouslySetInnerHTML={{ __html: heading }} />
+        <FeedItemDescription
+          dangerouslySetInnerHTML={{ __html: description }}
+        />
         <FeedItemTimeAgo>{time}</FeedItemTimeAgo>
       </FeedItemTextContent>
       <FeedItemMenu ref={dropdownRef}>
