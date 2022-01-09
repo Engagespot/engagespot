@@ -6,15 +6,28 @@ import darkTheme from './dark';
 import common from './common';
 
 export type Mode = 'light' | 'dark' | 'auto';
-export type Theme = typeof lightTheme & typeof common;
+export type SystemTheme = 'light' | 'dark';
+type ColorTheme = typeof lightTheme;
+export type Theme = ColorTheme & typeof common;
 export type ThemeOverrides = DeepPartial<Theme>;
+
+type Themes = {
+  [k in Mode]: ColorTheme;
+};
+
+const themes: Themes = {
+  auto: lightTheme,
+  light: lightTheme,
+  dark: darkTheme,
+};
 
 export function getTheme(
   mode: Mode = 'light',
-  themeOverrides: ThemeOverrides = {}
+  themeOverrides: ThemeOverrides = {},
+  systemTheme: SystemTheme
 ) {
-  let theme = lightTheme;
-  if (mode === 'dark') {
+  let theme = themes[mode];
+  if (mode === 'auto' && systemTheme === 'dark') {
     theme = darkTheme;
   }
   theme = merge(theme, common);

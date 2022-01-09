@@ -16,11 +16,13 @@ import {
   useFloatingNotification,
 } from './useFloatingNotification';
 import { useInfiniteScroll } from './useInfiniteScroll';
+import { useSystemDarkTheme } from './useSystemDarkTheme';
 import {
   dateFunctions,
   defaultDateFormatter,
   dateTransformer,
 } from '../utils/dateUtils';
+import { breakpointMobile, preferDarkQuery } from '../utils/mediaQuery';
 
 export interface UseEngagespotOptions extends Options {
   apiKey: string;
@@ -42,7 +44,7 @@ function getEngagespotClient(
 ) {
   const engagespotClient = new EngagespotCore(apiKey, {
     ...options,
-    userId
+    userId,
   });
   return engagespotClient;
 }
@@ -62,7 +64,7 @@ export function useEngagespot({
       ...options,
     });
   }
-  const isMobile = useMedia('(max-width: 768px)');
+  const isMobile = useMedia(breakpointMobile);
   const engagespotInstance = engagespotRef.current;
   const transformDate = dateTransformer(formatDate);
   const [notifications, setNotifications] = useState(initializeNotifications);
@@ -89,7 +91,10 @@ export function useEngagespot({
   const [notificationPermissionState, setNotificationPermissionState] =
     useState(PermissionState.PERMISSION_REQUIRED);
   const { buttonRef, panelRef, arrowRef, styles, attributes, update } =
-    useFloatingNotification(merge(defaultPlacementOptions, placementOptions), isMobile);
+    useFloatingNotification(
+      merge(defaultPlacementOptions, placementOptions),
+      isMobile
+    );
   const { page, loaderRef, containerRef } = useInfiniteScroll({ hasMore });
   const markNotificationStateAsClicked = (notificationId: string) => {
     setNotifications(({ data: previousData, ...oldNotifications }) => {
@@ -258,6 +263,7 @@ export function useEngagespot({
     isValid,
     page,
     isMobile,
+    useSystemDarkTheme,
     togglePanelVisibility,
     panelVisibility,
     getButtonProps,

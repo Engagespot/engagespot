@@ -79,8 +79,11 @@ export function Engagespot({
     getPanelOffsetProps,
     togglePanelVisibility,
     useJumpToTop,
-    isMobile
+    isMobile,
+    useSystemDarkTheme,
   } = useEngagespot({ apiKey, userId, ...options });
+
+  const systemDarkThemeEnabled = useSystemDarkTheme();
 
   const renderButtonAndPanel = () => {
     return (
@@ -111,6 +114,7 @@ export function Engagespot({
   return (
     <EngagespotProvider
       theme={theme}
+      systemTheme={systemDarkThemeEnabled ? 'dark' : 'light'}
       mode={mode}
       state={{
         panelVisibility,
@@ -118,7 +122,7 @@ export function Engagespot({
         togglePanelVisibility,
         useJumpToTop,
         scroll,
-        isMobile
+        isMobile,
       }}
     >
       <EngagespotStyled>{isValid && renderButtonAndPanel()}</EngagespotStyled>

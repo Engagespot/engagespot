@@ -59,7 +59,7 @@ export function SimpleNotification() {
                 placement: 'auto',
                 enableArrow: true,
               }}
-              mode="light"
+              mode="auto"
               theme={{
                 notificationButton: {
                   // iconFill: '#000',

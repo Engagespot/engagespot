@@ -1,11 +1,12 @@
 import React, { createContext, useContext } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { getTheme, Mode, ThemeOverrides } from '../../theme/theme';
+import { getTheme, Mode, SystemTheme, ThemeOverrides } from '../../theme/theme';
 import { useEngagespot } from '@engagespot/react-hooks';
 
 export interface EngagespotProviderProps {
   mode?: Mode;
   theme?: ThemeOverrides;
+  systemTheme: SystemTheme;
   state: object;
   children: React.ReactNode;
 }
@@ -24,12 +25,15 @@ export const useEngagespotContext = () => {
 export function EngagespotProvider({
   theme,
   mode,
+  systemTheme,
   state,
   children,
 }: EngagespotProviderProps) {
   return (
     <EngagespotContext.Provider value={state}>
-      <ThemeProvider theme={getTheme(mode, theme)}>{children}</ThemeProvider>
+      <ThemeProvider theme={getTheme(mode, theme, systemTheme)}>
+        {children}
+      </ThemeProvider>
     </EngagespotContext.Provider>
   );
 }

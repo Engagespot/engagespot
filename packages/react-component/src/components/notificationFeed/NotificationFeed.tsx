@@ -99,8 +99,6 @@ export function NotificationFeed({
   const { placeholderImage = PLACEHOLDER_DEFAULT } = engagespotContext;
   const isMobile = engagespotContext.isMobile || false;
 
-
-  console.log('ismob', isMobile)
   function onJumpToTopClick(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) {
