@@ -370,7 +370,10 @@ export default class Engagespot {
   async httpsWebPushSubscribe() {
     await this._resolveInstanceState();
 
-    this.checkWebPushSupport();
+    if(!this.isWebPushSupported()){
+      this._log("Web push is not supported in this browser")
+      return;
+    }
 
     //Check permission state
     const permissionState = await this.getWebPushRegistrationState();
@@ -393,6 +396,10 @@ export default class Engagespot {
 
     this._log('getServiceWorkerRegistration called');
 
+    if(!this.isWebPushSupported()){
+      this._log("Web push is not supported in this browser")
+      return null;
+    }
     // Check is the service-worker.js file exists
     const serviceWorkerExists = await fetch(this.SERVICE_WORKER_URL);
     if (serviceWorkerExists.status !== 200) {
@@ -459,19 +466,10 @@ export default class Engagespot {
   /**
    * Check if the current browser supports WebPush
    */
-  checkWebPushSupport() {
-    if (!('serviceWorker' in navigator)) {
-      throw new Error(
-        'Engagespot Web Push is not support in this browser (Service Workers not supported)'
-      );
-    }
-
-    if (!('PushManager' in window)) {
-      throw new Error(
-        'Engagespot Web Push is not support in this browser (Service Workers not supported)'
-      );
-    }
-  }
+   isWebPushSupported = () =>
+   'Notification' in window &&
+   'serviceWorker' in navigator &&
+   'PushManager' in window
 
   /**
    *

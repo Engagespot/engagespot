@@ -54,13 +54,11 @@ export function useEngagespot({
   userId,
   formatDate = defaultDateFormatter,
   placementOptions = defaultPlacementOptions,
-  endPointOverride = 'https://api.staging.engagespot.co/v3/',
   ...options
 }: UseEngagespotOptions) {
   const engagespotRef = useRef<EngagespotCore | null>(null);
   if (engagespotRef.current == null) {
     engagespotRef.current = getEngagespotClient(apiKey, userId, {
-      endPointOverride,
       ...options,
     });
   }
