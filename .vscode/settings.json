@@ -1,4 +1,9 @@
 {
   "eslint.workingDirectories": ["./*"],
-  "files.associations": { "*.json": "jsonc" }
+  "files.associations": {
+    "*.json": "jsonc"
+  },
+  "conventionalCommits.scopes": [
+    "react-hooks"
+  ]
 }
