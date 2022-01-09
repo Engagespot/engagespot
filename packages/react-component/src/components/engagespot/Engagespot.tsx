@@ -79,6 +79,7 @@ export function Engagespot({
     getPanelOffsetProps,
     togglePanelVisibility,
     useJumpToTop,
+    isMobile
   } = useEngagespot({ apiKey, userId, ...options });
 
   const renderButtonAndPanel = () => {
@@ -117,6 +118,7 @@ export function Engagespot({
         togglePanelVisibility,
         useJumpToTop,
         scroll,
+        isMobile
       }}
     >
       <EngagespotStyled>{isValid && renderButtonAndPanel()}</EngagespotStyled>

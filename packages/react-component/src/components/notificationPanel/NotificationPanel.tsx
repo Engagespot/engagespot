@@ -18,6 +18,7 @@ export interface NotificationPanelProps {
   notifications: NotificationFeedItemProps[];
   visible: boolean;
   panelType?: 'normal' | 'floating';
+  hideFooter?: boolean;
   panelProps: useEngagespotReturnType['getPanelProps'];
   arrowProps: useEngagespotReturnType['getArrowProps'];
   panelOffsetProps: useEngagespotReturnType['getPanelOffsetProps'];
@@ -40,6 +41,7 @@ export function NotificationPanel({
   panelProps,
   arrowProps,
   panelOffsetProps,
+  hideFooter = false,
   renderNotificationContent,
   renderEmptyPlaceholderImage,
   visible = false,
@@ -55,7 +57,7 @@ export function NotificationPanel({
           renderCustomNotificationContent={renderNotificationContent}
           renderCustomPlaceholderContent={renderEmptyPlaceholderImage}
         />
-        <NotificationFooter label="Powered by Engagespot" />
+        {!hideFooter && <NotificationFooter label="Powered by Engagespot" />}
       </NotificationPanelStyled>
     </NotificationPanelPopper>
   );

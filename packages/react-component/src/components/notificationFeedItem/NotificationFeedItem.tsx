@@ -28,6 +28,7 @@ export interface NotificationFeedItemProps {
   id: string;
   clickedAt?: string;
   placeholderImage: string;
+  isMobile?: boolean;
   markAsClicked: () => unknown;
   deleteNotification: () => unknown;
 }
@@ -74,6 +75,7 @@ export function NotificationFeedItem({
   read,
   time,
   id,
+  isMobile,
   markAsClicked,
   deleteNotification,
 }: NotificationFeedItemProps) {
@@ -127,10 +129,10 @@ export function NotificationFeedItem({
       <FeedItemMenu ref={dropdownRef}>
         <DropdownMenu
           items={dropDownItems}
-          isVisible={isMenuVisible}
+          isVisible={isMobile || isMenuVisible}
           notificationId={id}
         />
-        {!read ? <FeedItemReadDot /> : null}
+        <FeedItemReadDot style={{ visibility: read ? 'hidden' : 'visible' }} />
       </FeedItemMenu>
     </FeedItemStyled>
   );

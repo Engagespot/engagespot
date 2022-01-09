@@ -16,11 +16,13 @@ export const defaultPlacementOptions: PlacementOptions = {
   offset: [0, 10],
 };
 
-export function useFloatingNotification(placementOptions: PlacementOptions) {
+export function useFloatingNotification(
+  placementOptions: PlacementOptions,
+  isMobile: boolean
+) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLElement>(null);
   const arrowRef = useRef<HTMLElement>(null);
-
   const { styles, attributes, update } = usePopper(
     buttonRef.current,
     panelRef.current,
@@ -45,6 +47,26 @@ export function useFloatingNotification(placementOptions: PlacementOptions) {
       ],
     }
   );
+  if (isMobile) {
+    return {
+      buttonRef,
+      panelRef,
+      arrowRef,
+      styles: {
+        popper: {
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          zIndex: 999,
+          width: '100%',
+        },
+        offset: { height: '100vh', width: '100%' },
+        arrow: {},
+      },
+      attributes: { popper: {} },
+      update,
+    };
+  }
 
   return {
     buttonRef,

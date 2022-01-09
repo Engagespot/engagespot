@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import merge from 'lodash.merge';
+import { useMedia } from 'react-use';
 
 import EngagespotCore, {
   Options,
@@ -62,6 +63,7 @@ export function useEngagespot({
       ...options,
     });
   }
+  const isMobile = useMedia('(max-width: 768px)');
   const engagespotInstance = engagespotRef.current;
   const transformDate = dateTransformer(formatDate);
   const [notifications, setNotifications] = useState(initializeNotifications);
@@ -88,7 +90,7 @@ export function useEngagespot({
   const [notificationPermissionState, setNotificationPermissionState] =
     useState(PermissionState.PERMISSION_REQUIRED);
   const { buttonRef, panelRef, arrowRef, styles, attributes, update } =
-    useFloatingNotification(merge(defaultPlacementOptions, placementOptions));
+    useFloatingNotification(merge(defaultPlacementOptions, placementOptions), isMobile);
   const { page, loaderRef, containerRef } = useInfiniteScroll({ hasMore });
   const markNotificationStateAsClicked = (notificationId: string) => {
     setNotifications(({ data: previousData, ...oldNotifications }) => {
@@ -256,6 +258,7 @@ export function useEngagespot({
   return {
     isValid,
     page,
+    isMobile,
     togglePanelVisibility,
     panelVisibility,
     getButtonProps,
