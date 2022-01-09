@@ -16,8 +16,8 @@ export default {
     background: 'white',
     notificationDot: 'green',
     hoverBackground: '#edf4f2',
-    headerColor: '#282c34',
-    descriptionColor: '#686868',
+    headerColor: '#1c1c1c',
+    descriptionColor: '#464646',
     dateColor: '#888888',
     placeHolderBackground: 'rgb(230, 230, 230)',
     placeHolderGradient:
