@@ -62,7 +62,8 @@ const renderPlaceholderContent = (placeholderText: string): React.ReactNode => {
 const renderNotificationContent = (
   notification: NotificationFeedItemProps,
   customRenderer: customNotificationContentType,
-  placeholderImage: string
+  placeholderImage: string,
+  isMobile: boolean
 ): React.ReactNode => {
   return (
     customRenderer?.(notification) || (
@@ -78,6 +79,7 @@ const renderNotificationContent = (
         id={notification.id}
         markAsClicked={notification.markAsClicked}
         deleteNotification={notification.deleteNotification}
+        isMobile={isMobile}
       />
     )
   );
@@ -95,7 +97,10 @@ export function NotificationFeed({
     engagespotContext.useJumpToTop?.() || {};
   const { loaderRef, containerRef, hasMore } = engagespotContext.scroll || {};
   const { placeholderImage = PLACEHOLDER_DEFAULT } = engagespotContext;
+  const isMobile = engagespotContext.isMobile || false;
 
+
+  console.log('ismob', isMobile)
   function onJumpToTopClick(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) {
@@ -131,7 +136,8 @@ export function NotificationFeed({
             return renderNotificationContent(
               notification,
               renderCustomNotificationContent,
-              placeholderImage
+              placeholderImage,
+              isMobile
             );
           })}
           {hasMore && <FeedItemPlaceholder loaderRef={loaderRef} />}
