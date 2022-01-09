@@ -167,24 +167,6 @@ export default class Engagespot {
       this.deviceId = this.createNewDevice();
     }
 
-    if (this.enableWebPush && !this.enableNonHttpsWebPush) {
-
-      this._log('enableNonHttpsWebPush is false');
-
-      if (this.serviceWorkerRegistration) {
-        //If they passed their own serviceWorker, then wait until it's ready.
-        await window.navigator.serviceWorker.ready;
-      } else {
-        // Otherwise just register our own service worker
-        this.serviceWorkerRegistration =
-          await this.getServiceWorkerRegistration();
-      }
-    }else{
-
-      //Just for debugging.
-      this._log('enableNonHttpsWebPush is true');
-    }
-
     return await this.connect();
   }
 
@@ -222,6 +204,29 @@ export default class Engagespot {
     this.hideBranding = response.app.hideBranding;
     this.publicKey = response.app.publicKey;
     this.enableWebPush = response.app.enableWebPush;
+
+    this._log("Response from connect API is given below ")
+    this._log(response);
+
+    //Register Service Worker
+    if (this.enableWebPush && !this.enableNonHttpsWebPush) {
+
+      this._log('enableNonHttpsWebPush is false');
+
+      if (this.serviceWorkerRegistration) {
+        //If they passed their own serviceWorker, then wait until it's ready.
+        await window.navigator.serviceWorker.ready;
+      } else {
+        // Otherwise just register our own service worker
+        this.serviceWorkerRegistration =
+          await this.getServiceWorkerRegistration();
+      }
+    }else{
+
+      //Just for debugging.
+      this._log('enableNonHttpsWebPush is '+this.enableNonHttpsWebPush);
+      this._log('enableWebPush is '+this.enableWebPush);
+    }
 
     //Connect to RTM Server for realtime notifications
     try {
@@ -602,7 +607,7 @@ export default class Engagespot {
  */
   _log(message: string | any){
     if (this.debug) { 
-      console.log(message);
+      console.log("[Engagespot-Core] "+message);
     }
   }
 
