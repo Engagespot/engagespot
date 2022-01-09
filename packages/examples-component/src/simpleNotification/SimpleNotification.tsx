@@ -54,6 +54,7 @@ export function SimpleNotification() {
             <Engagespot
               apiKey="shiynklpz18l3ktqyy6d9a"
               userId="anand"
+              debug={true}
               placementOptions={{
                 placement: 'auto',
                 enableArrow: true,
