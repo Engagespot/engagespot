@@ -22,12 +22,21 @@ import {
   defaultDateFormatter,
   dateTransformer,
 } from '../utils/dateUtils';
-import { breakpointMobile, preferDarkQuery } from '../utils/mediaQuery';
+import { breakpointMobile } from '../utils/mediaQuery';
+import {
+  updateDocumentTitle,
+  defaultTitleUpdateText,
+} from '../utils/documentTitle';
+import { playSound, defaultChimeSrc } from '../utils/chime';
 
 export interface UseEngagespotOptions extends Options {
   apiKey: string;
   formatDate?: (dateString: string, dateFns: typeof dateFunctions) => string;
   placementOptions?: PlacementOptions;
+  disableNotificationChime?: boolean;
+  notificationChimeSrc?: string;
+  disableTitleUpdate?: boolean;
+  titleUpdateText?: string;
 }
 
 function initializeNotifications() {
@@ -54,6 +63,10 @@ export function useEngagespot({
   userId,
   formatDate = defaultDateFormatter,
   placementOptions = defaultPlacementOptions,
+  disableNotificationChime = false,
+  notificationChimeSrc = defaultChimeSrc,
+  disableTitleUpdate = false,
+  titleUpdateText = defaultTitleUpdateText,
   ...options
 }: UseEngagespotOptions) {
   const engagespotRef = useRef<EngagespotCore | null>(null);
@@ -165,6 +178,12 @@ export function useEngagespot({
               : oldNotifications.unreadCount + 1,
           };
         });
+        if (!disableNotificationChime) {
+          playSound(notificationChimeSrc);
+        }
+        if (!disableTitleUpdate) {
+          updateDocumentTitle(titleUpdateText);
+        }
       }
     );
 
