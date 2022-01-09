@@ -54,7 +54,8 @@ export function SimpleNotification() {
             <Engagespot
               apiKey="shiynklpz18l3ktqyy6d9a"
               userId="anand"
-              debug={true}
+              endPointOverride="https://api.staging.engagespot.co/v3/"
+              //debug={true}
               placementOptions={{
                 placement: 'auto',
                 enableArrow: true,
