@@ -41,8 +41,7 @@ function getEngagespotClient(
 ) {
   const engagespotClient = new EngagespotCore(apiKey, {
     ...options,
-    userId,
-    enableNonHttpsWebPush: true,
+    userId
   });
   return engagespotClient;
 }
