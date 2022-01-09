@@ -54,6 +54,11 @@ export default class Engagespot {
   enableNonHttpsWebPush = false;
 
   /**
+   * Whether web push needs to be enabled.
+   */
+  enableWebPush = false;
+
+  /**
    * Unread notifications count.
    */
   unreadCount = 0;
@@ -162,7 +167,7 @@ export default class Engagespot {
       this.deviceId = this.createNewDevice();
     }
 
-    if (!this.enableNonHttpsWebPush) {
+    if (this.enableWebPush && !this.enableNonHttpsWebPush) {
 
       this._log('enableNonHttpsWebPush is false');
 
@@ -216,6 +221,7 @@ export default class Engagespot {
     this.unreadCount = response.unreadCount;
     this.hideBranding = response.app.hideBranding;
     this.publicKey = response.app.publicKey;
+    this.enableWebPush = response.app.enableWebPush;
 
     //Connect to RTM Server for realtime notifications
     try {
