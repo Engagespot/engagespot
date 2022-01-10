@@ -9,7 +9,7 @@ export default {
   },
   feed: {
     background: 'rgb(24, 26, 27)',
-    placeholderTextColor: '#888888',
+    placeholderTextColor: '#d5d5d5',
   },
   feedItem: {
     border: '1px solid rgb(42, 69, 61)',

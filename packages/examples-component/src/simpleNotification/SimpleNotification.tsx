@@ -60,7 +60,7 @@ export function SimpleNotification() {
                 placement: 'auto',
                 enableArrow: true,
               }}
-              mode="light"
+              mode="dark"
               theme={{
                 notificationButton: {
                   // iconFill: '#000',
