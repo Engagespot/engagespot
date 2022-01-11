@@ -174,7 +174,7 @@ export default class Engagespot {
   /**
    * Connects to Engagespot Server
    */
-  async connect() {
+  private async connect() {
 
     this.instanceState = 'connecting';
 
@@ -290,7 +290,7 @@ export default class Engagespot {
     });
 
     //As soon as realtime client is connected, subscribe to this user's channel
-    this.realtimeClient.connection.on('connected', () => {
+    this.realtimeClient.connection.once('connected', () => {
       this._log("Subscribing to "+this.apiKey+'_'+this.userId);
       var channel = this.realtimeClient.channels.get(this.apiKey+'_'+this.userId);
       channel.subscribe((message) => {
