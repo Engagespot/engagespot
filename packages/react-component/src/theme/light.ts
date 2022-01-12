@@ -53,7 +53,7 @@ export default {
   },
   footer: {
     background: 'white',
-    fontColor: '#888888',
+    fontColor: '#484848',
     border: '1px solid rgb(230, 230, 230)',
   },
 };

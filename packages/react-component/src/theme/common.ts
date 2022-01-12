@@ -82,7 +82,7 @@ export default {
     fontWeight: '400',
     height: '3rem',
     padding: '0.5rem 1rem',
-    fontSize: '0.9rem',
+    fontSize: '0.8rem',
     linkMargin: '0 0.5rem 0 0',
     linkSize: '1.5rem',
     linkRadius: '3px',
