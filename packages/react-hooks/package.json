@@ -21,7 +21,8 @@
     "test": "jest",
     "lint:css": "stylelint './src/**/*.js'",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "doc": "api-documenter markdown --input-folder temp"
   },
   "peerDependencies": {
     "react": "^16.8.3 || ^17.0.0-0"
@@ -38,7 +39,7 @@
   },
   "devDependencies": {
     "@microsoft/api-documenter": "^7.13.77",
-    "@microsoft/api-extractor": "7.19.2",
+    "@microsoft/api-extractor": "7.19.4",
     "@testing-library/react-hooks": "^7.0.2",
     "@types/jest": "^27.0.3",
     "@types/react": "17.0.37",
@@ -48,6 +49,8 @@
     "react": "17.0.2",
     "rimraf": "^3.0.2",
     "ts-jest": "27.1.2",
+    "typedoc": "^0.22.10",
+    "typedoc-plugin-markdown": "^3.11.11",
     "typescript": "4.2.4"
   },
   "browserslist": {

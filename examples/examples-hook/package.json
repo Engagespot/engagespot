@@ -25,6 +25,8 @@
     "react-table": "^7.7.0",
     "rimraf": "^3.0.2",
     "ts-jest": "27.1.2",
+    "typedoc": "^0.22.10",
+    "typedoc-plugin-markdown": "^3.11.11",
     "vite": "^2.6.4"
   }
 }

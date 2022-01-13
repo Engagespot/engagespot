@@ -3,7 +3,9 @@
   "private": true,
   "type": "commonjs",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "examples/*",
+    "docs/"
   ],
   "version": "0.1.0",
   "scripts": {
@@ -42,13 +44,12 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "npx lint-staged"
     }
   },
   "lint-staged": {
-    "*.{js,json,yml,yaml,css,scss,ts,tsx,md}": [
-      "pretty-quick --staged",
-      "eslint --fix",
+    "./**src/**/*.{js,json,css,scss,ts,tsx,md,mdx}": [
+      "npx pretty-quick --staged",
       "git add"
     ]
   }

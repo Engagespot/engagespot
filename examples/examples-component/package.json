@@ -38,6 +38,8 @@
     "jest": "^27.4.5",
     "msw": "^0.36.3",
     "rimraf": "^3.0.2",
-    "ts-jest": "27.1.2"
+    "ts-jest": "27.1.2",
+    "typedoc": "^0.22.10",
+    "typedoc-plugin-markdown": "^3.11.11"
   }
 }

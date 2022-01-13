@@ -4,16 +4,10 @@
   "useWorkspaces": true,
   "command": {
     "publish": {
-      "ignoreChanges": [
-        "ignored-file",
-        "*.md",
-        "**/etc/**"
-      ],
+      "ignoreChanges": ["ignored-file", "*.md", "**/etc/**"],
       "message": "chore(release): 🏷 publish version"
     },
     "bootstrap": {}
   },
-  "packages": [
-    "packages/*"
-  ]
+  "packages": ["packages/*", "examples/*", "docs/"]
 }

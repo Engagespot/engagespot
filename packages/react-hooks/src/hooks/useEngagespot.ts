@@ -272,7 +272,7 @@ export function useEngagespot({
         ...styles.arrow,
         display:
           panelVisibility && placementOptions.enableArrow ? 'block' : 'none',
-      },
+      } as React.CSSProperties,
     };
   };
 
