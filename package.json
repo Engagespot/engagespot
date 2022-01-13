@@ -20,7 +20,9 @@
     "test": "jest",
     "test:ci": "cross-env CI=true jest",
     "publish": "lerna publish",
-    "format": "prettier --write 'packages/*/*.js' 'packages/*/!(node_modules)/**/*.js'"
+    "format": "prettier --write 'packages/*/*.js' 'packages/*/!(node_modules)/**/*.js'",
+    "prepare": "husky install",
+    "pre-commit": "lint-staged"
   },
   "devDependencies": {
     "@types/jest": "^27.0.3",
@@ -29,7 +31,7 @@
     "@typescript-eslint/parser": "5.4.0",
     "eslint": "8.3.0",
     "eslint-plugin-prettier": "4.0.0",
-    "husky": "^7.0.4",
+    "husky": "^7.0.0",
     "jest": "^27.4.5",
     "lerna": "^4.0.0",
     "lint-staged": "^12.1.2",
@@ -42,15 +44,9 @@
     "typescript": "4.2.4",
     "whatwg-fetch": "3.6.2"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npx lint-staged"
-    }
-  },
   "lint-staged": {
-    "./**src/**/*.{js,json,css,scss,ts,tsx,md,mdx}": [
-      "npx pretty-quick --staged",
-      "git add"
+    "*.{js,json,css,scss,ts,tsx,md,mdx}": [
+      "pretty-quick --staged"
     ]
   }
 }
