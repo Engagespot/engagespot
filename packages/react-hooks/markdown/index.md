@@ -6,7 +6,6 @@
 
 ## Packages
 
-|  Package | Description |
-|  --- | --- |
-|  [@engagespot/react-hooks](./react-hooks.md) |  |
-
+| Package                                     | Description |
+| ------------------------------------------- | ----------- |
+| [@engagespot/react-hooks](./react-hooks.md) |             |

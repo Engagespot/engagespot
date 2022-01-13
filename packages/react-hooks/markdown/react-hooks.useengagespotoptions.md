@@ -7,19 +7,19 @@
 <b>Signature:</b>
 
 ```typescript
-export interface UseEngagespotOptions extends Options 
+export interface UseEngagespotOptions extends Options
 ```
+
 <b>Extends:</b> Options
 
 ## Properties
 
-|  Property | Type | Description |
-|  --- | --- | --- |
-|  [apiKey](./react-hooks.useengagespotoptions.apikey.md) | string |  |
-|  [disableNotificationChime?](./react-hooks.useengagespotoptions.disablenotificationchime.md) | boolean | <i>(Optional)</i> |
-|  [disableTitleUpdate?](./react-hooks.useengagespotoptions.disabletitleupdate.md) | boolean | <i>(Optional)</i> |
-|  [formatDate?](./react-hooks.useengagespotoptions.formatdate.md) | (dateString: string, dateFns: typeof dateFunctions) =&gt; string | <i>(Optional)</i> |
-|  [notificationChimeSrc?](./react-hooks.useengagespotoptions.notificationchimesrc.md) | string | <i>(Optional)</i> |
-|  [placementOptions?](./react-hooks.useengagespotoptions.placementoptions.md) | PlacementOptions | <i>(Optional)</i> |
-|  [titleUpdateText?](./react-hooks.useengagespotoptions.titleupdatetext.md) | string | <i>(Optional)</i> |
-
+| Property                                                                                    | Type                                                             | Description       |
+| ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | ----------------- |
+| [apiKey](./react-hooks.useengagespotoptions.apikey.md)                                      | string                                                           |                   |
+| [disableNotificationChime?](./react-hooks.useengagespotoptions.disablenotificationchime.md) | boolean                                                          | <i>(Optional)</i> |
+| [disableTitleUpdate?](./react-hooks.useengagespotoptions.disabletitleupdate.md)             | boolean                                                          | <i>(Optional)</i> |
+| [formatDate?](./react-hooks.useengagespotoptions.formatdate.md)                             | (dateString: string, dateFns: typeof dateFunctions) =&gt; string | <i>(Optional)</i> |
+| [notificationChimeSrc?](./react-hooks.useengagespotoptions.notificationchimesrc.md)         | string                                                           | <i>(Optional)</i> |
+| [placementOptions?](./react-hooks.useengagespotoptions.placementoptions.md)                 | PlacementOptions                                                 | <i>(Optional)</i> |
+| [titleUpdateText?](./react-hooks.useengagespotoptions.titleupdatetext.md)                   | string                                                           | <i>(Optional)</i> |

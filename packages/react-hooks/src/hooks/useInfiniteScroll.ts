@@ -29,14 +29,14 @@ export function useInfiniteScroll({
   const [loaderEl, setLoaderEl] = useState<HTMLElement | null>(null);
   const [containerEl, setContainerEl] = useState<HTMLElement | null>(null);
 
-  const loaderRef = useCallback((node) => {
+  const loaderRef = useCallback(node => {
     if (node !== null) {
       setIsLoaderSet(true);
       setLoaderEl(node);
     }
   }, []);
 
-  const containerRef = useCallback((node) => {
+  const containerRef = useCallback(node => {
     if (node !== null) {
       setIsContainerSet(true);
       setContainerEl(node);
@@ -57,9 +57,9 @@ export function useInfiniteScroll({
     }
 
     function callback(entries: IntersectionObserverEntry[]) {
-      entries.forEach((entry) => {
+      entries.forEach(entry => {
         if (entry.isIntersecting && entry.intersectionRatio >= previousRatio) {
-          setPage((page) => page + 1);
+          setPage(page => page + 1);
         }
         previousRatio = entry.intersectionRatio;
       });

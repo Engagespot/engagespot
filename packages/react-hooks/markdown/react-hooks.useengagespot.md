@@ -7,58 +7,73 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function useEngagespot({ apiKey, userId, formatDate, placementOptions, disableNotificationChime, notificationChimeSrc, disableTitleUpdate, titleUpdateText, ...options }: UseEngagespotOptions): {
-    isValid: boolean;
-    page: number;
-    isMobile: boolean;
-    useSystemDarkTheme: typeof useSystemDarkTheme;
-    togglePanelVisibility: (panelUpdateFn?: (visibility: boolean) => boolean) => void;
-    panelVisibility: boolean;
-    getButtonProps: () => {
-        onClick: () => void;
-        ref: import("react").RefObject<HTMLButtonElement>;
-    };
-    getPanelProps: () => {
-        ref: import("react").RefObject<HTMLElement>;
-        style: import("react").CSSProperties | {
-            position: string;
-            top: number;
-            left: number;
-            zIndex: number;
-            width: string;
+export declare function useEngagespot({
+  apiKey,
+  userId,
+  formatDate,
+  placementOptions,
+  disableNotificationChime,
+  notificationChimeSrc,
+  disableTitleUpdate,
+  titleUpdateText,
+  ...options
+}: UseEngagespotOptions): {
+  isValid: boolean;
+  page: number;
+  isMobile: boolean;
+  useSystemDarkTheme: typeof useSystemDarkTheme;
+  togglePanelVisibility: (
+    panelUpdateFn?: (visibility: boolean) => boolean
+  ) => void;
+  panelVisibility: boolean;
+  getButtonProps: () => {
+    onClick: () => void;
+    ref: import('react').RefObject<HTMLButtonElement>;
+  };
+  getPanelProps: () => {
+    ref: import('react').RefObject<HTMLElement>;
+    style:
+      | import('react').CSSProperties
+      | {
+          position: string;
+          top: number;
+          left: number;
+          zIndex: number;
+          width: string;
         };
-    };
-    getArrowProps: () => {
-        ref: import("react").RefObject<HTMLElement>;
-        style: import("react").CSSProperties;
-    };
-    getPanelOffsetProps: () => {
-        style: import("react").CSSProperties | {
-            height: string;
-            width: string;
+  };
+  getArrowProps: () => {
+    ref: import('react').RefObject<HTMLElement>;
+    style: import('react').CSSProperties;
+  };
+  getPanelOffsetProps: () => {
+    style:
+      | import('react').CSSProperties
+      | {
+          height: string;
+          width: string;
         };
-    };
-    useJumpToTop: typeof useJumpToTop;
-    notifications: {
-        data: NotificationItem[];
-        unreadCount: number;
-    };
-    notificationPermissionState: PermissionState;
-    scroll: {
-        loaderRef: (node: any) => void;
-        containerRef: (node: any) => void;
-        hasMore: boolean;
-    };
+  };
+  useJumpToTop: typeof useJumpToTop;
+  notifications: {
+    data: NotificationItem[];
+    unreadCount: number;
+  };
+  notificationPermissionState: PermissionState;
+  scroll: {
+    loaderRef: (node: any) => void;
+    containerRef: (node: any) => void;
+    hasMore: boolean;
+  };
 };
 ```
 
 ## Parameters
 
-|  Parameter | Type | Description |
-|  --- | --- | --- |
-|  { apiKey, userId, formatDate, placementOptions, disableNotificationChime, notificationChimeSrc, disableTitleUpdate, titleUpdateText, ...options } | [UseEngagespotOptions](./react-hooks.useengagespotoptions.md) |  |
+| Parameter                                                                                                                                         | Type                                                          | Description |
+| ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- | ----------- |
+| { apiKey, userId, formatDate, placementOptions, disableNotificationChime, notificationChimeSrc, disableTitleUpdate, titleUpdateText, ...options } | [UseEngagespotOptions](./react-hooks.useengagespotoptions.md) |             |
 
 <b>Returns:</b>
 
 { isValid: boolean; page: number; isMobile: boolean; useSystemDarkTheme: typeof useSystemDarkTheme; togglePanelVisibility: (panelUpdateFn?: (visibility: boolean) =&gt; boolean) =&gt; void; panelVisibility: boolean; getButtonProps: () =&gt; { onClick: () =&gt; void; ref: import("react").RefObject&lt;HTMLButtonElement&gt;; }; getPanelProps: () =&gt; { ref: import("react").RefObject&lt;HTMLElement&gt;; style: import("react").CSSProperties \| { position: string; top: number; left: number; zIndex: number; width: string; }; }; getArrowProps: () =&gt; { ref: import("react").RefObject&lt;HTMLElement&gt;; style: import("react").CSSProperties; }; getPanelOffsetProps: () =&gt; { style: import("react").CSSProperties \| { height: string; width: string; }; }; useJumpToTop: typeof useJumpToTop; notifications: { data: NotificationItem\[\]; unreadCount: number; }; notificationPermissionState: PermissionState; scroll: { loaderRef: (node: any) =&gt; void; containerRef: (node: any) =&gt; void; hasMore: boolean; }; }
-

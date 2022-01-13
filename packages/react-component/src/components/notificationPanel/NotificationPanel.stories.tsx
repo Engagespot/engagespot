@@ -6,7 +6,7 @@ export default {
   component: NotificationPanel,
 } as Meta;
 
-const Template: Story<NotificationPanelProps> = (args) => (
+const Template: Story<NotificationPanelProps> = args => (
   <NotificationPanel {...args} />
 );
 

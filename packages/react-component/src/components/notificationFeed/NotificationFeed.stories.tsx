@@ -6,7 +6,7 @@ export default {
   component: NotificationFeed,
 } as Meta;
 
-const Template: Story<NotificationFeedProps> = (args) => (
+const Template: Story<NotificationFeedProps> = args => (
   <NotificationFeed {...args} />
 );
 
@@ -153,6 +153,6 @@ CustomNotificationItem.args = {
         <h3>{notification.heading}</h3>
         <p>{notification.description}</p>
       </div>
-    )
-  }
+    );
+  },
 };

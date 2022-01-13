@@ -10,7 +10,7 @@ export default {
   component: NotificationButton,
 } as Meta;
 
-const Template: Story<NotificationButtonProps> = (args) => (
+const Template: Story<NotificationButtonProps> = args => (
   <NotificationButton {...args} />
 );
 

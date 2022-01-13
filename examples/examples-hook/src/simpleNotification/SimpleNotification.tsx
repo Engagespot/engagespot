@@ -2,7 +2,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 
 import { Engagespot } from '@engagespot/react-component';
 
-import {useTable} from 'react-table'
+import { useTable } from 'react-table';
 
 const GlobalStyles = createGlobalStyle`
 

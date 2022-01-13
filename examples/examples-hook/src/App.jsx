@@ -12,7 +12,7 @@ function App() {
     <div className="App">
       {/* <NotificationHook /> */}
       {/* <SimpleNotification /> */}
-      <CoreExample/>
+      <CoreExample />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>Hello Vite + React!</p>

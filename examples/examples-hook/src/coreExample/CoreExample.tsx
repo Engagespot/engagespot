@@ -16,7 +16,6 @@ export default function CoreExample() {
       console.log('New notification received');
       console.log(notification);
     });
-
   }, []);
 
   return <></>;

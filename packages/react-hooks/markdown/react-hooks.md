@@ -6,13 +6,12 @@
 
 ## Functions
 
-|  Function | Description |
-|  --- | --- |
-|  [useEngagespot({ apiKey, userId, formatDate, placementOptions, disableNotificationChime, notificationChimeSrc, disableTitleUpdate, titleUpdateText, ...options })](./react-hooks.useengagespot.md) |  |
+| Function                                                                                                                                                                                           | Description |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| [useEngagespot({ apiKey, userId, formatDate, placementOptions, disableNotificationChime, notificationChimeSrc, disableTitleUpdate, titleUpdateText, ...options })](./react-hooks.useengagespot.md) |             |
 
 ## Interfaces
 
-|  Interface | Description |
-|  --- | --- |
-|  [UseEngagespotOptions](./react-hooks.useengagespotoptions.md) |  |
-
+| Interface                                                     | Description |
+| ------------------------------------------------------------- | ----------- |
+| [UseEngagespotOptions](./react-hooks.useengagespotoptions.md) |             |
