@@ -1,0 +1,72 @@
+---
+position: 1
+---
+
+[Home](./index.md) &gt; [@engagespot/core](./core.md) &gt; [Engagespot](./core.engagespot.md)
+
+## Engagespot class
+
+<b>Signature:</b>
+
+```typescript
+export default class Engagespot
+```
+
+## Constructors
+
+| Constructor                                                          | Modifiers | Description                                                               |
+| -------------------------------------------------------------------- | --------- | ------------------------------------------------------------------------- |
+| [(constructor)(apiKey, options)](./core.engagespot._constructor_.md) |           | Constructor Initializes Engagespot and sets all required class variables. |
+
+## Properties
+
+| Property                                                                    | Modifiers           | Type                                               | Description                                                                                                            |
+| --------------------------------------------------------------------------- | ------------------- | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| [\_ready](./core.engagespot._ready.md)                                      |                     | Promise&lt;unknown&gt;                             |                                                                                                                        |
+| [apiKey](./core.engagespot.apikey.md)                                       |                     | string                                             | API Key for this app. (Please don't confuse with API_SECRET, which is never used in front-end apps)                    |
+| [baseURL](./core.engagespot.baseurl.md)                                     |                     | string                                             |                                                                                                                        |
+| [debug](./core.engagespot.debug.md)                                         |                     | boolean                                            | Toggle Debug Mode                                                                                                      |
+| [deviceId](./core.engagespot.deviceid.md)                                   |                     | string                                             | Unique identifier for this device.                                                                                     |
+| [enableNonHttpsWebPush](./core.engagespot.enablenonhttpswebpush.md)         |                     | boolean                                            |                                                                                                                        |
+| [endPoint](./core.engagespot.endpoint.md)                                   |                     | string \| null                                     |                                                                                                                        |
+| [eventListenerStore](./core.engagespot.eventlistenerstore.md)               |                     | EventListenerStore                                 | EventListenerStore Object This is where the developer's custom eventListeners are stored for different allowed events. |
+| [hideBranding](./core.engagespot.hidebranding.md)                           |                     | boolean                                            |                                                                                                                        |
+| [instanceState](./core.engagespot.instancestate.md)                         |                     | 'none' \| 'connecting' \| 'connected' \| 'errored' |                                                                                                                        |
+| [isReady](./core.engagespot.isready.md)                                     | <code>static</code> | boolean                                            |                                                                                                                        |
+| [publicKey](./core.engagespot.publickey.md)                                 |                     | string                                             |                                                                                                                        |
+| [realtimeClient](./core.engagespot.realtimeclient.md)                       |                     | Realtime                                           | Ably Realtime Client                                                                                                   |
+| [SERVICE_WORKER_URL](./core.engagespot.service_worker_url.md)               |                     | string                                             |                                                                                                                        |
+| [serviceWorkerRegistration](./core.engagespot.serviceworkerregistration.md) |                     | ServiceWorkerRegistration \| null                  |                                                                                                                        |
+| [socket](./core.engagespot.socket.md)                                       |                     | WebSocket \| null                                  |                                                                                                                        |
+| [subscribableEvents](./core.engagespot.subscribableevents.md)               |                     | string\[\]                                         |                                                                                                                        |
+| [unreadCount](./core.engagespot.unreadcount.md)                             |                     | number                                             | Unread notifications count.                                                                                            |
+| [userId](./core.engagespot.userid.md)                                       |                     | string                                             | This is the unique identifier for the user, as set by the developer                                                    |
+| [userSignature](./core.engagespot.usersignature.md)                         |                     | string \| null                                     | HMAC Signature for this user, for added security                                                                       |
+
+## Methods
+
+| Method                                                                                       | Modifiers | Description                                                                                     |
+| -------------------------------------------------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------- |
+| [\_createTokenRequest()](./core.engagespot._createtokenrequest.md)                           |           | \_createTokenRequest Generates AblyTokenRequest by calling Engagespot API                       |
+| [\_log(message)](./core.engagespot._log.md)                                                  |           | Wrapper for this.\_log which considers this.debug value                                         |
+| [\_resolveInstanceState()](./core.engagespot._resolveinstancestate.md)                       |           |                                                                                                 |
+| [askWebPushPermission()](./core.engagespot.askwebpushpermission.md)                          |           | Trigger browser permission prompt for Notification Subscription                                 |
+| [attachPushSubscription(subscription)](./core.engagespot.attachpushsubscription.md)          |           | Attach the push subscription for this device                                                    |
+| [checkWebPushSupport()](./core.engagespot.checkwebpushsupport.md)                            |           | Check if the current browser supports WebPush                                                   |
+| [clearWebPushSubscription()](./core.engagespot.clearwebpushsubscription.md)                  |           | Clear WebPush Subscription                                                                      |
+| [connect()](./core.engagespot.connect.md)                                                    |           | Connects to Engagespot Server                                                                   |
+| [createNewDevice()](./core.engagespot.createnewdevice.md)                                    |           | Creares a new random device id, sets it to local storage and returns it.                        |
+| [getDeviceId()](./core.engagespot.getdeviceid.md)                                            |           |                                                                                                 |
+| [getNotificationList()](./core.engagespot.getnotificationlist.md)                            |           | Returns a new empty NotificationList object                                                     |
+| [getServiceWorkerRegistration()](./core.engagespot.getserviceworkerregistration.md)          |           | Registers the service worker to the browser                                                     |
+| [getWebPushRegistrationState()](./core.engagespot.getwebpushregistrationstate.md)            |           | Get Web Push Registration State                                                                 |
+| [getWebPushSubscription(publicKey)](./core.engagespot.getwebpushsubscription.md)             |           | Get WebPush Subscription                                                                        |
+| [handleIncomingRealtimeMessage(message)](./core.engagespot.handleincomingrealtimemessage.md) |           | Incoming Realtime Message Handler. This function is used by realtimeConnect() function          |
+| [httpsWebPushSubscribe()](./core.engagespot.httpswebpushsubscribe.md)                        |           | HTTPS Web Push Subscription                                                                     |
+| [init()](./core.engagespot.init.md)                                                          |           | Initializes Engagespot Instance                                                                 |
+| [isReady()](./core.engagespot.isready.md)                                                    |           | Function that returns boolean based on SDK Initilization State                                  |
+| [onNotificationClick(handler)](./core.engagespot.onnotificationclick.md)                     |           | Subscriber function for NOTIFICATION_CLICKED                                                    |
+| [onNotificationDelete(handler)](./core.engagespot.onnotificationdelete.md)                   |           | Subscriber function for NOTIFICATION_DELETED                                                    |
+| [onNotificationReceive(handler)](./core.engagespot.onnotificationreceive.md)                 |           | Subscriber function for REALTIME_NOTIFICATION_RECEIVED                                          |
+| [onNotificationSee(handler)](./core.engagespot.onnotificationsee.md)                         |           | Subscriber function for NOTIFICATION_SEEN                                                       |
+| [realtimeConnect()](./core.engagespot.realtimeconnect.md)                                    |           | Connect to Ably Realtime. It also subscribes to channel with name in the format - APIKEY_UserID |

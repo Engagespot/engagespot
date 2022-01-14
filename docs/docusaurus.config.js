@@ -52,15 +52,26 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'intro',
-            position: 'left',
-            label: 'Tutorial',
-          },
-          { to: '/blog', label: 'Blog', position: 'left' },
-          {
-            href: 'https://github.com/facebook/docusaurus',
-            label: 'GitHub',
+            docId: 'introduction/getting-started',
             position: 'right',
+            label: 'Getting Started',
+          },
+          {
+            type: 'doc',
+            docId: 'learn-by-examples/react-component/simple-notification',
+            position: 'right',
+            label: 'Learn by Examples',
+          },
+          {
+            type: 'doc',
+            docId: 'api-reference/react-component/engagespot',
+            position: 'right',
+            label: 'API',
+          },
+          {
+            to: 'https://engagespot.co/blog/',
+            label: 'Blog',
+            position: 'left',
           },
         ],
       },
@@ -71,8 +82,16 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
-                to: '/docs/intro',
+                label: 'Getting Started',
+                to: '/docs/introduction/getting-started',
+              },
+              {
+                label: 'Learn by Examples',
+                to: '/docs/learn-by-examples/react-component/simple-notification',
+              },
+              {
+                label: 'API',
+                to: '/docs/api-reference/react-component/engagespot',
               },
             ],
           },
@@ -98,7 +117,7 @@ const config = {
             items: [
               {
                 label: 'Blog',
-                to: '/blog',
+                to: 'https://engagespot.co/blog/',
               },
               {
                 label: 'GitHub',
@@ -107,7 +126,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Engagespot, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Engagespot, Inc.`,
       },
       prism: {
         theme: lightCodeTheme,
