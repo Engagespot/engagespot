@@ -64,7 +64,7 @@ const config = {
           },
           {
             type: 'doc',
-            docId: 'api-reference/react-component/engagespot',
+            docId: 'api-reference/react-component/react-component.engagespot',
             position: 'right',
             label: 'API',
           },
@@ -91,7 +91,7 @@ const config = {
               },
               {
                 label: 'API',
-                to: '/docs/api-reference/react-component/engagespot',
+                to: '/docs/api-reference/react-component/react-component.engagespot',
               },
             ],
           },

@@ -16,6 +16,7 @@
     "tsc": "tsc",
     "clean": "rimraf dist",
     "declarations": "api-extractor run --local --verbose",
+    "docs": "api-documenter markdown --input-folder spec --output ./spec/markdown",
     "prepare": "yarn run build",
     "test:dev": "jest --watchAll",
     "test": "jest",
