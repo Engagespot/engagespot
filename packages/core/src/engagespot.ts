@@ -218,8 +218,13 @@ export default class Engagespot {
         await window.navigator.serviceWorker.ready;
       } else {
         // Otherwise just register our own service worker
+        try{
         this.serviceWorkerRegistration =
           await this.getServiceWorkerRegistration();
+        }catch(error){
+          console.warn("[Engagespot] Service worker registration failed. This error is probably due to missing service-worker file. Try turning off web-push channel in your Engagespot dashboard");
+          console.error(error);
+        }
       }
     }else{
 
@@ -284,6 +289,7 @@ export default class Engagespot {
               const tokenRequest = await this._createTokenRequest() // Make a network request to your server
               callback('', tokenRequest)
           } catch (error) {
+              this._log(error);
               callback(error as string, '')
           }
       }

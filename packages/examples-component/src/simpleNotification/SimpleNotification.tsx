@@ -52,10 +52,10 @@ export function SimpleNotification() {
           <NavItem style={{ marginRight: '10rem' }}>Login</NavItem>
           <NavItem>
             <Engagespot
-              apiKey="shiynklpz18l3ktqyy6d9a"
+              apiKey="qf0msj1v5fes0yxm5upnwl"
               userId="anandnew"
               endPointOverride="https://api.staging.engagespot.co/v3/"
-              //debug={true}
+              debug={true}
               placementOptions={{
                 placement: 'auto',
                 enableArrow: true,
