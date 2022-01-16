@@ -11,7 +11,6 @@ import { AblyTokenRequest } from './interfaces/AblyTokenRequest';
 import EngagespotNotification from './Notification';
 
 export default class Engagespot {
-
   /**
    * Toggle Debug Mode
    */
@@ -41,7 +40,7 @@ export default class Engagespot {
 
   /**
    * @deprecated Realtime Websocket
-   * 
+   *
    */
   socket: WebSocket | null = null; //@deprecated. Instead use realtimeClient
 
@@ -75,7 +74,7 @@ export default class Engagespot {
   subscribableEvents = [
     'REALTIME_NOTIFICATION_RECEIVED',
     'NOTIFICATION_CLICKED',
-    'NOTIFICATION_DELETED'
+    'NOTIFICATION_DELETED',
   ];
 
   /**
@@ -86,16 +85,16 @@ export default class Engagespot {
     REALTIME_NOTIFICATION_RECEIVED: [],
     NOTIFICATION_CLICKED: [],
     NOTIFICATION_DELETED: [],
-    NOTIFICATION_SEEN:[]
-  }
+    NOTIFICATION_SEEN: [],
+  };
 
   /**
    * Constructor
    * Initializes Engagespot and sets all required class variables.
-   * @param apiKey 
-   * @param options 
+   * @param apiKey
+   * @param options
    */
-  
+
   constructor(apiKey: string, options: Options) {
     checkApiKey(apiKey);
 
@@ -146,11 +145,10 @@ export default class Engagespot {
 
   /**
    * Initializes Engagespot Instance
-   * 
-   * @returns 
+   *
+   * @returns
    */
   async init() {
-
     // This is to prevent init from being called multiple times in the same page
     if (this.deviceId) {
       this._log('Instance already have a deviceId. So skipping init()');
@@ -161,21 +159,19 @@ export default class Engagespot {
     //If not create a new device id and save.
     const locallySavedDeviceId = this.getDeviceId();
 
-    if(locallySavedDeviceId){
+    if (locallySavedDeviceId) {
       this.deviceId = locallySavedDeviceId;
-    }else{
+    } else {
       this.deviceId = this.createNewDevice();
     }
 
     return await this.connect();
   }
 
-  
   /**
    * Connects to Engagespot Server
    */
   private async connect() {
-
     this.instanceState = 'connecting';
 
     //Call sdk connect API
@@ -205,12 +201,11 @@ export default class Engagespot {
     this.publicKey = response.app.publicKey;
     this.enableWebPush = response.app.enableWebPush;
 
-    this._log("Response from connect API is given below ")
+    this._log('Response from connect API is given below ');
     this._log(response);
 
     //Register Service Worker
     if (this.enableWebPush && !this.enableNonHttpsWebPush) {
-
       this._log('enableNonHttpsWebPush is false');
 
       if (this.serviceWorkerRegistration) {
@@ -226,11 +221,10 @@ export default class Engagespot {
           console.error(error);
         }
       }
-    }else{
-
+    } else {
       //Just for debugging.
-      this._log('enableNonHttpsWebPush is '+this.enableNonHttpsWebPush);
-      this._log('enableWebPush is '+this.enableWebPush);
+      this._log('enableNonHttpsWebPush is ' + this.enableNonHttpsWebPush);
+      this._log('enableWebPush is ' + this.enableWebPush);
     }
 
     //Connect to RTM Server for realtime notifications
@@ -243,17 +237,14 @@ export default class Engagespot {
     //If all fine, then return connected instance state
     this.instanceState = 'connected';
     return this;
-
   }
-
 
   /**
    * _createTokenRequest
    * Generates AblyTokenRequest by calling Engagespot API
    */
 
-  async _createTokenRequest(){
-    
+  async _createTokenRequest() {
     const options: apiRequestOptions = {
       url: this.baseURL + '/sdk/realtimeTokenRequests',
       method: 'POST',
@@ -282,8 +273,7 @@ export default class Engagespot {
    * It also subscribes to channel with name in the format - APIKEY_UserID
    */
   realtimeConnect() {
-
-     this.realtimeClient = new Realtime({
+    this.realtimeClient = new Realtime({
       authCallback: async (tokenParams, callback) => {
           try {
               const tokenRequest = await this._createTokenRequest() // Make a network request to your server
@@ -297,77 +287,73 @@ export default class Engagespot {
 
     //As soon as realtime client is connected, subscribe to this user's channel
     this.realtimeClient.connection.once('connected', () => {
-      this._log("Subscribing to "+this.apiKey+'_'+this.userId);
-      var channel = this.realtimeClient.channels.get(this.apiKey+'_'+this.userId);
-      channel.subscribe((message) => {
-        this.handleIncomingRealtimeMessage(message)
+      this._log('Subscribing to ' + this.apiKey + '_' + this.userId);
+      var channel = this.realtimeClient.channels.get(
+        this.apiKey + '_' + this.userId
+      );
+      channel.subscribe(message => {
+        this.handleIncomingRealtimeMessage(message);
       });
-    })
-  
+    });
   }
 
   /**
    * Incoming Realtime Message Handler. This function is used by realtimeConnect() function
-   * @param message 
+   * @param message
    */
   handleIncomingRealtimeMessage(message: Types.Message) {
-
     this._log(message);
-    if(message.name === 'NEW_NOTIFICATION'){
-      
+    if (message.name === 'NEW_NOTIFICATION') {
       //convert this into notification object
       const notification = new EngagespotNotification(this, {
-        id:message.data.notification.id,
-        title:message.data.notification.title,
+        id: message.data.notification.id,
+        title: message.data.notification.title,
         message: message.data.notification.description,
         icon: message.data.notification.icon,
         url: message.data.notification.url,
-        createdAt: message.data.notification.created_at
+        createdAt: message.data.notification.created_at,
       });
 
       //Now let's publish this to all listeners who need
       let count = 0;
-      this.eventListenerStore.REALTIME_NOTIFICATION_RECEIVED.forEach( (listener) => {
-        listener(notification);
-        count++
-      });
+      this.eventListenerStore.REALTIME_NOTIFICATION_RECEIVED.forEach(
+        listener => {
+          listener(notification);
+          count++;
+        }
+      );
 
-      this._log("Published to "+count+" listeners");
+      this._log('Published to ' + count + ' listeners');
 
       //Whenever a new notification is received, that means we should update the unreadCount
       //The best strategy to fetch the latest unread count is by getting the value from server!
-
     }
 
-    if(message.name === 'NOTIFICATION_DELETED'){
-      this.eventListenerStore.NOTIFICATION_DELETED.forEach( (listener) => {
+    if (message.name === 'NOTIFICATION_DELETED') {
+      this.eventListenerStore.NOTIFICATION_DELETED.forEach(listener => {
         listener(message.data.notification.id);
       });
     }
 
-    if(message.name === 'NOTIFICATION_CLICKED'){
-      this.eventListenerStore.NOTIFICATION_CLICKED.forEach( (listener) => {
+    if (message.name === 'NOTIFICATION_CLICKED') {
+      this.eventListenerStore.NOTIFICATION_CLICKED.forEach(listener => {
         listener(message.data.notification.id);
       });
     }
 
-    if(message.name === 'NOTIFICATION_SEEN'){
-      this.eventListenerStore.NOTIFICATION_SEEN.forEach( (listener) => {
+    if (message.name === 'NOTIFICATION_SEEN') {
+      this.eventListenerStore.NOTIFICATION_SEEN.forEach(listener => {
         listener(message.data.notification.id);
       });
     }
-  
   }
-
 
   /**
    * Returns a new empty NotificationList object
-   * @returns 
+   * @returns
    */
   getNotificationList() {
-
     return new NotificationList(this);
-
   }
 
   /**
@@ -376,8 +362,8 @@ export default class Engagespot {
   async httpsWebPushSubscribe() {
     await this._resolveInstanceState();
 
-    if(!this.isWebPushSupported()){
-      this._log("Web push is not supported in this browser")
+    if (!this.isWebPushSupported()) {
+      this._log('Web push is not supported in this browser');
       return;
     }
 
@@ -399,11 +385,10 @@ export default class Engagespot {
    * Registers the service worker to the browser
    */
   async getServiceWorkerRegistration() {
-
     this._log('getServiceWorkerRegistration called');
 
-    if(!this.isWebPushSupported()){
-      this._log("Web push is not supported in this browser")
+    if (!this.isWebPushSupported()) {
+      this._log('Web push is not supported in this browser');
       return null;
     }
     // Check is the service-worker.js file exists
@@ -421,7 +406,7 @@ export default class Engagespot {
 
   /**
    * Trigger browser permission prompt for Notification Subscription
-   * @returns 
+   * @returns
    */
   async askWebPushPermission(): Promise<string> {
     return new Promise(function (resolve, reject) {
@@ -472,10 +457,10 @@ export default class Engagespot {
   /**
    * Check if the current browser supports WebPush
    */
-   isWebPushSupported = () =>
-   'Notification' in window &&
-   'serviceWorker' in navigator &&
-   'PushManager' in window
+  isWebPushSupported = () =>
+    'Notification' in window &&
+    'serviceWorker' in navigator &&
+    'PushManager' in window;
 
   /**
    *
@@ -566,8 +551,6 @@ export default class Engagespot {
     return localStorage.getItem('_engagespotDeviceId');
   }
 
-  
-
   /**
    * Subscriber function for REALTIME_NOTIFICATION_RECEIVED
    * @param handler
@@ -591,7 +574,7 @@ export default class Engagespot {
    * Subscriber function for NOTIFICATION_DELETED
    * @param handler
    */
-   onNotificationDelete(handler: Function) {
+  onNotificationDelete(handler: Function) {
     this.eventListenerStore.NOTIFICATION_DELETED.push(handler);
     return true;
   }
@@ -600,23 +583,21 @@ export default class Engagespot {
    * Subscriber function for NOTIFICATION_SEEN
    * @param handler
    */
-   onNotificationSee(handler: Function) {
+  onNotificationSee(handler: Function) {
     this.eventListenerStore.NOTIFICATION_SEEN.push(handler);
     return true;
   }
 
   /**
- * Wrapper for this._log which considers this.debug value
- * @param message 
- */
-  _log(message: string | any){
-    if (this.debug) { 
-      console.log("[Engagespot-Core] "+message);
+   * Wrapper for this._log which considers this.debug value
+   * @param message
+   */
+  _log(message: string | any) {
+    if (this.debug) {
+      console.log('[Engagespot-Core] ' + message);
     }
   }
-
 }
-
 
 function checkApiKey(key: string) {
   if (key === null || key === undefined) {

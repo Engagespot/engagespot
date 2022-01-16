@@ -88,11 +88,8 @@ export default class NotificationList implements NotificationList {
    * Marks all notifications as seen
    */
   async markAllAsSeen() {
-
     const options: apiRequestOptions = {
-      url:
-        this.client.baseURL +
-        '/notifications/markAllNotificationsAsSeen',
+      url: this.client.baseURL + '/notifications/markAllNotificationsAsSeen',
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -107,6 +104,5 @@ export default class NotificationList implements NotificationList {
     const response = await sendRequest(options);
 
     return this;
-
   }
 }

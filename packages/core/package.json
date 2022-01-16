@@ -17,6 +17,7 @@
     "tsc": "tsc",
     "clean": "rimraf dist",
     "declarations": "api-extractor run --local --verbose",
+    "docs": "api-documenter markdown --input-folder spec --output ./spec/markdown",
     "prepare": "yarn run build",
     "test:dev": "jest --watchAll",
     "test": "jest"
@@ -39,6 +40,8 @@
     "msw": "^0.36.3",
     "rimraf": "^3.0.2",
     "ts-jest": "27.1.2",
+    "typedoc": "^0.22.10",
+    "typedoc-plugin-markdown": "^3.11.11",
     "typescript": "4.2.4"
   },
   "dependencies": {

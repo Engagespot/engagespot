@@ -4,6 +4,11 @@
     "*.json": "jsonc"
   },
   "conventionalCommits.scopes": [
-    "react-hooks"
+    "react-hooks",
+    "react-component",
+    "core",
+    "examples",
+    "docs",
+    "all"
   ]
 }

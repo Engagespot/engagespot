@@ -29,10 +29,9 @@ export default class Notification implements NotificationItem {
 
   /**
    * Marks this notification as clicked
-   * @returns 
+   * @returns
    */
   async markAsClicked() {
-
     //Donot publish to eventListeners here. Incorrect implementation. Commenting!
     // this._client.eventListenerStore?.NOTIFICATION_CLICKED.forEach(handler => {
     //   handler(this);
@@ -64,10 +63,9 @@ export default class Notification implements NotificationItem {
 
   /**
    * Fetches this notification & also marks this notification as seen
-   * @returns 
+   * @returns
    */
   async fetch() {
-
     const options: apiRequestOptions = {
       url: this._client.baseURL + '/notifications/' + this.id,
       method: 'GET',
@@ -84,8 +82,7 @@ export default class Notification implements NotificationItem {
     try {
       const response = await sendRequest(options);
 
-      if (response){ 
-        
+      if (response) {
         //We should update this object with the notification details received from API
         this.title = response.data.title;
         this.message = response.data.message;
@@ -96,7 +93,6 @@ export default class Notification implements NotificationItem {
         this.createdAt = response.data.createdAt;
 
         return this;
-
       }
 
       return false;
@@ -110,7 +106,6 @@ export default class Notification implements NotificationItem {
    * @returns
    */
   async delete() {
-
     //Donot publish to eventListeners here. Incorrect implementation. Commenting!
     // this._client.eventListenerStore?.NOTIFICATION_DELETED.forEach(handler => {
     //   handler(this);

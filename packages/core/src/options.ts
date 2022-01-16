@@ -5,5 +5,5 @@ export interface Options {
   enableNonHttpsWebPush?: boolean;
   serviceWorkerRegistration?: ServiceWorkerRegistration;
   endPointOverride?: string;
-  debug?:boolean
+  debug?: boolean;
 }

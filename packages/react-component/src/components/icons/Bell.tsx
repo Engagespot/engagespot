@@ -17,7 +17,7 @@ export function Bell() {
           strokeLinejoin="round"
           strokeMiterlimit="10"
           strokeWidth="1.5px"
-          fill='transparent'
+          fill="transparent"
         ></path>
         <path
           d="M4.62,0A2.992,2.992,0,0,1,0,0"
@@ -26,7 +26,7 @@ export function Bell() {
           strokeLinejoin="round"
           strokeMiterlimit="10"
           strokeWidth="1.5px"
-          fill='transparent'
+          fill="transparent"
         ></path>
       </g>
     </svg>

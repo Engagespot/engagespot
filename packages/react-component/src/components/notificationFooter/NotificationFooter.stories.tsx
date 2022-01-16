@@ -9,7 +9,7 @@ export default {
   component: NotificationFooter,
 } as Meta;
 
-const Template: Story<NotificationFooterProps> = (args) => (
+const Template: Story<NotificationFooterProps> = args => (
   <NotificationFooter {...args} />
 );
 

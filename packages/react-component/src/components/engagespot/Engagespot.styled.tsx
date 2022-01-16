@@ -44,5 +44,4 @@ export const EngagespotStyled = styled.div`
     padding: 5px;
     cursor: pointer;
   }
-  
 `;
