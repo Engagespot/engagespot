@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import React from 'react';
-import { Engagespot } from '@engagespot/react-component';
+// import { Engagespot } from '@engagespot/react-component';
+import BrowserOnly from '@docusaurus/BrowserOnly';
+import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 
 const NavBar = styled.nav`
   width: 100%;
@@ -35,24 +37,28 @@ const NavItem = styled.li`
 `;
 
 export default function SimpleNotification() {
+  let renderNotif = null;
+  if (ExecutionEnvironment.canUseDOM) {
+    const { Engagespot } = require('@engagespot/react-component');
+    renderNotif = (
+      <Engagespot
+        apiKey="shiynklpz18l3ktqyy6d9a"
+        userId="anand"
+        endPointOverride="https://api.staging.engagespot.co/v3/"
+      />
+    );
+  }
+
   return (
-    <>
-      <div style={{ height: '800px' }}>
-        <NavBar>
-          <NavList>
-            <NavItem>Home</NavItem>
-            <NavItem>About</NavItem>
-            <NavItem style={{ marginRight: '10rem' }}>Login</NavItem>
-            <NavItem>
-              <Engagespot
-                apiKey="shiynklpz18l3ktqyy6d9a"
-                userId="anand"
-                endPointOverride="https://api.staging.engagespot.co/v3/"
-              />
-            </NavItem>
-          </NavList>
-        </NavBar>
-      </div>
-    </>
+    <div style={{ height: '800px' }}>
+      <NavBar>
+        <NavList>
+          <NavItem>Home</NavItem>
+          <NavItem>About</NavItem>
+          <NavItem style={{ marginRight: '10rem' }}>Login</NavItem>
+          <NavItem>{renderNotif}</NavItem>
+        </NavList>
+      </NavBar>
+    </div>
   );
 }

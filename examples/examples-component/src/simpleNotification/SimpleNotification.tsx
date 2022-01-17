@@ -53,14 +53,14 @@ export function SimpleNotification() {
           <NavItem>
             <Engagespot
               apiKey="shiynklpz18l3ktqyy6d9a"
-              userId="anandnew"
+              userId="anand"
               endPointOverride="https://api.staging.engagespot.co/v3/"
               //debug={true}
               placementOptions={{
                 placement: 'auto',
                 enableArrow: true,
               }}
-              mode="auto"
+              panelOpenByDefault={false}
               theme={{
                 notificationButton: {
                   // iconFill: '#000',

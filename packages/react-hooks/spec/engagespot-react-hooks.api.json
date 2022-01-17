@@ -176,7 +176,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export declare function useEngagespot({ apiKey, userId, formatDate, placementOptions, disableNotificationChime, notificationChimeSrc, disableTitleUpdate, titleUpdateText, ...options }: "
+              "text": "export declare function useEngagespot({ apiKey, userId, formatDate, placementOptions, disableNotificationChime, notificationChimeSrc, disableTitleUpdate, titleUpdateText, panelOpenByDefault, ...options }: "
             },
             {
               "kind": "Reference",
@@ -321,7 +321,7 @@
           "overloadIndex": 1,
           "parameters": [
             {
-              "parameterName": "{ apiKey, userId, formatDate, placementOptions, disableNotificationChime, notificationChimeSrc, disableTitleUpdate, titleUpdateText, ...options }",
+              "parameterName": "{ apiKey, userId, formatDate, placementOptions, disableNotificationChime, notificationChimeSrc, disableTitleUpdate, titleUpdateText, panelOpenByDefault, ...options }",
               "parameterTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
@@ -486,6 +486,32 @@
               "isOptional": true,
               "releaseTag": "Public",
               "name": "notificationChimeSrc",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@engagespot/react-hooks!UseEngagespotOptions#panelOpenByDefault:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "panelOpenByDefault: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "boolean"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "panelOpenByDefault",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
