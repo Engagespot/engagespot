@@ -52,7 +52,7 @@ export function SimpleNotification() {
           <NavItem style={{ marginRight: '10rem' }}>Login</NavItem>
           <NavItem>
             <Engagespot
-              apiKey="shiynklpz18l3ktqyy6d9a"
+              apiKey="3tw99j2oeeggfuk5uoow7l"
               userId="anand"
               endPointOverride="https://api.staging.engagespot.co/v3/"
               debug={true}

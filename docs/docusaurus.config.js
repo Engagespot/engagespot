@@ -62,10 +62,6 @@ const config = {
             position: 'right',
             label: 'Learn by Examples',
           },
-<<<<<<< Updated upstream
-=======
-          { to: '/blog', label: 'Blog', position: 'left' },
->>>>>>> Stashed changes
           {
             type: 'doc',
             docId: 'api-reference/react-component/react-component.engagespot',

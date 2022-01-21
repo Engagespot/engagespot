@@ -81,6 +81,8 @@ export function useEngagespot({
   const engagespotInstance = engagespotRef.current;
   const transformDate = dateTransformer(formatDate);
   const [notifications, setNotifications] = useState(initializeNotifications);
+  const [webPushState, setWebPushState] =
+    useState<globalThis.PermissionState>('denied');
   const hideBranding = engagespotInstance.hideBranding;
   const allowWebPush = engagespotInstance.enableWebPush;
   const [hasMore, setHasMore] = useState(false);
@@ -172,7 +174,11 @@ export function useEngagespot({
     };
   }, []);
 
-  useEffect(() => {});
+  useEffect(() => {
+    engagespotInstance.onWebPushPermissionChange(state => {
+      setWebPushState(state);
+    });
+  });
 
   useEffect(() => {
     engagespotInstance.onNotificationReceive(
@@ -310,5 +316,6 @@ export function useEngagespot({
     hideBranding,
     enableWebPush,
     allowWebPush,
+    webPushState,
   };
 }

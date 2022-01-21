@@ -86,10 +86,7 @@ export default class Engagespot {
     NOTIFICATION_CLICKED: [],
     NOTIFICATION_DELETED: [],
     NOTIFICATION_SEEN: [],
-<<<<<<< Updated upstream
     WEBPUSH_PERMISSION_CHANGED: [],
-=======
->>>>>>> Stashed changes
   };
 
   /**
@@ -288,10 +285,7 @@ export default class Engagespot {
           const tokenRequest = await this._createTokenRequest(); // Make a network request to your server
           callback('', tokenRequest);
         } catch (error) {
-<<<<<<< Updated upstream
           this._log(error);
-=======
->>>>>>> Stashed changes
           callback(error as string, '');
         }
       },
@@ -360,7 +354,6 @@ export default class Engagespot {
     }
   }
 
-<<<<<<< Updated upstream
   /**
    * Initialize a listener for Web Push Permission Changes
    */
@@ -379,8 +372,6 @@ export default class Engagespot {
     });
   }
 
-=======
->>>>>>> Stashed changes
   /**
    * Returns a new empty NotificationList object
    * @returns
@@ -470,7 +461,8 @@ export default class Engagespot {
       await this.clearWebPushSubscription();
       return await this.serviceWorkerRegistration.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: utils.urlBase64ToUInt8Array(this.publicKey),
+        //applicationServerKey: utils.urlBase64ToUInt8Array(this.publicKey),
+        applicationServerKey: this.publicKey,
       });
     } catch (error) {
       return Promise.reject(error);
@@ -624,11 +616,12 @@ export default class Engagespot {
   }
 
   /**
-<<<<<<< Updated upstream
    *
    * @param message
    */
-  onWebPushPermissionChange(handler: Function) {
+  onWebPushPermissionChange(
+    handler: (state: globalThis.PermissionState) => void
+  ) {
     this.eventListenerStore.WEBPUSH_PERMISSION_CHANGED.push(handler);
     return true;
   }
@@ -642,16 +635,6 @@ export default class Engagespot {
       console.log('[Engagespot-Core] ' + message);
     }
   }
-=======
-   * Wrapper for this._log which considers this.debug value
-   * @param message
-   */
-  _log(message: string | any) {
-    if (this.debug) {
-      console.log('[Engagespot-Core] ' + message);
-    }
-  }
->>>>>>> Stashed changes
 }
 
 function checkApiKey(key: string) {
