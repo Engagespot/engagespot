@@ -86,6 +86,7 @@ export default class Engagespot {
     NOTIFICATION_CLICKED: [],
     NOTIFICATION_DELETED: [],
     NOTIFICATION_SEEN: [],
+    WEBPUSH_PERMISSION_CHANGED: [],
   };
 
   /**
@@ -213,11 +214,13 @@ export default class Engagespot {
         await window.navigator.serviceWorker.ready;
       } else {
         // Otherwise just register our own service worker
-        try{
-        this.serviceWorkerRegistration =
-          await this.getServiceWorkerRegistration();
-        }catch(error){
-          console.warn("[Engagespot] Service worker registration failed. This error is probably due to missing service-worker file. Try turning off web-push channel in your Engagespot dashboard");
+        try {
+          this.serviceWorkerRegistration =
+            await this.getServiceWorkerRegistration();
+        } catch (error) {
+          console.warn(
+            '[Engagespot] Service worker registration failed. This error is probably due to missing service-worker file. Try turning off web-push channel in your Engagespot dashboard'
+          );
           console.error(error);
         }
       }
@@ -233,6 +236,9 @@ export default class Engagespot {
     } catch (error) {
       throw error;
     }
+
+    //Listen for WebPushPermissionChange events
+    this.listenForWebPushPermissionChanges();
 
     //If all fine, then return connected instance state
     this.instanceState = 'connected';
@@ -275,14 +281,14 @@ export default class Engagespot {
   realtimeConnect() {
     this.realtimeClient = new Realtime({
       authCallback: async (tokenParams, callback) => {
-          try {
-              const tokenRequest = await this._createTokenRequest() // Make a network request to your server
-              callback('', tokenRequest)
-          } catch (error) {
-              this._log(error);
-              callback(error as string, '')
-          }
-      }
+        try {
+          const tokenRequest = await this._createTokenRequest(); // Make a network request to your server
+          callback('', tokenRequest);
+        } catch (error) {
+          this._log(error);
+          callback(error as string, '');
+        }
+      },
     });
 
     //As soon as realtime client is connected, subscribe to this user's channel
@@ -349,6 +355,24 @@ export default class Engagespot {
   }
 
   /**
+   * Initialize a listener for Web Push Permission Changes
+   */
+  listenForWebPushPermissionChanges() {
+    navigator.permissions.query({ name: 'notifications' }).then(permission => {
+      // Initial status is available at permission.state
+      permission.onchange = e => {
+        const target = e.target as PermissionStatus;
+        const state = target.state;
+
+        //Publish to all listeners
+        this.eventListenerStore.NOTIFICATION_SEEN.forEach(listener => {
+          listener(state);
+        });
+      };
+    });
+  }
+
+  /**
    * Returns a new empty NotificationList object
    * @returns
    */
@@ -373,6 +397,7 @@ export default class Engagespot {
     if (permissionState != PermissionState.PERMISSION_DENIED) {
       const permissionResult = await this.askWebPushPermission();
       if (permissionResult !== 'granted') {
+        this._log('Web push permission was not granted.');
         return;
       }
 
@@ -511,6 +536,7 @@ export default class Engagespot {
       }
     )
       .then(response => {
+        this._log('Push subscription attached');
         return response.json();
       })
       .then(response => {
@@ -586,6 +612,14 @@ export default class Engagespot {
   onNotificationSee(handler: Function) {
     this.eventListenerStore.NOTIFICATION_SEEN.push(handler);
     return true;
+  }
+
+  /**
+   *
+   * @param message
+   */
+  onWebPushPermissionChange(handler: Function) {
+    this.eventListenerStore.WEBPUSH_PERMISSION_CHANGED.push(handler);
   }
 
   /**
