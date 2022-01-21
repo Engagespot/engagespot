@@ -1200,6 +1200,35 @@
             },
             {
               "kind": "Method",
+              "canonicalReference": "@engagespot/core!Engagespot#listenForWebPushPermissionChanges:member(1)",
+              "docComment": "/**\n * Initialize a listener for Web Push Permission Changes\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "listenForWebPushPermissionChanges(): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [],
+              "name": "listenForWebPushPermissionChanges"
+            },
+            {
+              "kind": "Method",
               "canonicalReference": "@engagespot/core!Engagespot#onNotificationClick:member(1)",
               "docComment": "/**\n * Subscriber function for NOTIFICATION_CLICKED\n *\n * @param handler - \n */\n",
               "excerptTokens": [
@@ -1381,6 +1410,52 @@
                 }
               ],
               "name": "onNotificationSee"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@engagespot/core!Engagespot#onWebPushPermissionChange:member(1)",
+              "docComment": "/**\n * @param message - \n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "onWebPushPermissionChange(handler: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Function",
+                  "canonicalReference": "!Function:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "void"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "handler",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "onWebPushPermissionChange"
             },
             {
               "kind": "Property",

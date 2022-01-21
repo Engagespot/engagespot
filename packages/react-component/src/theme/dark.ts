@@ -1,6 +1,6 @@
 export default {
   colors: {
-    brandingPrimary: 'rgb(0 161 140)',
+    brandingPrimary: 'rgb(0 137 119)',
     colorPrimary: '#282c34',
     colorSecondary: '#686868',
   },
@@ -55,5 +55,12 @@ export default {
     background: 'rgb(24, 26, 27)',
     fontColor: '#888888',
     border: '1px solid rgb(55, 60, 62)',
+    preferenceButtonColor: 'rgb(232, 230, 227)',
+    preferenceButtonHoverBackground: 'rgb(38, 41, 43)',
+  },
+  preference: {
+    fontColor: 'rgb(232, 230, 227)',
+    headerBackground: '#ba3737',
+    background: 'rgb(24, 26, 27)',
   },
 };

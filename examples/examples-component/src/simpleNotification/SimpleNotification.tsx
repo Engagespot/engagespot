@@ -60,6 +60,7 @@ export function SimpleNotification() {
                 placement: 'auto',
                 enableArrow: true,
               }}
+              mode="auto"
               panelOpenByDefault={false}
               theme={{
                 notificationButton: {

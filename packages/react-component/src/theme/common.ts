@@ -2,10 +2,10 @@ export default {
   panel: {
     width: '30rem',
     height: '40rem',
-    borderBottomLeftRadius: '5px',
-    borderBottomRightRadius: '5px',
-    borderTopLeftRadius: '5px',
-    borderTopRightRadius: '5px',
+    borderBottomLeftRadius: '11px',
+    borderBottomRightRadius: '11px',
+    borderTopLeftRadius: '11px',
+    borderTopRightRadius: '11px',
     arrowSize: '10px',
     arrowInset: '-5px auto auto 0',
   },
@@ -75,7 +75,7 @@ export default {
     padding: '0.5rem 1rem',
     closeButtonOutline: 'none',
     closeButtonPadding: '5px',
-    closeButtonFontSize: '1.4rem',
+    closeButtonFontSize: '1.6rem',
     closeButtonMargin: '0',
   },
   footer: {
@@ -83,8 +83,17 @@ export default {
     height: '3rem',
     padding: '0.5rem 1rem',
     fontSize: '0.8rem',
-    linkMargin: '0 0.5rem 0 0',
+    linkMargin: '0 0.5rem 0 auto',
     linkSize: '1.5rem',
+    preferenceButtonMargin: '0 0 0 auto',
+    preferenceButtonSize: '1.2rem',
+    preferenceButtonPadding: '.2rem',
+    preferenceButtonHoverTransition: 'all 0.2s',
     linkRadius: '3px',
+  },
+  preference: {
+    height: '30rem',
+    fontWeight: '400',
+    padding: '1.2rem 2rem 1.2rem 2rem'
   },
 };

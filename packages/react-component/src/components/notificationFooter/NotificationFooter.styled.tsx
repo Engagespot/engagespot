@@ -42,3 +42,23 @@ export const NotificationFooterLinkStyled = styled.a`
     `}
   }
 `;
+
+export const NotificationFooterGearButtonStyled = styled.button`
+  && {
+    ${({ theme: { footer } }) => css`
+      cursor: pointer;
+      margin: ${footer.preferenceButtonMargin};
+      padding: ${footer.preferenceButtonPadding};
+      &:hover {
+        transition: ${footer.preferenceButtonHoverTransition};
+        background: ${footer.preferenceButtonHoverBackground};
+      }
+
+      svg {
+        height: ${footer.preferenceButtonSize};
+        width: ${footer.preferenceButtonSize};
+        fill: ${footer.preferenceButtonColor};;
+      }
+    `}
+  }
+`;

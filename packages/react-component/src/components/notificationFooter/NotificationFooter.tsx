@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import {
   NotificationFooterStyled,
   NotificationFooterLinkStyled,
   NotificationFooterTextStyled,
+  NotificationFooterGearButtonStyled,
 } from './NotificationFooter.styled';
 import { EngagespotLogo as EngagespotIcon } from '../icons/EngagespotLogo';
+import { Gear } from '../icons/Gear';
+import { useEngagespotContext } from '../engagespotProvider';
+
+export type FooterContent = (() => React.ReactNode) | undefined;
 
 export interface NotificationFooterProps {
-  label: string;
+  footerContent: FooterContent;
 }
 
-export function NotificationFooter({ label }: NotificationFooterProps) {
+export const defaultFooterContent = () => {
   return (
-    <NotificationFooterStyled>
+    <Fragment>
       <NotificationFooterLinkStyled
         href="https://engagespot.co"
         target="__blank"
@@ -20,7 +25,27 @@ export function NotificationFooter({ label }: NotificationFooterProps) {
       >
         <EngagespotIcon />
       </NotificationFooterLinkStyled>
-      <NotificationFooterTextStyled>{label}</NotificationFooterTextStyled>
+      <NotificationFooterTextStyled>
+        Powered by Engagespot
+      </NotificationFooterTextStyled>
+    </Fragment>
+  );
+};
+
+export function NotificationFooter({ footerContent }: NotificationFooterProps) {
+  const { togglePreference } = useEngagespotContext();
+
+  const onPreferenceClick = () => {
+    console.log('Inside??', togglePreference);
+    togglePreference?.(preference => !preference);
+  };
+
+  return (
+    <NotificationFooterStyled>
+      {defaultFooterContent()}
+      <NotificationFooterGearButtonStyled onClick={onPreferenceClick}>
+        <Gear />
+      </NotificationFooterGearButtonStyled>
     </NotificationFooterStyled>
   );
 }

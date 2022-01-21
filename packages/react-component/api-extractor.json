@@ -160,7 +160,11 @@
     /**
      * (REQUIRED) Whether to generate a doc model file.
      */
+<<<<<<< Updated upstream
     "enabled": true,
+=======
+    "enabled": false
+>>>>>>> Stashed changes
 
     /**
      * The output path for the doc model file.  The file extension should be ".api.json".
@@ -171,7 +175,11 @@
      * SUPPORTED TOKENS: <projectFolder>, <packageName>, <unscopedPackageName>
      * DEFAULT VALUE: "<projectFolder>/temp/<unscopedPackageName>.api.json"
      */
+<<<<<<< Updated upstream
     "apiJsonFilePath": "<projectFolder>/spec/engagespot-react-component.api.json"
+=======
+    // "apiJsonFilePath": "<projectFolder>/temp/<unscopedPackageName>.api.json"
+>>>>>>> Stashed changes
   },
 
   /**

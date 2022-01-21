@@ -81,6 +81,8 @@ export function useEngagespot({
   const engagespotInstance = engagespotRef.current;
   const transformDate = dateTransformer(formatDate);
   const [notifications, setNotifications] = useState(initializeNotifications);
+  const hideBranding = engagespotInstance.hideBranding;
+  const allowWebPush = engagespotInstance.enableWebPush;
   const [hasMore, setHasMore] = useState(false);
   const [isValid, setIsValid] = useState(false);
   const [panelVisibility, toggleNotificationPanelVisibility] =
@@ -126,6 +128,7 @@ export function useEngagespot({
       };
     });
   };
+
   const deleteNotificationFromState = (notificationId: string) => {
     setNotifications(({ data: previousData, ...oldNotifications }) => {
       return {
@@ -168,6 +171,8 @@ export function useEngagespot({
       document.removeEventListener('mousedown', handleDocumentClick);
     };
   }, []);
+
+  useEffect(() => {});
 
   useEffect(() => {
     engagespotInstance.onNotificationReceive(
@@ -279,6 +284,10 @@ export function useEngagespot({
     };
   };
 
+  const enableWebPush = () => {
+    engagespotInstance.httpsWebPushSubscribe();
+  };
+
   return {
     isValid,
     page,
@@ -298,5 +307,8 @@ export function useEngagespot({
       containerRef,
       hasMore,
     },
+    hideBranding,
+    enableWebPush,
+    allowWebPush,
   };
 }

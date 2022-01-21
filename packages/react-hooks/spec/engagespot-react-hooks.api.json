@@ -306,7 +306,7 @@
             },
             {
               "kind": "Content",
-              "text": ";\n    scroll: {\n        loaderRef: (node: any) => void;\n        containerRef: (node: any) => void;\n        hasMore: boolean;\n    };\n}"
+              "text": ";\n    scroll: {\n        loaderRef: (node: any) => void;\n        containerRef: (node: any) => void;\n        hasMore: boolean;\n    };\n    hideBranding: boolean;\n    enableWebPush: () => void;\n    allowWebPush: boolean;\n}"
             },
             {
               "kind": "Content",

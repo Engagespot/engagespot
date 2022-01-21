@@ -14,6 +14,8 @@ export interface EngagespotProviderProps {
 export interface EngagespotContextProps
   extends Partial<ReturnType<typeof useEngagespot>> {
   placeholderImage?: string;
+  preference?: boolean;
+  togglePreference?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const EngagespotContext = createContext<EngagespotContextProps>({});

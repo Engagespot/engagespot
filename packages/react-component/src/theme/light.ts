@@ -54,6 +54,13 @@ export default {
   footer: {
     background: 'white',
     fontColor: '#484848',
+    preferenceButtonColor: '#484848',
     border: '1px solid rgb(230, 230, 230)',
+    preferenceButtonHoverBackground: 'rgb(230, 230, 230)',
+  },
+  preference: {
+    fontColor: '#1c1c1c',
+    headerBackground: '#e86161',
+    background: 'white',
   },
 };

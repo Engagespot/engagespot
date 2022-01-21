@@ -5,23 +5,19 @@ import {
   NotificationHeaderTextStyled,
 } from './NotificationHeader.styled';
 import { useEngagespotContext } from '../engagespotProvider';
+import { Route } from '../notificationPanel/NotificationPanel';
 export interface NotificationHeaderProps {
-  label: string;
+  children: React.ReactNode;
+  route: Route;
 }
 
-export function NotificationHeader({ label }: NotificationHeaderProps) {
-  const { togglePanelVisibility } = useEngagespotContext();
-
+export function NotificationHeader({
+  children,
+  route,
+}: NotificationHeaderProps) {
   return (
-    <NotificationHeaderStyled>
-      <NotificationHeaderTextStyled>{label}</NotificationHeaderTextStyled>
-      <NotificationHeaderCloseButtonStyled
-        onClick={() => {
-          togglePanelVisibility?.();
-        }}
-      >
-        &times;
-      </NotificationHeaderCloseButtonStyled>
+    <NotificationHeaderStyled route={route}>
+      {children}
     </NotificationHeaderStyled>
   );
 }

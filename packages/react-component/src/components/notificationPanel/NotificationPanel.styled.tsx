@@ -1,8 +1,11 @@
 import styled, { css } from 'styled-components';
+import { Route } from './NotificationPanel';
 
 export const NotificationPanelPopper = styled.div``;
 
-export const NotificationPanelStyled = styled.div<{ visible: boolean }>`
+export const NotificationPanelStyled = styled.div<{
+  visible: boolean;
+}>`
   && {
     display: ${({ visible }) => (visible ? 'flex' : 'none')};
     box-sizing: border-box;
@@ -24,9 +27,9 @@ export const NotificationPanelStyled = styled.div<{ visible: boolean }>`
   }
 `;
 
-export const NotificationPanelArrowStyled = styled.div`
+export const NotificationPanelArrowStyled = styled.div<{ route: Route }>`
   && {
-    ${({ theme: { panel, colors } }) => css`
+    ${({ theme: { panel, preference, colors }, route }) => css`
       position: absolute;
       width: ${panel.arrowSize};
       height: ${panel.arrowSize};
@@ -38,7 +41,9 @@ export const NotificationPanelArrowStyled = styled.div`
         height: ${panel.arrowSize};
         position: absolute;
         inset: ${panel.arrowInset};
-        background-color: ${colors.brandingPrimary};
+        background-color: ${route === 'preference'
+          ? preference.headerBackground
+          : colors.brandingPrimary};
       }
     `}
   }

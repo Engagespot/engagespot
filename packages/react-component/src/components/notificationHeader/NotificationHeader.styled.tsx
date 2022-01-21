@@ -1,8 +1,9 @@
 import styled, { css } from 'styled-components';
+import { Route } from '../notificationPanel/NotificationPanel';
 
-export const NotificationHeaderStyled = styled.div`
+export const NotificationHeaderStyled = styled.div<{ route: Route }>`
   && {
-    ${({ theme: { header, colors } }) => css`
+    ${({ theme: { header, colors, preference }, route }) => css`
       display: flex;
       height: ${header.height};
       align-items: center;
@@ -10,7 +11,9 @@ export const NotificationHeaderStyled = styled.div`
       padding: ${header.padding};
       font-size: ${header.fontSize};
       color: ${header.fontColor};
-      background: ${colors.brandingPrimary};
+      background: ${route === 'home'
+        ? colors.brandingPrimary
+        : preference.headerBackground};
     `}
   }
 `;
@@ -32,7 +35,6 @@ export const NotificationHeaderCloseButtonStyled = styled.button`
       margin: ${header.closeButtonMargin};
       position: relative;
       padding: ${header.closeButtonPadding};
-      font-size: ${header.closeButtonFontSize};
       color: ${header.fontColor};
       box-sizing: border-box;
       outline: none;
@@ -41,6 +43,13 @@ export const NotificationHeaderCloseButtonStyled = styled.button`
       background-color: ${header.closeButtonBackground};
 
       &:hover {
+      }
+
+      svg {
+        fill: white;
+        stroke: none;
+        height: 12px;
+        width: 12px;
       }
     `}
   }

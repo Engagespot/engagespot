@@ -30,6 +30,7 @@
   "dependencies": {
     "@engagespot/react-hooks": "^0.1.1-alpha.13",
     "@popperjs/core": "^2.9.1",
+    "@types/react-toggle": "^4.0.3",
     "date-fns": "2.27.0",
     "i18next": "19.9.2",
     "intersection-observer": "0.12.0",
@@ -38,6 +39,7 @@
     "lodash.throttle": "4.1.1",
     "react-i18next": "11.8.10",
     "react-popper": "^2.2.5",
+    "react-toggle": "^4.1.2",
     "react-transition-group": "4.4.1",
     "styled-components": "^5.2.1",
     "ts-jest": "27.1.2"
