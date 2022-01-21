@@ -630,6 +630,7 @@ export default class Engagespot {
    */
   onWebPushPermissionChange(handler: Function) {
     this.eventListenerStore.WEBPUSH_PERMISSION_CHANGED.push(handler);
+    return true;
   }
 
   /**
