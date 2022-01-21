@@ -17,7 +17,6 @@ export function NotificationPreference({
   enableWebPush,
 }: NotificationPreferenceProps) {
   const handleToggleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
-    console.log('Changed', e.target.checked);
     enableWebPush();
   };
 

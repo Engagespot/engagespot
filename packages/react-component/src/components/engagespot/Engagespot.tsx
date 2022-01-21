@@ -89,8 +89,6 @@ export function Engagespot({
     useSystemDarkTheme,
   } = useEngagespot({ apiKey, userId, ...options });
 
-  console.log('Hide branding', hideBranding);
-
   const systemDarkThemeEnabled = useSystemDarkTheme();
   const [preference, togglePreference] = useState(false);
 
@@ -103,13 +101,13 @@ export function Engagespot({
   };
 
   const footerContent = () => {
-    return defaultFooterContent;
     if (hideBranding && renderFooterContent) {
-      return renderFooterContent;
+      return renderFooterContent?.();
     }
     if (hideBranding && !renderFooterContent) {
       return null;
     }
+    return defaultFooterContent();
   };
 
   const renderButtonAndPanel = () => {

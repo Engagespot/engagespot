@@ -36,13 +36,12 @@ export function NotificationFooter({ footerContent }: NotificationFooterProps) {
   const { togglePreference } = useEngagespotContext();
 
   const onPreferenceClick = () => {
-    console.log('Inside??', togglePreference);
     togglePreference?.(preference => !preference);
   };
 
   return (
     <NotificationFooterStyled>
-      {defaultFooterContent()}
+      {footerContent?.()}
       <NotificationFooterGearButtonStyled onClick={onPreferenceClick}>
         <Gear />
       </NotificationFooterGearButtonStyled>
