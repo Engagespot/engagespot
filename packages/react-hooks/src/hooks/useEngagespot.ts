@@ -37,6 +37,7 @@ export interface UseEngagespotOptions extends Options {
   notificationChimeSrc?: string;
   disableTitleUpdate?: boolean;
   titleUpdateText?: string;
+  panelOpenByDefault: boolean;
 }
 
 function initializeNotifications() {
@@ -67,6 +68,7 @@ export function useEngagespot({
   notificationChimeSrc = defaultChimeSrc,
   disableTitleUpdate = false,
   titleUpdateText = defaultTitleUpdateText,
+  panelOpenByDefault = false,
   ...options
 }: UseEngagespotOptions) {
   const engagespotRef = useRef<EngagespotCore | null>(null);
@@ -81,7 +83,8 @@ export function useEngagespot({
   const [notifications, setNotifications] = useState(initializeNotifications);
   const [hasMore, setHasMore] = useState(false);
   const [isValid, setIsValid] = useState(false);
-  const [panelVisibility, toggleNotificationPanelVisibility] = useState(false);
+  const [panelVisibility, toggleNotificationPanelVisibility] =
+    useState(panelOpenByDefault);
   const panelVisibilityRef = useRef<boolean>(false);
   panelVisibilityRef.current = panelVisibility;
   const togglePanelVisibility = (

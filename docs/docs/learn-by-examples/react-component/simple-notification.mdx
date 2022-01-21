@@ -1,145 +1,147 @@
 ---
 sidebar_position: 1
+title: Your First Notification Center
 ---
 
-# Simple Notification
+import SimpleNotification from '../../../src/components/learnByExamples/01simpleNotification/SimpleNotification';
 
-Docusaurus supports **[Markdown](https://daringfireball.net/projects/markdown/syntax)** and a few **additional features**.
+This guide assumes that you've already went through the [Getting Started](/docs/introduction/getting-started) section. If you haven't already, please check it our first and then come back here. Don't worry, we'll wait 😉
 
-## Front Matter
+Today, we'll see how to integrate a simple notification center on your React powered website.
 
-Markdown documents have metadata at the top called [Front Matter](https://jekyllrb.com/docs/front-matter/):
+Let's start by creating a new create-react-app project.
 
-```text title="my-doc.md"
-// highlight-start
----
-id: my-doc-id
-title: My document title
-description: My document description
-slug: /my-custom-url
----
-// highlight-end
-
-## Markdown heading
-
-Markdown text with [links](./hello.md)
+```bash
+npx create-react-app my-notifications-app
+cd my-notifications-app
+npm start
 ```
 
-## Links
+If everything went well, you'll be seening this screen below
 
-Regular Markdown links are supported, using url paths or relative file paths.
+<!-- TODO:- Add Image for create react app -->
 
-```md
-Let's see how to [Create a page](/create-a-page).
+Next step is to add engagespot to our dependency.
+We'll be using the component version of engagespot in this tutorial.
+
+```bash
+npm install @engagespot/react-component
 ```
 
-```md
-Let's see how to [Create a page](./create-a-page.md).
+:::info
+Engagespot supports all popular modules systems namely **UMD**, **AMD**, **Commonjs** and **ESModules**. You are free to use it anywhere you want!
+:::
+
+Let's now create a new component called `Nav` and add some styles to it. This will act as the navigation bar where we'll integrate the notification center later.
+We'll be using `styled-components` for styling this.
+
+```jsx
+// Nav.js
+import styled from 'styled-components';
+import React from 'react';
+
+const NavBar = styled.nav`
+  width: 100%;
+  height: 56px;
+  color: white;
+  border-radius: 5%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: orangered;
+`;
+
+const NavList = styled.ul`
+  list-style-type: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  align-items: center;
+`;
+
+const NavItem = styled.li`
+  display: flex;
+  padding: 0 2.5rem;
+  cursor: pointer;
+
+  &:hover {
+    transition: all 0.5s;
+  }
+`;
+
+export default function Nav({ children }) {
+  return (
+    <NavBar>
+      <NavList>{children}</NavList>
+    </NavBar>
+  );
+}
+
+Nav.NavItem = NavItem;
 ```
 
-**Result:** Let's see how to [Create a page](./create-a-page.md).
+Now, import this component into your `App.js` and add a few `NavItem`s
 
-## Images
+```jsx
+//App.js
+import "./styles.css";
+import Nav from "./Nav";
+import { Engagespot } from "@engagespot/react-component";
 
-Regular Markdown images are supported.
-
-Add an image at `static/img/docusaurus.png` and display it in Markdown:
-
-```md
-![Docusaurus logo](/img/docusaurus.png)
-```
-
-![Docusaurus logo](/img/docusaurus.png)
-
-## Code Blocks
-
-Markdown code blocks are supported with Syntax highlighting.
-
-    ```jsx title="src/components/HelloDocusaurus.js"
-    function HelloDocusaurus() {
-        return (
-            <h1>Hello, Docusaurus!</h1>
-        )
-    }
-    ```
-
-```jsx title="src/components/HelloDocusaurus.js"
-function HelloDocusaurus() {
-  return <h1>Hello, Docusaurus!</h1>;
+export default function App() {
+  return (
+    <div className="App">
+      <Nav>
+        <Nav.NavItem>Home</Nav.NavItem>
+        <Nav.NavItem>About</Nav.NavItem>
+        <Nav.NavItem>Contact</Nav.NavItem>
+      <h1>Hello CodeSandbox</h1>
+      <h2>Start editing to see some magic happen!</h2>
+    </div>
+  );
 }
 ```
 
-## Admonitions
-
-Docusaurus has a special syntax to create admonitions and callouts:
-
-    :::tip My tip
-
-    Use this awesome feature option
-
-    :::
-
-    :::danger Take care
-
-    This action is dangerous
-
-    :::
-
-:::tip My tip
-
-Use this awesome feature option
-
-:::
-
-:::danger Take care
-
-This action is dangerous
-
-:::
-
-## MDX and React Components
-
-[MDX](https://mdxjs.com/) can make your documentation more **interactive** and allows using any **React components inside Markdown**:
+Nice! Our Navigation is ready and things are really looking good. Only remaining step is to integrate our notification center. Let's import the `Engagespot` component for that
 
 ```jsx
-export const Highlight = ({children, color}) => (
-  <span
-    style={{
-      backgroundColor: color,
-      borderRadius: '20px',
-      color: '#fff',
-      padding: '10px',
-      cursor: 'pointer',
-    }}
-    onClick={() => {
-      alert(`You clicked the color ${color} with label ${children}`)
-    }}>
-    {children}
-  </span>
-);
-
-This is <Highlight color="#25c2a0">Docusaurus green</Highlight> !
-
-This is <Highlight color="#1877F2">Facebook blue</Highlight> !
+import { Engagespot } from '@engagespot/core';
 ```
 
-export const Highlight = ({ children, color }) => (
-  <span
-    style={{
-      backgroundColor: color,
-      borderRadius: '20px',
-      color: '#fff',
-      padding: '10px',
-      cursor: 'pointer',
-    }}
-    onClick={() => {
-      alert(`You clicked the color ${color} with label ${children}`);
-    }}
-  >
-    {children}
-  </span>
-);
+Add it as a `NavItem` with the required props
 
-This is <Highlight color="#25c2a0">Docusaurus green</Highlight> !
+```jsx
+<Nav.NavItem>
+  <Engagespot apiKey="shiynklpz18l3ktqyy6d9a" userId="anandnew" />
+</Nav.NavItem>
+```
 
-This is <Highlight color="#1877F2">Facebook blue</Highlight> !
+:::tip
+Engagespot packages have built-in typescript support OOTB. So even if you're not using typescript in your apps, IDEs like VSCode
+would give you autocompletion by reading the type definitions from the package. How cool is that?
+:::
+
+If all went well, it should look somewhat like this 👇
+
+<SimpleNotification />
+
+Here's the complete code for what we done so far.
+
+<iframe
+  src="https://codesandbox.io/embed/elegant-wiles-kcvvp?fontsize=14&hidenavigation=1&theme=dark"
+  style={{
+    width: '100%',
+    height: '800px',
+    border: '0',
+    borderRadius: '4px',
+    overflow: 'hidden',
+  }}
+  title="elegant-wiles-kcvvp"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+
+In the upcoming chapters, we'll discuss on how to customize the looks of notification center to make it truly your own!
