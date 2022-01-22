@@ -13,6 +13,7 @@ export type FooterContent = (() => React.ReactNode) | undefined;
 
 export interface NotificationFooterProps {
   footerContent: FooterContent;
+  showPreferences: boolean;
 }
 
 export const defaultFooterContent = () => {
@@ -32,7 +33,10 @@ export const defaultFooterContent = () => {
   );
 };
 
-export function NotificationFooter({ footerContent }: NotificationFooterProps) {
+export function NotificationFooter({
+  footerContent,
+  showPreferences,
+}: NotificationFooterProps) {
   const { togglePreference } = useEngagespotContext();
 
   const onPreferenceClick = () => {
@@ -42,9 +46,11 @@ export function NotificationFooter({ footerContent }: NotificationFooterProps) {
   return (
     <NotificationFooterStyled>
       {footerContent?.()}
-      <NotificationFooterGearButtonStyled onClick={onPreferenceClick}>
-        <Gear />
-      </NotificationFooterGearButtonStyled>
+      {showPreferences ? (
+        <NotificationFooterGearButtonStyled onClick={onPreferenceClick}>
+          <Gear />
+        </NotificationFooterGearButtonStyled>
+      ) : null}
     </NotificationFooterStyled>
   );
 }

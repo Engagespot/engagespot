@@ -86,6 +86,8 @@ export function Engagespot({
     isMobile,
     hideBranding,
     enableWebPush,
+    allowWebPush,
+    webPushState,
     useSystemDarkTheme,
   } = useEngagespot({ apiKey, userId, ...options });
 
@@ -128,10 +130,12 @@ export function Engagespot({
           panelProps={getPanelProps}
           panelOffsetProps={getPanelOffsetProps}
           arrowProps={getArrowProps}
+          showPreferences={allowWebPush}
           renderNotificationContent={renderNotificationContent}
           renderEmptyPlaceholderImage={renderEmptyPlaceholderImage}
           togglePanelVisibility={togglePanelVisibility}
           enableWebPush={enableWebPush}
+          webPushState={webPushState}
           footerContent={footerContent}
           notifications={
             notifications.data ? notifications.data.map(transformFeedItem) : []

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import merge from 'lodash.merge';
-import { useMedia } from 'react-use';
+import { useMedia, useEffectOnce } from 'react-use';
 
 import EngagespotCore, {
   Options,
@@ -82,7 +82,7 @@ export function useEngagespot({
   const transformDate = dateTransformer(formatDate);
   const [notifications, setNotifications] = useState(initializeNotifications);
   const [webPushState, setWebPushState] =
-    useState<globalThis.PermissionState>('denied');
+    useState<globalThis.PermissionState>('prompt');
   const hideBranding = engagespotInstance.hideBranding;
   const allowWebPush = engagespotInstance.enableWebPush;
   const [hasMore, setHasMore] = useState(false);
@@ -221,6 +221,15 @@ export function useEngagespot({
 
     async function getNotificationPermissionState() {
       const state = await engagespotInstance.getWebPushRegistrationState();
+      let permissionState: globalThis.PermissionState = 'denied';
+      if (state === PermissionState.PERMISSION_GRANTED) {
+        permissionState = 'granted';
+      } else if (state === PermissionState.PERMISSION_DENIED) {
+        permissionState = 'denied';
+      } else if (state === PermissionState.PERMISSION_REQUIRED) {
+        permissionState = 'prompt';
+      }
+      setWebPushState(permissionState);
       setNotificationPermissionState(state);
     }
 

@@ -63,4 +63,18 @@ export default {
     headerBackground: '#ba3737',
     background: 'rgb(24, 26, 27)',
   },
+  preferenceModal: {
+    overlayBackground: '#2b2b2b',
+    headingColor: 'rgb(232, 230, 227)',
+    background: 'rgba(24, 26, 27, .9)',
+    closeButtonColor: 'rgb(232, 230, 227)',
+    textPrimaryColor: 'rgb(203, 198, 192)',
+    textSecondaryColor: 'rgb(157, 148, 136)',
+    buttonPrimaryColor: 'rgb(203, 198, 192)',
+    buttonPrimaryBackgroundColor: 'rgb(0 137 119)',
+    buttonPrimaryHoverBackgroundColor: 'rgb(6 110 96)',
+    buttonSecondaryColor: 'rgb(203, 198, 192)',
+    buttonSecondaryBackgroundColor: 'transparent',
+    buttonSecondaryHoverBackgroundColor: 'rgb(38, 41, 43)',
+  },
 };

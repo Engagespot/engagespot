@@ -24,6 +24,7 @@ export const NotificationPanelStyled = styled.div<{
     width: ${({ theme }) => theme.panel.width};
     align-items: stretch;
     justify-content: flex-start;
+    position: relative;
   }
 `;
 

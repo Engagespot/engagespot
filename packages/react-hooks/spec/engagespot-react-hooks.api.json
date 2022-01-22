@@ -306,7 +306,16 @@
             },
             {
               "kind": "Content",
-              "text": ";\n    scroll: {\n        loaderRef: (node: any) => void;\n        containerRef: (node: any) => void;\n        hasMore: boolean;\n    };\n    hideBranding: boolean;\n    enableWebPush: () => void;\n    allowWebPush: boolean;\n}"
+              "text": ";\n    scroll: {\n        loaderRef: (node: any) => void;\n        containerRef: (node: any) => void;\n        hasMore: boolean;\n    };\n    hideBranding: boolean;\n    enableWebPush: () => void;\n    allowWebPush: boolean;\n    webPushState: "
+            },
+            {
+              "kind": "Reference",
+              "text": "globalThis.PermissionState",
+              "canonicalReference": "!PermissionState:type"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n}"
             },
             {
               "kind": "Content",
@@ -315,7 +324,7 @@
           ],
           "returnTypeTokenRange": {
             "startIndex": 3,
-            "endIndex": 30
+            "endIndex": 32
           },
           "releaseTag": "Public",
           "overloadIndex": 1,

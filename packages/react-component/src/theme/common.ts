@@ -94,6 +94,27 @@ export default {
   preference: {
     height: '30rem',
     fontWeight: '400',
-    padding: '1.2rem 2rem 1.2rem 2rem'
+    padding: '1.2rem 2rem 1.2rem 2rem',
+  },
+  preferenceModal: {
+    overlayOpacity: '.6',
+    overlayMargin: '10% 0 0 0',
+    height: '35%',
+    backdropFilter: 'blur(1px)',
+    borderRadius: '1.5rem 1.5rem 0 0',
+    padding: '1.2rem 2rem 1.2rem 2rem',
+    textAlign: 'center',
+    headerMargin: '0 2rem',
+    headerFontSize: '1rem',
+    closeButtonSize: '.6rem',
+    textPrimaryMargin: '0.5rem 2rem',
+    textPrimaryFontSize: '.9rem',
+    textSecondaryMargin: '1rem 0 0 0',
+    textSecondaryFontSize: '.8rem',
+    primaryButtonFontWeight: '600',
+    primaryButtonPadding: '0.6rem 4.5rem',
+    primaryButtonBorderRadius: '10px',
+    primaryButtonMargin: '0.6rem 0 0.2rem 0',
+    primaryButtonTransition: 'all 0.2s',
   },
 };

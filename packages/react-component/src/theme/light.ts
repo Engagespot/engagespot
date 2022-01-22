@@ -63,4 +63,18 @@ export default {
     headerBackground: '#e86161',
     background: 'white',
   },
+  preferenceModal: {
+    overlayBackground: '#2b2b2b',
+    headingColor: '#1c1c1c',
+    background: 'rgba(255, 255, 255, 0.8)',
+    closeButtonColor: '#bbb9b9',
+    textPrimaryColor: '#1c1c1c',
+    textSecondaryColor: '#525252',
+    buttonPrimaryColor: 'white',
+    buttonPrimaryBackgroundColor: '#1abc9c',
+    buttonPrimaryHoverBackgroundColor: '#1a9c82',
+    buttonSecondaryColor: '#4e4e4e',
+    buttonSecondaryBackgroundColor: 'transparent',
+    buttonSecondaryHoverBackgroundColor: '#cfcfcf',
+  },
 };
