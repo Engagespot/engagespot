@@ -365,7 +365,7 @@ export default class Engagespot {
         const state = target.state;
 
         //Publish to all listeners
-        this.eventListenerStore.NOTIFICATION_SEEN.forEach(listener => {
+        this.eventListenerStore.WEBPUSH_PERMISSION_CHANGED.forEach(listener => {
           listener(state);
         });
       };
