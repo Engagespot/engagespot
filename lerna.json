@@ -9,5 +9,5 @@
     },
     "bootstrap": {}
   },
-  "packages": ["packages/*", "examples/*", "docs/"]
+  "packages": ["packages/*", "examples/*", "docs/", "worker/*"]
 }
