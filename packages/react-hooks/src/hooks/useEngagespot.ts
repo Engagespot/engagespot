@@ -175,12 +175,26 @@ export function useEngagespot({
   }, []);
 
   useEffect(() => {
-    engagespotInstance.onWebPushPermissionChange(state => {
-      setWebPushState(state);
-    });
-  }, [apiKey, userId]);
+    async function checkIsValid() {
+      //TODO:- check if validation is success
+      const isValid = true;
+      setIsValid(isValid);
+    }
 
-  useEffect(() => {
+    async function getNotificationPermissionState() {
+      const state = await engagespotInstance.getWebPushRegistrationState();
+      let permissionState: globalThis.PermissionState = 'denied';
+      if (state === PermissionState.PERMISSION_GRANTED) {
+        permissionState = 'granted';
+      } else if (state === PermissionState.PERMISSION_DENIED) {
+        permissionState = 'denied';
+      } else if (state === PermissionState.PERMISSION_REQUIRED) {
+        permissionState = 'prompt';
+      }
+      setWebPushState(permissionState);
+      setNotificationPermissionState(state);
+    }
+
     engagespotInstance.onNotificationReceive(
       (notificationItem: Notification) => {
         setNotifications(({ data: previousData, ...oldNotifications }) => {
@@ -210,28 +224,10 @@ export function useEngagespot({
     });
 
     engagespotInstance.onNotificationSee((notificationId: string) => {});
-  }, [engagespotInstance]);
 
-  useEffect(() => {
-    async function checkIsValid() {
-      //TODO:- check if validation is success
-      const isValid = true;
-      setIsValid(isValid);
-    }
-
-    async function getNotificationPermissionState() {
-      const state = await engagespotInstance.getWebPushRegistrationState();
-      let permissionState: globalThis.PermissionState = 'denied';
-      if (state === PermissionState.PERMISSION_GRANTED) {
-        permissionState = 'granted';
-      } else if (state === PermissionState.PERMISSION_DENIED) {
-        permissionState = 'denied';
-      } else if (state === PermissionState.PERMISSION_REQUIRED) {
-        permissionState = 'prompt';
-      }
-      setWebPushState(permissionState);
-      setNotificationPermissionState(state);
-    }
+    engagespotInstance.onWebPushPermissionChange(state => {
+      setWebPushState(state);
+    });
 
     checkIsValid();
     getNotificationPermissionState();
@@ -267,7 +263,7 @@ export function useEngagespot({
     }
 
     getNotifications();
-  }, [page]);
+  }, [page, apiKey, userId]);
 
   const onButtonClick = () => {
     togglePanelVisibility();
