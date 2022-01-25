@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import merge from 'lodash.merge';
-import { useMedia, useEffectOnce } from 'react-use';
+import { useMedia } from 'react-use';
 
 import EngagespotCore, {
   Options,
