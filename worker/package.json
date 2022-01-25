@@ -1,0 +1,24 @@
+{
+  "name": "worker",
+  "version": "1.0.0",
+  "main": "./dist/service-worker.js",
+  "license": "MIT",
+  "private": "true",
+  "scripts": {
+    "build": "yarn clean && yarn tsc && microbundle",
+    "dev": "microbundle watch",
+    "tsc": "tsc",
+    "clean": "rimraf dist",
+    "prepare": "yarn run build"
+  },
+  "devDependencies": {
+    "microbundle": "0.14.2",
+    "rimraf": "^3.0.2",
+    "typescript": "4.2.4"
+  },
+  "eslintConfig": {
+    "extends": [
+      "../.eslint.rc.js"
+    ]
+  }
+}
