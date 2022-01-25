@@ -1,9 +1,9 @@
 import styled, { css } from 'styled-components';
 import { Route } from '../notificationPanel/NotificationPanel';
 
-export const NotificationHeaderStyled = styled.div<{ route: Route }>`
+export const NotificationHeaderStyled = styled.div`
   && {
-    ${({ theme: { header, colors, preference }, route }) => css`
+    ${({ theme: { header, colors, preference } }) => css`
       display: flex;
       height: ${header.height};
       align-items: center;
@@ -11,9 +11,7 @@ export const NotificationHeaderStyled = styled.div<{ route: Route }>`
       padding: ${header.padding};
       font-size: ${header.fontSize};
       color: ${header.fontColor};
-      background: ${route === 'home'
-        ? colors.brandingPrimary
-        : preference.headerBackground};
+      background: ${colors.brandingPrimary};
     `}
   }
 `;

@@ -25,6 +25,7 @@ export default {
   },
   notificationButton: {
     background: 'transparent',
+    hoverBackground: 'rgba(0,191,166, .2)',
     iconFill: '#edf4f2',
     floatingButtonShadow:
       '0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)',
@@ -60,7 +61,6 @@ export default {
   },
   preference: {
     fontColor: '#1c1c1c',
-    headerBackground: '#e86161',
     background: 'white',
   },
   preferenceModal: {

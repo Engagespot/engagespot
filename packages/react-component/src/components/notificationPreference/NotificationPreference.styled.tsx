@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 export const NotificationPreferenceStyled = styled.div`
   && {
-    ${({ theme: { preference } }) => css`
+    ${({ theme: { preference, colors } }) => css`
       display: flex;
       position: relative;
       flex: 1;

@@ -26,8 +26,10 @@ export const NotificationButtonStyled = styled.button<NotificationButtonStyledPr
       cursor: pointer;
       position: relative;
       background-color: ${notificationButton.background};
+      transition: ${notificationButton.transition};
 
       &:hover {
+        background-color: ${notificationButton.hoverBackground};
       }
 
       svg {

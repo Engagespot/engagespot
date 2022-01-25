@@ -142,7 +142,7 @@ export function NotificationPanel({
 
   const renderHeader = (route: Route, label: string) => {
     return (
-      <NotificationHeader route={route}>
+      <NotificationHeader>
         <NotificationPreferenceBackButton
           onClick={setRouteAsHome}
           style={{
@@ -165,10 +165,7 @@ export function NotificationPanel({
 
   return (
     <NotificationPanelPopper {...(panelProps() as PanelProps)}>
-      <NotificationPanelArrowStyled
-        {...(arrowProps() as ArrowProps)}
-        route={route}
-      />
+      <NotificationPanelArrowStyled {...(arrowProps() as ArrowProps)} />
       <NotificationPanelStyled {...panelOffsetProps()} visible={visible}>
         {renderPreferenceModal()}
         {renderHeader(route, label)}

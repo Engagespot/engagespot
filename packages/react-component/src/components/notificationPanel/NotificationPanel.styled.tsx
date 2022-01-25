@@ -28,9 +28,9 @@ export const NotificationPanelStyled = styled.div<{
   }
 `;
 
-export const NotificationPanelArrowStyled = styled.div<{ route: Route }>`
+export const NotificationPanelArrowStyled = styled.div`
   && {
-    ${({ theme: { panel, preference, colors }, route }) => css`
+    ${({ theme: { panel, colors } }) => css`
       position: absolute;
       width: ${panel.arrowSize};
       height: ${panel.arrowSize};
@@ -42,9 +42,7 @@ export const NotificationPanelArrowStyled = styled.div<{ route: Route }>`
         height: ${panel.arrowSize};
         position: absolute;
         inset: ${panel.arrowInset};
-        background-color: ${route === 'preference'
-          ? preference.headerBackground
-          : colors.brandingPrimary};
+        background-color: ${colors.brandingPrimary};
       }
     `}
   }

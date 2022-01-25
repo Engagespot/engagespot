@@ -8,16 +8,8 @@ import { useEngagespotContext } from '../engagespotProvider';
 import { Route } from '../notificationPanel/NotificationPanel';
 export interface NotificationHeaderProps {
   children: React.ReactNode;
-  route: Route;
 }
 
-export function NotificationHeader({
-  children,
-  route,
-}: NotificationHeaderProps) {
-  return (
-    <NotificationHeaderStyled route={route}>
-      {children}
-    </NotificationHeaderStyled>
-  );
+export function NotificationHeader({ children }: NotificationHeaderProps) {
+  return <NotificationHeaderStyled>{children}</NotificationHeaderStyled>;
 }

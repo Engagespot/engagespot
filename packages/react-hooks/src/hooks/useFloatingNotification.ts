@@ -54,13 +54,13 @@ export function useFloatingNotification(
       arrowRef,
       styles: {
         popper: {
-          position: 'absolute',
+          position: 'fixed',
           top: 0,
           left: 0,
           zIndex: 999,
           width: '100%',
         },
-        offset: { height: '100vh', width: '100%' },
+        offset: { height: '100vh', width: '100%', borderRadius: '0' },
         arrow: {},
       },
       attributes: { popper: {} },

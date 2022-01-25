@@ -41,6 +41,7 @@ export default {
     borderWidth: '0',
     normalButtonRadius: '5px',
     floatingButtonRadius: '50%',
+    transition: 'all .2s',
   },
   unreadBadgeCount: {
     background: 'red',
