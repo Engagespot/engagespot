@@ -84,7 +84,8 @@ export function useEngagespot({
   const [webPushState, setWebPushState] =
     useState<globalThis.PermissionState>('prompt');
   const hideBranding = engagespotInstance.hideBranding;
-  const allowWebPush = engagespotInstance.enableWebPush;
+  const allowWebPush =
+    engagespotInstance.enableWebPush && engagespotInstance.isWebPushSupported();
   const [hasMore, setHasMore] = useState(false);
   const [isValid, setIsValid] = useState(false);
   const [panelVisibility, toggleNotificationPanelVisibility] =

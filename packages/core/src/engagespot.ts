@@ -358,6 +358,10 @@ export default class Engagespot {
    * Initialize a listener for Web Push Permission Changes
    */
   listenForWebPushPermissionChanges() {
+    if (!this.isWebPushSupported()) {
+      this._log('Web push is not supported in this browser');
+      return;
+    }
     navigator.permissions.query({ name: 'notifications' }).then(permission => {
       // Initial status is available at permission.state
       permission.onchange = e => {
