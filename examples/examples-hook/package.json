@@ -1,6 +1,6 @@
 {
   "name": "examples",
-  "version": "0.1.1-alpha.14",
+  "version": "0.1.1-alpha.15",
   "private": true,
   "scripts": {
     "dev:hooks": "vite",
@@ -8,8 +8,8 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "@engagespot/react-component": "^0.1.1-alpha.14",
-    "@engagespot/react-hooks": "^0.1.1-alpha.14",
+    "@engagespot/react-component": "^0.1.1-alpha.15",
+    "@engagespot/react-hooks": "^0.1.1-alpha.15",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "styled-components": "5.3.3",
