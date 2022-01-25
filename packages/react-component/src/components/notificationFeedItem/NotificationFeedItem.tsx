@@ -104,6 +104,16 @@ export function NotificationFeedItem({
     window.open(clickableUrl, '__blank');
   };
 
+  const getSrc = () => {
+    if (isImageBroken) {
+      return placeholderImage;
+    }
+    if (imageUrl) {
+      return imageUrl;
+    }
+    return 'false';
+  };
+
   return (
     <FeedItemStyled
       clickable={clickableUrl != null}
@@ -114,7 +124,7 @@ export function NotificationFeedItem({
       onClick={onClick}
     >
       <FeedItemImage
-        src={isImageBroken ? placeholderImage : imageUrl}
+        src={getSrc()}
         onError={() => {
           setImageBroken(true);
         }}

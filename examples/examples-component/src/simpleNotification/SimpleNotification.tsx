@@ -67,7 +67,7 @@ export function SimpleNotification() {
                   // iconFill: '#000',
                 },
               }}
-              // placeholderImage='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICAgIDxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjUwIiBmaWxsPSJwYXBheWF3aGlwIiAvPgo8L3N2Zz4='
+              //placeholderImage="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICAgIDxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjUwIiBmaWxsPSJwYXBheWF3aGlwIiAvPgo8L3N2Zz4="
               // formatDate={(dateString, ) => {
               //   return new Date().toString();
               // }}

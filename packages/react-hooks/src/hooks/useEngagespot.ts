@@ -37,7 +37,7 @@ export interface UseEngagespotOptions extends Options {
   notificationChimeSrc?: string;
   disableTitleUpdate?: boolean;
   titleUpdateText?: string;
-  panelOpenByDefault: boolean;
+  panelOpenByDefault?: boolean;
 }
 
 function initializeNotifications() {
