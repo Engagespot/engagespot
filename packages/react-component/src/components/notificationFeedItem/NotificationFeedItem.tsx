@@ -18,6 +18,16 @@ import {
 import { DropdownMenu } from '../dropdownMenu';
 import { Circle as FeedItemReadDot } from '../icons/Circle';
 
+interface ClickableNotificationPayload {
+  url: string;
+  id: string;
+}
+
+export type onFeedItemClickType = (
+  evt: React.MouseEvent<HTMLDivElement, MouseEvent>,
+  payload: ClickableNotificationPayload
+) => void;
+
 export interface NotificationFeedItemProps {
   heading: string;
   description: string;
@@ -29,6 +39,7 @@ export interface NotificationFeedItemProps {
   clickedAt?: string;
   placeholderImage: string;
   isMobile?: boolean;
+  onFeedItemClick?: onFeedItemClickType;
   markAsClicked: () => unknown;
   deleteNotification: () => unknown;
 }
@@ -76,6 +87,7 @@ export function NotificationFeedItem({
   time,
   id,
   isMobile,
+  onFeedItemClick,
   markAsClicked,
   deleteNotification,
 }: NotificationFeedItemProps) {
@@ -94,6 +106,11 @@ export function NotificationFeedItem({
   };
 
   const onClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (onFeedItemClick) {
+      onFeedItemClick(event, { id, url: clickableUrl });
+      return;
+    }
+
     if (!clickableUrl) {
       return;
     }

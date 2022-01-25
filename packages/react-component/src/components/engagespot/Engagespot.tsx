@@ -17,6 +17,7 @@ import {
 import { EngagespotStyled } from './Engagespot.styled';
 import { Route } from '../notificationPanel/NotificationPanel';
 import { defaultFooterContent, FooterContent } from '../notificationFooter';
+import { onFeedItemClickType } from '../notificationFeedItem/NotificationFeedItem';
 
 export type useEngagespotReturnType = ReturnType<typeof useEngagespot>;
 
@@ -31,6 +32,7 @@ export interface EngagespotProps extends UseEngagespotOptions {
   renderNotificationIcon?: customNotificationIcon;
   renderEmptyPlaceholderImage?: customPlaceholderContentType;
   renderNotificationContent?: customNotificationContentType;
+  onFeedItemClick?: onFeedItemClickType;
 }
 
 const notificationItemResponseMap = {
@@ -70,6 +72,7 @@ export function Engagespot({
   renderNotificationIcon,
   renderEmptyPlaceholderImage,
   renderNotificationContent,
+  onFeedItemClick,
   ...options
 }: EngagespotProps) {
   const {
@@ -158,6 +161,7 @@ export function Engagespot({
         isMobile,
         preference,
         togglePreference,
+        onFeedItemClick,
       }}
     >
       <EngagespotStyled>{isValid && renderButtonAndPanel()}</EngagespotStyled>

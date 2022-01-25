@@ -61,6 +61,9 @@ export function SimpleNotification() {
                 enableArrow: true,
               }}
               mode="auto"
+              onFeedItemClick={(_, options) => {
+                console.log('options', options);
+              }}
               panelOpenByDefault={false}
               theme={{
                 notificationButton: {

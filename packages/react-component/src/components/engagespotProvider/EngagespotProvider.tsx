@@ -2,6 +2,7 @@ import React, { createContext, useContext } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { getTheme, Mode, SystemTheme, ThemeOverrides } from '../../theme/theme';
 import { useEngagespot } from '@engagespot/react-hooks';
+import { onFeedItemClickType } from '../notificationFeedItem/NotificationFeedItem';
 
 export interface EngagespotProviderProps {
   mode?: Mode;
@@ -16,6 +17,7 @@ export interface EngagespotContextProps
   placeholderImage?: string;
   preference?: boolean;
   togglePreference?: React.Dispatch<React.SetStateAction<boolean>>;
+  onFeedItemClick?: onFeedItemClickType;
 }
 
 const EngagespotContext = createContext<EngagespotContextProps>({});

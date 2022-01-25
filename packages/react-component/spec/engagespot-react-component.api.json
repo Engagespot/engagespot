@@ -176,7 +176,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export declare function Engagespot({ theme, mode, apiKey, panelOnly, placeholderImage, userId, renderFooterContent, renderNotificationIcon, renderEmptyPlaceholderImage, renderNotificationContent, ...options }: "
+              "text": "export declare function Engagespot({ theme, mode, apiKey, panelOnly, placeholderImage, userId, renderFooterContent, renderNotificationIcon, renderEmptyPlaceholderImage, renderNotificationContent, onFeedItemClick, ...options }: "
             },
             {
               "kind": "Reference",
@@ -205,7 +205,7 @@
           "overloadIndex": 1,
           "parameters": [
             {
-              "parameterName": "{ theme, mode, apiKey, panelOnly, placeholderImage, userId, renderFooterContent, renderNotificationIcon, renderEmptyPlaceholderImage, renderNotificationContent, ...options }",
+              "parameterName": "{ theme, mode, apiKey, panelOnly, placeholderImage, userId, renderFooterContent, renderNotificationIcon, renderEmptyPlaceholderImage, renderNotificationContent, onFeedItemClick, ...options }",
               "parameterTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
@@ -310,6 +310,33 @@
               "isOptional": true,
               "releaseTag": "Public",
               "name": "mode",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@engagespot/react-component!EngagespotProps#onFeedItemClick:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "onFeedItemClick?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "onFeedItemClickType",
+                  "canonicalReference": "@engagespot/react-component!onFeedItemClickType:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "onFeedItemClick",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2

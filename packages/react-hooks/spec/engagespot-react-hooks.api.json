@@ -279,7 +279,7 @@
             },
             {
               "kind": "Content",
-              "text": " | {\n            height: string;\n            width: string;\n        };\n    };\n    useJumpToTop: typeof "
+              "text": " | {\n            height: string;\n            width: string;\n            borderRadius: string;\n        };\n    };\n    useJumpToTop: typeof "
             },
             {
               "kind": "Reference",
@@ -507,7 +507,7 @@
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "panelOpenByDefault: "
+                  "text": "panelOpenByDefault?: "
                 },
                 {
                   "kind": "Content",
@@ -518,7 +518,7 @@
                   "text": ";"
                 }
               ],
-              "isOptional": false,
+              "isOptional": true,
               "releaseTag": "Public",
               "name": "panelOpenByDefault",
               "propertyTypeTokenRange": {
