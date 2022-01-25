@@ -178,7 +178,7 @@ export function useEngagespot({
     engagespotInstance.onWebPushPermissionChange(state => {
       setWebPushState(state);
     });
-  });
+  }, [apiKey, userId]);
 
   useEffect(() => {
     engagespotInstance.onNotificationReceive(

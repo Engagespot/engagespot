@@ -93,7 +93,6 @@ export function Engagespot({
 
   const systemDarkThemeEnabled = useSystemDarkTheme();
   const [preference, togglePreference] = useState(false);
-
   const setRoute = (route: Route) => {
     if (route === 'preference') {
       togglePreference(true);
