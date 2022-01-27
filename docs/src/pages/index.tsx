@@ -31,7 +31,7 @@ export default function Home(): JSX.Element {
   return (
     <Layout
       title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />"
+      description="All in one guide you need to setup Engagespot on your product <head />"
     >
       <HomepageHeader />
       <main>
