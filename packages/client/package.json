@@ -1,6 +1,6 @@
 {
   "name": "@engagespot/client",
-  "version": "0.1.1-alpha.17",
+  "version": "0.1.1-alpha.18",
   "source": "./src/index.ts",
   "main": "./dist/engagespot-client.js",
   "module": "./dist/engagespot-client.esm.js",
@@ -24,7 +24,7 @@
     "lint:css": "stylelint './src/**/*.js'"
   },
   "dependencies": {
-    "@engagespot/react-component": "^0.1.1-alpha.17",
+    "@engagespot/react-component": "^0.1.1-alpha.18",
     "react": "^16.8.3 || ^17.0.0-0",
     "react-dom": "^16.8.3 || ^17.0.0-0"
   },
