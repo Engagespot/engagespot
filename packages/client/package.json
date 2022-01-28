@@ -1,17 +1,18 @@
 {
-  "name": "@engagespot/react-component",
+  "name": "@engagespot/client",
   "version": "0.1.1-alpha.18",
   "source": "./src/index.ts",
-  "main": "./dist/engagespot-react.js",
-  "module": "./dist/engagespot-react.esm.js",
-  "unpkg": "./dist/engagespot-react.umd.js",
-  "types": "./dist/engagespot-react.d.ts",
-  "amdName": "EngagespotReact",
+  "main": "./dist/engagespot-client.js",
+  "module": "./dist/engagespot-client.esm.js",
+  "types": "./dist/engagespot-client.d.ts",
   "files": [
     "dist/**/*"
   ],
   "scripts": {
-    "build": "yarn clean && yarn tsc && microbundle --jsx React.createElement && yarn declarations",
+    "build": "yarn clean && yarn tsc && npm run build:package && npm run build:umd && npm run build:esm && yarn declarations",
+    "build:package": "microbundle --jsx React.createElement",
+    "build:umd": "microbundle --jsx React.createElement --external none --format umd --compress --name Engagespot -o dist/cdn/engagespot-client.min.js --no-pkg-main  --define process.env.NODE_ENV=production",
+    "build:esm": "microbundle --jsx React.createElement --external none --format esm --compress --name Engagespot -o dist/cdn/engagespot-client.esm.js --no-pkg-main  --define process.env.NODE_ENV=production",
     "dev": "microbundle watch --jsx React.createElement",
     "tsc": "tsc",
     "clean": "rimraf dist",
@@ -20,40 +21,16 @@
     "prepare": "yarn run build",
     "test:dev": "jest --watchAll",
     "test": "jest",
-    "lint:css": "stylelint './src/**/*.js'",
-    "build-storybook": "build-storybook",
-    "storybook": "start-storybook -p 6006"
+    "lint:css": "stylelint './src/**/*.js'"
   },
-  "peerDependencies": {
+  "dependencies": {
+    "@engagespot/react-component": "^0.1.1-alpha.18",
     "react": "^16.8.3 || ^17.0.0-0",
     "react-dom": "^16.8.3 || ^17.0.0-0"
   },
-  "dependencies": {
-    "@engagespot/react-hooks": "^0.1.1-alpha.17",
-    "@popperjs/core": "^2.9.1",
-    "@types/react-toggle": "^4.0.3",
-    "date-fns": "2.27.0",
-    "i18next": "19.9.2",
-    "intersection-observer": "0.12.0",
-    "lodash.mapkeys": "4.6.0",
-    "lodash.merge": "4.6.2",
-    "lodash.throttle": "4.1.1",
-    "react-i18next": "11.8.10",
-    "react-popper": "^2.2.5",
-    "react-toggle": "^4.1.2",
-    "react-transition-group": "4.4.1",
-    "styled-components": "^5.2.1",
-    "ts-jest": "27.1.2"
-  },
   "devDependencies": {
-    "@babel/core": "^7.16.5",
     "@microsoft/api-documenter": "^7.13.77",
     "@microsoft/api-extractor": "^7.19.2",
-    "@storybook/addon-actions": "^6.4.9",
-    "@storybook/addon-essentials": "^6.4.9",
-    "@storybook/addon-links": "^6.4.9",
-    "@storybook/react": "^6.4.9",
-    "@testing-library/react": "^12.1.2",
     "@types/jest": "^27.0.3",
     "@types/lodash.mapkeys": "4.6.6",
     "@types/lodash.merge": "^4.6.6",

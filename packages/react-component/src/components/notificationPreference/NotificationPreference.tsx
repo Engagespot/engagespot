@@ -37,8 +37,9 @@ export function NotificationPreference({
   return (
     <NotificationPreferenceStyled>
       <NotificationPreferenceLabelStyled>
-        <span>Desktop Notifications</span>
+        <label htmlFor="toggle-notification">Desktop Notifications</label>
         <Toggle
+          id="toggle-notification"
           checked={webPushState === 'granted'}
           disabled={['granted', 'denied'].includes(webPushState)}
           icons={false}

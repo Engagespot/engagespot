@@ -1,0 +1,13 @@
+{
+  "name": "example-vanilla",
+  "version": "0.1.1-alpha.18",
+  "private": "true",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^2.7.2"
+  }
+}
