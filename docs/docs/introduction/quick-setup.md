@@ -14,6 +14,21 @@ First, install the npm package.
 npm i @engagespot/react-component
 ```
 
+Then in your React.js app, add the Engagespot component wherever you want the notification bell icon to appear. (Usually in the nav bar, but it's your choice!)
+
+```
+import Engagespot from "@engagespot/engagespot-react-component";
+
+<Engagespot
+   apiKey={ENGAGESPOT_API_KEY}
+   userId={youruser@example.com}
+/>
+```
+
+Here you need to pass two props to initialize the component.First one is `apiKey` which is your Engagespot API Key. You can get this from your Engagespot dashboard (Please donot confuse with API-SECRET. API-SECRET and API-KEY are different!)
+
+The next prop is `userId` which is any unique identifier of your logged in user. If that was confusing, let's think of an example. You should use this `userId` later to send notifications to this particular user.
+
 ### Sending a Notification
 
 To quickly send a notification to your user on your app,
