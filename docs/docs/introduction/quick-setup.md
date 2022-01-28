@@ -24,3 +24,5 @@ To quickly send a notification to your user on your app,
 4. Click Send
 
 Now you can see the notification arriving realtime inside the notification center widget!
+
+But in real life, we'll have to send notifications programatically instead of sending them manually from the dashboard. We'll learn more about that in the next chapter.
