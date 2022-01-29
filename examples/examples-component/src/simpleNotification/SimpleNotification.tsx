@@ -55,16 +55,17 @@ export function SimpleNotification() {
               apiKey="3tw99j2oeeggfuk5uoow7l"
               userId="anand"
               endPointOverride="https://api.staging.engagespot.co/v3/"
+              headerText="Notification Center"
               debug={true}
-              placementOptions={{
-                placement: 'auto',
-                enableArrow: true,
+              events={{
+                onNotificationDelete(id) {
+                  console.log('Got the id', id);
+                },
               }}
-              mode="auto"
               onFeedItemClick={(_, options) => {
                 console.log('options', options);
               }}
-              panelOpenByDefault={false}
+              // panelOpenByDefault={false}
               theme={{
                 notificationButton: {
                   // iconFill: '#000',

@@ -8,7 +8,7 @@ import {
   NotificationButton,
   customNotificationIcon,
 } from '../notificationButton';
-import { ThemeOverrides, Mode } from '../../theme/theme';
+import { ThemeOverrides } from '../../theme/theme';
 import { NotificationFeedItemProps } from '../notificationFeedItem';
 import {
   customPlaceholderContentType,
@@ -21,13 +21,15 @@ import { onFeedItemClickType } from '../notificationFeedItem/NotificationFeedIte
 
 export type useEngagespotReturnType = ReturnType<typeof useEngagespot>;
 
-export interface EngagespotProps extends UseEngagespotOptions {
+export interface EngagespotProps
+  extends Omit<UseEngagespotOptions, 'floatingPanelOptions'> {
   theme?: ThemeOverrides;
-  mode?: Mode;
+  panelOpenByDefault?: boolean;
   panelOnly?: boolean;
-  placeholderImage?: string;
+  feedItemPlaceholderImage?: string;
   hideNotificationAvatar?: boolean;
   hideJumpToTop?: boolean;
+  headerText?: string;
   renderFooterContent?: FooterContent;
   renderNotificationIcon?: customNotificationIcon;
   renderEmptyPlaceholderImage?: customPlaceholderContentType;
@@ -63,11 +65,12 @@ const transformFeedItem = (notification: any) => {
 
 export function Engagespot({
   theme,
-  mode,
   apiKey,
   panelOnly = false,
-  placeholderImage,
+  headerText,
+  feedItemPlaceholderImage,
   userId,
+  panelOpenByDefault = false,
   renderFooterContent,
   renderNotificationIcon,
   renderEmptyPlaceholderImage,
@@ -78,23 +81,31 @@ export function Engagespot({
   const {
     isValid,
     notifications,
-    panelVisibility,
-    getButtonProps,
-    getPanelProps,
-    getArrowProps,
-    scroll,
-    getPanelOffsetProps,
-    togglePanelVisibility,
+    floatingPanel: {
+      isMobile,
+      panelVisibility,
+      getButtonProps,
+      getPanelProps,
+      getArrowProps,
+      scroll,
+      getPanelOffsetProps,
+      togglePanelVisibility,
+    },
     useJumpToTop,
-    isMobile,
     hideBranding,
     enableWebPush,
     allowWebPush,
     webPushState,
-    useSystemDarkTheme,
-  } = useEngagespot({ apiKey, userId, ...options });
+  } = useEngagespot({
+    apiKey,
+    userId,
+    ...options,
+    floatingPanelOptions: {
+      enableFloatingPanel: true,
+      panelOpenByDefault,
+    },
+  });
 
-  const systemDarkThemeEnabled = useSystemDarkTheme();
   const [preference, togglePreference] = useState(false);
   const setRoute = (route: Route) => {
     if (route === 'preference') {
@@ -139,6 +150,7 @@ export function Engagespot({
           enableWebPush={enableWebPush}
           webPushState={webPushState}
           footerContent={footerContent}
+          headerText={headerText}
           notifications={
             notifications.data ? notifications.data.map(transformFeedItem) : []
           }
@@ -150,15 +162,13 @@ export function Engagespot({
   return (
     <EngagespotProvider
       theme={theme}
-      systemTheme={systemDarkThemeEnabled ? 'dark' : 'light'}
-      mode={mode}
       state={{
         panelVisibility,
-        placeholderImage,
+        placeholderImage: feedItemPlaceholderImage,
         togglePanelVisibility,
         useJumpToTop,
-        scroll,
         isMobile,
+        scroll,
         preference,
         togglePreference,
         onFeedItemClick,

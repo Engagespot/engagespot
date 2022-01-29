@@ -36,31 +36,22 @@ export interface NotificationPanelProps {
   visible: boolean;
   panelType?: 'normal' | 'floating';
   route: Route;
+  headerText?: string;
   setRoute: (route: Route) => void;
   hideFooter?: boolean;
   footerContent: FooterContent;
   enableWebPush: () => void;
   webPushState: globalThis.PermissionState;
   showPreferences: boolean;
-  panelProps: useEngagespotReturnType['getPanelProps'];
-  arrowProps: useEngagespotReturnType['getArrowProps'];
-  panelOffsetProps: useEngagespotReturnType['getPanelOffsetProps'];
+  panelProps: useEngagespotReturnType['floatingPanel']['getPanelProps'];
+  arrowProps: useEngagespotReturnType['floatingPanel']['getArrowProps'];
+  panelOffsetProps: useEngagespotReturnType['floatingPanel']['getPanelOffsetProps'];
   renderNotificationContent?: customNotificationContentType;
   renderEmptyPlaceholderImage?: customPlaceholderContentType;
   togglePanelVisibility: (
     panelUpdateFn?: ((visibility: boolean) => boolean) | undefined
   ) => void;
 }
-
-type PanelProps = {
-  ref: React.RefObject<HTMLDivElement>;
-  style: React.CSSProperties;
-};
-
-type ArrowProps = {
-  ref: React.RefObject<HTMLDivElement>;
-  style: React.CSSProperties;
-};
 
 export function NotificationPanel({
   notifications = [],
@@ -77,8 +68,9 @@ export function NotificationPanel({
   visible = false,
   showPreferences,
   enableWebPush,
+  headerText = 'Notifications',
 }: NotificationPanelProps) {
-  const label = route === 'home' ? 'Notifications' : 'Preferences';
+  const label = route === 'home' ? headerText : 'Preferences';
 
   const setRouteAsHome = () => {
     setRoute('home');
@@ -164,8 +156,8 @@ export function NotificationPanel({
   };
 
   return (
-    <NotificationPanelPopper {...(panelProps() as PanelProps)}>
-      <NotificationPanelArrowStyled {...(arrowProps() as ArrowProps)} />
+    <NotificationPanelPopper {...panelProps()}>
+      <NotificationPanelArrowStyled {...arrowProps()} />
       <NotificationPanelStyled {...panelOffsetProps()} visible={visible}>
         {renderPreferenceModal()}
         {renderHeader(route, label)}

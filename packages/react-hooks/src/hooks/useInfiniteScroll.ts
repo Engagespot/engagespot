@@ -4,7 +4,6 @@ import { useRef, useLayoutEffect, useState, useCallback } from 'react';
 interface InfiniteScrollOptions {
   offset?: number;
   reset?: boolean;
-  hasMore?: boolean;
   initialPage?: number;
 }
 
@@ -19,11 +18,11 @@ interface InfiniteScrollOptions {
  */
 export function useInfiniteScroll({
   offset = 0,
-  hasMore = false,
   reset = false,
   initialPage = 1,
 }: InfiniteScrollOptions) {
   const [isLoaderSet, setIsLoaderSet] = useState(false);
+  const [hasMore, setHasMore] = useState(false);
   const [isContainerSet, setIsContainerSet] = useState(false);
 
   const [loaderEl, setLoaderEl] = useState<HTMLElement | null>(null);
@@ -81,5 +80,7 @@ export function useInfiniteScroll({
     page,
     loaderRef,
     containerRef,
+    hasMore,
+    setHasMore,
   };
 }
