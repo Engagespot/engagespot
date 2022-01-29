@@ -154,7 +154,6 @@ export default {
     buttonSecondaryBackgroundColor: 'transparent',
     buttonSecondaryHoverBackgroundColor: '#cfcfcf',
     overlayOpacity: '.6',
-    overlayMargin: '10% 0 0 0',
     height: '35%',
     backdropFilter: 'blur(1px)',
     borderRadius: '1.5rem 1.5rem 0 0',

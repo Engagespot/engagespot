@@ -122,8 +122,9 @@ export function useFloatingNotification({
         left: 0,
         zIndex: 999,
         width: '100%',
+        height: '100%',
       },
-      offset: { height: '100vh', width: '100%', borderRadius: '0' },
+      offset: { height: '100%', width: '100%', borderRadius: '0' },
       arrow: { display: 'none' },
     },
     attributes: { popper: {} },
@@ -140,14 +141,23 @@ export function useFloatingNotification({
   const getPanelProps = () => {
     return {
       ref: panelRef,
-      style: isMobile ? mobileProps.styles.popper : styles.popper,
-      attributes: isMobile ? mobileProps.attributes.popper : attributes.popper,
+      style:
+        isMobile && panelVisibilityRef.current
+          ? mobileProps.styles.popper
+          : styles.popper,
+      attributes:
+        isMobile && panelVisibilityRef.current
+          ? mobileProps.attributes.popper
+          : attributes.popper,
     } as PanelProps;
   };
 
   const getPanelOffsetProps = () => {
     return {
-      style: isMobile ? mobileProps.styles.offset : styles.offset,
+      style:
+        isMobile && panelVisibilityRef.current
+          ? mobileProps.styles.offset
+          : styles.offset,
     } as PanelOffsetProps;
   };
 
