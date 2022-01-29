@@ -1,6 +1,6 @@
 {
   "name": "example-vanilla",
-  "version": "0.1.1-alpha.18",
+  "version": "0.1.1",
   "private": "true",
   "scripts": {
     "dev": "vite --port 3008",
