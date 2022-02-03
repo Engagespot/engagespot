@@ -102,10 +102,10 @@ export default class Engagespot {
     this.apiKey = apiKey;
 
     if (!options)
-      throw 'You must pass an options object when you instantiate Engagespot.';
+      throw 'ES1000 - You must pass an options object when you instantiate Engagespot.';
 
     if (!options.userId)
-      throw 'You must pass userId when you instantiate Engagespot.';
+      throw 'ES1001 - You must pass userId when you instantiate Engagespot.';
 
     this.userId = options.userId;
 
@@ -219,7 +219,7 @@ export default class Engagespot {
             await this.getServiceWorkerRegistration();
         } catch (error) {
           console.warn(
-            '[Engagespot] Service worker registration failed. This error is probably due to missing service-worker file. Try turning off web-push channel in your Engagespot dashboard'
+            '[Engagespot] ES1003 - Service worker registration failed. This error is probably due to missing service-worker file. Try turning off web-push channel in your Engagespot dashboard'
           );
           console.error(error);
         }
@@ -423,8 +423,7 @@ export default class Engagespot {
     // Check is the service-worker.js file exists
     const serviceWorkerExists = await fetch(this.SERVICE_WORKER_URL);
     if (serviceWorkerExists.status !== 200) {
-      throw `Engagespot SDK initialization failed. Service worker missing: No file found at /service-worker.js.
-          If you prefer to use non-https web push subscription, enable enableNonHttpsWebPush in options`;
+      throw `ES1004 - Engagespot SDK initialization failed. Service worker missing: No file found at /service-worker.js`;
     }
 
     window.navigator.serviceWorker.register(this.SERVICE_WORKER_URL, {
@@ -458,7 +457,7 @@ export default class Engagespot {
   async getWebPushSubscription(publicKey: string) {
     if (!this.serviceWorkerRegistration)
       throw new Error(
-        'A service worker must be registered before push can be subscribed'
+        'ES1005 - A service worker must be registered before push can be subscribed'
       );
 
     try {
@@ -549,7 +548,7 @@ export default class Engagespot {
       })
       .catch(error => {
         const errorMessage = new Error(
-          'Failed to register push notification with Engagespot server - ' +
+          'ES1006 - Failed to register push notification with Engagespot server - ' +
             error
         );
         Promise.reject(errorMessage);
@@ -643,6 +642,6 @@ export default class Engagespot {
 
 function checkApiKey(key: string) {
   if (key === null || key === undefined) {
-    throw 'You must pass your API key when you instantiate Engagespot.';
+    throw 'ES1007 - You must pass your API key when you instantiate Engagespot.';
   }
 }
