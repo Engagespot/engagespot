@@ -181,14 +181,14 @@ export const NotificationPreferenceBackButton = styled.button`
 
 export const NotificationPreferenceOverlay = styled.div`
   && {
-    ${({ theme: { preferenceModal } }) => css`
+    ${({ theme: { preferenceModal, header } }) => css`
       background-color: ${preferenceModal.overlayBackground};
       opacity: ${preferenceModal.overlayOpacity};
       width: 100%;
       height: 100%;
       position: absolute;
       z-index: 1000;
-      margin: ${preferenceModal.overlayMargin};
+      margin: ${header.height} 0 0 0;
     `}
   }
 `;

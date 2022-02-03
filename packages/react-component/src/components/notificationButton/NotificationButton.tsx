@@ -15,7 +15,7 @@ export interface NotificationButtonProps {
    * Type of button
    */
   type?: buttonTypes;
-  buttonProps: useEngagespotReturnType['getButtonProps'];
+  buttonProps: useEngagespotReturnType['floatingPanel']['getButtonProps'];
   unreadCount: number;
   panelOpen: boolean;
   renderNotificationIcon?: customNotificationIcon;

@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import merge from 'lodash.merge';
-import { useMedia } from 'react-use';
 
 import EngagespotCore, {
   Options,
@@ -11,33 +10,33 @@ import EngagespotCore, {
 
 import { useJumpToTop } from './useJumpToTop';
 import {
-  PlacementOptions,
   defaultPlacementOptions,
   useFloatingNotification,
+  FloatingPanelOptions,
 } from './useFloatingNotification';
 import { useInfiniteScroll } from './useInfiniteScroll';
-import { useSystemDarkTheme } from './useSystemDarkTheme';
 import {
   dateFunctions,
   defaultDateFormatter,
   dateTransformer,
 } from '../utils/dateUtils';
-import { breakpointMobile } from '../utils/mediaQuery';
 import {
   updateDocumentTitle,
   defaultTitleUpdateText,
 } from '../utils/documentTitle';
 import { playSound, defaultChimeSrc } from '../utils/chime';
+import { NotificationEvents } from './useEvents';
 
 export interface UseEngagespotOptions extends Options {
   apiKey: string;
   formatDate?: (dateString: string, dateFns: typeof dateFunctions) => string;
-  placementOptions?: PlacementOptions;
   disableNotificationChime?: boolean;
   notificationChimeSrc?: string;
   disableTitleUpdate?: boolean;
   titleUpdateText?: string;
-  panelOpenByDefault?: boolean;
+  floatingPanelOptions?: FloatingPanelOptions;
+  page?: number;
+  events?: NotificationEvents;
 }
 
 function initializeNotifications() {
@@ -59,26 +58,43 @@ function getEngagespotClient(
   return engagespotClient;
 }
 
-export function useEngagespot({
-  apiKey,
-  userId,
-  formatDate = defaultDateFormatter,
-  placementOptions = defaultPlacementOptions,
-  disableNotificationChime = false,
-  notificationChimeSrc = defaultChimeSrc,
-  disableTitleUpdate = false,
-  titleUpdateText = defaultTitleUpdateText,
-  panelOpenByDefault = false,
-  ...options
-}: UseEngagespotOptions) {
+function useEngagespotInstance(
+  apiKey: string,
+  userId: string,
+  options: Omit<Options, 'userId'>
+) {
   const engagespotRef = useRef<EngagespotCore | null>(null);
   if (engagespotRef.current == null) {
     engagespotRef.current = getEngagespotClient(apiKey, userId, {
       ...options,
     });
   }
-  const isMobile = useMedia(breakpointMobile);
   const engagespotInstance = engagespotRef.current;
+  return engagespotInstance;
+}
+
+export function useEngagespot({
+  apiKey,
+  userId,
+  formatDate = defaultDateFormatter,
+  disableNotificationChime = true,
+  notificationChimeSrc = defaultChimeSrc,
+  disableTitleUpdate = false,
+  titleUpdateText = defaultTitleUpdateText,
+  page = 1,
+  floatingPanelOptions: {
+    panelOpenByDefault = false,
+    placementOptions = defaultPlacementOptions,
+    enableFloatingPanel = false,
+  } = {
+    panelOpenByDefault: false,
+    placementOptions: defaultPlacementOptions,
+    enableFloatingPanel: true,
+  },
+  events,
+  ...options
+}: UseEngagespotOptions) {
+  const engagespotInstance = useEngagespotInstance(apiKey, userId, options);
   const transformDate = dateTransformer(formatDate);
   const [notifications, setNotifications] = useState(initializeNotifications);
   const [webPushState, setWebPushState] =
@@ -86,35 +102,56 @@ export function useEngagespot({
   const hideBranding = engagespotInstance.hideBranding;
   const allowWebPush =
     engagespotInstance.enableWebPush && engagespotInstance.isWebPushSupported();
-  const [hasMore, setHasMore] = useState(false);
   const [isValid, setIsValid] = useState(false);
-  const [panelVisibility, toggleNotificationPanelVisibility] =
-    useState(panelOpenByDefault);
-  const panelVisibilityRef = useRef<boolean>(false);
-  panelVisibilityRef.current = panelVisibility;
-  const togglePanelVisibility = (
-    panelUpdateFn = (visibility: boolean) => !visibility
-  ) => {
-    if (!panelVisibilityRef.current) {
-      engagespotInstance.getNotificationList().markAllAsSeen();
-      setNotifications(oldNotifications => {
-        return {
-          ...oldNotifications,
-          data: oldNotifications.data.map(transformDate),
-          unreadCount: 0,
-        };
-      });
-    }
-    toggleNotificationPanelVisibility(panelUpdateFn);
-  };
   const [notificationPermissionState, setNotificationPermissionState] =
     useState(PermissionState.PERMISSION_REQUIRED);
-  const { buttonRef, panelRef, arrowRef, styles, attributes, update } =
-    useFloatingNotification(
-      merge(defaultPlacementOptions, placementOptions),
-      isMobile
-    );
-  const { page, loaderRef, containerRef } = useInfiniteScroll({ hasMore });
+
+  function getFloatingPanelProps() {
+    const {
+      isMobile,
+      panelVisibilityRef,
+      togglePanelVisibility,
+      getArrowProps,
+      getButtonProps,
+      getPanelOffsetProps,
+      getPanelProps,
+    } = useFloatingNotification({
+      panelOpenByDefault,
+      placementOptions: merge(defaultPlacementOptions, placementOptions),
+      updateNotificationFn: () => {
+        engagespotInstance.getNotificationList().markAllAsSeen();
+        setNotifications(oldNotifications => {
+          return {
+            ...oldNotifications,
+            data: oldNotifications.data.map(transformDate),
+            unreadCount: 0,
+          };
+        });
+      },
+    });
+    const { page, loaderRef, containerRef, hasMore, setHasMore } =
+      useInfiniteScroll({});
+
+    return {
+      isMobile,
+      panelVisibilityRef,
+      togglePanelVisibility,
+      getArrowProps,
+      getButtonProps,
+      getPanelOffsetProps,
+      getPanelProps,
+      scroll: { page, loaderRef, containerRef, hasMore, setHasMore },
+    };
+  }
+
+  const floatingPanelProps = enableFloatingPanel
+    ? getFloatingPanelProps()
+    : ({} as ReturnType<typeof getFloatingPanelProps>);
+
+  const actualPage = enableFloatingPanel
+    ? floatingPanelProps?.scroll?.page
+    : page;
+
   const markNotificationStateAsClicked = (notificationId: string) => {
     setNotifications(({ data: previousData, ...oldNotifications }) => {
       return {
@@ -155,26 +192,6 @@ export function useEngagespot({
     };
   };
 
-  function handleDocumentClick(event: MouseEvent) {
-    if (
-      panelRef.current?.contains(event.target as Node) ||
-      buttonRef.current?.contains(event.target as Node)
-    ) {
-      return;
-    }
-    if (panelVisibilityRef.current) {
-      togglePanelVisibility();
-    }
-  }
-
-  useEffect(() => {
-    // listen for clicks and close dropdown on body
-    document.addEventListener('mousedown', handleDocumentClick);
-    return () => {
-      document.removeEventListener('mousedown', handleDocumentClick);
-    };
-  }, []);
-
   useEffect(() => {
     async function checkIsValid() {
       //TODO:- check if validation is success
@@ -198,33 +215,41 @@ export function useEngagespot({
 
     engagespotInstance.onNotificationReceive(
       (notificationItem: Notification) => {
-        setNotifications(({ data: previousData, ...oldNotifications }) => {
-          return {
-            ...oldNotifications,
-            data: [transformNotification(notificationItem), ...previousData],
-            unreadCount: panelVisibilityRef.current
-              ? oldNotifications.unreadCount
-              : oldNotifications.unreadCount + 1,
-          };
-        });
+        if (enableFloatingPanel) {
+          setNotifications(({ data: previousData, ...oldNotifications }) => {
+            return {
+              ...oldNotifications,
+              data: [transformNotification(notificationItem), ...previousData],
+              unreadCount: floatingPanelProps?.panelVisibilityRef?.current
+                ? oldNotifications.unreadCount
+                : oldNotifications.unreadCount + 1,
+            };
+          });
+        }
+
         if (!disableNotificationChime) {
           playSound(notificationChimeSrc);
         }
         if (!disableTitleUpdate) {
           updateDocumentTitle(titleUpdateText);
         }
+        events?.onNotificationReceive?.(notificationItem);
       }
     );
 
     engagespotInstance.onNotificationDelete((notificationId: string) => {
       deleteNotificationFromState(notificationId);
+      events?.onNotificationDelete?.(notificationId);
     });
 
     engagespotInstance.onNotificationClick((notificationId: string) => {
       markNotificationStateAsClicked(notificationId);
+      events?.onNotificationClick?.(notificationId);
     });
 
-    engagespotInstance.onNotificationSee((notificationId: string) => {});
+    engagespotInstance.onNotificationSee((notificationId: string) => {
+      events?.onNotificationSee?.(notificationId);
+    });
 
     engagespotInstance.onWebPushPermissionChange(state => {
       setWebPushState(state);
@@ -243,13 +268,13 @@ export function useEngagespot({
         totalPages,
         currentPage,
         itemsPerPage,
-      } = await engagespotInstance.getNotificationList().fetch(page);
+      } = await engagespotInstance.getNotificationList().fetch(actualPage);
       const notifications = data.map(transformNotification);
 
-      if (page < totalPages) {
-        setHasMore(true);
+      if (actualPage < totalPages) {
+        floatingPanelProps?.scroll?.setHasMore(true);
       } else {
-        setHasMore(false);
+        floatingPanelProps?.scroll?.setHasMore(false);
       }
       setNotifications(({ data: previousData }) => {
         return {
@@ -264,37 +289,7 @@ export function useEngagespot({
     }
 
     getNotifications();
-  }, [page, apiKey, userId]);
-
-  const onButtonClick = () => {
-    togglePanelVisibility();
-    update?.();
-  };
-
-  const getButtonProps = () => {
-    return { onClick: onButtonClick, ref: buttonRef };
-  };
-
-  const getPanelProps = () => {
-    return { ref: panelRef, style: styles.popper, ...attributes.popper };
-  };
-
-  const getPanelOffsetProps = () => {
-    return {
-      style: styles.offset,
-    };
-  };
-
-  const getArrowProps = () => {
-    return {
-      ref: arrowRef,
-      style: {
-        ...styles.arrow,
-        display:
-          panelVisibility && placementOptions.enableArrow ? 'block' : 'none',
-      } as React.CSSProperties,
-    };
-  };
+  }, [actualPage, apiKey, userId]);
 
   const enableWebPush = () => {
     engagespotInstance.httpsWebPushSubscribe();
@@ -302,23 +297,13 @@ export function useEngagespot({
 
   return {
     isValid,
-    page,
-    isMobile,
-    useSystemDarkTheme,
-    togglePanelVisibility,
-    panelVisibility,
-    getButtonProps,
-    getPanelProps,
-    getArrowProps,
-    getPanelOffsetProps,
+    floatingPanel: {
+      ...floatingPanelProps,
+      panelVisibility: floatingPanelProps?.panelVisibilityRef?.current,
+    },
     useJumpToTop,
     notifications,
     notificationPermissionState,
-    scroll: {
-      loaderRef,
-      containerRef,
-      hasMore,
-    },
     hideBranding,
     enableWebPush,
     allowWebPush,
