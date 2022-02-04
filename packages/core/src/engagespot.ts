@@ -10,7 +10,10 @@ import { Realtime, Types } from 'ably';
 import { AblyTokenRequest } from './interfaces/AblyTokenRequest';
 import EngagespotNotification from './Notification';
 import { APIRequestV2 } from './apiRequestv2/apiRequestv2';
-import { UserPreference } from './apiRequestv2/interfaces/user-preference.interface';
+import {
+  Category,
+  UserPreference,
+} from './apiRequestv2/interfaces/user-preference.interface';
 
 export default class Engagespot {
   /**
@@ -526,6 +529,14 @@ export default class Engagespot {
     const url = this.baseURL + '/profile';
     await this.apiRequestv2.patch(url, attributes);
     return this;
+  }
+
+  /**
+   * Gets notification categories of this app.
+   */
+  async getCategories() {
+    const url = this.baseURL + '/categories';
+    return (await this.apiRequestv2.get(url)) as Array<Category>;
   }
 
   /**
