@@ -1,0 +1,14 @@
+{
+  "name": "example-core",
+  "version": "0.1.1",
+  "private": "true",
+  "scripts": {
+    "dev": "vite --port 3009",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.5",
+    "vite": "^2.7.2"
+  }
+}

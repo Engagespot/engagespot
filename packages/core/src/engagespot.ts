@@ -9,6 +9,8 @@ import { PermissionState } from './PermissionState';
 import { Realtime, Types } from 'ably';
 import { AblyTokenRequest } from './interfaces/AblyTokenRequest';
 import EngagespotNotification from './Notification';
+import { APIRequestV2 } from './apiRequestv2/apiRequestv2';
+import { UserPreference } from './apiRequestv2/interfaces/user-preference.interface';
 
 export default class Engagespot {
   /**
@@ -89,6 +91,7 @@ export default class Engagespot {
     WEBPUSH_PERMISSION_CHANGED: [],
   };
 
+  private apiRequestv2: APIRequestV2;
   /**
    * Constructor
    * Initializes Engagespot and sets all required class variables.
@@ -120,6 +123,12 @@ export default class Engagespot {
     if (options.endPointOverride) this.endPoint = options.endPointOverride;
 
     if (options.debug) this.debug = options.debug;
+
+    this.apiRequestv2 = new APIRequestV2(
+      apiKey,
+      options.userId,
+      options.userSignature
+    );
 
     this._ready = this.init();
   }
@@ -484,6 +493,42 @@ export default class Engagespot {
   }
 
   /**
+   * Returns the preferences of this user
+   */
+  async getPreferences() {
+    const url = this.baseURL + '/preferences';
+    const preferences = (await this.apiRequestv2.get(
+      url
+    )) as Array<UserPreference>;
+    return preferences;
+  }
+
+  /**
+   * Sets preferences of this user
+   */
+  async setPreferences(preferences: Array<UserPreference>) {
+    const url = this.baseURL + '/preferences';
+
+    const body = {
+      preference: preferences,
+    };
+
+    this._log('setPreferences - Trying to send body');
+    this._log(body);
+    (await this.apiRequestv2.patch(url, body)) as Array<UserPreference>;
+    return this;
+  }
+
+  /**
+   * Sets attributes to user's profile
+   */
+  async setProfileAttributes(attributes: { [attribute: string]: any }) {
+    const url = this.baseURL + '/profile';
+    await this.apiRequestv2.patch(url, attributes);
+    return this;
+  }
+
+  /**
    * Check if the current browser supports WebPush
    */
   isWebPushSupported = () =>
@@ -635,7 +680,7 @@ export default class Engagespot {
    */
   _log(message: string | any) {
     if (this.debug) {
-      console.log('[Engagespot-Core] ' + message);
+      console.log('[Engagespot-Core] ', message);
     }
   }
 }

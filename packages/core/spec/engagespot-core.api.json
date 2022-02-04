@@ -799,6 +799,49 @@
             },
             {
               "kind": "Method",
+              "canonicalReference": "@engagespot/core!Engagespot#getPreferences:member(1)",
+              "docComment": "/**\n * Returns the preferences of this user\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "getPreferences(): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "UserPreference",
+                  "canonicalReference": "@engagespot/core!UserPreference:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[]>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 5
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [],
+              "name": "getPreferences"
+            },
+            {
+              "kind": "Method",
               "canonicalReference": "@engagespot/core!Engagespot#getServiceWorkerRegistration:member(1)",
               "docComment": "/**\n * Registers the service worker to the browser\n */\n",
               "excerptTokens": [

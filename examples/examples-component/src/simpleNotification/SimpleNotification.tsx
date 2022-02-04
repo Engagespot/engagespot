@@ -55,7 +55,6 @@ export function SimpleNotification() {
               apiKey="3tw99j2oeeggfuk5uoow7l"
               userId="anand"
               endPointOverride="https://api.staging.engagespot.co/v3/"
-              headerText="Notification Center"
               debug={true}
               events={{
                 onNotificationDelete(id) {
