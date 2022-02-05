@@ -3,15 +3,9 @@ import TabItem from '@theme/TabItem';
 
 # What are User Profiles?
 
-As you know, every Engagespot client instance is initialized with your user's unique identifier. For example, if you're directly using Engagespot Javascript Core SDK, you'll be initializing it as -
+In the first chapter when you learned to initialize the Engagespot front-end SDK, you passsed a unique identifier to the `userId` parameter. What if you want to specify more details about your user such as their name, email, location etc?
 
-```js
-const engagespotClient = new Engagespot('API_KEY', {
-  userId: 'your-users-unique-id',
-});
-```
-
-You can either use a database id / uuid from your user's table, or even the email id of your user. In addition to this identifier, You can add more attributes to a user's profile which will be passed as custom data along with all notifications that you send through Engagespot. This helps you to use those attributes in your email provider's template or for any other purposes.
+Engagespot allows you to add more attributes to a user's profile as key-value pairs. This helps you to use those attributes in your email provider's template or for any other purposes.
 
 :::info
 

@@ -5,7 +5,7 @@ Preference configurations allow your users to decide how they receive notificati
 
 For example, one of your user can choose to receive notifications for 'New Friend Request' events only through email, while another user can enable both push and email notifications for the same.
 
-Building such a fine-graned preference system can take you several days or months of effort. With Engagespot, you can simply get everything out of the box.
+Building such a fine-graned preference system can take you several days or months of effort. With Engagespot, you simply get everything out of the box.
 
 ## Setting User Preferences.
 
@@ -37,7 +37,7 @@ engagespotClient.setPreferences([
 ]);
 ```
 
-This will enable email notifications and disable web push notification for category 1. You can get the list of categories in your app using `categories` API.
+This will enable email notifications and disable web push notification for category with id `1`. You can get the list of categories (along with their id's) using `categories` API.
 
 ## Using REST API
 

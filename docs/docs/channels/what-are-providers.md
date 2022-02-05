@@ -9,7 +9,7 @@ Providers are services that enables notification delivery through a particular c
 
 :::tip
 
-To make your life easier, Engagespot provides a default provider for each channel that can use with zero configuration. If you want more capabilities, Engagespot easily allows you to switch to any other supported third party provider such as Sendgrid.
+To make your life easier, Engagespot provides a default provider for each channel that you can use with zero configuration. If you want more capabilities, Engagespot easily allows you to switch to any other supported third party provider such as Sendgrid.
 
 :::
 
