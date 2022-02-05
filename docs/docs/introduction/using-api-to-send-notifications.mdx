@@ -1,0 +1,96 @@
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Using API to Send Notifications
+
+In the previous chapter, we learned how to send a notification directly from the Engagespot dashboard. But that is not always the best solution. In most cases, notifications should be sent programatically from your code.
+
+For example, if you're building a social network and you want to notify your users when another user comments on their photo, you need to integrate Engagespot API in your program, right?
+
+Well, luckily, it's simple. Let's quickly learn how to send the below notification via Engagespot REST API.
+
+![img](https://i.postimg.cc/bYDBkf8Y/Screen-Shot-2022-02-05-at-12-14-58-PM.png)
+
+## Consuming the REST API
+
+To send notifications, you can simply send a `POST` request to `https://api.engagespot.co/v3/notifications` API with the following details.
+
+<Tabs>
+<TabItem value="node" label="Node">
+
+```js
+var axios = require('axios');
+
+axios.post(
+  'https://api.engagespot.co/v3/notifications',
+  {
+    notification: {
+      title: 'Rose accepted your friend request',
+    },
+    recipients: ['jack@example.com'],
+  },
+  {
+    headers: {
+      'X-ENGAGESPOT-API-KEY': 'YOUR_ENGAGESPOT_API_KEY',
+      'X-ENGAGESPOT-API-SECRET': 'YOUR_ENGAGESPOT_API_SECRET',
+    },
+  }
+);
+```
+
+</TabItem>
+
+<TabItem value="curl" label="cURL">
+
+```bash
+curl --location --request POST 'https://api.engagespot.co/v3/notifications' \
+--header 'X-ENGAGESPOT-API-KEY: YOUR_ENGAGESPOT_API_KEY' \
+--header 'X-ENGAGESPOT-API-SECRET: YOUR_ENGAGESPOT_API_SECRET' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "notification": {
+        "title": "Rose accepted your friend request"
+    },
+    "recipients": [
+        "jack@example.com"
+    ]
+}'
+```
+
+</TabItem>
+
+<TabItem value="python" label="Python">
+
+```python
+import requests
+import json
+
+url = "https://api.engagespot.co/v3/notifications"
+
+payload = json.dumps({
+  "notification": {
+    "title": "Rose accepted your friend request"
+  },
+  "recipients": [
+    "jack@example.com"
+  ]
+})
+headers = {
+  'X-ENGAGESPOT-API-KEY': 'YOUR_ENGAGESPOT_API_KEY',
+  'X-ENGAGESPOT-API-SECRET': 'YOUR_ENGAGESPOT_API_SECRET',
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload)
+
+print(response.text)
+
+```
+
+</TabItem>
+
+</Tabs>
+
+Where `recipients` is the list of users who should receive this notification. Wondering how Engagespot identifies your users? Remember you had passed the email-id (or any unique id) of your users in the front-end SDK? That's how Engagespot identifies your users and sends the notification to them, no matter how many devices they are using.
+
+There are other parameters you can send to this API. You can learn more about them from the REST API reference page.

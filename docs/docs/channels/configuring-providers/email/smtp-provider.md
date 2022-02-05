@@ -10,6 +10,12 @@ Each provider is identified by a unique identifier. Unique identifier of SMTP pr
 
 To enable SMTP provider, login to your Engagespot dashboard, goto Channels -> Email and enable SMTP Provider.
 
+:::info
+
+SMTP email provider uses `email` attribute in your user's profile as the primary address to deliver the notifications. So make sure your user's profile has the `email` attribute set.
+
+:::
+
 ## SMTP Provider Configurations.
 
 SMTP Provider requires the following configurations.
@@ -35,30 +41,35 @@ To override the configurations, you must supply them via `override` parameter of
 
 For example,
 
-```
-...
-"override"{
-   "smtp_email":{
-      "_config":{
-          "SMTP_HOST":"smtp.gmail.com",
-          "SMTP_PORT":25,
-          "SMTP_USERNAME":"me@gmail.com",
-          "SMTP_PASSWORD":"password23@",
-          "SECURE":true,
-          "REQUIRE_TLS":true
+```json
+{
+  "notification": {
+    "title": "Anand commented on your photo",
+    "message": "Hey Steve, you're looking cool 😎. Who took this photo?",
+    "url": "https://your-app.com/photos/17293739",
+    "category": "comment"
+  },
+  "recipients": ["steve@example.com"],
+  "override": {
+    "smtp_email": {
+      "_config": {
+        "SMTP_HOST": "smtp.gmail.com",
+        "SMTP_PORT": 25,
+        "SMTP_USERNAME": "me@gmail.com",
+        "SMTP_PASSWORD": "password23@",
+        "SECURE": true,
+        "REQUIRE_TLS": true
       },
-      "FROM_NAME":"Anand",
-      "FROM_EMAIL":"anand@example.com",
-      "subject":"Custom email subject",
-      "text":"Email body plaintext",
-      "html":"Email body with <h1>HTML</h1> support",
-      "headers":{
-          "key":"value"
+      "FROM_NAME": "Anand",
+      "FROM_EMAIL": "anand@example.com",
+      "subject": "Custom email subject",
+      "text": "Email body plaintext",
+      "html": "Email body with <h1>HTML</h1> support",
+      "headers": {
+        "key": "value"
       },
-      "attachments":{
-
-      }
-   }
+      "attachments": {}
+    }
+  }
 }
-...
 ```

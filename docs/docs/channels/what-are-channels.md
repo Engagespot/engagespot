@@ -6,11 +6,11 @@ sidebar_position: 1
 
 Simply, channel is a medium through which your notification will be delivered to your user. For example - Email, Push, SMS etc are different channels.
 
-Engagespot believe that, a good product notification system should have a multi-channel strategy. Humans give different priority to Notifications coming through different channels. For example, if somebody messaged you in WhatsApp, you must be notified via a push notification on your mobile, not through email message.
+Engagespot believe that, a good product notification system should have a multi-channel strategy. Users assume different priority to Notifications coming through different channels. For example, if somebody messaged you in WhatsApp, you must be notified via a push notification on your mobile, not through email message.
 
-It is the product manager's responsibility to ensure that their product has a smart multi-channel notification delivery system to provide an awesome experience to their users.
+A Product manager should always aim to build a smart multi-channel notification delivery system in their product to provide an awesome experience to their users.
 
-Engagespot helps you add the following notifications channels to your product quickly.
+Engagespot helps you add the following notifications channels to your product quickly without having to deploy your engineering team for months.
 
 ## In-App
 

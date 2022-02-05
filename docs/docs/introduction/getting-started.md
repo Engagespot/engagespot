@@ -49,4 +49,4 @@ Providers enables delivery through a particular channel. For example to deliver 
 
 ### Supported Platforms
 
-You can use Engagespot on any web or mobile based platforms. However, In-App notification UI-Kit is currently available only for web apps. (Along a customizablr ReactJS component)
+You can use Engagespot on any web or mobile based platforms. However, In-App notification UI-Kit is currently available only for web apps. (Along with a customizable ReactJS Notification Inbox component)
