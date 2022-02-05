@@ -1,0 +1,425 @@
+openapi: 3.0.0
+info:
+  title: Engagespot API
+  description: >-
+    Our REST API allows you to send notifications to users on your app, and to
+    do actions like Fetch Notifications, Delete Notification etc on behalf of
+    them.
+
+
+    ## Authentication
+
+
+    This API should be authenticated in two ways.
+
+
+    **Authenticate using API-KEY and API-SECRET**
+
+
+    This mode is required when you want to authenticate as your Engagespot app
+    and send a notification to one or more recipients. The credentials can be
+    found in your Engagespot dashboard.
+
+
+    **Authenticate using API-KEY and USER-ID**
+
+
+    This mode should be used when you want to authenticate as your user and want
+    to perform actions on behalf of them. For example, reading the notification
+    inbox of a user, deleting a notification from a user's inbox etc.
+
+
+    These authentication parameters should be passed via headers.
+
+
+    | **Header Parameter** | **Description** |
+
+    | --- | --- |
+
+    | X-ENGAGESPOT-API-KEY | Your Engagespot API Key. You can see this on your
+    Engagespot dashboard. |
+
+    | X-ENGAGESPOT-API-SECRET | Your Engagespot API Secret. You can see this on
+    your Engagespot dashboard.  <br>**You should never use this secret on any
+    front-end apps.** |
+
+    | X-ENGAGESPOT-USER-ID | Your user's unique identifier such as their email
+    id that you used to register them on Engagespot. |
+
+    | X-ENGAGESPOT-USER-SIGNATURE | This is optional. You need this param only
+    if you have turned on Token Authentication for your app in Engagespot
+    Dashboard.  <br>  <br>Your user's HMAC signature can be generated as follows
+    -  <br>`createHmac('sha256', Your_API_Secret).update(user_Id,
+    'utf8').digest('base64');`  <br> |
+  version: 3.0.0
+servers:
+  - url: https://api.engagespot.co
+tags:
+  - name: Notifications
+    description: End points to manage notifications in your app.
+  - name: Profile
+  - name: Preferences
+  - name: Category
+    description: Lists all categories in this app.
+paths:
+  /v3/notifications:
+    post:
+      tags:
+        - Notifications
+      summary: /notifications
+      description: >-
+        Sends a new notification to one or more recipients.
+
+
+        This request accepts an optional `override` object that you can use to
+        override several configurations specified in your Engagespot. It can
+        also override Provider specific configs and also to directly specify any
+        additional properties supported by your provider.
+
+
+        Read more about provider specific configurations from our
+        [docs](https://documentation.engagespot.co)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                notification:
+                  title: Rose accepted your friend request
+                  message: You look cool
+                  url: https://engagespot.co
+                  icon: >-
+                    https://portal.engagespot.co/static/media/engageSpotLogo.7d9c87d1.png
+                recipients:
+                  - youruser@example.com
+                override:
+                  channels:
+                    - email
+                    - webPush
+      parameters:
+        - name: X-ENGAGESPOT-API-KEY
+          in: header
+          schema:
+            type: string
+          example: at410rizwpsm6s4jjqmlx
+        - name: X-ENGAGESPOT-API-SECRET
+          in: header
+          schema:
+            type: string
+          example: 7rd9fahc6f5tam9ccdrig3h7j15b6cd0jc79708d4814j7ia
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Notifications
+      summary: /notifications
+      description: This API returns list of notifications for the given user.
+      parameters:
+        - name: X-ENGAGESPOT-API-KEY
+          in: header
+          schema:
+            type: string
+          example: shiynklpz18l3ktqyy6d9a
+        - name: X-ENGAGESPOT-USER-ID
+          in: header
+          schema:
+            type: string
+          example: yourUser@example.com
+        - name: X-ENGAGESPOT-USER-SIGNATURE
+          in: header
+          schema:
+            type: string
+          description: Required If Token Authentication is Turned On
+          example: USER-SIGNATURE
+        - name: ''
+          in: header
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v3/notifications/428107:
+    get:
+      tags:
+        - Notifications
+      summary: /notifications/:notificationId
+      description: Gets the details of a notification
+      parameters:
+        - name: X-ENGAGESPOT-API-KEY
+          in: header
+          schema:
+            type: string
+          example: shiynklpz18l3ktqyy6d9a
+        - name: X-ENGAGESPOT-USER-ID
+          in: header
+          schema:
+            type: string
+          example: yourUser@example.com
+        - name: X-ENGAGESPOT-USER-SIGNATURE
+          in: header
+          schema:
+            type: string
+          description: Required If Token Authentication is Turned On
+          example: USER-SIGNATURE
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v3/notifications/markAllNotificationsAsSeen:
+    post:
+      tags:
+        - Notifications
+      summary: /markAllNotificationsAsSeen
+      description: Marks all notifications as "seen" for the given user.
+      requestBody:
+        content: {}
+      parameters:
+        - name: X-ENGAGESPOT-API-KEY
+          in: header
+          schema:
+            type: string
+          example: shiynklpz18l3ktqyy6d9a
+        - name: X-ENGAGESPOT-USER-ID
+          in: header
+          schema:
+            type: string
+          example: yourUser@example.com
+        - name: X-ENGAGESPOT-USER-SIGNATURE
+          in: header
+          schema:
+            type: string
+          description: Required If Token Authentication is Turned On
+          example: USER-SIGNATURE
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v3/notifications/{notificationId}/click:
+    post:
+      tags:
+        - Notifications
+      summary: /notifications/:id/click
+      description: Marks a notification as clicked.
+      requestBody:
+        content: {}
+      parameters:
+        - name: X-ENGAGESPOT-API-KEY
+          in: header
+          schema:
+            type: string
+          example: shiynklpz18l3ktqyy6d9a
+        - name: X-ENGAGESPOT-USER-ID
+          in: header
+          schema:
+            type: string
+          example: yourUser@example.com
+        - name: X-ENGAGESPOT-USER-SIGNATURE
+          in: header
+          schema:
+            type: string
+          description: Required If Token Authentication is Turned On
+          example: USER-SIGNATURE
+        - name: notificationId
+          in: path
+          schema:
+            type: integer
+          required: true
+          example: '428152'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v3/notifications/428019/:
+    delete:
+      tags:
+        - Notifications
+      summary: /notifications/:id
+      description: Deletes a notification
+      parameters:
+        - name: X-ENGAGESPOT-API-KEY
+          in: header
+          schema:
+            type: string
+          example: shiynklpz18l3ktqyy6d9a
+        - name: X-ENGAGESPOT-USER-ID
+          in: header
+          schema:
+            type: string
+          example: yourUser@example.com
+        - name: X-ENGAGESPOT-USER-SIGNATURE
+          in: header
+          schema:
+            type: string
+          description: Required If Token Authentication is Turned On
+          example: USER-SIGNATURE
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v3/profile:
+    patch:
+      tags:
+        - Profile
+      summary: /profile
+      description: Sets one or more key value pairs to User's profile.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: anand
+                email: anandrmedia@gmail.com
+      parameters:
+        - name: X-ENGAGESPOT-API-KEY
+          in: header
+          schema:
+            type: string
+          example: at410rizwpsm6s4jjqmlx
+        - name: X-ENGAGESPOT-USER-ID
+          in: header
+          schema:
+            type: string
+          example: youruser@example.com
+        - name: X-ENGAGESPOT-USER-SIGNATURE
+          in: header
+          schema:
+            type: string
+          description: Required If Token Authentication is Turned On
+          example: USER-SIGNATURE
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Profile
+      summary: /profile
+      description: Gets a user's profile.
+      parameters:
+        - name: X-ENGAGESPOT-API-KEY
+          in: header
+          schema:
+            type: string
+          example: at410rizwpsm6s4jjqmlx
+        - name: X-ENGAGESPOT-USER-ID
+          in: header
+          schema:
+            type: string
+          example: youruser@example.com
+        - name: X-ENGAGESPOT-USER-SIGNATURE
+          in: header
+          schema:
+            type: string
+          description: Required If Token Authentication is Turned On
+          example: USER-SIGNATURE
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v3/preferences:
+    get:
+      tags:
+        - Preferences
+      summary: /preferences
+      description: Gets a user's profile.
+      parameters:
+        - name: X-ENGAGESPOT-API-KEY
+          in: header
+          schema:
+            type: string
+          example: at410rizwpsm6s4jjqmlx
+        - name: X-ENGAGESPOT-USER-ID
+          in: header
+          schema:
+            type: string
+          example: youruser@example.com
+        - name: X-ENGAGESPOT-USER-SIGNATURE
+          in: header
+          schema:
+            type: string
+          description: Required If Token Authentication is Turned On
+          example: USER-SIGNATURE
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    patch:
+      tags:
+        - Preferences
+      summary: /preferences
+      description: Gets a user's profile.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                preference:
+                  - categoryId: 1
+                    channels:
+                      - channel: inApp
+                        enabled: true
+      parameters:
+        - name: X-ENGAGESPOT-API-KEY
+          in: header
+          schema:
+            type: string
+          example: at410rizwpsm6s4jjqmlx
+        - name: X-ENGAGESPOT-USER-ID
+          in: header
+          schema:
+            type: string
+          example: youruser@example.com
+        - name: X-ENGAGESPOT-USER-SIGNATURE
+          in: header
+          schema:
+            type: string
+          description: Required If Token Authentication is Turned On
+          example: USER_SIGNATURE
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v3/categories:
+    get:
+      tags:
+        - Category
+      summary: /categories
+      description: Gets a user's profile.
+      parameters:
+        - name: X-ENGAGESPOT-API-KEY
+          in: header
+          schema:
+            type: string
+          example: at410rizwpsm6s4jjqmlx
+        - name: X-ENGAGESPOT-USER-ID
+          in: header
+          schema:
+            type: string
+          example: youruser@example.com
+        - name: X-ENGAGESPOT-USER-SIGNATURE
+          in: header
+          schema:
+            type: string
+          description: Required If Token Authentication is Turned On
+          example: USER-SIGNATURE
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}

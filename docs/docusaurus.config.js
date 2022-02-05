@@ -38,6 +38,17 @@ const config = {
         },
       }),
     ],
+    [
+      'redocusaurus',
+      {
+        specs: [
+          {
+            routePath: 'docs/rest-api/',
+            spec: 'openapi/openapi_spec.yaml',
+          },
+        ],
+      },
+    ],
   ],
 
   themeConfig:
@@ -63,10 +74,10 @@ const config = {
             label: 'Learn by Examples',
           },
           {
-            type: 'doc',
-            docId: 'api-reference/react-component/react-component.engagespot',
+            // type: 'link',
+            to: '/docs/rest-api',
             position: 'right',
-            label: 'API',
+            label: 'Rest API',
           },
           {
             to: 'https://engagespot.co/blog/',
@@ -90,8 +101,8 @@ const config = {
                 to: '/docs/learn-by-examples/react-component/simple-notification',
               },
               {
-                label: 'API',
-                to: '/docs/api-reference/react-component/react-component.engagespot',
+                label: 'Rest API',
+                to: '/docs/rest-api',
               },
             ],
           },
