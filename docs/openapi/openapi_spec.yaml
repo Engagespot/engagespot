@@ -84,35 +84,117 @@ paths:
           application/json:
             schema:
               type: object
+              required: [notification, recipients]
+              properties:
+                notification:
+                  type: object
+                  required: [title]
+                  properties:
+                    title:
+                      type: string
+                    message:
+                      type: string
+                    url:
+                      type: string
+                    icon:
+                      type: string
+                recipients:
+                  type: array
+                  description: Unique id's of your users to send this notification to.
+                  items:
+                    type: string
+                category:
+                  type: string
+                  description: Category to tag this notification. If category doesn't exist, it will be created.
+                override:
+                  type: object
+                  description: Override delivery preferences configured in your account.
+                  properties:
+                    channels:
+                      type: array
+                      description: >-
+                        Specify the channels through which this notification should be delivered. (Eg - inApp, webPush, email, sms)
+                      items:
+                        type: string
+                    sendgrid_email:
+                      type: object
+                      description: >-
+                        Overrides Sendgrid configuration specified in your Engagespot dashboard. 
+                        This is considered only if you've enabled Sendgrid email provider.
+                        The first property _config is used by Engagespot to override your Sendgrid default configuration specified in the dashboard.
+                        Along with _config (Not inside _config), You can pass any property as supported by the Sendgrid's mail send API.
+                      properties:
+                        _config:
+                          type: object
+                          properties:
+                            API_KEY:
+                              type: string
+                              description: Override Sendgrid API_KEY mentioned in your dashboard.
+                            FROM_EMAIL:
+                              type: string
+                              description: Email to be used in the 'from' field.
+                            FROM_NAME:
+                              type: string
+                              description: Name to be used in the 'from' field.
+                    smtp_email:
+                      type: object
+                      description: >-
+                        Overrides SMTP Provider configurations specified in your Engagespot dashboard. 
+                        This is considered only if you have enabled SMTP Email Provider.
+                      properties:
+                        SMTP_HOST:
+                          type: string
+                        SMTP_PORT:
+                          type: string
+                        SECURE:
+                          type: boolean
+                        REQUIRE_TLS:
+                          type: boolean
+                        SMTP_USERNAME:
+                          type: string
+                        SMTP_PASSWORD:
+                          type: string
+                        FROM_NAME:
+                          type: string
+                        FROM_EMAIL:
+                          type: string
+
               example:
                 notification:
                   title: Rose accepted your friend request
-                  message: You look cool
-                  url: https://engagespot.co
-                  icon: >-
-                    https://portal.engagespot.co/static/media/engageSpotLogo.7d9c87d1.png
                 recipients:
-                  - youruser@example.com
+                  - jack@example.com
                 override:
                   channels:
                     - email
                     - webPush
       parameters:
         - name: X-ENGAGESPOT-API-KEY
+          required: true
+          description: Your Engagespot app's api key which can be found in your dashboard.
           in: header
           schema:
             type: string
           example: at410rizwpsm6s4jjqmlx
         - name: X-ENGAGESPOT-API-SECRET
+          description: Your Engagespot app's api secret which can be found in your dashboard.
           in: header
+          required: true
           schema:
             type: string
           example: 7rd9fahc6f5tam9ccdrig3h7j15b6cd0jc79708d4814j7ia
       responses:
-        '200':
+        '202':
           description: Successful response
           content:
             application/json: {}
+        '401':
+          description: Authentication failed
+          content:
+            application/json:
+              {
+                'message': "Authentication failed. Make sure you're using the right API Credentials. Please read our docs at https://documentation.engagespot.co",
+              }
     get:
       tags:
         - Notifications
@@ -121,10 +203,12 @@ paths:
       parameters:
         - name: X-ENGAGESPOT-API-KEY
           in: header
+          required: true
           schema:
             type: string
           example: shiynklpz18l3ktqyy6d9a
         - name: X-ENGAGESPOT-USER-ID
+          required: true
           in: header
           schema:
             type: string
@@ -152,11 +236,13 @@ paths:
       description: Gets the details of a notification
       parameters:
         - name: X-ENGAGESPOT-API-KEY
+          required: true
           in: header
           schema:
             type: string
           example: shiynklpz18l3ktqyy6d9a
         - name: X-ENGAGESPOT-USER-ID
+          required: true
           in: header
           schema:
             type: string
@@ -182,11 +268,13 @@ paths:
         content: {}
       parameters:
         - name: X-ENGAGESPOT-API-KEY
+          required: true
           in: header
           schema:
             type: string
           example: shiynklpz18l3ktqyy6d9a
         - name: X-ENGAGESPOT-USER-ID
+          required: true
           in: header
           schema:
             type: string
@@ -212,11 +300,13 @@ paths:
         content: {}
       parameters:
         - name: X-ENGAGESPOT-API-KEY
+          required: true
           in: header
           schema:
             type: string
           example: shiynklpz18l3ktqyy6d9a
         - name: X-ENGAGESPOT-USER-ID
+          required: true
           in: header
           schema:
             type: string
@@ -246,11 +336,13 @@ paths:
       description: Deletes a notification
       parameters:
         - name: X-ENGAGESPOT-API-KEY
+          required: true
           in: header
           schema:
             type: string
           example: shiynklpz18l3ktqyy6d9a
         - name: X-ENGAGESPOT-USER-ID
+          required: true
           in: header
           schema:
             type: string
@@ -277,16 +369,20 @@ paths:
           application/json:
             schema:
               type: object
+              description: Key value pair attributes for your user's profile.
               example:
-                name: anand
-                email: anandrmedia@gmail.com
+                name: Jack
+                email: jack@titanic.com
+                phone: +1 661122334455
       parameters:
         - name: X-ENGAGESPOT-API-KEY
+          required: true
           in: header
           schema:
             type: string
           example: at410rizwpsm6s4jjqmlx
         - name: X-ENGAGESPOT-USER-ID
+          required: true
           in: header
           schema:
             type: string
@@ -295,8 +391,8 @@ paths:
           in: header
           schema:
             type: string
-          description: Required If Token Authentication is Turned On
-          example: USER-SIGNATURE
+          description: Required If Token Authentication is Turned On for your app.
+          example: jYt501jhd736hcbcGt34D6HyCxdFrEhkskpurgs36bbK6Xxzl1Lp
       responses:
         '200':
           description: Successful response
@@ -309,11 +405,13 @@ paths:
       description: Gets a user's profile.
       parameters:
         - name: X-ENGAGESPOT-API-KEY
+          required: true
           in: header
           schema:
             type: string
           example: at410rizwpsm6s4jjqmlx
         - name: X-ENGAGESPOT-USER-ID
+          required: true
           in: header
           schema:
             type: string
@@ -337,11 +435,13 @@ paths:
       description: Gets a user's profile.
       parameters:
         - name: X-ENGAGESPOT-API-KEY
+          required: true
           in: header
           schema:
             type: string
           example: at410rizwpsm6s4jjqmlx
         - name: X-ENGAGESPOT-USER-ID
+          required: true
           in: header
           schema:
             type: string
@@ -361,12 +461,39 @@ paths:
       tags:
         - Preferences
       summary: /preferences
-      description: Gets a user's profile.
+      description: Set notification delivery preference on notification categories and channels.
       requestBody:
         content:
           application/json:
             schema:
               type: object
+              required: [preference]
+              description: Array of preference objects for each category
+              properties:
+                preference:
+                  type: array
+                  items:
+                    type: object
+                    required: [categoryId, channels]
+                    properties:
+                      categoryId:
+                        type: number
+                        description: Category Id. (You'll get this from GET categories API)
+                      channels:
+                        type: array
+                        items:
+                          type: object
+                          required: [channel, enabled]
+                          properties:
+                            channel:
+                              type: string
+                              description: Channel (inApp, webPush, email, sms)
+                              required: true
+                            enabled:
+                              type: boolean
+                              description: Whether notifications from this channel should be enabled for this category.
+                              required: true
+
               example:
                 preference:
                   - categoryId: 1
@@ -375,11 +502,13 @@ paths:
                         enabled: true
       parameters:
         - name: X-ENGAGESPOT-API-KEY
+          required: true
           in: header
           schema:
             type: string
           example: at410rizwpsm6s4jjqmlx
         - name: X-ENGAGESPOT-USER-ID
+          required: true
           in: header
           schema:
             type: string
@@ -403,11 +532,13 @@ paths:
       description: Gets a user's profile.
       parameters:
         - name: X-ENGAGESPOT-API-KEY
+          required: true
           in: header
           schema:
             type: string
           example: at410rizwpsm6s4jjqmlx
         - name: X-ENGAGESPOT-USER-ID
+          required: true
           in: header
           schema:
             type: string
