@@ -144,7 +144,7 @@ export function useFloatingNotification({
       style:
         isMobile && panelVisibilityRef.current
           ? mobileProps.styles.popper
-          : styles.popper,
+          : { ...styles.popper, zIndex: 999 },
       attributes:
         isMobile && panelVisibilityRef.current
           ? mobileProps.attributes.popper
