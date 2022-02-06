@@ -77,8 +77,8 @@ paths:
         additional properties supported by your provider.
 
 
-        Read more about provider specific configurations from our
-        [docs](https://documentation.engagespot.co)
+        Read more about providers and their available override configurations from our
+        [docs](https://documentation.engagespot.co/docs/channels/what-are-providers#overriding-configurations-via-api)
       requestBody:
         content:
           application/json:
