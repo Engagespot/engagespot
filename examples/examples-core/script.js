@@ -1,4 +1,4 @@
-import Engagespot from '@engagespot/core';
+import Engagespot from '../../packages/core/';
 
 const engagespot = new Engagespot('ujtmjxnp5efmfn5ddsbdj', {
   userId: 'anandrmedia@gmail.com',
