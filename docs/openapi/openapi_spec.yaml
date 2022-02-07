@@ -158,6 +158,20 @@ paths:
                           type: string
                         FROM_EMAIL:
                           type: string
+                        subject:
+                          type: string
+                          description: Email subject
+                        text:
+                          type: string
+                          description: Plain text email body.
+                        html:
+                          type: string
+                          description: HTML Email body.
+                        headers:
+                          type: object
+                          description: Any key value pair headers to be passed along with the email
+                        attachments:
+                          description: Attachments as accepted by Nodemailer (https://nodemailer.com/message/attachments/)
 
               example:
                 notification:
