@@ -37,9 +37,9 @@ This will add three profile attributes - `email`, `phone` and `name` to your use
 
 ## Using REST API
 
-You should use the `/profile` endpoint in the REST API to update your user's profile. Read API Docs for more information.
+You should use the `PUT` method of `/profile` endpoint in the REST API to update your user's profile. Read [API Docs](rest-api#tag/Profile/paths/~1v3~1profile/put) for more information.
 
-**PATCH** `https://api.engagespot.co/v3/profile`
+**PUT** `https://api.engagespot.co/v3/profile`
 
 <Tabs>
 <TabItem value="node" label="Node">
@@ -47,7 +47,7 @@ You should use the `/profile` endpoint in the REST API to update your user's pro
 ```js
 var axios = require('axios');
 
-axios.post(
+axios.put(
   'https://api.engagespot.co/v3/profile',
   {
     full_name: 'Rose DeWitt-Bukater',
@@ -70,7 +70,7 @@ axios.post(
 <TabItem value="curl" label="cURL">
 
 ```bash
-curl --location --request PATCH 'https://api.engagespot.co/v3/profile' \
+curl --location --request PUT 'https://api.engagespot.co/v3/profile' \
 --header 'X-ENGAGESPOT-API-KEY: YOUR_ENGAGESPOT_API_KEY' \
 --header 'X-ENGAGESPOT-USER-ID: YOUR_USER_UNIQUE_ID' \
 --header 'Content-Type: application/json' \
@@ -104,7 +104,7 @@ headers = {
   'Content-Type': 'application/json'
 }
 
-response = requests.request("PATCH", url, headers=headers, data=payload)
+response = requests.request("PUT", url, headers=headers, data=payload)
 
 print(response.text)
 
@@ -113,3 +113,7 @@ print(response.text)
 </TabItem>
 
 </Tabs>
+
+:::info
+Alternatively, you can use **PATCH** method which uses [JSON Patch](http://jsonpatch.com/) syntax to do complex operations on your Profile object.
+:::

@@ -377,17 +377,62 @@ paths:
       tags:
         - Profile
       summary: /profile
-      description: Sets one or more key value pairs to User's profile.
+      description: >-
+        Sets one or more key value pairs to User's profile. 
+        This method expects array of JSON Patch rules as mentioned in [JSON Patch](http://jsonpatch.com/) syntax to do complex operations the existing user object.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                description: JSON Patch Operation as mentioned in [JSON Patch](http://jsonpatch.com/)
+            example:
+              - op: 'replace'
+                path: '/email'
+                value: 'jack@titanic.com'
+      parameters:
+        - name: X-ENGAGESPOT-API-KEY
+          required: true
+          in: header
+          schema:
+            type: string
+          example: at410rizwpsm6s4jjqmlx
+        - name: X-ENGAGESPOT-USER-ID
+          required: true
+          in: header
+          schema:
+            type: string
+          example: youruser@example.com
+        - name: X-ENGAGESPOT-USER-SIGNATURE
+          in: header
+          schema:
+            type: string
+          description: Required If Token Authentication is Turned On for your app.
+          example: jYt501jhd736hcbcGt34D6HyCxdFrEhkskpurgs36bbK6Xxzl1Lp
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    /v3/profile:
+    put:
+      tags:
+        - Profile
+      summary: /profile
+      description: >-
+        Sets one or more key value pairs to User's profile.
+        Simply pass the JSON profile object of the user, and we'll update the existing profile.
       requestBody:
         content:
           application/json:
             schema:
               type: object
-              description: Key value pair attributes for your user's profile.
-              example:
-                name: Jack
-                email: jack@titanic.com
-                phone: +1 661122334455
+              description: Key value pairs for the user's profile
+            example:
+              name: 'Jack'
+              email: 'jack@titanic.com'
       parameters:
         - name: X-ENGAGESPOT-API-KEY
           required: true

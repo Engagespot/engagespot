@@ -527,7 +527,7 @@ export default class Engagespot {
    */
   async setProfileAttributes(attributes: { [attribute: string]: any }) {
     const url = this.baseURL + '/profile';
-    await this.apiRequestv2.patch(url, attributes);
+    await this.apiRequestv2.put(url, attributes);
     return this;
   }
 

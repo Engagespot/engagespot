@@ -36,7 +36,7 @@ Channels are the medium through which a notification is delivered. Engagespot su
 1. In-App (With a beautiful, customizable notification center UI-Kit)
 2. Web Push
 3. Email
-4. Mobile Push (Coming Soon)
+4. Mobile Push
 5. SMS (Coming Soon)
 
 ### Providers
@@ -45,7 +45,8 @@ Providers enables delivery through a particular channel. For example to deliver 
 
 1. In-App - Inbuilt
 2. Web Push - Inbuilt
-3. Email - Inbuilt, Sendgrid, SMTP
+3. Mobile Push - Firebase (FCM)
+4. Email - Inbuilt, Sendgrid, Mailgun, SMTP
 
 ### Supported Platforms
 

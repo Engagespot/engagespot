@@ -1,4 +1,4 @@
-# Sendgrid Email Provider
+# Sendgrid
 
 Use your own Sendgrid email account to deliver notifications to your users via Engagespot. For this you need a Sendgrid account, and an API KEY from Sendgrid.
 
@@ -34,7 +34,7 @@ There is no rocket science here. We simply use Sendgrid API to deliver your noti
 
 Sendgrid provider allows you to override all the above configurations (and you can specify several more options) while sending a notification through Engagespot API, using the `https://api.engagespot.co/v3/notifications` endpoint.
 
-To override the configurations, you must supply them via `override` parameter of the above API. Within the `override` parameter, you can supply any parameter that we'll directly pass to Sendgrid `/v3/mail/send` API [See doc](https://docs.sendgrid.com/api-reference/mail-send/mail-send). This makes sure you can use the complete features of Sendgrid API while still using Engagespot to control your notifications!
+To override the configurations, you must supply them via `override.sendgrid_email` parameter of the above API. Within the `override` parameter, you can supply any parameter that we'll directly pass to Sendgrid `/v3/mail/send` API [See doc](https://docs.sendgrid.com/api-reference/mail-send/mail-send). This makes sure you can use the complete features of Sendgrid API while still using Engagespot to control your notifications!
 
 For example,
 
