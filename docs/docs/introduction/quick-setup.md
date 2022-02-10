@@ -47,18 +47,15 @@ npm i @engagespot/react-component
 Then in your React.js app, add the Engagespot component wherever you want the notification bell icon to appear. (Usually in the nav bar, but it's your choice!)
 
 ```jsx
-import Engagespot from "@engagespot/react-component";
+import Engagespot from '@engagespot/react-component';
 
-<Engagespot
-   apiKey={ENGAGESPOT_API_KEY}
-   userId={youruser@example.com}
-/>
+<Engagespot apiKey="ENGAGESPOT_API_KEY" userId="youruser@example.com" />;
 ```
 
 This will render a beautiful notification inbox like this in your app.
 <img src="https://i.postimg.cc/BbPF7Cpk/notifications.png" style={{width:"400px"}}/>
 
-Our ReactJS component comes with a lot of powerful configurations and customizations that you can change. Read the react component section to learn more.
+Our ReactJS component comes with a lot of powerful configurations and customizations that you can change. Read the [react component examples](../learn-by-examples/react-component/simple-notification.mdx) to learn more.
 
 ### Browser (Javascript)
 
@@ -79,7 +76,11 @@ Engagespot.render('#HTML_Element_ID', {
 
 ```
 
-### Sending a Notification
+### Mobile Apps
+
+Though Engagespot do not have a native SDK for Android and iOS apps at the moment (It's coming soon), you can directly use our REST APIs to connect your users with Engagespot and also build a notification inbox, and Notification Preference Manager in your app.
+
+## Sending a Notification
 
 In this step, we'll learn how to quickly send a notification to your user from Engagespot dashboard. In real life, you will be sending notifications from your app's backend which we'll learn in the next chapter.
 

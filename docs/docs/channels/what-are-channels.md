@@ -12,6 +12,17 @@ A Product manager should always aim to build a smart multi-channel notification 
 
 Engagespot helps you add the following notifications channels to your product quickly without having to deploy your engineering team for months.
 
+| Channel     | Identifier |
+| ----------- | ---------- |
+| In-App      | inApp      |
+| Web Push    | webPush    |
+| Email       | email      |
+| Mobile Push | mobilePush |
+
+:::tip
+You will have to use the channel identifier value in many APIs across this doc.
+:::
+
 ## In-App
 
 In-App notification is the best to notify your users within the application. Almost all popular products like Facebook, LinkedIn, Trello, Jira etc have an in-app notification inbox. The advantage is that your users can see all their notifications in one place!
@@ -28,7 +39,7 @@ Without doubt, email is still an important channel for communicating with your u
 
 ## Mobile Push
 
-Coming soon.
+With Engagespot, you can send push notifications to iOS and Android apps through Firebase Cloud Messaging (FCM)
 
 ## SMS
 

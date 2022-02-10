@@ -9,7 +9,9 @@ Engagespot allows you to add more attributes to a user's profile as key-value pa
 
 :::info
 
-Some [providers](../channels/what-are-providers.md) look for certain attributes in your user's profile inorder to send notifications. Make sure you store those required profile attributes in your user profile.
+Some [providers](../channels/what-are-providers.md) look for certain attributes in your user's profile inorder to send notifications.
+For example, [FCM](../channels/configuring-providers/mobile-push/FCM-provider) needs your user's profile to have a `token` attribute inorder to deliver push notification to them.
+Make sure you set the required profile attributes in your user profile.
 
 :::
 
@@ -37,7 +39,7 @@ This will add three profile attributes - `email`, `phone` and `name` to your use
 
 ## Using REST API
 
-You should use the `PUT` method of `/profile` endpoint in the REST API to update your user's profile. Read [API Docs](rest-api#tag/Profile/paths/~1v3~1profile/put) for more information.
+You should use the `PUT` method of `/profile` endpoint in the REST API to update your user's profile. Read [API Docs](../rest-api#tag/Profile/paths/~1v3~1profile/put) for more information.
 
 **PUT** `https://api.engagespot.co/v3/profile`
 

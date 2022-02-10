@@ -1,7 +1,7 @@
 # What are Preferences?
 
-Before reading preferences, you should understand [Profiles](../profile/what-are-user-profiles) and Categories.
-Preference configurations allow your users to decide how they receive notifications. Users can select preferred notification channels for each category.
+Before reading preferences, you should understand [Profiles](../profile/what-are-user-profiles) and [Notification Categories](../category/what-are-categories.md).
+Preference configurations allow your users to decide how they receive notifications (for each notification category)
 
 For example, one of your user can choose to receive notifications for 'New Friend Request' events only through email, while another user can enable both push and email notifications for the same.
 
@@ -42,3 +42,7 @@ This will enable email notifications and disable web push notification for categ
 ## Using REST API
 
 You should use the `/preferences` endpoint in the REST API to update your user's profile. Read API Docs for more information.
+
+## Examples
+
+Read [this example](../learn-by-examples/notification-preference-center/concepts.md) to learn how to build a Notification Preference Manager in your app.

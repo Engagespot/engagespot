@@ -23,7 +23,7 @@ Each provider is identified by a unique identifier called **provider identifier*
 
 ## Default Providers
 
-We've included one provider in each channel that is enabled by default and needs zero configuration. This helps you to start sending notifications to your users via all channels (in-app, web-push & email) from the moment you setup Engagespot.
+We've included one provider in some channels that is enabled by default and needs zero configuration. This helps you to start sending notifications to your users without any third party services.
 
 | Channel | Provider            | Identifier      |
 | ------- | ------------------- | --------------- |
@@ -47,7 +47,7 @@ For the Web Push channel, currently we support only Engagespot default web push 
 
 ### Email Channel Providers
 
-For the Web Push channel, we support three providers.
+For Email channel, we support the following providers.
 
 #### Default Zero Config Email Provider
 
@@ -58,10 +58,24 @@ We make use of Sendgrid to give you a default email provider than you can simply
 If you have a Sendgrid account, you can configure that as your email provider in Engagespot. You'll get all Engagespot features and the power of Sendgrid's email delivery infrastructure!
 [Read more about configuring Sendgrid](configuring-providers/email/sendgrid-provider)
 
+#### Mailgun Email Provider
+
+Use Mailgun to send email notifications from Engagespot.
+[Read more about configuring Mailgun](configuring-providers/email/mailgun.md)
+
 #### SMTP Email Provider
 
 Send Email notifications via any SMTP Server of your choice.
 [Read more about configuring SMTP](configuring-providers/email/smtp-provider)
+
+### Mobile Push Channel Providers
+
+For sending push notifications to Android and iOS mobile apps, we support the following providers.
+
+#### Firebase (FCM)
+
+Use your Firebase Cloud Messaging (FCM) account to deliver push notifications to your apps!
+[Read more about configuring FCM](configuring-providers/mobile-push/FCM-provider.md)
 
 ## Provider Requirements
 

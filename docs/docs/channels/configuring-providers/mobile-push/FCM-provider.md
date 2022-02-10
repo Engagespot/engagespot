@@ -25,7 +25,7 @@ FCM Provider uses the `fcm.tokens` array in your [User's profile](../../../profi
 ```
 
 :::info
-Please note that, when you create a new User, they won't have the `fcm` object or `fcm.tokens` array. Make sure to create the `fcm.tokens` array first, and then for attaching more tokens to the same user (For ex, when they login via a new device), you should use the `PATCH` [request](../../../rest-api#tag/Profile/paths/~1v3~1profile/patch).
+Please note that, when you create a new User, they won't have the `fcm` object or `fcm.tokens` array. You can pass your user's FCM Token via `fcm.token` property via `PUT` [request](../../../rest-api#tag/Profile/paths/~1v3~1profile/put). When you add more tokens, we'll keep adding them to `fcm.tokens` array.
 :::
 
 ## FCM Provider Configurations.

@@ -12,7 +12,7 @@ To enable Mailgun provider, login to your Engagespot dashboard, goto Channels ->
 
 :::info
 
-Mailgun email provider uses `email` attribute in your user's profile as the primary address to deliver the notifications. So make sure your user's profile has the `email` attribute set.
+Mailgun email provider uses `email` attribute in your user's [profile](../../../profile/what-are-user-profiles.mdx) as the primary address to deliver the notifications. So make sure your user's profile has the `email` attribute set.
 
 :::
 
@@ -53,10 +53,12 @@ For example,
   "override": {
     "mailgun": {
       "_config": {
-        "API_KEY": "21b20a854e3df1ac46cb3aa2b9c6fd314"
+        "apiKey": "21b20a854e3df1ac46cb3aa2b9c6fd314",
+        "domain": "sandboxb9e650c33fc98.mailgun.org"
       },
       "subject": "Hey, I'm overriding the subject",
-      "html": "I want more content in my email <b>notification</b>"
+      "html": "I want more content in my email <b>notification</b>",
+      "whatever": "keys and values you pass here will be directly sent to Mailgun's Send API 🎉"
     }
   }
 }

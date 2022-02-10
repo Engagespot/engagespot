@@ -12,7 +12,7 @@ To enable Sendgrid provider, login to your Engagespot dashboard, goto Channels -
 
 :::info
 
-Sendgrid email provider uses `email` attribute in your user's profile as the primary address to deliver the notifications. So make sure your user's profile has the `email` attribute set.
+Sendgrid email provider uses `email` attribute in your user's [profile](../../../profile/what-are-user-profiles.mdx) as the primary address to deliver the notifications. So make sure your user's profile has the `email` attribute set.
 
 :::
 
