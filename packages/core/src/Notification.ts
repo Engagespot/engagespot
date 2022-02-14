@@ -128,7 +128,7 @@ export default class Notification implements NotificationItem {
 
       if (response) return this;
 
-      return false;
+      throw 'Unable to delete notifications';
     } catch (error) {
       throw error;
     }

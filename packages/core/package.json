@@ -55,5 +55,6 @@
     "extends": [
       "../../.eslint.rc.js"
     ]
-  }
+  },
+  "gitHead": "069a5728f7671ab23c57ca587157c58f16fb1c3a"
 }
