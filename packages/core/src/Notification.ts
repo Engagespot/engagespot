@@ -55,7 +55,7 @@ export default class Notification implements NotificationItem {
 
       if (response) return this;
 
-      return false;
+      throw 'Cannot mark notification as clicked';
     } catch (error) {
       throw error;
     }
@@ -94,8 +94,7 @@ export default class Notification implements NotificationItem {
 
         return this;
       }
-
-      return false;
+      throw 'Cannot fetch notifications';
     } catch (error) {
       throw error;
     }

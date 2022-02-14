@@ -7,4 +7,7 @@ export interface NotificationItem {
   seenAt?: string | null;
   clickedAt?: string | null;
   createdAt?: string | null;
+
+  fetch?: () => Promise<this>;
+  markAsClicked?: () => Promise<this>;
 }

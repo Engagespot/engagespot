@@ -6,10 +6,14 @@ sidebar_position: 1
 
 ## Overview
 
-Engagespot is built to help developers add a complete notification system to their products without having to write it from scratch. A complete notification system in a product consists of components like -
+Notifications are an integral part of any product. It helps to improve user engagement and makes sure they get useful information at every step of interaction with the product. We built Engagespot to help developers from spending months to build a notification stack for their product.
+
+When we talk about notifications, it's not just about Push. A notification is any piece of information for the user. And it should be delivered through multiple channels like email, push, realtime message inside the app, sms etc, depending on the urgency and nature of the information.
+
+A good product notification stack should have the following components -
 
 1. Multiple notification delivery channels such as InApp, Web Push, Mobile Push, Email, SMS etc.
-2. Notification delivery preferences (App Level, and User Level)
+2. Notification Preference Manager for Users
 3. Notification Categories
 4. Grouped Notifications etc.
 
@@ -28,26 +32,3 @@ Do you think you should be spending most of your development effort in building 
 This is where a solution like Engagespot can help. Instead of spending months of time building, improving and maintaining a notification engine, you can simply plug in a full-fledged product notification system in minutes, without compromising on any functionalities.
 
 Simply, you should never attempt to build a notification system from scratch. And that's why we've developed Engagespot. We focus on improving all the aspects of a highly scalable notification system while you focus on building your product.
-
-### Channels
-
-Channels are the medium through which a notification is delivered. Engagespot supports the following channels to deliver notification to your users.
-
-1. In-App (With a beautiful, customizable notification center UI-Kit)
-2. Web Push
-3. Email
-4. Mobile Push
-5. SMS (Coming Soon)
-
-### Providers
-
-Providers enables delivery through a particular channel. For example to deliver notifications via Email channel, you can use a generic SMTP service, or an API such as Sendgrid within Engagespot. Currently Engagespot supports the following providers for each channel.
-
-1. In-App - Inbuilt
-2. Web Push - Inbuilt
-3. Mobile Push - Firebase (FCM)
-4. Email - Inbuilt, Sendgrid, Mailgun, SMTP
-
-### Supported Platforms
-
-You can use Engagespot on any web or mobile based platforms. However, In-App notification UI-Kit is currently available only for web apps. (Along with a customizable ReactJS Notification Inbox component)

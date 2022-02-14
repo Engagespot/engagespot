@@ -30,7 +30,7 @@ export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
+      title={`Documentation and Examples -  ${siteConfig.title}`}
       description="All in one guide you need to setup Engagespot on your product <head />"
     >
       <HomepageHeader />

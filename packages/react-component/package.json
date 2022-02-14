@@ -10,6 +10,13 @@
   "files": [
     "dist/**/*"
   ],
+  "keywords": [
+    "engagespot",
+    "react",
+    "notifications-feed",
+    "notifications",
+    "engagespot react component"
+  ],
   "scripts": {
     "build": "yarn clean && yarn tsc && microbundle --jsx React.createElement && yarn declarations",
     "dev": "microbundle watch --jsx React.createElement",

@@ -1602,22 +1602,21 @@
   resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.7.5.tgz#77211291c1900a700b8a78cfafda3160d76949ed"
   integrity sha512-OWORNpfjMsSSUBVrRBVGECkhWcULOAJz9ZW8uK9qgxD+87M7jHRcvh/A96XXNhXTLmKcoYSQtBEX7lHMO7YRwg==
 
-"@engagespot/core@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@engagespot/core/-/core-0.1.1.tgz#d47a0fa0111d97c4f4875aa83b638d9a8800b802"
-  integrity sha512-XBU9WUHzkkSLINnQKG/w2ZCJeK/YCFJ5kGvO34DAXeEy+QNdQD+dlJpmBlWYFJzf7Og2P1tRf5+wGpww24N15A==
+"@engagespot/core@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@engagespot/core/-/core-0.1.3.tgz#e424229d8736c329e65c6f0c1069a4ac5b878c0f"
+  integrity sha512-G6A0y4NW7B+q/rkMm1xcM1tzzBvHp/eT39c47K+0KmTmaOoIVPCpAXPxrVthhUSAkj5MG9HI/CIZbgXfD5DJkA==
   dependencies:
     ably "^1.2.15"
 
-"@engagespot/react-component@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@engagespot/react-component/-/react-component-0.1.1.tgz#c5d3f15904d548595b67e190057325b8a554673a"
-  integrity sha512-1FS+I4gVyYV6/REQZPNsBTFSfKKXtut+qxJKvKbGMDOQUbNwIqwXsj/5+4i/le8z0sEiFPownkoj2Fp3xLmncg==
+"@engagespot/react-component@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@engagespot/react-component/-/react-component-0.1.4.tgz#e66eb4d9347ccce761c7871435df938e70fb0e1c"
+  integrity sha512-NETn8H8NwijINBUEbglxNwqWflzR2Ml9S2ZSN19GnrFnw6USC4smXGv6sGUfuRqFfQNnZCmR4+AvZ/F6r5vzaA==
   dependencies:
-    "@engagespot/react-hooks" "^0.1.1"
+    "@engagespot/react-hooks" "^0.1.4"
     "@popperjs/core" "^2.9.1"
     "@types/react-toggle" "^4.0.3"
-    date-fns "2.27.0"
     i18next "19.9.2"
     intersection-observer "0.12.0"
     lodash.mapkeys "4.6.0"
@@ -1628,14 +1627,13 @@
     react-toggle "^4.1.2"
     react-transition-group "4.4.1"
     styled-components "^5.2.1"
-    ts-jest "27.1.2"
 
-"@engagespot/react-hooks@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@engagespot/react-hooks/-/react-hooks-0.1.1.tgz#a33a287acf1abdd5472605c86cf50dac0705f389"
-  integrity sha512-8JieG7tm/fbSciafrR+k5RLUrhfrCjpgG4sM6dO89qk3ZKvlbY+q/ZZlWfmol8k0N3fCoaqnJCo+Xl1T9t/+MA==
+"@engagespot/react-hooks@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@engagespot/react-hooks/-/react-hooks-0.1.4.tgz#f9c6c762e00c08d9df36d54b681bc04f8f9d6fea"
+  integrity sha512-TjH1Er7842tHVnUHTNCmbGk2/W0uCHxoOumFIv+TpgpziK2/AWMX0EQFhX1kY+pxY4eu0X95wiqWjJH4k5CQGw==
   dependencies:
-    "@engagespot/core" "^0.1.1"
+    "@engagespot/core" "^0.1.3"
     "@popperjs/core" "^2.9.1"
     date-fns "2.27.0"
     intersection-observer "0.12.0"

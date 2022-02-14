@@ -1,5 +1,10 @@
 # Basics of Preference Center
 
+<head>
+  <title>How to build a Notification Preference Center in your App? | Engagespot</title>
+  <meta name="description" content="Learn how to build a notification preference center in your app in less than 30 minutes using Engagespot"/>
+</head>
+
 A Notification Preference Center is an important feature for any app that sends out notifications to their users. It gives power to your users to choose how and when they want to be notified. Not having such a fine-graned preference module might force your users to turn off all notifications from your product.
 
 With Engagespot, building a Notification Preference Manager (like the one below) in your product is a piece of cake! Let's learn how to build that in less than 30 mins.

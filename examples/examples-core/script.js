@@ -6,4 +6,10 @@ const engagespot = new Engagespot('ujtmjxnp5efmfn5ddsbdj', {
   endPointOverride: 'https://api.staging.engagespot.co/v3/',
 });
 
+const notificationList = engagespot.getNotificationList();
+await notificationList.fetch();
+notificationList.data.forEach(notification => {
+  console.log(notification.title, notification.message);
+});
+
 window.Engagespot = engagespot;

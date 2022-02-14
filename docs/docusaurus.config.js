@@ -115,7 +115,7 @@ const config = {
               },
               {
                 label: 'Discord',
-                href: 'https://discordapp.com/invite/engagespot',
+                href: 'https://disboard.org/server/936616763930587136',
               },
               {
                 label: 'Twitter',
