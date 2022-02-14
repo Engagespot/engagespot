@@ -18,4 +18,4 @@ If you need help in setting up Engagespot or understanding the concepts, we're a
 
 1. Initiate a chat with our support team using the live chat widget (available on bottom right side)
 2. Join our [Discord Server](https://disboard.org/server/936616763930587136).
-3. Send us an email at support@engagespot.cox
+3. Send us an email at support@engagespot.co
