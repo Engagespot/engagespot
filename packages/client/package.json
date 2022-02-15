@@ -8,6 +8,13 @@
   "files": [
     "dist/**/*"
   ],
+  "license": "MIT",
+  "keywords": [
+    "engagespot",
+    "notification feed",
+    "notification inbox",
+    "in-app notifications"
+  ],
   "scripts": {
     "build": "yarn clean && yarn tsc && npm run build:package && npm run build:umd && npm run build:esm && yarn declarations",
     "build:package": "microbundle --jsx React.createElement",
