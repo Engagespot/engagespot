@@ -16,7 +16,7 @@ npm i @engagespot/react-component
 Then render `Engagespot` component where you want the bell icon to appear.
 
 ```javascript
-import Engagespot from '@engagespot/react-component';
+import { Engagespot } from '@engagespot/react-component';
 
 <Engagespot
   apiKey="ENGAGESPOT_API_KEY"

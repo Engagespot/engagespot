@@ -161,3 +161,63 @@ Calls **POST** `/notifications/:notificationId/click` API and marks this notific
 #### delete
 
 Calls **DELETE** `/notifications/:notificationId` API and deletes this notification.
+
+## Events
+
+Engagespot Core emits several events which you can susbcribe to do custom actions.
+
+### onNotificationReceive
+
+```js
+import Engagespot from '@engagespot/core';
+
+const engagespot = new Engagespot('YOUR_ENGAGESPOT_API_KEY', {
+  userId: 'youruser@example.com',
+});
+
+engagespot.onNotificationReceive(notification => {
+  //You'll get the notification object.
+});
+```
+
+### onNotificationClick
+
+```js
+import Engagespot from '@engagespot/core';
+
+const engagespot = new Engagespot('YOUR_ENGAGESPOT_API_KEY', {
+  userId: 'youruser@example.com',
+});
+
+engagespot.onNotificationClick(notification => {
+  //You'll get the notification object.
+});
+```
+
+### onNotificationDelete
+
+```js
+import Engagespot from '@engagespot/core';
+
+const engagespot = new Engagespot('YOUR_ENGAGESPOT_API_KEY', {
+  userId: 'youruser@example.com',
+});
+
+engagespot.onNotificationDelete(notification => {
+  //You'll get the notification object.
+});
+```
+
+### onNotificationSee
+
+```js
+import Engagespot from '@engagespot/core';
+
+const engagespot = new Engagespot('YOUR_ENGAGESPOT_API_KEY', {
+  userId: 'youruser@example.com',
+});
+
+engagespot.onNotificationSee(notification => {
+  //You'll get the notification object.
+});
+```
