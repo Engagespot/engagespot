@@ -120,7 +120,7 @@ export function useFloatingNotification({
         position: 'fixed',
         top: 0,
         left: 0,
-        zIndex: 999,
+        zIndex: 99999999,
         width: '100%',
         height: '100%',
       },
@@ -144,7 +144,7 @@ export function useFloatingNotification({
       style:
         isMobile && panelVisibilityRef.current
           ? mobileProps.styles.popper
-          : { ...styles.popper, zIndex: 999 },
+          : { ...styles.popper, zIndex: 99999999 },
       attributes:
         isMobile && panelVisibilityRef.current
           ? mobileProps.attributes.popper
