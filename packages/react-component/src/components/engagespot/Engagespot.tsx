@@ -18,6 +18,7 @@ import { EngagespotStyled } from './Engagespot.styled';
 import { Route } from '../notificationPanel/NotificationPanel';
 import { defaultFooterContent, FooterContent } from '../notificationFooter';
 import { onFeedItemClickType } from '../notificationFeedItem/NotificationFeedItem';
+import ReactDOM from 'react-dom';
 
 export type useEngagespotReturnType = ReturnType<typeof useEngagespot>;
 
@@ -126,6 +127,28 @@ export function Engagespot({
   };
 
   const renderButtonAndPanel = () => {
+    const renderPanel = () => (
+      <NotificationPanel
+        visible={panelVisibility}
+        route={preference ? 'preference' : 'home'}
+        setRoute={setRoute}
+        panelProps={getPanelProps}
+        panelOffsetProps={getPanelOffsetProps}
+        arrowProps={getArrowProps}
+        showPreferences={allowWebPush}
+        renderNotificationContent={renderNotificationContent}
+        renderEmptyPlaceholderImage={renderEmptyPlaceholderImage}
+        togglePanelVisibility={togglePanelVisibility}
+        enableWebPush={enableWebPush}
+        webPushState={webPushState}
+        footerContent={footerContent}
+        headerText={headerText}
+        notifications={
+          notifications.data ? notifications.data.map(transformFeedItem) : []
+        }
+      />
+    );
+
     return (
       <Fragment>
         {!panelOnly && (
@@ -136,25 +159,9 @@ export function Engagespot({
             renderNotificationIcon={renderNotificationIcon}
           />
         )}
-        <NotificationPanel
-          visible={panelVisibility}
-          route={preference ? 'preference' : 'home'}
-          setRoute={setRoute}
-          panelProps={getPanelProps}
-          panelOffsetProps={getPanelOffsetProps}
-          arrowProps={getArrowProps}
-          showPreferences={allowWebPush}
-          renderNotificationContent={renderNotificationContent}
-          renderEmptyPlaceholderImage={renderEmptyPlaceholderImage}
-          togglePanelVisibility={togglePanelVisibility}
-          enableWebPush={enableWebPush}
-          webPushState={webPushState}
-          footerContent={footerContent}
-          headerText={headerText}
-          notifications={
-            notifications.data ? notifications.data.map(transformFeedItem) : []
-          }
-        />
+        {isMobile
+          ? ReactDOM.createPortal(renderPanel(), document.body)
+          : renderPanel()}
       </Fragment>
     );
   };
