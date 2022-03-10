@@ -38,6 +38,7 @@ The Engagespot notification react component can be customized to suit your appli
 | userId                      | Unique id to identify your users                                                     | `string`         |
 | hideJumpToTop               | Hides the "Jump to top" button                                                       | `boolean`        |
 | renderNotificationIcon      | Custom notification bell icon                                                        | Component        |
+| feedItemPlaceholderImage    | URL of Icon to be displayed if notification image is empty                           | `string`         |
 | renderEmptyPlaceholderImage | Component to show when notification feed is empty                                    | Component        |
 | headerText                  | Text that will be shown on Notification feed title                                   | `string`         |
 | theme                       | Object with multiple properties to customize the look and feel of notification feed. | `ThemeOverrides` |

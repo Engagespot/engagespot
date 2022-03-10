@@ -15,9 +15,16 @@ Well, luckily, it's simple. Let's quickly learn how to send the below notificati
 
 ![img](https://i.postimg.cc/bYDBkf8Y/Screen-Shot-2022-02-05-at-12-14-58-PM.png)
 
+:::warning
+Before you try to send notifications via the REST API, make sure you're authenticating your app users with Engagespot via front-end integration.
+Read Quick start guide for [Javascript](./quick-setup-javascript), or [Android/iOS](./android-ios-quick-start) to learn more.
+
+Notifications sent to a recipient who has not yet identified by Engagespot will be discarded.
+:::
+
 ## Consuming the REST API
 
-To send notifications, you can simply send a `POST` request to `https://api.engagespot.co/v3/notifications` API with the following details.
+To send notifications, you should send a `POST` request to `https://api.engagespot.co/v3/notifications` API with the following details.
 
 <Tabs>
 <TabItem value="node" label="Node">
@@ -97,4 +104,6 @@ print(response.text)
 
 Where `recipients` is the list of users who should receive this notification. Wondering how Engagespot identifies your users? Remember you had passed the email-id (or any unique id) of your users in the front-end SDK? That's how Engagespot identifies your users and sends the notification to them, no matter how many devices they are using.
 
-There are other parameters you can send to this API. You can learn more about them from the REST API reference page.
+## Detailed API Guide
+
+There are other parameters you can pass to this send Notification API. You can learn more about them from the [REST API reference](/docs/rest-api#tag/Notifications/paths/~1v3~1notifications/post) page.
