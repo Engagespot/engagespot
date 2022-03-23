@@ -24,9 +24,27 @@ FCM Provider uses the `fcm.tokens` array in your [User's profile](../../../profi
 }
 ```
 
+You should use the `PATCH` or `PUT` method of the `/profile` API ([Read Docs](/docs/rest-api/#tag/Profile)) to add an FCM token to user's profile.
+
 :::info
 Please note that, when you create a new User, they won't have the `fcm` object or `fcm.tokens` array. You can pass your user's FCM Token via `fcm.token` property via `PUT` [request](../../../rest-api#tag/Profile/paths/~1v3~1profile/put). When you add more tokens, we'll keep adding them to `fcm.tokens` array.
 :::
+
+### Example
+
+This is how you can attach a new FCM Token to user's profile.
+
+```bash
+curl --location --request POST 'https://api.engagespot.co/v3/profile' \
+--header 'X-ENGAGESPOT-API-KEY: YOUR_ENGAGESPOT_API_KEY' \
+--header 'X-ENGAGESPOT-API-SECRET: YOUR_ENGAGESPOT_API_SECRET' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "fcm":{
+        "token":"chl1uB1qn0C6tWJbtQWCvO:APA91bEmkhPKOTgJNQI3RTt2QlCbFZk6yi2TAuRmUlwIHtfWZHWw9LzChSrCRBqvDxMysS84GJE_HOjPDafRNj4_EezuKycXJZz18k_VMyGm6n13vea3N8FXESqfzGkxQpbmRk-tL1hE"
+    }
+}'
+```
 
 ## FCM Provider Configurations.
 

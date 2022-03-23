@@ -6,6 +6,9 @@ info:
     do actions like Fetch Notifications, Delete Notification etc on behalf of
     them.
 
+    ## Base URL
+
+    Base URL of this API is `https://api.engagespot.co/v3/`
 
     ## Authentication
 

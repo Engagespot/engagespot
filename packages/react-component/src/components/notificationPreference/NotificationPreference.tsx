@@ -60,7 +60,7 @@ export function NotificationPreferenceModal({
   allowNotifications,
 }: NotificationPreferenceModalProps) {
   return (
-    <NotificationPreferenceModalStyled className="modal">
+    <NotificationPreferenceModalStyled>
       <NotificationPreferenceModalContent>
         <NotificationPreferenceModalHeader>
           <NotificationPreferenceModalHeading>

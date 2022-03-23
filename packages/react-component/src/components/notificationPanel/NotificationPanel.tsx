@@ -99,7 +99,7 @@ export function NotificationPanel({
     ) {
       return (
         <Fragment>
-          <NotificationPreferenceOverlay className="overlay" />
+          <NotificationPreferenceOverlay />
           <NotificationPreferenceModal
             allowNotifications={allowNotifications}
             closeModal={closeModal}
