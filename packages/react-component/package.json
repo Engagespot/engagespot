@@ -1,6 +1,6 @@
 {
   "name": "@engagespot/react-component",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "source": "./src/index.ts",
   "main": "./dist/engagespot-react.js",
   "module": "./dist/engagespot-react.esm.js",
