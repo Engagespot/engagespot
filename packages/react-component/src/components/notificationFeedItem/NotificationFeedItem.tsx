@@ -21,6 +21,7 @@ import { Circle as FeedItemReadDot } from '../icons/Circle';
 interface ClickableNotificationPayload {
   url: string;
   id: string;
+  markAsClicked: () => void;
 }
 
 export type onFeedItemClickType = (
@@ -106,17 +107,19 @@ export function NotificationFeedItem({
   };
 
   const onClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (dropdownRef.current?.contains(event.target as Node)) {
+      return;
+    }
+
     if (onFeedItemClick) {
-      onFeedItemClick(event, { id, url: clickableUrl });
+      onFeedItemClick(event, { id, url: clickableUrl, markAsClicked });
       return;
     }
 
     if (!clickableUrl) {
       return;
     }
-    if (dropdownRef.current?.contains(event.target as Node)) {
-      return;
-    }
+
     markAsClicked();
     window.open(clickableUrl, '__blank');
   };

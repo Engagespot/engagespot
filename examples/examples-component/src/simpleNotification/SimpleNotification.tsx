@@ -61,8 +61,9 @@ export function SimpleNotification() {
                   console.log('Got the id', id);
                 },
               }}
-              onFeedItemClick={(_, options) => {
+              onFeedItemClick={(_, options: any) => {
                 console.log('options', options);
+                options.markAsClicked();
               }}
               // panelOpenByDefault={false}
               theme={{
