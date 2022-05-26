@@ -1,6 +1,6 @@
 {
   "name": "@engagespot/react-hooks",
-  "version": "0.1.8",
+  "version": "0.1.11",
   "source": "./src/index.ts",
   "main": "./dist/engagespot-hooks.js",
   "module": "./dist/engagespot-hooks.esm.js",
