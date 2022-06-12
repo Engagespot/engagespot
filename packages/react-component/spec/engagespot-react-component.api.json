@@ -176,7 +176,7 @@
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export declare function Engagespot({ theme, mode, apiKey, panelOnly, placeholderImage, userId, renderFooterContent, renderNotificationIcon, renderEmptyPlaceholderImage, renderNotificationContent, onFeedItemClick, ...options }: "
+              "text": "export declare function Engagespot({ theme, apiKey, panelOnly, headerText, feedItemPlaceholderImage, userId, panelOpenByDefault, renderFooterContent, renderNotificationIcon, renderEmptyPlaceholderImage, renderNotificationContent, onFeedItemClick, ...options }: "
             },
             {
               "kind": "Reference",
@@ -205,7 +205,7 @@
           "overloadIndex": 1,
           "parameters": [
             {
-              "parameterName": "{ theme, mode, apiKey, panelOnly, placeholderImage, userId, renderFooterContent, renderNotificationIcon, renderEmptyPlaceholderImage, renderNotificationContent, onFeedItemClick, ...options }",
+              "parameterName": "{ theme, apiKey, panelOnly, headerText, feedItemPlaceholderImage, userId, panelOpenByDefault, renderFooterContent, renderNotificationIcon, renderEmptyPlaceholderImage, renderNotificationContent, onFeedItemClick, ...options }",
               "parameterTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
@@ -225,17 +225,78 @@
             },
             {
               "kind": "Reference",
+              "text": "Omit",
+              "canonicalReference": "!Omit:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
               "text": "UseEngagespotOptions",
               "canonicalReference": "@engagespot/react-hooks!UseEngagespotOptions:interface"
             },
             {
               "kind": "Content",
-              "text": " "
+              "text": ", 'floatingPanelOptions'> "
             }
           ],
           "releaseTag": "Public",
           "name": "EngagespotProps",
           "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@engagespot/react-component!EngagespotProps#feedItemPlaceholderImage:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "feedItemPlaceholderImage?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "feedItemPlaceholderImage",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@engagespot/react-component!EngagespotProps#headerText:member",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "headerText?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "headerText",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
             {
               "kind": "PropertySignature",
               "canonicalReference": "@engagespot/react-component!EngagespotProps#hideJumpToTop:member",
@@ -283,33 +344,6 @@
               "isOptional": true,
               "releaseTag": "Public",
               "name": "hideNotificationAvatar",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@engagespot/react-component!EngagespotProps#mode:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "mode?: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Mode",
-                  "canonicalReference": "@engagespot/react-component!Mode:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isOptional": true,
-              "releaseTag": "Public",
-              "name": "mode",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
@@ -370,16 +404,16 @@
             },
             {
               "kind": "PropertySignature",
-              "canonicalReference": "@engagespot/react-component!EngagespotProps#placeholderImage:member",
+              "canonicalReference": "@engagespot/react-component!EngagespotProps#panelOpenByDefault:member",
               "docComment": "",
               "excerptTokens": [
                 {
                   "kind": "Content",
-                  "text": "placeholderImage?: "
+                  "text": "panelOpenByDefault?: "
                 },
                 {
                   "kind": "Content",
-                  "text": "string"
+                  "text": "boolean"
                 },
                 {
                   "kind": "Content",
@@ -388,7 +422,7 @@
               ],
               "isOptional": true,
               "releaseTag": "Public",
-              "name": "placeholderImage",
+              "name": "panelOpenByDefault",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
                 "endIndex": 2
@@ -405,8 +439,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "customPlaceholderContentType",
-                  "canonicalReference": "@engagespot/react-component!customPlaceholderContentType:type"
+                  "text": "customRenderFn",
+                  "canonicalReference": "@engagespot/react-component!customRenderFn:type"
                 },
                 {
                   "kind": "Content",
@@ -432,8 +466,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "FooterContent",
-                  "canonicalReference": "@engagespot/react-component!FooterContent:type"
+                  "text": "customRenderFn",
+                  "canonicalReference": "@engagespot/react-component!customRenderFn:type"
                 },
                 {
                   "kind": "Content",
@@ -459,8 +493,21 @@
                 },
                 {
                   "kind": "Reference",
+                  "text": "customRenderFn",
+                  "canonicalReference": "@engagespot/react-component!customRenderFn:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
                   "text": "customNotificationContentType",
                   "canonicalReference": "@engagespot/react-component!customNotificationContentType:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">"
                 },
                 {
                   "kind": "Content",
@@ -472,7 +519,7 @@
               "name": "renderNotificationContent",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
-                "endIndex": 2
+                "endIndex": 5
               }
             },
             {
@@ -486,8 +533,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "customNotificationIcon",
-                  "canonicalReference": "@engagespot/react-component!customNotificationIcon:type"
+                  "text": "customRenderFn",
+                  "canonicalReference": "@engagespot/react-component!customRenderFn:type"
                 },
                 {
                   "kind": "Content",
@@ -533,7 +580,7 @@
           "extendsTokenRanges": [
             {
               "startIndex": 1,
-              "endIndex": 3
+              "endIndex": 5
             }
           ]
         }

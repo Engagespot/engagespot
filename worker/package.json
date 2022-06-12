@@ -5,8 +5,8 @@
   "license": "MIT",
   "private": "true",
   "scripts": {
-    "build": "yarn clean && yarn tsc && microbundle",
-    "dev": "microbundle watch",
+    "build:worker": "yarn clean && yarn tsc && microbundle",
+    "dev:worker": "microbundle watch",
     "tsc": "tsc",
     "clean": "rimraf dist",
     "prepare": "yarn run build"

@@ -740,6 +740,49 @@
             },
             {
               "kind": "Method",
+              "canonicalReference": "@engagespot/core!Engagespot#getCategories:member(1)",
+              "docComment": "/**\n * Gets notification categories of this app.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "getCategories(): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Category",
+                  "canonicalReference": "@engagespot/core!Category:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[]>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 5
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [],
+              "name": "getCategories"
+            },
+            {
+              "kind": "Method",
               "canonicalReference": "@engagespot/core!Engagespot#getDeviceId:member(1)",
               "docComment": "/**\n * @param id - \n */\n",
               "excerptTokens": [
@@ -796,6 +839,49 @@
               "overloadIndex": 1,
               "parameters": [],
               "name": "getNotificationList"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@engagespot/core!Engagespot#getPreferences:member(1)",
+              "docComment": "/**\n * Returns the preferences of this user\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "getPreferences(): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "UserPreference",
+                  "canonicalReference": "@engagespot/core!UserPreference:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[]>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 5
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [],
+              "name": "getPreferences"
             },
             {
               "kind": "Method",
@@ -1609,6 +1695,120 @@
               "isStatic": false
             },
             {
+              "kind": "Method",
+              "canonicalReference": "@engagespot/core!Engagespot#setPreferences:member(1)",
+              "docComment": "/**\n * Sets preferences of this user\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "setPreferences(preferences: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Array",
+                  "canonicalReference": "!Array:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "UserPreference",
+                  "canonicalReference": "@engagespot/core!UserPreference:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<this>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 6,
+                "endIndex": 8
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "preferences",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 5
+                  }
+                }
+              ],
+              "name": "setPreferences"
+            },
+            {
+              "kind": "Method",
+              "canonicalReference": "@engagespot/core!Engagespot#setProfileAttributes:member(1)",
+              "docComment": "/**\n * Sets attributes to user's profile\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "setProfileAttributes(attributes: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "{\n        [attribute: string]: any;\n    }"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<this>"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isOptional": false,
+              "isStatic": false,
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 5
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "attributes",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "name": "setProfileAttributes"
+            },
+            {
               "kind": "Property",
               "canonicalReference": "@engagespot/core!Engagespot#socket:member",
               "docComment": "/**\n * @deprecated\n *\n * Realtime Websocket\n */\n",
@@ -1918,7 +2118,7 @@
                 },
                 {
                   "kind": "Content",
-                  "text": "<false | this>"
+                  "text": "<this>"
                 },
                 {
                   "kind": "Content",
@@ -1952,7 +2152,7 @@
                 },
                 {
                   "kind": "Content",
-                  "text": "<false | this>"
+                  "text": "<this>"
                 },
                 {
                   "kind": "Content",
@@ -2040,7 +2240,7 @@
                 },
                 {
                   "kind": "Content",
-                  "text": "<false | this>"
+                  "text": "<this>"
                 },
                 {
                   "kind": "Content",

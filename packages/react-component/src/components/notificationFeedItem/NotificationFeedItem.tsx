@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 
 import {
   FeedItemStyled,
@@ -17,10 +17,12 @@ import {
 } from './NotificationFeedItem.styled';
 import { DropdownMenu } from '../dropdownMenu';
 import { Circle as FeedItemReadDot } from '../icons/Circle';
+import themeConfig from 'src/theme/themeConfig';
 
 interface ClickableNotificationPayload {
   url: string;
   id: string;
+  markAsClicked: () => void;
 }
 
 export type onFeedItemClickType = (
@@ -95,7 +97,13 @@ export function NotificationFeedItem({
   const [isImageBroken, setImageBroken] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const dropDownItems = [{ name: 'Delete', action: deleteNotification }];
+  const dropDownItems = useMemo(() => {
+    if (read) return [{ name: 'Delete', action: deleteNotification }];
+    return [
+      { name: 'Delete', action: deleteNotification },
+      { name: 'Mark As Read', action: markAsClicked },
+    ];
+  }, [read]);
 
   const onItemEnter = () => {
     setMenuVisibility(true);
@@ -106,17 +114,19 @@ export function NotificationFeedItem({
   };
 
   const onClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (dropdownRef.current?.contains(event.target as Node)) {
+      return;
+    }
+
     if (onFeedItemClick) {
-      onFeedItemClick(event, { id, url: clickableUrl });
+      onFeedItemClick(event, { id, url: clickableUrl, markAsClicked });
       return;
     }
 
     if (!clickableUrl) {
       return;
     }
-    if (dropdownRef.current?.contains(event.target as Node)) {
-      return;
-    }
+
     markAsClicked();
     window.open(clickableUrl, '__blank');
   };
@@ -157,7 +167,7 @@ export function NotificationFeedItem({
         <DropdownMenu
           items={dropDownItems}
           isVisible={isMobile || isMenuVisible}
-          notificationId={id}
+          theme={themeConfig.dropdown}
         />
         <FeedItemReadDot style={{ visibility: read ? 'hidden' : 'visible' }} />
       </FeedItemMenu>

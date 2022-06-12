@@ -7,21 +7,24 @@
 <b>Signature:</b>
 
 ```typescript
-export interface EngagespotProps extends UseEngagespotOptions
+export interface EngagespotProps extends Omit<UseEngagespotOptions, 'floatingPanelOptions'>
 ```
 
-<b>Extends:</b> UseEngagespotOptions
+<b>Extends:</b> Omit&lt;UseEngagespotOptions, 'floatingPanelOptions'&gt;
 
 ## Properties
 
 | Property                                                                                         | Type                          | Description       |
 | ------------------------------------------------------------------------------------------------ | ----------------------------- | ----------------- |
+| [feedItemPlaceholderImage?](./react-component.engagespotprops.feeditemplaceholderimage.md)       | string                        | <i>(Optional)</i> |
+| [headerText?](./react-component.engagespotprops.headertext.md)                                   | string                        | <i>(Optional)</i> |
 | [hideJumpToTop?](./react-component.engagespotprops.hidejumptotop.md)                             | boolean                       | <i>(Optional)</i> |
 | [hideNotificationAvatar?](./react-component.engagespotprops.hidenotificationavatar.md)           | boolean                       | <i>(Optional)</i> |
-| [mode?](./react-component.engagespotprops.mode.md)                                               | Mode                          | <i>(Optional)</i> |
+| [onFeedItemClick?](./react-component.engagespotprops.onfeeditemclick.md)                         | onFeedItemClickType           | <i>(Optional)</i> |
 | [panelOnly?](./react-component.engagespotprops.panelonly.md)                                     | boolean                       | <i>(Optional)</i> |
-| [placeholderImage?](./react-component.engagespotprops.placeholderimage.md)                       | string                        | <i>(Optional)</i> |
+| [panelOpenByDefault?](./react-component.engagespotprops.panelopenbydefault.md)                   | boolean                       | <i>(Optional)</i> |
 | [renderEmptyPlaceholderImage?](./react-component.engagespotprops.renderemptyplaceholderimage.md) | customPlaceholderContentType  | <i>(Optional)</i> |
+| [renderFooterContent?](./react-component.engagespotprops.renderfootercontent.md)                 | FooterContent                 | <i>(Optional)</i> |
 | [renderNotificationContent?](./react-component.engagespotprops.rendernotificationcontent.md)     | customNotificationContentType | <i>(Optional)</i> |
 | [renderNotificationIcon?](./react-component.engagespotprops.rendernotificationicon.md)           | customNotificationIcon        | <i>(Optional)</i> |
 | [theme?](./react-component.engagespotprops.theme.md)                                             | ThemeOverrides                | <i>(Optional)</i> |

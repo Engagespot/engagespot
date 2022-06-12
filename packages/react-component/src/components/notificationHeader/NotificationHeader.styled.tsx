@@ -7,11 +7,12 @@ export const NotificationHeaderStyled = styled.div`
       display: flex;
       height: ${header.height};
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       padding: ${header.padding};
       font-size: ${header.fontSize};
       color: ${header.fontColor};
       background: ${colors.brandingPrimary};
+      box-sizing: border-box;
     `}
   }
 `;
@@ -22,6 +23,8 @@ export const NotificationHeaderTextStyled = styled.h3`
       font-size: ${header.fontSize};
       font-weight: ${header.fontWeight};
       color: ${header.fontColor};
+      padding-left: 0.5rem;
+      margin-right: auto;
     `}
   }
 `;

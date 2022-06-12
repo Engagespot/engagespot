@@ -1,23 +1,29 @@
 {
   "name": "@engagespot/react-component",
-  "version": "0.1.1",
+  "version": "0.1.12-alpha.2",
   "source": "./src/index.ts",
-  "main": "./dist/engagespot-react.js",
-  "module": "./dist/engagespot-react.esm.js",
-  "unpkg": "./dist/engagespot-react.umd.js",
-  "types": "./dist/engagespot-react.d.ts",
-  "amdName": "EngagespotReact",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist/**/*"
   ],
+  "license": "MIT",
+  "keywords": [
+    "engagespot",
+    "react",
+    "notifications-feed",
+    "notifications",
+    "engagespot react component",
+    "notification center"
+  ],
   "scripts": {
-    "build": "yarn clean && yarn tsc && microbundle --jsx React.createElement && yarn declarations",
-    "dev": "microbundle watch --jsx React.createElement",
+    "build": "yarn tsc && tsup",
+    "dev": "tsup --minify false --sourcemap inline",
     "tsc": "tsc",
     "clean": "rimraf dist",
-    "declarations": "api-extractor run --local --verbose",
     "docs": "api-documenter markdown --input-folder spec --output ./spec/markdown",
-    "prepare": "yarn run build",
+    "prepare": "yarn build",
     "test:dev": "jest --watchAll",
     "test": "jest",
     "lint:css": "stylelint './src/**/*.js'",
@@ -25,14 +31,12 @@
     "storybook": "start-storybook -p 6006"
   },
   "peerDependencies": {
-    "react": "^16.8.3 || ^17.0.0-0",
-    "react-dom": "^16.8.3 || ^17.0.0-0"
+    "react": "^16.8.3 || ^17.0.0-0 || ^18.0.0-0",
+    "react-dom": "^16.8.3 || ^17.0.0-0 || ^18.0.0-0"
   },
   "dependencies": {
-    "@engagespot/react-hooks": "^0.1.1",
+    "@engagespot/react-hooks": "^0.1.12-alpha.2",
     "@popperjs/core": "^2.9.1",
-    "@types/react-toggle": "^4.0.3",
-    "date-fns": "2.27.0",
     "i18next": "19.9.2",
     "intersection-observer": "0.12.0",
     "lodash.mapkeys": "4.6.0",
@@ -40,10 +44,8 @@
     "lodash.throttle": "4.1.1",
     "react-i18next": "11.8.10",
     "react-popper": "^2.2.5",
-    "react-toggle": "^4.1.2",
     "react-transition-group": "4.4.1",
-    "styled-components": "^5.2.1",
-    "ts-jest": "27.1.2"
+    "styled-components": "^5.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.16.5",
@@ -63,6 +65,7 @@
     "axios": "^0.24.0",
     "babel-loader": "^8.2.3",
     "cross-env": "7.0.3",
+    "dotenv": "^16.0.1",
     "jest": "^27.4.5",
     "microbundle": "0.14.2",
     "msw": "^0.36.3",
@@ -70,9 +73,10 @@
     "rimraf": "^3.0.2",
     "ts-jest": "27.1.2",
     "tslib": "2.3.1",
+    "tsup": "^6.1.2",
     "typedoc": "^0.22.10",
     "typedoc-plugin-markdown": "^3.11.11",
-    "typescript": "4.2.4"
+    "typescript": "^4.5.5"
   },
   "browserslist": {
     "production": [
@@ -94,5 +98,5 @@
       "../../.eslint.rc.js"
     ]
   },
-  "gitHead": "71e908c4626564ce4a7054769e3dfba856e4c80b"
+  "gitHead": "069a5728f7671ab23c57ca587157c58f16fb1c3a"
 }

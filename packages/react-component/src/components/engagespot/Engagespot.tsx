@@ -1,6 +1,16 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useRef, useState } from 'react';
 import mapKeys from 'lodash.mapkeys';
-import { useEngagespot, UseEngagespotOptions } from '@engagespot/react-hooks';
+import {
+  useEngagespot,
+  useInfiniteScroll,
+  useBrowserWebPush,
+  useFloatingNotification,
+  UseEngagespotOptions,
+  InfiniteScrollInstance,
+  FloatingNotificationInstance,
+  BrowserWebPushInstance,
+  RawNotification,
+} from '@engagespot/react-hooks';
 
 import { EngagespotProvider } from '../engagespotProvider';
 import { NotificationPanel } from '../notificationPanel';
@@ -8,7 +18,7 @@ import {
   NotificationButton,
   customNotificationIcon,
 } from '../notificationButton';
-import { ThemeOverrides, Mode } from '../../theme/theme';
+import { ThemeOverrides } from '../../theme/theme';
 import { NotificationFeedItemProps } from '../notificationFeedItem';
 import {
   customPlaceholderContentType,
@@ -18,21 +28,27 @@ import { EngagespotStyled } from './Engagespot.styled';
 import { Route } from '../notificationPanel/NotificationPanel';
 import { defaultFooterContent, FooterContent } from '../notificationFooter';
 import { onFeedItemClickType } from '../notificationFeedItem/NotificationFeedItem';
+import ReactDOM from 'react-dom';
+import { DropdownMenuProps } from '../dropdownMenu';
+import { customRenderFn, renderCustom } from 'src/utils/renderCustom';
 
 export type useEngagespotReturnType = ReturnType<typeof useEngagespot>;
 
-export interface EngagespotProps extends UseEngagespotOptions {
+export interface EngagespotProps
+  extends Omit<UseEngagespotOptions, 'floatingPanelOptions'> {
   theme?: ThemeOverrides;
-  mode?: Mode;
+  panelOpenByDefault?: boolean;
   panelOnly?: boolean;
-  placeholderImage?: string;
+  feedItemPlaceholderImage?: string;
   hideNotificationAvatar?: boolean;
   hideJumpToTop?: boolean;
-  renderFooterContent?: FooterContent;
-  renderNotificationIcon?: customNotificationIcon;
-  renderEmptyPlaceholderImage?: customPlaceholderContentType;
-  renderNotificationContent?: customNotificationContentType;
+  headerText?: string;
+  renderFooterContent?: customRenderFn;
+  renderNotificationIcon?: customRenderFn;
+  renderEmptyPlaceholderImage?: customRenderFn;
+  renderNotificationContent?: customRenderFn<customNotificationContentType>;
   onFeedItemClick?: onFeedItemClickType;
+  headerDropdownItems?: DropdownMenuProps['items'];
 }
 
 const notificationItemResponseMap = {
@@ -63,38 +79,60 @@ const transformFeedItem = (notification: any) => {
 
 export function Engagespot({
   theme,
-  mode,
   apiKey,
   panelOnly = false,
-  placeholderImage,
+  headerText,
+  feedItemPlaceholderImage,
   userId,
+  panelOpenByDefault = false,
   renderFooterContent,
   renderNotificationIcon,
   renderEmptyPlaceholderImage,
   renderNotificationContent,
   onFeedItemClick,
+  headerDropdownItems,
   ...options
 }: EngagespotProps) {
+  const scrollRootRef = useRef<HTMLElement | null>();
+  scrollRootRef.current = document.getElementById('engagespot-scroll-root');
   const {
-    isValid,
     notifications,
+    setLoaderRef,
+    hasMore,
+    isMobile,
     panelVisibility,
     getButtonProps,
     getPanelProps,
     getArrowProps,
-    scroll,
     getPanelOffsetProps,
     togglePanelVisibility,
     useJumpToTop,
-    isMobile,
     hideBranding,
     enableWebPush,
     allowWebPush,
     webPushState,
-    useSystemDarkTheme,
-  } = useEngagespot({ apiKey, userId, ...options });
+    deleteNotification,
+    markAsRead,
+    unreadCount,
+    preferences,
+    getPreferences,
+    setPreferences,
+  } = useEngagespot<
+    RawNotification,
+    InfiniteScrollInstance,
+    FloatingNotificationInstance,
+    BrowserWebPushInstance
+  >({
+    apiKey,
+    userId,
+    ...options,
+    floatingPanelOptions: {
+      panelOpenByDefault,
+    },
+    plugins: [useInfiniteScroll, useBrowserWebPush, useFloatingNotification],
+    scrollRoot: scrollRootRef.current,
+  });
 
-  const systemDarkThemeEnabled = useSystemDarkTheme();
   const [preference, togglePreference] = useState(false);
   const setRoute = (route: Route) => {
     if (route === 'preference') {
@@ -106,7 +144,7 @@ export function Engagespot({
 
   const footerContent = () => {
     if (hideBranding && renderFooterContent) {
-      return renderFooterContent?.();
+      return renderCustom(renderFooterContent);
     }
     if (hideBranding && !renderFooterContent) {
       return null;
@@ -115,34 +153,42 @@ export function Engagespot({
   };
 
   const renderButtonAndPanel = () => {
+    const renderPanel = () => (
+      <NotificationPanel
+        visible={panelVisibility}
+        route={preference ? 'preference' : 'home'}
+        setRoute={setRoute}
+        panelProps={getPanelProps}
+        panelOffsetProps={getPanelOffsetProps}
+        arrowProps={getArrowProps}
+        showPreferences={allowWebPush}
+        renderNotificationContent={renderNotificationContent}
+        renderEmptyPlaceholderImage={renderEmptyPlaceholderImage}
+        togglePanelVisibility={togglePanelVisibility}
+        enableWebPush={enableWebPush}
+        webPushState={webPushState}
+        footerContent={footerContent}
+        headerText={headerText}
+        headerDropdownItems={headerDropdownItems || []}
+        notifications={
+          notifications ? notifications.map(transformFeedItem) : []
+        }
+      />
+    );
+
     return (
       <Fragment>
         {!panelOnly && (
           <NotificationButton
             buttonProps={getButtonProps}
-            unreadCount={notifications.unreadCount}
+            unreadCount={unreadCount}
             panelOpen={panelVisibility}
             renderNotificationIcon={renderNotificationIcon}
           />
         )}
-        <NotificationPanel
-          visible={panelVisibility}
-          route={preference ? 'preference' : 'home'}
-          setRoute={setRoute}
-          panelProps={getPanelProps}
-          panelOffsetProps={getPanelOffsetProps}
-          arrowProps={getArrowProps}
-          showPreferences={allowWebPush}
-          renderNotificationContent={renderNotificationContent}
-          renderEmptyPlaceholderImage={renderEmptyPlaceholderImage}
-          togglePanelVisibility={togglePanelVisibility}
-          enableWebPush={enableWebPush}
-          webPushState={webPushState}
-          footerContent={footerContent}
-          notifications={
-            notifications.data ? notifications.data.map(transformFeedItem) : []
-          }
-        />
+        {isMobile
+          ? ReactDOM.createPortal(renderPanel(), document.body)
+          : renderPanel()}
       </Fragment>
     );
   };
@@ -150,21 +196,24 @@ export function Engagespot({
   return (
     <EngagespotProvider
       theme={theme}
-      systemTheme={systemDarkThemeEnabled ? 'dark' : 'light'}
-      mode={mode}
       state={{
         panelVisibility,
-        placeholderImage,
+        placeholderImage: feedItemPlaceholderImage,
         togglePanelVisibility,
         useJumpToTop,
-        scroll,
         isMobile,
         preference,
         togglePreference,
         onFeedItemClick,
+        setLoaderRef,
+        hasMore,
+        deleteNotification,
+        markAsRead,
+        preferences,
+        setPreferences,
       }}
     >
-      <EngagespotStyled>{isValid && renderButtonAndPanel()}</EngagespotStyled>
+      <EngagespotStyled>{renderButtonAndPanel()}</EngagespotStyled>
     </EngagespotProvider>
   );
 }

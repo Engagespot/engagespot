@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef, Fragment } from 'react';
 import { usePopper } from 'react-popper';
 
+import theme from '../../theme/themeConfig';
+
 import {
   DropdownOverlay,
   DropdownMenuContainer,
@@ -12,13 +14,13 @@ import { Ellipsis as MoreIcon } from '../icons/Ellipsis';
 export interface DropdownMenuProps {
   items: { name: string; action: () => unknown }[];
   isVisible: boolean;
-  notificationId: string;
+  theme: typeof theme['dropdown'];
 }
 
 export function DropdownMenu({
   items = [],
   isVisible,
-  notificationId,
+  theme,
 }: DropdownMenuProps) {
   const [visible, setVisibility] = useState(false);
   const referenceRef = useRef<HTMLButtonElement>(null);
@@ -51,10 +53,11 @@ export function DropdownMenu({
   }, []);
 
   function handleDocumentClick(event: MouseEvent) {
-    const targetEl = event.target as HTMLElement;
-    if (targetEl.dataset.id == notificationId) {
-      items.find(item => item.name == targetEl.dataset.name)?.action();
-    } else if (referenceRef.current?.contains(event.target as Node)) {
+    const targetEl = event.target as Node;
+    if (
+      referenceRef.current?.contains(targetEl) ||
+      popperRef.current?.contains(targetEl)
+    ) {
       return;
     }
     setVisibility(false);
@@ -64,11 +67,21 @@ export function DropdownMenu({
     update?.();
   }
 
+  function onItemClick(
+    evt: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    actionFn: any
+  ) {
+    evt.stopPropagation();
+    actionFn();
+    setVisibility(false);
+  }
+
   return (
     <Fragment>
       <DropdownButton
         aria-label="More"
         ref={referenceRef}
+        dropdownTheme={theme}
         style={{ visibility: isVisible ? 'visible' : 'hidden' }}
         onClick={handleDropdownMenuClick}
       >
@@ -79,13 +92,19 @@ export function DropdownMenu({
         style={styles.popper}
         {...attributes.popper}
       >
-        <DropdownMenuContainer style={styles.offset} visible={visible}>
+        <DropdownMenuContainer
+          style={styles.offset}
+          visible={visible}
+          dropdownTheme={theme}
+        >
           {items.map(item => {
             return (
               <DropdownMenuItem
                 key={item.name}
                 data-name={item.name}
-                data-id={notificationId}
+                onClick={evt => {
+                  onItemClick(evt, item.action);
+                }}
               >
                 {item.name}
               </DropdownMenuItem>

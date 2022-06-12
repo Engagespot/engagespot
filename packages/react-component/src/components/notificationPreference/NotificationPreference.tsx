@@ -1,7 +1,9 @@
-import React from 'react';
-import Toggle from 'react-toggle';
+import { EngagespotChannel } from '@engagespot/core';
+import React, { Fragment } from 'react';
+import { useEngagespotContext } from '../engagespotProvider';
 
 import { Close } from '../icons/Close';
+import { Toggle } from '../toggle/Toggle';
 
 import {
   NotificationPreferenceStyled,
@@ -15,6 +17,9 @@ import {
   NotificationPreferenceModalPrimaryTextContent,
   NotificationPreferenceModalSecondaryTextContent,
   NotificationPreferenceModalYesButton,
+  NotificationProviderHeading,
+  NotificationCategories,
+  NotificationProviderLabel,
 } from './NotificationPreference.styled';
 
 export interface NotificationPreferenceProps {
@@ -24,28 +29,98 @@ export interface NotificationPreferenceProps {
   webPushState: globalThis.PermissionState;
 }
 
+export interface ChangedPreference {
+  categoryId: string;
+  channel: EngagespotChannel;
+}
+
 export function NotificationPreference({
   enableWebPush,
   webPushState,
 }: NotificationPreferenceProps) {
-  const handleToggleChange: React.ChangeEventHandler<HTMLInputElement> = e => {
-    if (e.target.checked) {
+  const engagespotContext = useEngagespotContext();
+  const { preferences, setPreferences } = engagespotContext;
+  const handleToggleChange = (
+    changedPreference: ChangedPreference,
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    let enabled = e.target.checked;
+    if (changedPreference.channel === 'webPush' && webPushState !== 'granted') {
       enableWebPush();
     }
+    setPreferences?.([
+      {
+        categoryId: changedPreference.categoryId,
+        channels: [{ enabled, channel: changedPreference.channel }],
+      },
+    ]);
   };
+
+  const channels = preferences?.channels.filter(
+    channel => channel.id !== 'sms'
+  );
+  const userPreferences = preferences?.userPreferences;
 
   return (
     <NotificationPreferenceStyled>
-      <NotificationPreferenceLabelStyled>
-        <label htmlFor="toggle-notification">Desktop Notifications</label>
-        <Toggle
-          id="toggle-notification"
-          checked={webPushState === 'granted'}
-          disabled={['granted', 'denied'].includes(webPushState)}
-          icons={false}
-          onChange={handleToggleChange}
-        />
-      </NotificationPreferenceLabelStyled>
+      {channels?.map(channel => (
+        <Fragment key={channel?.id}>
+          <NotificationProviderHeading>
+            {channel?.name}
+          </NotificationProviderHeading>
+          {channel?.id === 'webPush' && webPushState === 'denied' ? (
+            <NotificationProviderLabel>
+              Web Push is currently disabled on the browser. Enable it manually
+              by going into the browser settings
+            </NotificationProviderLabel>
+          ) : null}
+          <NotificationCategories>
+            {userPreferences?.map(preference => (
+              <NotificationPreferenceLabelStyled key={preference.category.id}>
+                <label htmlFor={`${channel.id}-${preference.category.id}`}>
+                  {preference.category.name}
+                </label>
+                <Toggle
+                  type="checkbox"
+                  id={`${channel.id}-${preference.category.id}`}
+                  checked={preference.channels[channel.id].enabled}
+                  disabled={
+                    channel.id === 'webPush' &&
+                    ['denied'].includes(webPushState)
+                  }
+                  onChange={evt =>
+                    handleToggleChange(
+                      {
+                        categoryId: preference.category.id,
+                        channel: channel.id,
+                      },
+                      evt
+                    )
+                  }
+                />
+
+                {/* <Toggle
+                  checked={preference.channels[channel.id].enabled}
+                  icons={false}
+                  // disabled={
+                    channel.id === 'webPush' &&
+                    ['denied'].includes(webPushState)
+                  }
+                  onChange={evt =>
+                    handleToggleChange(
+                      {
+                        categoryId: preference.category.id,
+                        channel: channel.id,
+                      },
+                      evt
+                    )
+                  }
+                /> */}
+              </NotificationPreferenceLabelStyled>
+            ))}
+          </NotificationCategories>
+        </Fragment>
+      ))}
     </NotificationPreferenceStyled>
   );
 }
@@ -60,7 +135,7 @@ export function NotificationPreferenceModal({
   allowNotifications,
 }: NotificationPreferenceModalProps) {
   return (
-    <NotificationPreferenceModalStyled className="modal">
+    <NotificationPreferenceModalStyled>
       <NotificationPreferenceModalContent>
         <NotificationPreferenceModalHeader>
           <NotificationPreferenceModalHeading>

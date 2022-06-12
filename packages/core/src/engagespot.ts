@@ -9,12 +9,26 @@ import { PermissionState } from './PermissionState';
 import { Realtime, Types } from 'ably';
 import { AblyTokenRequest } from './interfaces/AblyTokenRequest';
 import EngagespotNotification from './Notification';
+import { APIRequestV2 } from './apiRequestv2/apiRequestv2';
+import {
+  Category,
+  UserPreference,
+  SetPreference,
+} from './apiRequestv2/interfaces/user-preference.interface';
+import { NotificationItem } from './interfaces/NotificationItem';
 
 export default class Engagespot {
   /**
    * Toggle Debug Mode
    */
   debug: boolean = false;
+
+  /**
+   *
+   *
+   * Check if it's a react native app
+   */
+  isNative = false;
 
   /*  STATIC VARIABLES */
   static isReady = false;
@@ -89,6 +103,7 @@ export default class Engagespot {
     WEBPUSH_PERMISSION_CHANGED: [],
   };
 
+  private apiRequestv2: APIRequestV2;
   /**
    * Constructor
    * Initializes Engagespot and sets all required class variables.
@@ -100,12 +115,13 @@ export default class Engagespot {
     checkApiKey(apiKey);
 
     this.apiKey = apiKey;
+    this.isNative = typeof window === 'undefined';
 
     if (!options)
-      throw 'You must pass an options object when you instantiate Engagespot.';
+      throw 'ES1000 - You must pass an options object when you instantiate Engagespot.';
 
     if (!options.userId)
-      throw 'You must pass userId when you instantiate Engagespot.';
+      throw 'ES1001 - You must pass userId when you instantiate Engagespot.';
 
     this.userId = options.userId;
 
@@ -120,6 +136,12 @@ export default class Engagespot {
     if (options.endPointOverride) this.endPoint = options.endPointOverride;
 
     if (options.debug) this.debug = options.debug;
+
+    this.apiRequestv2 = new APIRequestV2(
+      apiKey,
+      options.userId,
+      options.userSignature
+    );
 
     this._ready = this.init();
   }
@@ -206,7 +228,7 @@ export default class Engagespot {
     this._log(response);
 
     //Register Service Worker
-    if (this.enableWebPush && !this.enableNonHttpsWebPush) {
+    if (!this.isNative && this.enableWebPush && !this.enableNonHttpsWebPush) {
       this._log('enableNonHttpsWebPush is false');
 
       if (this.serviceWorkerRegistration) {
@@ -219,7 +241,7 @@ export default class Engagespot {
             await this.getServiceWorkerRegistration();
         } catch (error) {
           console.warn(
-            '[Engagespot] Service worker registration failed. This error is probably due to missing service-worker file. Try turning off web-push channel in your Engagespot dashboard'
+            '[Engagespot] ES1003 - Service worker registration failed. This error is probably due to missing service-worker file. Try turning off web-push channel in your Engagespot dashboard'
           );
           console.error(error);
         }
@@ -237,8 +259,10 @@ export default class Engagespot {
       throw error;
     }
 
-    //Listen for WebPushPermissionChange events
-    this.listenForWebPushPermissionChanges();
+    if (!this.isNative) {
+      //Listen for WebPushPermissionChange events
+      this.listenForWebPushPermissionChanges();
+    }
 
     //If all fine, then return connected instance state
     this.instanceState = 'connected';
@@ -380,8 +404,26 @@ export default class Engagespot {
    * Returns a new empty NotificationList object
    * @returns
    */
-  getNotificationList() {
-    return new NotificationList(this);
+  getNotificationList<T>() {
+    return new NotificationList<T>(this);
+  }
+
+  async markAsRead(id: string) {
+    await this._resolveInstanceState();
+    const options = {
+      id,
+    } as NotificationItem;
+    const notification = new EngagespotNotification(this, options);
+    return notification.markAsClicked();
+  }
+
+  async deleteNotification(id: string) {
+    await this._resolveInstanceState();
+    const options = {
+      id,
+    } as NotificationItem;
+    const notification = new EngagespotNotification(this, options);
+    return notification.delete();
   }
 
   /**
@@ -423,8 +465,7 @@ export default class Engagespot {
     // Check is the service-worker.js file exists
     const serviceWorkerExists = await fetch(this.SERVICE_WORKER_URL);
     if (serviceWorkerExists.status !== 200) {
-      throw `Engagespot SDK initialization failed. Service worker missing: No file found at /service-worker.js.
-          If you prefer to use non-https web push subscription, enable enableNonHttpsWebPush in options`;
+      throw `ES1004 - Engagespot SDK initialization failed. Service worker missing: No file found at /service-worker.js`;
     }
 
     window.navigator.serviceWorker.register(this.SERVICE_WORKER_URL, {
@@ -458,7 +499,7 @@ export default class Engagespot {
   async getWebPushSubscription(publicKey: string) {
     if (!this.serviceWorkerRegistration)
       throw new Error(
-        'A service worker must be registered before push can be subscribed'
+        'ES1005 - A service worker must be registered before push can be subscribed'
       );
 
     try {
@@ -482,6 +523,52 @@ export default class Engagespot {
       .then(sub => {
         if (sub) sub.unsubscribe();
       });
+  }
+
+  /**
+   * Returns the preferences of this user
+   */
+  async getPreferences() {
+    await this._resolveInstanceState();
+    const url = this.baseURL + '/preferences';
+    const preferences = (await this.apiRequestv2.get(
+      url
+    )) as Array<UserPreference>;
+    return preferences;
+  }
+
+  /**
+   * Sets preferences of this user
+   */
+  async setPreferences(preferences: Array<SetPreference>) {
+    await this._resolveInstanceState();
+    const url = this.baseURL + '/preferences';
+
+    const body = {
+      preference: preferences,
+    };
+
+    this._log('setPreferences - Trying to send body');
+    this._log(body);
+    (await this.apiRequestv2.patch(url, body)) as Array<SetPreference>;
+    return this;
+  }
+
+  /**
+   * Sets attributes to user's profile
+   */
+  async setProfileAttributes(attributes: { [attribute: string]: any }) {
+    const url = this.baseURL + '/profile';
+    await this.apiRequestv2.put(url, attributes);
+    return this;
+  }
+
+  /**
+   * Gets notification categories of this app.
+   */
+  async getCategories() {
+    const url = this.baseURL + '/categories';
+    return (await this.apiRequestv2.get(url)) as Array<Category>;
   }
 
   /**
@@ -549,7 +636,7 @@ export default class Engagespot {
       })
       .catch(error => {
         const errorMessage = new Error(
-          'Failed to register push notification with Engagespot server - ' +
+          'ES1006 - Failed to register push notification with Engagespot server - ' +
             error
         );
         Promise.reject(errorMessage);
@@ -569,7 +656,9 @@ export default class Engagespot {
       }
     );
 
-    localStorage.setItem('_engagespotDeviceId', deviceId);
+    if (!this.isNative) {
+      localStorage.setItem('_engagespotDeviceId', deviceId);
+    }
 
     return deviceId;
   }
@@ -579,6 +668,7 @@ export default class Engagespot {
    * @param id
    */
   getDeviceId() {
+    if (!this.isNative) return null;
     return localStorage.getItem('_engagespotDeviceId');
   }
 
@@ -636,13 +726,13 @@ export default class Engagespot {
    */
   _log(message: string | any) {
     if (this.debug) {
-      console.log('[Engagespot-Core] ' + message);
+      console.log('[Engagespot-Core] ', message);
     }
   }
 }
 
 function checkApiKey(key: string) {
   if (key === null || key === undefined) {
-    throw 'You must pass your API key when you instantiate Engagespot.';
+    throw 'ES1007 - You must pass your API key when you instantiate Engagespot.';
   }
 }

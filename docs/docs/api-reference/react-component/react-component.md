@@ -6,9 +6,9 @@
 
 ## Functions
 
-| Function                                                                                                                                                                                                | Description |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| [Engagespot({ theme, mode, apiKey, panelOnly, placeholderImage, userId, renderNotificationIcon, renderEmptyPlaceholderImage, renderNotificationContent, ...options })](./react-component.engagespot.md) |             |
+| Function                                                                                                                                                                                                                                                                        | Description |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| [Engagespot({ theme, apiKey, panelOnly, headerText, feedItemPlaceholderImage, userId, panelOpenByDefault, renderFooterContent, renderNotificationIcon, renderEmptyPlaceholderImage, renderNotificationContent, onFeedItemClick, ...options })](./react-component.engagespot.md) |             |
 
 ## Interfaces
 

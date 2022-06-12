@@ -1,50 +1,54 @@
 import styled, { css } from 'styled-components';
+import theme from '../../theme/themeConfig';
 
 interface DropdownMenuStyledProps {
-  visible: boolean;
+  visible?: boolean;
+  dropdownTheme: typeof theme['dropdown'];
 }
 
-export const DropdownButton = styled.button`
+export const DropdownButton = styled.button<DropdownMenuStyledProps>`
   && {
-    ${({ theme: { dropdown, colors } }) => css`
+    ${({ theme: { colors }, dropdownTheme }) => css`
       display: flex;
-      border-width: ${dropdown.borderWidth};
-      margin: ${dropdown.margin};
-      padding: ${dropdown.padding};
+      border-width: ${dropdownTheme.borderWidth};
+      margin: ${dropdownTheme.margin};
+      padding: ${dropdownTheme.padding};
       box-sizing: border-box;
-      outline: ${dropdown.outline};
+      outline: ${dropdownTheme.outline};
       user-select: none;
       cursor: pointer;
-      background-color: ${dropdown.background};
+      background-color: ${dropdownTheme.background};
 
       svg {
-        fill: ${dropdown.iconFill};
-        stroke: ${dropdown.iconFill};
-        height: ${dropdown.iconHeight};
-        width: ${dropdown.iconWidth};
+        fill: ${dropdownTheme.iconFill};
+        stroke: ${dropdownTheme.iconFill};
+        height: ${dropdownTheme.iconHeight};
+        width: ${dropdownTheme.iconWidth};
       }
 
       &:hover {
-        transition: ${dropdown.transition};
+        transition: ${dropdownTheme.transition};
         fill: ${colors.brandingPrimary};
         stroke: ${colors.brandingPrimary};
-        background: ${dropdown.hoverBackground};
+        background: ${dropdownTheme.hoverBackground};
       }
     `}
   }
 `;
 
-export const DropdownOverlay = styled.div``;
+export const DropdownOverlay = styled.div`
+  z-index: 1000000;
+`;
 
 export const DropdownMenuContainer = styled.div<DropdownMenuStyledProps>`
   && {
-    ${({ theme: { dropdown }, visible }) => css`
+    ${({ visible, dropdownTheme }) => css`
       display: ${visible ? 'flex' : 'none'};
       flex-direction: column;
-      background: ${dropdown.menuBackground};
-      border-radius: ${dropdown.menuBorderRadius};
+      background: ${dropdownTheme.menuBackground};
+      border-radius: ${dropdownTheme.menuBorderRadius};
       font-family: sans-serif;
-      box-shadow: ${dropdown.menuShadow}; ;
+      box-shadow: ${dropdownTheme.menuShadow}; ;
     `}
   }
 `;

@@ -9,23 +9,26 @@
 ```typescript
 export declare function Engagespot({
   theme,
-  mode,
   apiKey,
   panelOnly,
-  placeholderImage,
+  headerText,
+  feedItemPlaceholderImage,
   userId,
+  panelOpenByDefault,
+  renderFooterContent,
   renderNotificationIcon,
   renderEmptyPlaceholderImage,
   renderNotificationContent,
+  onFeedItemClick,
   ...options
 }: EngagespotProps): JSX.Element;
 ```
 
 ## Parameters
 
-| Parameter                                                                                                                                                | Type                                                    | Description |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- | ----------- |
-| { theme, mode, apiKey, panelOnly, placeholderImage, userId, renderNotificationIcon, renderEmptyPlaceholderImage, renderNotificationContent, ...options } | [EngagespotProps](./react-component.engagespotprops.md) |             |
+| Parameter                                                                                                                                                                                                                        | Type                                                    | Description |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- | ----------- |
+| { theme, apiKey, panelOnly, headerText, feedItemPlaceholderImage, userId, panelOpenByDefault, renderFooterContent, renderNotificationIcon, renderEmptyPlaceholderImage, renderNotificationContent, onFeedItemClick, ...options } | [EngagespotProps](./react-component.engagespotprops.md) |             |
 
 <b>Returns:</b>
 

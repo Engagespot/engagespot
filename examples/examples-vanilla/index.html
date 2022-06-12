@@ -6,17 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
   </head>
+
   <body>
-    <div id="root"></div>
-    <script type="module" src="/main.js"></script>
-    <!-- <script src="./engagespot-client.umd.js"></script> -->
-    <!-- <script>
-      Engagespot.render('#root', {
-      apiKey: '3tw99j2oeeggfuk5uoow7l',
-      userId: 'anand',
-      endPointOverride: 'https://api.staging.engagespot.co/v3/',
-      enableNonHttpsWebPush: true,
-    })
-    </script> -->
+    <div id="app"></div>
+    <!-- <script type="module" src="/src/main.ts"></script> -->
+    <script type="module">
+      import { render } from './engagespot-client.esm.js';
+      render('#app', {
+        apiKey: '3tw99j2oeeggfuk5uoow7l',
+        userId: 'anand',
+        headerText: 'Notification Center',
+        endPointOverride: 'https://api.staging.engagespot.co/v3/',
+        enableNonHttpsWebPush: true,
+      });
+    </script>
   </body>
 </html>

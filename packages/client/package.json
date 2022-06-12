@@ -1,19 +1,25 @@
 {
   "name": "@engagespot/client",
-  "version": "0.1.1",
+  "version": "0.1.12-alpha.2",
   "source": "./src/index.ts",
-  "main": "./dist/engagespot-client.js",
-  "module": "./dist/engagespot-client.esm.js",
-  "types": "./dist/engagespot-client.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist/**/*"
   ],
+  "license": "MIT",
+  "keywords": [
+    "engagespot",
+    "notification feed",
+    "notification inbox",
+    "in-app notifications"
+  ],
   "scripts": {
-    "build": "yarn clean && yarn tsc && npm run build:package && npm run build:umd && npm run build:esm && yarn declarations",
-    "build:package": "microbundle --jsx React.createElement",
-    "build:umd": "microbundle --jsx React.createElement --external none --format umd --compress --name Engagespot -o dist/cdn/engagespot-client.min.js --no-pkg-main  --define process.env.NODE_ENV=production",
-    "build:esm": "microbundle --jsx React.createElement --external none --format esm --compress --name Engagespot -o dist/cdn/engagespot-client.esm.js --no-pkg-main  --define process.env.NODE_ENV=production",
-    "dev": "microbundle watch --jsx React.createElement",
+    "build": "yarn tsc && yarn build:package && yarn build:cdn",
+    "build:package": "tsup",
+    "build:cdn": "tsup --config ./tsup.cdn.config.ts",
+    "dev": "tsup --minify false --sourcemap inline",
     "tsc": "tsc",
     "clean": "rimraf dist",
     "declarations": "api-extractor run --local --verbose",
@@ -24,9 +30,9 @@
     "lint:css": "stylelint './src/**/*.js'"
   },
   "dependencies": {
-    "@engagespot/react-component": "^0.1.1",
-    "react": "^16.8.3 || ^17.0.0-0",
-    "react-dom": "^16.8.3 || ^17.0.0-0"
+    "@engagespot/react-component": "^0.1.12-alpha.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@microsoft/api-documenter": "^7.13.77",
@@ -40,6 +46,7 @@
     "axios": "^0.24.0",
     "babel-loader": "^8.2.3",
     "cross-env": "7.0.3",
+    "dotenv": "^16.0.1",
     "jest": "^27.4.5",
     "microbundle": "0.14.2",
     "msw": "^0.36.3",
@@ -47,9 +54,10 @@
     "rimraf": "^3.0.2",
     "ts-jest": "27.1.2",
     "tslib": "2.3.1",
+    "tsup": "^6.1.2",
     "typedoc": "^0.22.10",
     "typedoc-plugin-markdown": "^3.11.11",
-    "typescript": "4.2.4"
+    "typescript": "^4.5.5"
   },
   "browserslist": {
     "production": [
@@ -71,5 +79,5 @@
       "../../.eslint.rc.js"
     ]
   },
-  "gitHead": "71e908c4626564ce4a7054769e3dfba856e4c80b"
+  "gitHead": "069a5728f7671ab23c57ca587157c58f16fb1c3a"
 }

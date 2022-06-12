@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useMemo, useState } from 'react';
 import { useLocalStorage } from 'react-use';
 
 import {
@@ -28,6 +28,8 @@ import { NotificationFeedItemProps } from '../notificationFeedItem';
 import { Back } from '../icons/Back';
 import { Close } from '../icons/Close';
 import { useEngagespotReturnType } from '../engagespot/Engagespot';
+import { DropdownMenu, DropdownMenuProps } from '../dropdownMenu';
+import themeConfig from 'src/theme/themeConfig';
 
 export type Route = 'home' | 'preference';
 
@@ -36,31 +38,23 @@ export interface NotificationPanelProps {
   visible: boolean;
   panelType?: 'normal' | 'floating';
   route: Route;
+  headerText?: string;
   setRoute: (route: Route) => void;
   hideFooter?: boolean;
   footerContent: FooterContent;
+  headerDropdownItems: DropdownMenuProps['items'];
   enableWebPush: () => void;
   webPushState: globalThis.PermissionState;
   showPreferences: boolean;
-  panelProps: useEngagespotReturnType['getPanelProps'];
-  arrowProps: useEngagespotReturnType['getArrowProps'];
-  panelOffsetProps: useEngagespotReturnType['getPanelOffsetProps'];
+  panelProps: useEngagespotReturnType['floatingPanel']['getPanelProps'];
+  arrowProps: useEngagespotReturnType['floatingPanel']['getArrowProps'];
+  panelOffsetProps: useEngagespotReturnType['floatingPanel']['getPanelOffsetProps'];
   renderNotificationContent?: customNotificationContentType;
   renderEmptyPlaceholderImage?: customPlaceholderContentType;
   togglePanelVisibility: (
     panelUpdateFn?: ((visibility: boolean) => boolean) | undefined
   ) => void;
 }
-
-type PanelProps = {
-  ref: React.RefObject<HTMLDivElement>;
-  style: React.CSSProperties;
-};
-
-type ArrowProps = {
-  ref: React.RefObject<HTMLDivElement>;
-  style: React.CSSProperties;
-};
 
 export function NotificationPanel({
   notifications = [],
@@ -77,12 +71,24 @@ export function NotificationPanel({
   visible = false,
   showPreferences,
   enableWebPush,
+  headerDropdownItems = [],
+  headerText = 'Notifications',
 }: NotificationPanelProps) {
-  const label = route === 'home' ? 'Notifications' : 'Preferences';
+  const label = route === 'home' ? headerText : 'Preferences';
 
   const setRouteAsHome = () => {
     setRoute('home');
   };
+
+  const setRouteAsPreferences = () => {
+    setRoute('preference');
+  };
+
+  const dropDownItems = useMemo(() => {
+    return [{ name: 'Preferences', action: setRouteAsPreferences }].concat(
+      headerDropdownItems
+    );
+  }, []);
 
   const [preferenceModal, showPreferenceModal] = useState(true);
   const [showNotificationOverlay, setLocalStorageValue, remove] =
@@ -107,7 +113,7 @@ export function NotificationPanel({
     ) {
       return (
         <Fragment>
-          <NotificationPreferenceOverlay className="overlay" />
+          <NotificationPreferenceOverlay />
           <NotificationPreferenceModal
             allowNotifications={allowNotifications}
             closeModal={closeModal}
@@ -152,6 +158,11 @@ export function NotificationPanel({
           <Back />
         </NotificationPreferenceBackButton>
         <NotificationHeaderTextStyled>{label}</NotificationHeaderTextStyled>
+        <DropdownMenu
+          items={dropDownItems}
+          isVisible={true}
+          theme={themeConfig.headerDropdown}
+        />
         <NotificationHeaderCloseButtonStyled
           onClick={() => {
             togglePanelVisibility?.();
@@ -164,15 +175,15 @@ export function NotificationPanel({
   };
 
   return (
-    <NotificationPanelPopper {...(panelProps() as PanelProps)}>
-      <NotificationPanelArrowStyled {...(arrowProps() as ArrowProps)} />
+    <NotificationPanelPopper {...panelProps()}>
+      <NotificationPanelArrowStyled {...arrowProps()} />
       <NotificationPanelStyled {...panelOffsetProps()} visible={visible}>
         {renderPreferenceModal()}
         {renderHeader(route, label)}
         {renderRoute(route)}
         <NotificationFooter
           footerContent={footerContent}
-          showPreferences={showPreferences}
+          showPreferences={true}
         />
       </NotificationPanelStyled>
     </NotificationPanelPopper>

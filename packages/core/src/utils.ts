@@ -2,6 +2,7 @@
  * Finds browser from userAgent
  */
 const findBrowser = () => {
+  if (typeof window === 'undefined') return 'other';
   const userAgentString = navigator.userAgent;
 
   // Detect Chrome

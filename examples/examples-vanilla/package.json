@@ -1,13 +1,19 @@
 {
   "name": "example-vanilla",
-  "version": "0.1.1",
+  "version": "0.1.12-alpha.2",
   "private": "true",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev2": "vite --port 3008",
+    "build2": "vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
-    "vite": "^2.7.2"
+    "dotenv": "^16.0.1",
+    "tsup": "^6.1.2",
+    "typescript": "^4.5.4",
+    "vite": "^2.9.9"
+  },
+  "dependencies": {
+    "@engagespot/client": "^0.1.12-alpha.2"
   }
 }

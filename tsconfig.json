@@ -19,7 +19,7 @@
     "isolatedModules": true,
     "jsx": "react-jsx"
   },
-  "include": ["**/src"],
+  "include": ["**/src", "examples/examples-core/script.js"],
   "exclude": [
     "**/node_modules",
     "**/dist",
