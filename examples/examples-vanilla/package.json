@@ -1,6 +1,6 @@
 {
   "name": "example-vanilla",
-  "version": "0.1.12-alpha.1",
+  "version": "0.1.12-alpha.2",
   "private": "true",
   "scripts": {
     "dev2": "vite --port 3008",
@@ -14,6 +14,6 @@
     "vite": "^2.9.9"
   },
   "dependencies": {
-    "@engagespot/client": "^0.1.12-alpha.1"
+    "@engagespot/client": "^0.1.12-alpha.2"
   }
 }
