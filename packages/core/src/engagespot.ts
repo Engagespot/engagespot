@@ -13,13 +13,22 @@ import { APIRequestV2 } from './apiRequestv2/apiRequestv2';
 import {
   Category,
   UserPreference,
+  SetPreference,
 } from './apiRequestv2/interfaces/user-preference.interface';
+import { NotificationItem } from './interfaces/NotificationItem';
 
 export default class Engagespot {
   /**
    * Toggle Debug Mode
    */
   debug: boolean = false;
+
+  /**
+   *
+   *
+   * Check if it's a react native app
+   */
+  isNative = false;
 
   /*  STATIC VARIABLES */
   static isReady = false;
@@ -106,6 +115,7 @@ export default class Engagespot {
     checkApiKey(apiKey);
 
     this.apiKey = apiKey;
+    this.isNative = typeof window === 'undefined';
 
     if (!options)
       throw 'ES1000 - You must pass an options object when you instantiate Engagespot.';
@@ -218,7 +228,7 @@ export default class Engagespot {
     this._log(response);
 
     //Register Service Worker
-    if (this.enableWebPush && !this.enableNonHttpsWebPush) {
+    if (!this.isNative && this.enableWebPush && !this.enableNonHttpsWebPush) {
       this._log('enableNonHttpsWebPush is false');
 
       if (this.serviceWorkerRegistration) {
@@ -249,8 +259,10 @@ export default class Engagespot {
       throw error;
     }
 
-    //Listen for WebPushPermissionChange events
-    this.listenForWebPushPermissionChanges();
+    if (!this.isNative) {
+      //Listen for WebPushPermissionChange events
+      this.listenForWebPushPermissionChanges();
+    }
 
     //If all fine, then return connected instance state
     this.instanceState = 'connected';
@@ -392,8 +404,26 @@ export default class Engagespot {
    * Returns a new empty NotificationList object
    * @returns
    */
-  getNotificationList() {
-    return new NotificationList(this);
+  getNotificationList<T>() {
+    return new NotificationList<T>(this);
+  }
+
+  async markAsRead(id: string) {
+    await this._resolveInstanceState();
+    const options = {
+      id,
+    } as NotificationItem;
+    const notification = new EngagespotNotification(this, options);
+    return notification.markAsClicked();
+  }
+
+  async deleteNotification(id: string) {
+    await this._resolveInstanceState();
+    const options = {
+      id,
+    } as NotificationItem;
+    const notification = new EngagespotNotification(this, options);
+    return notification.delete();
   }
 
   /**
@@ -499,6 +529,7 @@ export default class Engagespot {
    * Returns the preferences of this user
    */
   async getPreferences() {
+    await this._resolveInstanceState();
     const url = this.baseURL + '/preferences';
     const preferences = (await this.apiRequestv2.get(
       url
@@ -509,7 +540,8 @@ export default class Engagespot {
   /**
    * Sets preferences of this user
    */
-  async setPreferences(preferences: Array<UserPreference>) {
+  async setPreferences(preferences: Array<SetPreference>) {
+    await this._resolveInstanceState();
     const url = this.baseURL + '/preferences';
 
     const body = {
@@ -518,7 +550,7 @@ export default class Engagespot {
 
     this._log('setPreferences - Trying to send body');
     this._log(body);
-    (await this.apiRequestv2.patch(url, body)) as Array<UserPreference>;
+    (await this.apiRequestv2.patch(url, body)) as Array<SetPreference>;
     return this;
   }
 
@@ -624,7 +656,9 @@ export default class Engagespot {
       }
     );
 
-    localStorage.setItem('_engagespotDeviceId', deviceId);
+    if (!this.isNative) {
+      localStorage.setItem('_engagespotDeviceId', deviceId);
+    }
 
     return deviceId;
   }
@@ -634,6 +668,7 @@ export default class Engagespot {
    * @param id
    */
   getDeviceId() {
+    if (!this.isNative) return null;
     return localStorage.getItem('_engagespotDeviceId');
   }
 

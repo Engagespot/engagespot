@@ -1,4 +1,4 @@
-export interface NotificationItem {
+export interface NotificationItem<T = any> {
   id: string;
   title: string;
   message?: string | null;
@@ -7,4 +7,5 @@ export interface NotificationItem {
   seenAt?: string | null;
   clickedAt?: string | null;
   createdAt?: string | null;
+  data?: T | null;
 }

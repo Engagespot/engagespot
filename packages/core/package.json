@@ -1,24 +1,21 @@
 {
   "name": "@engagespot/core",
-  "version": "0.1.7",
+  "version": "0.1.12-alpha.1",
   "description": "Engagespot Javascript Core Functions",
   "source": "./src/index.ts",
-  "main": "./dist/engagespot-core.js",
-  "module": "./dist/engagespot-core.esm.js",
-  "unpkg": "./dist/engagespot-core.umd.js",
-  "types": "./dist/engagespot-core.d.ts",
-  "amdName": "EngagespotCore",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist/**/*"
   ],
   "scripts": {
-    "build": "yarn clean && yarn tsc && microbundle && yarn declarations",
-    "dev": "microbundle watch",
+    "build": "yarn tsc && tsup",
+    "dev": "tsup --minify false --sourcemap inline",
     "tsc": "tsc",
     "clean": "rimraf dist",
-    "declarations": "api-extractor run --local --verbose",
     "docs": "api-documenter markdown --input-folder spec --output ./spec/markdown",
-    "prepare": "yarn run build",
+    "prepare": "yarn build",
     "test:dev": "jest --watchAll",
     "test": "jest"
   },
@@ -27,7 +24,8 @@
     "client",
     "javascript",
     "notifications",
-    "engagespot core"
+    "engagespot core",
+    "engagespot vanilla"
   ],
   "author": "Engagespot",
   "license": "MIT",
@@ -36,11 +34,13 @@
     "@microsoft/api-extractor": "^7.19.2",
     "@testing-library/dom": "^8.11.1",
     "@types/jest": "^27.0.3",
+    "dotenv": "^16.0.1",
     "jest": "^27.4.5",
     "microbundle": "0.14.2",
     "msw": "^0.36.3",
     "rimraf": "^3.0.2",
     "ts-jest": "27.1.2",
+    "tsup": "^6.1.2",
     "typedoc": "^0.22.10",
     "typedoc-plugin-markdown": "^3.11.11",
     "typescript": "^4.5.5"

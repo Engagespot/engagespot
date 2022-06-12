@@ -1,7 +1,6 @@
 import React, { createContext, useContext } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { getTheme, ThemeOverrides } from '../../theme/theme';
-import { useEngagespot } from '@engagespot/react-hooks';
 import { onFeedItemClickType } from '../notificationFeedItem/NotificationFeedItem';
 import { useEngagespotReturnType } from '../engagespot/Engagespot';
 

@@ -3,7 +3,7 @@ import Engagespot from './engagespot';
 import { NotificationItem } from './interfaces/NotificationItem';
 import Notification from './Notification';
 
-export default class NotificationList implements NotificationList {
+export default class NotificationList<T> implements NotificationList<T> {
   client: Engagespot;
   unreadCount: number;
   totalCount: number;
@@ -11,7 +11,7 @@ export default class NotificationList implements NotificationList {
   itemsPerPage: number;
   totalPages: number;
 
-  data: Notification[];
+  data: Notification<T>[];
 
   /**
    * Constructor, Initializes NotificationList with an Empty List
@@ -56,7 +56,6 @@ export default class NotificationList implements NotificationList {
     };
 
     const response = await sendRequest(options);
-
     this.unreadCount = response.unreadCount;
     this.totalCount = response.pagination.totalCount;
     this.totalPages = Math.ceil(this.totalCount / this.itemsPerPage);
@@ -67,7 +66,7 @@ export default class NotificationList implements NotificationList {
     //let count = 0;
     //Create Notification objects and save it to data array.
     response.data.forEach((notification: NotificationItem) => {
-      const notificationItem = new Notification(this.client, {
+      const notificationItem = new Notification<T>(this.client, {
         id: notification.id,
         title: notification.title,
         message: notification.message,
@@ -75,6 +74,7 @@ export default class NotificationList implements NotificationList {
         url: notification.url,
         createdAt: notification.createdAt,
         seenAt: notification.seenAt,
+        data: notification.data,
         clickedAt: notification.clickedAt,
       });
 

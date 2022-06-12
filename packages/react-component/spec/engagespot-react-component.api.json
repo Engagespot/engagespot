@@ -439,8 +439,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "customPlaceholderContentType",
-                  "canonicalReference": "@engagespot/react-component!customPlaceholderContentType:type"
+                  "text": "customRenderFn",
+                  "canonicalReference": "@engagespot/react-component!customRenderFn:type"
                 },
                 {
                   "kind": "Content",
@@ -466,8 +466,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "FooterContent",
-                  "canonicalReference": "@engagespot/react-component!FooterContent:type"
+                  "text": "customRenderFn",
+                  "canonicalReference": "@engagespot/react-component!customRenderFn:type"
                 },
                 {
                   "kind": "Content",
@@ -493,8 +493,21 @@
                 },
                 {
                   "kind": "Reference",
+                  "text": "customRenderFn",
+                  "canonicalReference": "@engagespot/react-component!customRenderFn:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
                   "text": "customNotificationContentType",
                   "canonicalReference": "@engagespot/react-component!customNotificationContentType:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">"
                 },
                 {
                   "kind": "Content",
@@ -506,7 +519,7 @@
               "name": "renderNotificationContent",
               "propertyTypeTokenRange": {
                 "startIndex": 1,
-                "endIndex": 2
+                "endIndex": 5
               }
             },
             {
@@ -520,8 +533,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "customNotificationIcon",
-                  "canonicalReference": "@engagespot/react-component!customNotificationIcon:type"
+                  "text": "customRenderFn",
+                  "canonicalReference": "@engagespot/react-component!customRenderFn:type"
                 },
                 {
                   "kind": "Content",

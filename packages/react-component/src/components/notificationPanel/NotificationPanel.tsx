@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useMemo, useState } from 'react';
 import { useLocalStorage } from 'react-use';
 
 import {
@@ -28,6 +28,8 @@ import { NotificationFeedItemProps } from '../notificationFeedItem';
 import { Back } from '../icons/Back';
 import { Close } from '../icons/Close';
 import { useEngagespotReturnType } from '../engagespot/Engagespot';
+import { DropdownMenu, DropdownMenuProps } from '../dropdownMenu';
+import themeConfig from 'src/theme/themeConfig';
 
 export type Route = 'home' | 'preference';
 
@@ -40,6 +42,7 @@ export interface NotificationPanelProps {
   setRoute: (route: Route) => void;
   hideFooter?: boolean;
   footerContent: FooterContent;
+  headerDropdownItems: DropdownMenuProps['items'];
   enableWebPush: () => void;
   webPushState: globalThis.PermissionState;
   showPreferences: boolean;
@@ -68,6 +71,7 @@ export function NotificationPanel({
   visible = false,
   showPreferences,
   enableWebPush,
+  headerDropdownItems = [],
   headerText = 'Notifications',
 }: NotificationPanelProps) {
   const label = route === 'home' ? headerText : 'Preferences';
@@ -75,6 +79,16 @@ export function NotificationPanel({
   const setRouteAsHome = () => {
     setRoute('home');
   };
+
+  const setRouteAsPreferences = () => {
+    setRoute('preference');
+  };
+
+  const dropDownItems = useMemo(() => {
+    return [{ name: 'Preferences', action: setRouteAsPreferences }].concat(
+      headerDropdownItems
+    );
+  }, []);
 
   const [preferenceModal, showPreferenceModal] = useState(true);
   const [showNotificationOverlay, setLocalStorageValue, remove] =
@@ -144,6 +158,11 @@ export function NotificationPanel({
           <Back />
         </NotificationPreferenceBackButton>
         <NotificationHeaderTextStyled>{label}</NotificationHeaderTextStyled>
+        <DropdownMenu
+          items={dropDownItems}
+          isVisible={true}
+          theme={themeConfig.headerDropdown}
+        />
         <NotificationHeaderCloseButtonStyled
           onClick={() => {
             togglePanelVisibility?.();
@@ -164,7 +183,7 @@ export function NotificationPanel({
         {renderRoute(route)}
         <NotificationFooter
           footerContent={footerContent}
-          showPreferences={showPreferences}
+          showPreferences={true}
         />
       </NotificationPanelStyled>
     </NotificationPanelPopper>

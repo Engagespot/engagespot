@@ -194,7 +194,7 @@
             {
               "kind": "Reference",
               "text": "EngagespotProps",
-              "canonicalReference": "@engagespot/react-component!EngagespotProps:interface"
+              "canonicalReference": "@engagespot/react-component!~EngagespotProps:interface"
             },
             {
               "kind": "Content",

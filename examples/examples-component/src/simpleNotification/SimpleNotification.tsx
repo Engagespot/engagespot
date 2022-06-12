@@ -1,6 +1,7 @@
 import styled, { createGlobalStyle } from 'styled-components';
 
 import { Engagespot } from '@engagespot/react-component';
+import { useState } from 'react';
 
 const GlobalStyles = createGlobalStyle`
 
@@ -41,51 +42,39 @@ const NavItem = styled.li`
   }
 `;
 
+const users = ['hemanditwiz@gmail.com', 'hemandev@gmail.com'];
+
 export function SimpleNotification() {
+  const [user, setUser] = useState(users[0]);
   return (
     <>
       <GlobalStyles />
       <NavBar>
         <NavList>
           <NavItem>Home</NavItem>
-          <NavItem>About</NavItem>
+          <NavItem>{user}</NavItem>
+          <NavItem>
+            <button
+              onClick={() => {
+                const index = Math.floor(Math.random() * users.length);
+                setUser(users[index]);
+              }}
+            >
+              Change User
+            </button>
+          </NavItem>
           <NavItem style={{ marginRight: '10rem' }}>Login</NavItem>
           <NavItem>
             <Engagespot
-              apiKey="3tw99j2oeeggfuk5uoow7l"
-              userId="anand"
-              endPointOverride="https://api.staging.engagespot.co/v3/"
-              debug={true}
-              events={{
-                onNotificationDelete(id) {
-                  console.log('Got the id', id);
-                },
-              }}
-              onFeedItemClick={(_, options: any) => {
-                console.log('options', options);
+              apiKey="q7nkhsrgfppexca9aj1nq"
+              headerDropdownItems={[
+                { name: 'Open All Notifications', action: () => true },
+              ]}
+              userId={user}
+              onFeedItemClick={(evt, options) => {
                 options.markAsClicked();
               }}
-              // panelOpenByDefault={false}
-              theme={{
-                notificationButton: {
-                  // iconFill: '#000',
-                },
-              }}
-              //placeholderImage="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICAgIDxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjUwIiBmaWxsPSJwYXBheWF3aGlwIiAvPgo8L3N2Zz4="
-              // formatDate={(dateString, ) => {
-              //   return new Date().toString();
-              // }}
-              // theme={{
-              //   colors: {
-              //     brandingPrimary: '#1d3c78',
-              //   },
-              //   panel: {
-              //     boxShadow: 'none',
-              //     borderBottomRightRadius: '0',
-              //     borderBottomLeftRadius: '0',
-              //     height: '90vh',
-              //   },
-              // }}
+              debug={true}
             />
           </NavItem>
         </NavList>

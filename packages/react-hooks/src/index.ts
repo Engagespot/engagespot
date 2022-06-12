@@ -1,2 +1,10 @@
 export { useEngagespot } from './hooks/useEngagespot';
 export type { UseEngagespotOptions } from './hooks/useEngagespot';
+export { useInfiniteScroll } from './hooks';
+export type { InfiniteScrollInstance } from './hooks/useInfiniteScroll';
+export { useBrowserWebPush } from './hooks';
+export type { BrowserWebPushInstance } from './hooks/useBrowserWebPush';
+export { useFloatingNotification } from './hooks';
+export type { FloatingNotificationInstance } from './hooks/useFloatingNotification';
+export { infiniteScrollTransformer } from './utils/transformers';
+export type { RawDataObject, RawNotification } from './utils/initialState';
