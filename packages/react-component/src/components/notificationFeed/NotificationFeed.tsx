@@ -19,8 +19,11 @@ import { JumpToTop } from '../jumpToTop';
 import { useEngagespotContext } from '../engagespotProvider';
 import { PLACEHOLDER_DEFAULT } from '../../constants';
 import { onFeedItemClickType } from '../notificationFeedItem/NotificationFeedItem';
+import { renderCustom } from 'src/utils/renderCustom';
 
-export type customPlaceholderContentType = (() => React.ReactNode) | undefined;
+export type customPlaceholderContentType =
+  | (() => React.ReactNode | string)
+  | undefined;
 
 export type customNotificationContentType =
   | ((notification: NotificationFeedItemProps) => React.ReactNode)
@@ -65,10 +68,12 @@ const renderNotificationContent = (
   customRenderer: customNotificationContentType,
   placeholderImage: string,
   isMobile: boolean,
-  onFeedItemClick: onFeedItemClickType | undefined
+  onFeedItemClick: onFeedItemClickType | undefined,
+  deleteNotification: (id: string) => void,
+  markAsRead: (id: string) => void
 ): React.ReactNode => {
   return (
-    customRenderer?.(notification) || (
+    renderCustom(customRenderer, notification) || (
       <NotificationFeedItem
         heading={notification.heading}
         clickableUrl={notification.clickableUrl}
@@ -79,8 +84,8 @@ const renderNotificationContent = (
         placeholderImage={placeholderImage}
         key={notification.id}
         id={notification.id}
-        markAsClicked={notification.markAsClicked}
-        deleteNotification={notification.deleteNotification}
+        markAsClicked={() => markAsRead(notification.id)}
+        deleteNotification={() => deleteNotification(notification.id)}
         isMobile={isMobile}
         onFeedItemClick={onFeedItemClick}
       />
@@ -98,22 +103,24 @@ export function NotificationFeed({
   const engagespotContext = useEngagespotContext();
   const { onNotificationScroll, jumpToTop, showJumpToTop } =
     engagespotContext.useJumpToTop?.() || {};
-  const { loaderRef, containerRef, hasMore } = engagespotContext.scroll || {};
   const { placeholderImage = PLACEHOLDER_DEFAULT } = engagespotContext;
   const isMobile = engagespotContext.isMobile || false;
   const onFeedItemClick = engagespotContext.onFeedItemClick;
-
-  function onJumpToTopClick(
+  const setLoaderRef = engagespotContext.setLoaderRef;
+  const hasMore = engagespotContext.hasMore;
+  const deleteNotification = engagespotContext.deleteNotification;
+  const markAsRead = engagespotContext.markAsRead;
+  const onJumpToTopClick = (
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) {
+  ) => {
     const notificationFeedEl = evt.currentTarget.parentNode?.parentElement;
     jumpToTop?.(notificationFeedEl as HTMLElement);
-  }
+  };
 
   return (
     <NotificationFeedStyled
+      id="engagespot-scroll-root"
       empty={empty}
-      ref={containerRef}
       onScroll={onNotificationScroll}
     >
       <Transition in={showJumpToTop} timeout={duration}>
@@ -130,7 +137,7 @@ export function NotificationFeed({
       </Transition>
 
       {empty ? (
-        renderCustomPlaceholderContent?.() ||
+        renderCustom(renderCustomPlaceholderContent) ||
         renderPlaceholderContent(placeholderText)
       ) : (
         <>
@@ -140,10 +147,12 @@ export function NotificationFeed({
               renderCustomNotificationContent,
               placeholderImage,
               isMobile,
-              onFeedItemClick
+              onFeedItemClick,
+              deleteNotification!!,
+              markAsRead!!
             );
           })}
-          {hasMore && <FeedItemPlaceholder loaderRef={loaderRef} />}
+          {hasMore && <FeedItemPlaceholder loaderRef={setLoaderRef} />}
         </>
       )}
     </NotificationFeedStyled>

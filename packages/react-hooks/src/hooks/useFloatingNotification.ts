@@ -1,8 +1,11 @@
 import { Placement } from '@popperjs/core';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useCallback, useEffect } from 'react';
 import { usePopper } from 'react-popper';
 import { useMedia } from 'react-use';
+import { Actions } from 'src/utils/actions';
+import { StateReducer } from 'src/utils/hookUtils';
 import { breakpointMobile } from 'src/utils/mediaQuery';
+import { useJumpToTop } from './useJumpToTop';
 
 export interface PlacementOptions {
   placement?: Placement;
@@ -24,38 +27,114 @@ export const defaultPlacementOptions: PlacementOptions = {
   offset: [0, 10],
 };
 
-export interface ButtonProps<T = HTMLButtonElement> {
-  ref: React.RefObject<T>;
-  onClick: () => void;
+export interface useFloatingNotificationProps {
+  floatingPanelOptions?: FloatingPanelOptions;
 }
 
-export interface PanelProps<T = HTMLDivElement> {
-  ref: React.RefObject<T>;
-  style: React.CSSProperties;
-  attributes: object;
+export interface FloatingNotificationInstance {
+  isMobile: boolean;
+  togglePanelVisibility: () => void;
+  panelVisibility: boolean;
+  getButtonProps: () => {
+    onClick: () => void;
+    ref: React.RefObject<HTMLButtonElement>;
+  };
+  getArrowProps: () => void;
+  getPanelOffsetProps: () => void;
+  getPanelProps: () => void;
+  useJumpToTop: (offset?: number) => {
+    jumpToTop: (scrollableEl: HTMLElement) => void;
+    onNotificationScroll: (evt: React.UIEvent<HTMLElement, UIEvent>) => void;
+    showJumpToTop: boolean;
+  };
 }
 
-export interface PanelOffsetProps<T = HTMLDivElement> {
-  ref: React.RefObject<T>;
-  style: React.CSSProperties;
+useFloatingNotification.pluginName = 'useFloatingNotification';
+useFloatingNotification.applyDefaults = applyDefaults;
+
+function applyDefaults(props: useFloatingNotificationProps) {
+  const floatingPanelOptionsDefault = {
+    panelOpenByDefault: false,
+    placementOptions: defaultPlacementOptions,
+    enableFloatingPanel: true,
+  };
+  const {
+    floatingPanelOptions: {
+      panelOpenByDefault = false,
+      placementOptions = defaultPlacementOptions,
+      enableFloatingPanel = false,
+    } = floatingPanelOptionsDefault,
+    ...options
+  } = props;
+  return {
+    floatingPanelOptions: {
+      panelOpenByDefault,
+      placementOptions,
+      enableFloatingPanel,
+    },
+    ...options,
+  };
 }
 
-export interface ArrowProps<T = HTMLDivElement> {
-  ref: React.RefObject<T>;
-  style: React.CSSProperties;
+Actions.SetPanelVisibility = 'SetPanelVisibility';
+Actions.TogglePanelVisibility = 'TogglePanelVisibility';
+
+const reducer: StateReducer = function (state, action, _, instance) {
+  if (action.type === Actions.Init) {
+    return {
+      ...state,
+      panelVisibility: instance.floatingPanelOptions.panelOpenByDefault,
+    };
+  }
+
+  if (action.type === Actions.SetPanelVisibility) {
+    return {
+      ...state,
+      panelVisibility: action.payload?.panelVisibility,
+    };
+  } else if (action.type === Actions.TogglePanelVisibility) {
+    return {
+      ...state,
+      panelVisibility: !state.panelVisibility,
+    };
+  } else if (action.type === Actions.AddNotification) {
+    return {
+      ...state,
+      unreadCount: instance.reducerState.panelVisibility
+        ? state.unreadCount
+        : state.unreadCount + 1,
+    };
+  } else if (action.type === Actions.MarkAllAsSeen) {
+    return {
+      ...state,
+      unreadCount: 0,
+    };
+  }
+
+  return state;
+};
+
+export function useFloatingNotification(hooks: any) {
+  hooks.stateReducers.push(reducer);
+  hooks.useInstance.push(useInstance);
 }
 
-export type UpdateNotificationType = { updateNotificationFn: () => void };
-
-export function useFloatingNotification({
-  panelOpenByDefault,
-  placementOptions,
-  updateNotificationFn,
-}: FloatingPanelOptions & UpdateNotificationType) {
+function useInstance(instance: any) {
+  const placementOptions = instance.floatingPanelOptions.placementOptions;
   const isMobile = useMedia(breakpointMobile);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLElement>(null);
   const arrowRef = useRef<HTMLElement>(null);
+  const panelVisibility = instance.reducerState.panelVisibility;
+  const togglePanelVisibility = useCallback(() => {
+    if (!instance.reducerState.panelVisibility) {
+      instance.markAllAsSeen();
+    }
+    instance.dispatch({
+      type: Actions.TogglePanelVisibility,
+    });
+  }, [instance]);
+
   const { styles, attributes, update } = usePopper(
     buttonRef.current,
     panelRef.current,
@@ -88,7 +167,8 @@ export function useFloatingNotification({
     ) {
       return;
     }
-    if (panelVisibilityRef.current) {
+    const panelVisibility = instance.reducerState.panelVisibility;
+    if (panelVisibility) {
       togglePanelVisibility();
     }
   }
@@ -101,18 +181,13 @@ export function useFloatingNotification({
     };
   }, []);
 
-  const [panelVisibility, toggleNotificationPanelVisibility] =
-    useState(panelOpenByDefault);
-  const panelVisibilityRef = useRef<boolean>(false);
-  panelVisibilityRef.current = panelVisibility as boolean;
-  const togglePanelVisibility = (
-    panelUpdateFn = (visibility: boolean) => !visibility
-  ) => {
-    if (!panelVisibilityRef.current) {
-      updateNotificationFn();
-    }
-    toggleNotificationPanelVisibility(panelUpdateFn as any);
-  };
+  useEffect(() => {
+    instance.core.onNotificationReceive((notificationItem: Notification) => {
+      if (instance.reducerState.panelVisibility) {
+        instance.markAllAsSeen();
+      }
+    });
+  }, [instance.apiKey, instance.userId]);
 
   const mobileProps = {
     styles: {
@@ -120,7 +195,7 @@ export function useFloatingNotification({
         position: 'fixed',
         top: 0,
         left: 0,
-        zIndex: 99999999,
+        zIndex: 99999999999999,
         width: '100%',
         height: '100%',
       },
@@ -142,23 +217,21 @@ export function useFloatingNotification({
     return {
       ref: panelRef,
       style:
-        isMobile && panelVisibilityRef.current
+        isMobile && panelVisibility
           ? mobileProps.styles.popper
-          : { ...styles.popper, zIndex: 99999999 },
+          : { ...styles.popper, zIndex: 999999999999999 },
       attributes:
-        isMobile && panelVisibilityRef.current
+        isMobile && panelVisibility
           ? mobileProps.attributes.popper
           : attributes.popper,
-    } as PanelProps;
+    } as any;
   };
 
   const getPanelOffsetProps = () => {
     return {
       style:
-        isMobile && panelVisibilityRef.current
-          ? mobileProps.styles.offset
-          : styles.offset,
-    } as PanelOffsetProps;
+        isMobile && panelVisibility ? mobileProps.styles.offset : styles.offset,
+    } as any;
   };
 
   const getArrowProps = () => {
@@ -173,16 +246,17 @@ export function useFloatingNotification({
                 ? 'block'
                 : 'none',
           } as React.CSSProperties),
-    } as ArrowProps;
+    } as any;
   };
 
-  return {
+  Object.assign(instance, {
     isMobile,
     togglePanelVisibility,
-    panelVisibilityRef,
+    panelVisibility,
     getButtonProps,
     getArrowProps,
     getPanelOffsetProps,
     getPanelProps,
-  };
+    useJumpToTop,
+  });
 }

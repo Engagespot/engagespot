@@ -12,6 +12,7 @@ export const NotificationFooterStyled = styled.div`
       font-size: ${footer.fontSize};
       color: ${footer.fontColor};
       background: ${footer.background};
+      box-sizing: border-box;
     `}
   }
 `;
@@ -57,7 +58,7 @@ export const NotificationFooterGearButtonStyled = styled.button`
       svg {
         height: ${footer.preferenceButtonSize};
         width: ${footer.preferenceButtonSize};
-        fill: ${footer.preferenceButtonColor};;
+        fill: ${footer.preferenceButtonColor};
       }
     `}
   }

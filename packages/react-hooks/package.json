@@ -1,23 +1,29 @@
 {
   "name": "@engagespot/react-hooks",
-  "version": "0.1.11",
+  "version": "0.1.12-alpha.1",
   "source": "./src/index.ts",
-  "main": "./dist/engagespot-hooks.js",
-  "module": "./dist/engagespot-hooks.esm.js",
-  "unpkg": "./dist/engagespot-hooks.umd.js",
-  "types": "./dist/engagespot-hooks.d.ts",
-  "amdName": "EngagespotHooks",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist/**/*"
   ],
+  "license": "MIT",
+  "keywords": [
+    "engagespot",
+    "react",
+    "notifications-feed",
+    "notifications",
+    "engagespot react component",
+    "notification center"
+  ],
   "scripts": {
-    "build": "yarn clean && yarn tsc && microbundle --jsx React.createElement && yarn declarations",
-    "dev": "microbundle watch --jsx React.createElement",
+    "build": "yarn tsc && tsup",
+    "dev": "tsup --minify false --sourcemap inline",
     "tsc": "tsc",
-    "declarations": "api-extractor run --local --verbose",
     "docs": "api-documenter markdown --input-folder spec --output ./spec/markdown",
     "clean": "rimraf dist",
-    "prepare": "yarn run build",
+    "prepare": "yarn build",
     "test:dev": "jest --watchAll",
     "test": "jest",
     "lint:css": "stylelint './src/**/*.js'",
@@ -28,7 +34,7 @@
     "react": "^16.8.3 || ^17.0.0-0 || ^18.0.0-0"
   },
   "dependencies": {
-    "@engagespot/core": "^0.1.7",
+    "@engagespot/core": "^0.1.12-alpha.1",
     "@popperjs/core": "^2.9.1",
     "date-fns": "2.27.0",
     "intersection-observer": "0.12.0",
@@ -42,12 +48,14 @@
     "@testing-library/react-hooks": "^7.0.2",
     "@types/jest": "^27.0.3",
     "@types/react": "17.0.37",
+    "dotenv": "^16.0.1",
     "jest": "^27.4.5",
     "microbundle": "0.14.2",
     "msw": "^0.36.3",
     "react": "17.0.2",
     "rimraf": "^3.0.2",
     "ts-jest": "27.1.2",
+    "tsup": "^6.1.2",
     "typedoc": "^0.22.10",
     "typedoc-plugin-markdown": "^3.11.11",
     "typescript": "^4.5.5"

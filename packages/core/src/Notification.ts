@@ -2,7 +2,7 @@ import sendRequest, { apiRequestOptions } from './apiRequest';
 import Engagespot from './engagespot';
 import { NotificationItem } from './interfaces/NotificationItem';
 
-export default class Notification implements NotificationItem {
+export default class Notification<T> implements NotificationItem<T> {
   _client: Engagespot;
 
   id: string;
@@ -13,6 +13,7 @@ export default class Notification implements NotificationItem {
   seenAt?: string | null = null;
   clickedAt?: string | null = null;
   createdAt?: string | null = null;
+  data?: T | null = null;
 
   constructor(client: Engagespot, options: NotificationItem) {
     this._client = client;
@@ -25,6 +26,7 @@ export default class Notification implements NotificationItem {
     this.seenAt = options.seenAt;
     this.clickedAt = options.clickedAt;
     this.createdAt = options.createdAt;
+    this.data = options.data;
   }
 
   /**
@@ -91,6 +93,7 @@ export default class Notification implements NotificationItem {
         this.seenAt = response.data.seenAt;
         this.clickedAt = response.data.clickedAt;
         this.createdAt = response.data.createdAt;
+        this.data = response.data.data;
 
         return this;
       }

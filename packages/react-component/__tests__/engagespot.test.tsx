@@ -18,16 +18,7 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 test('handles server error', async () => {
-  render(
-    <Engagespot
-      apiKey="shiynklpz18l3ktqyy6d9a"
-      userId="anand"
-      placementOptions={{
-        placement: 'auto',
-        enableArrow: true,
-      }}
-    />
-  );
+  render(<Engagespot apiKey="shiynklpz18l3ktqyy6d9a" userId="anand" />);
 
   fireEvent.click(
     screen.getByRole('button', {

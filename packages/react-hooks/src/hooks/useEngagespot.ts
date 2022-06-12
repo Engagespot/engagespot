@@ -1,312 +1,120 @@
-import { useState, useEffect, useRef } from 'react';
-import merge from 'lodash.merge';
-
-import EngagespotCore, {
-  Options,
-  PermissionState,
-  NotificationItem,
-  Notification,
-} from '@engagespot/core';
-
-import { useJumpToTop } from './useJumpToTop';
+import { useRef, useReducer, useCallback, useEffect } from 'react';
+import { Options } from '@engagespot/core';
 import {
-  defaultPlacementOptions,
-  useFloatingNotification,
-  FloatingPanelOptions,
-} from './useFloatingNotification';
-import { useInfiniteScroll } from './useInfiniteScroll';
+  FinalInstance,
+  GetHooks,
+  Instance,
+  registerClient,
+} from 'src/utils/getInstance';
 import {
-  dateFunctions,
-  defaultDateFormatter,
-  dateTransformer,
-} from '../utils/dateUtils';
+  applyDefaults,
+  UseEngagespotCommonProps,
+} from 'src/utils/applyDefaults';
 import {
-  updateDocumentTitle,
-  defaultTitleUpdateText,
-} from '../utils/documentTitle';
-import { playSound, defaultChimeSrc } from '../utils/chime';
-import { NotificationEvents } from './useEvents';
+  loopHooks,
+  makeDefaultPluginHooks,
+  useGetLatest,
+} from 'src/utils/hookUtils';
+import { Actions } from 'src/utils/actions';
+import { initialState, RawDataObject } from 'src/utils/initialState';
 
-export interface UseEngagespotOptions extends Options {
-  apiKey: string;
-  formatDate?: (dateString: string, dateFns: typeof dateFunctions) => string;
-  disableNotificationChime?: boolean;
-  notificationChimeSrc?: string;
-  disableTitleUpdate?: boolean;
-  titleUpdateText?: string;
-  floatingPanelOptions?: FloatingPanelOptions;
-  page?: number;
-  events?: NotificationEvents;
-}
+export interface UseEngagespotOptions
+  extends Options,
+    UseEngagespotCommonProps {}
 
-function initializeNotifications() {
-  return {
-    data: [] as NotificationItem[],
-    unreadCount: 0,
-  };
-}
-
-function getEngagespotClient(
-  apiKey: string,
-  userId: string,
-  options: Omit<Options, 'userId'>
-) {
-  const engagespotClient = new EngagespotCore(apiKey, {
-    ...options,
-    userId,
+export function useEngagespot<
+  T = RawDataObject,
+  U = void,
+  V = void,
+  W = void,
+  X = void
+>(props: UseEngagespotOptions) {
+  let actualProps = applyDefaults(props);
+  let { apiKey, userId, plugins, stateReducer, dataTransformer, ...options } =
+    actualProps;
+  let instanceRef = useRef<Instance<T>>({});
+  const getInstance = useGetLatest(instanceRef.current);
+  Object.assign(getInstance(), {
+    ...actualProps,
+    plugins,
+    hooks: makeDefaultPluginHooks(),
   });
-  return engagespotClient;
-}
+  const clientChanged = registerClient(getInstance());
+  plugins.filter(Boolean).forEach(plugin => {
+    let hooks = getInstance().hooks;
+    hooks && plugin(hooks);
+  });
 
-function useEngagespotInstance(
-  apiKey: string,
-  userId: string,
-  options: Omit<Options, 'userId'>
-) {
-  const engagespotRef = useRef<EngagespotCore | null>(null);
-  if (engagespotRef.current == null) {
-    engagespotRef.current = getEngagespotClient(apiKey, userId, {
-      ...options,
-    });
-  }
-  const engagespotInstance = engagespotRef.current;
-  return engagespotInstance;
-}
+  const getHooks = useGetLatest(getInstance().hooks) as GetHooks;
+  getInstance().getHooks = getHooks;
+  delete getInstance().hooks;
 
-export function useEngagespot({
-  apiKey,
-  userId,
-  formatDate = defaultDateFormatter,
-  disableNotificationChime = true,
-  notificationChimeSrc = defaultChimeSrc,
-  disableTitleUpdate = false,
-  titleUpdateText = defaultTitleUpdateText,
-  page = 1,
-  floatingPanelOptions: {
-    panelOpenByDefault = false,
-    placementOptions = defaultPlacementOptions,
-    enableFloatingPanel = false,
-  } = {
-    panelOpenByDefault: false,
-    placementOptions: defaultPlacementOptions,
-    enableFloatingPanel: true,
-  },
-  events,
-  ...options
-}: UseEngagespotOptions) {
-  const engagespotInstance = useEngagespotInstance(apiKey, userId, options);
-  const transformDate = dateTransformer(formatDate);
-  const [notifications, setNotifications] = useState(initializeNotifications);
-  const [webPushState, setWebPushState] =
-    useState<globalThis.PermissionState>('prompt');
-  const hideBranding = engagespotInstance.hideBranding;
-  const allowWebPush =
-    engagespotInstance.enableWebPush && engagespotInstance.isWebPushSupported();
-  const [isValid, setIsValid] = useState(false);
-  const [notificationPermissionState, setNotificationPermissionState] =
-    useState(PermissionState.PERMISSION_REQUIRED);
+  const getStateReducer = useGetLatest(stateReducer);
 
-  function getFloatingPanelProps() {
-    const {
-      isMobile,
-      panelVisibilityRef,
-      togglePanelVisibility,
-      getArrowProps,
-      getButtonProps,
-      getPanelOffsetProps,
-      getPanelProps,
-    } = useFloatingNotification({
-      panelOpenByDefault,
-      placementOptions: merge(defaultPlacementOptions, placementOptions),
-      updateNotificationFn: () => {
-        engagespotInstance.getNotificationList().markAllAsSeen();
-        setNotifications(oldNotifications => {
-          return {
-            ...oldNotifications,
-            data: oldNotifications.data.map(transformDate),
-            unreadCount: 0,
-          };
-        });
-      },
-    });
-    const { page, loaderRef, containerRef, hasMore, setHasMore } =
-      useInfiniteScroll({});
-
-    return {
-      isMobile,
-      panelVisibilityRef,
-      togglePanelVisibility,
-      getArrowProps,
-      getButtonProps,
-      getPanelOffsetProps,
-      getPanelProps,
-      scroll: { page, loaderRef, containerRef, hasMore, setHasMore },
-    };
-  }
-
-  const floatingPanelProps = enableFloatingPanel
-    ? getFloatingPanelProps()
-    : ({} as ReturnType<typeof getFloatingPanelProps>);
-
-  const actualPage = enableFloatingPanel
-    ? floatingPanelProps?.scroll?.page
-    : page;
-
-  const markNotificationStateAsClicked = (notificationId: string) => {
-    setNotifications(({ data: previousData, ...oldNotifications }) => {
-      return {
-        ...oldNotifications,
-        data: previousData.map(notification => {
-          if (notification.id === notificationId && !notification.clickedAt) {
-            return {
-              ...notification,
-              clickedAt: new Date().toUTCString(),
-            };
-          }
-          return notification;
-        }),
-      };
-    });
-  };
-
-  const deleteNotificationFromState = (notificationId: string) => {
-    setNotifications(({ data: previousData, ...oldNotifications }) => {
-      return {
-        ...oldNotifications,
-        data: previousData.filter(data => data.id !== notificationId),
-      };
-    });
-  };
-
-  const transformNotification = (notification: Notification) => {
-    return {
-      ...transformDate(notification),
-      markAsClicked: () => {
-        notification.markAsClicked();
-        markNotificationStateAsClicked(notification.id);
-      },
-      deleteNotification: () => {
-        notification.delete();
-        deleteNotificationFromState(notification.id);
-      },
-    };
-  };
-
-  useEffect(() => {
-    async function checkIsValid() {
-      //TODO:- check if validation is success
-      const isValid = true;
-      setIsValid(isValid);
-    }
-
-    async function getNotificationPermissionState() {
-      const state = await engagespotInstance.getWebPushRegistrationState();
-      let permissionState: globalThis.PermissionState = 'denied';
-      if (state === PermissionState.PERMISSION_GRANTED) {
-        permissionState = 'granted';
-      } else if (state === PermissionState.PERMISSION_DENIED) {
-        permissionState = 'denied';
-      } else if (state === PermissionState.PERMISSION_REQUIRED) {
-        permissionState = 'prompt';
+  const reducer = useCallback(
+    (state, action) => {
+      if (!action.type) {
+        console.info({ action });
+        throw new Error('Unknown Action 👆');
       }
-      setWebPushState(permissionState);
-      setNotificationPermissionState(state);
-    }
-
-    engagespotInstance.onNotificationReceive(
-      (notificationItem: Notification) => {
-        if (enableFloatingPanel) {
-          setNotifications(({ data: previousData, ...oldNotifications }) => {
-            return {
-              ...oldNotifications,
-              data: [transformNotification(notificationItem), ...previousData],
-              unreadCount: floatingPanelProps?.panelVisibilityRef?.current
-                ? oldNotifications.unreadCount
-                : oldNotifications.unreadCount + 1,
-            };
-          });
-        }
-
-        if (!disableNotificationChime) {
-          playSound(notificationChimeSrc);
-        }
-        if (!disableTitleUpdate) {
-          updateDocumentTitle(titleUpdateText);
-        }
-        events?.onNotificationReceive?.(notificationItem);
-      }
-    );
-
-    engagespotInstance.onNotificationDelete((notificationId: string) => {
-      deleteNotificationFromState(notificationId);
-      events?.onNotificationDelete?.(notificationId);
-    });
-
-    engagespotInstance.onNotificationClick((notificationId: string) => {
-      markNotificationStateAsClicked(notificationId);
-      events?.onNotificationClick?.(notificationId);
-    });
-
-    engagespotInstance.onNotificationSee((notificationId: string) => {
-      events?.onNotificationSee?.(notificationId);
-    });
-
-    engagespotInstance.onWebPushPermissionChange(state => {
-      setWebPushState(state);
-    });
-
-    checkIsValid();
-    getNotificationPermissionState();
-  }, [apiKey, userId]);
-
-  useEffect(() => {
-    async function getNotifications() {
-      const {
-        data,
-        unreadCount,
-        totalCount,
-        totalPages,
-        currentPage,
-        itemsPerPage,
-      } = await engagespotInstance.getNotificationList().fetch(actualPage);
-      const notifications = data.map(transformNotification);
-
-      if (actualPage < totalPages) {
-        floatingPanelProps?.scroll?.setHasMore(true);
-      } else {
-        floatingPanelProps?.scroll?.setHasMore(false);
-      }
-      setNotifications(({ data: previousData }) => {
-        return {
-          unreadCount,
-          totalCount,
-          totalPages,
-          currentPage,
-          itemsPerPage,
-          data: previousData.concat(notifications),
-        };
-      });
-    }
-
-    getNotifications();
-  }, [actualPage, apiKey, userId]);
-
-  const enableWebPush = () => {
-    engagespotInstance.httpsWebPushSubscribe();
-  };
-
-  return {
-    isValid,
-    floatingPanel: {
-      ...floatingPanelProps,
-      panelVisibility: floatingPanelProps?.panelVisibilityRef?.current,
+      const userStateReducer = getStateReducer();
+      return [
+        ...getHooks().stateReducers,
+        ...(Array.isArray(userStateReducer)
+          ? userStateReducer
+          : [userStateReducer]),
+      ].reduce(
+        (s, handler) => handler(s, action, state, getInstance()) || s,
+        state
+      );
     },
-    useJumpToTop,
-    notifications,
-    notificationPermissionState,
-    hideBranding,
-    enableWebPush,
-    allowWebPush,
-    webPushState,
-  };
+    [getHooks, getStateReducer, getInstance]
+  );
+
+  const [reducerState, dispatch] = useReducer(reducer, undefined, () =>
+    reducer(initialState, {
+      type: Actions.Init,
+      payload: { instance: getInstance() },
+    })
+  );
+
+  if (clientChanged) {
+    dispatch({
+      type: Actions.Init,
+      payload: { instance: getInstance() },
+    });
+  }
+
+  Object.assign(getInstance(), {
+    reducerState,
+    dispatch,
+  });
+  Object.assign(getInstance(), {
+    hideBranding: getInstance().core?.hideBranding,
+  });
+  loopHooks(getHooks()?.useInstance, getInstance());
+
+  const getDataTransformer = useGetLatest(dataTransformer) as any;
+
+  const transformer = useCallback(
+    rawData => {
+      return [
+        ...getHooks().dataTransformer,
+        ...(Array.isArray(getDataTransformer())
+          ? getDataTransformer()
+          : [getDataTransformer()]),
+      ].reduce(
+        (transformedData, handler) =>
+          handler(rawData, transformedData, getInstance()),
+        rawData
+      );
+    },
+    [getHooks, getDataTransformer]
+  );
+
+  Object.assign(getInstance(), {
+    notifications: transformer(getInstance().reducerState.rawData),
+  });
+
+  return getInstance() as FinalInstance<T, U, V, W, X>;
 }

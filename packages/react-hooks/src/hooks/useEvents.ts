@@ -4,5 +4,5 @@ export interface NotificationEvents {
   onNotificationSee?: (notificationId: string) => void;
   onNotificationClick?: (notificationId: string) => void;
   onNotificationDelete?: (notificationId: string) => void;
-  onNotificationReceive?: (notificationItem: Notification) => void;
+  onNotificationReceive?: (notificationItem: Notification<any>) => void;
 }
