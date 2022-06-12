@@ -7,7 +7,7 @@ import {
 import { UnreadBadgeCount } from '../unreadBadgeCount';
 import { useEngagespotReturnType } from '../engagespot/Engagespot';
 import { Bell as NotificationBellIcon } from '../icons/Bell';
-import { renderCustom } from 'src/utils/renderCustom';
+import { renderCustom } from '../../utils/renderCustom';
 
 export type customNotificationIcon = (() => React.ReactNode) | undefined;
 

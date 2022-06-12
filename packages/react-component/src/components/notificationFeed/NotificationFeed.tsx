@@ -19,7 +19,7 @@ import { JumpToTop } from '../jumpToTop';
 import { useEngagespotContext } from '../engagespotProvider';
 import { PLACEHOLDER_DEFAULT } from '../../constants';
 import { onFeedItemClickType } from '../notificationFeedItem/NotificationFeedItem';
-import { renderCustom } from 'src/utils/renderCustom';
+import { renderCustom } from '../../utils/renderCustom';
 
 export type customPlaceholderContentType =
   | (() => React.ReactNode | string)

@@ -17,7 +17,7 @@ import {
 } from './NotificationFeedItem.styled';
 import { DropdownMenu } from '../dropdownMenu';
 import { Circle as FeedItemReadDot } from '../icons/Circle';
-import themeConfig from 'src/theme/themeConfig';
+import themeConfig from '../../theme/themeConfig';
 
 interface ClickableNotificationPayload {
   url: string;

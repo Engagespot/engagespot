@@ -30,7 +30,7 @@ import { defaultFooterContent, FooterContent } from '../notificationFooter';
 import { onFeedItemClickType } from '../notificationFeedItem/NotificationFeedItem';
 import ReactDOM from 'react-dom';
 import { DropdownMenuProps } from '../dropdownMenu';
-import { customRenderFn, renderCustom } from 'src/utils/renderCustom';
+import { customRenderFn, renderCustom } from '../../utils/renderCustom';
 
 export type useEngagespotReturnType = ReturnType<typeof useEngagespot>;
 

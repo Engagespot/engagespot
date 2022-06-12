@@ -29,7 +29,7 @@ import { Back } from '../icons/Back';
 import { Close } from '../icons/Close';
 import { useEngagespotReturnType } from '../engagespot/Engagespot';
 import { DropdownMenu, DropdownMenuProps } from '../dropdownMenu';
-import themeConfig from 'src/theme/themeConfig';
+import themeConfig from '../../theme/themeConfig';
 
 export type Route = 'home' | 'preference';
 
