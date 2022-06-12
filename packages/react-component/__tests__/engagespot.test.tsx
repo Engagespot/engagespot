@@ -1,30 +1,9 @@
-import React from 'react';
-import { setupServer } from 'msw/node';
-import {
-  render,
-  fireEvent,
-  waitFor,
-  screen,
-  act,
-} from '@testing-library/react';
+import './utils/setupServer';
+import { waitFor, screen } from '@testing-library/react';
+import { renderNotificationPanel } from './utils/renderPanel';
 
-import { Engagespot } from '../src/';
-import { handlers } from './handlers';
-
-const server = setupServer(...handlers);
-
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
-
-test('handles server error', async () => {
-  render(<Engagespot apiKey="shiynklpz18l3ktqyy6d9a" userId="anand" />);
-
-  fireEvent.click(
-    screen.getByRole('button', {
-      name: 'Notifications',
-    })
-  );
+it('should show empty message on network error', async () => {
+  renderNotificationPanel();
 
   await waitFor(() => screen.getByText('Powered by Engagespot'));
   expect(screen.getByText(`Shh! It's quiet around here...`)).toBeVisible();
