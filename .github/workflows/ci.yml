@@ -1,4 +1,4 @@
-name: pr
+name: tests
 on: [pull_request, push]
 jobs:
   test:
@@ -15,4 +15,4 @@ jobs:
       - run: |
           yarn install --frozen-lockfile
           yarn build
-          yarn test
+          yarn test:ci

@@ -1,6 +1,4 @@
-# [Engagespot](https://engagespot.co/) &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Engagespot/engagespot/blob/master/LICENCE) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://reactjs.org/docs/how-to-contribute.html#your-first-pull-request)
-
-Engagespot makes it easy to build notification centers.
+# [Engagespot](https://engagespot.co/) &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Engagespot/engagespot/blob/master/LICENCE)![ci](https://github.com/Engagespot/engagespot/actions/workflows/ci.yml/badge.svg)
 
 Engagespot provides different UI kits for different platforms.
 
