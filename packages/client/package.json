@@ -24,7 +24,7 @@
     "clean": "rimraf dist",
     "declarations": "api-extractor run --local --verbose",
     "docs": "api-documenter markdown --input-folder spec --output ./spec/markdown",
-    "prepare": "yarn run build",
+    "prepare": "tsup",
     "test:dev": "jest --watchAll",
     "test": "jest",
     "lint:css": "stylelint './src/**/*.js'"

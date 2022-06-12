@@ -15,7 +15,7 @@
     "tsc": "tsc",
     "clean": "rimraf dist",
     "docs": "api-documenter markdown --input-folder spec --output ./spec/markdown",
-    "prepare": "yarn build",
+    "prepare": "tsup",
     "test:dev": "jest --watchAll",
     "test": "jest"
   },

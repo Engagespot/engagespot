@@ -1,0 +1,15 @@
+{
+  "packages": [
+    "packages/core",
+    "packages/react-hooks",
+    "packages/react-component",
+    "packages/client"
+  ],
+  "buildCommand": "build",
+  "node": "14",
+  "sandboxes": [
+    "/examples/examples-component",
+    "/examples/examples-hooks",
+    "/examples/examples-vanilla"
+  ]
+}
