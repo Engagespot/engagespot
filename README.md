@@ -25,7 +25,7 @@ Engagespot provides different UI kits for different platforms.
 
 ## Installation
 
-- Use [Online Playgrounds](ttps://documentation.engagespot.co/docs#online-playgrounds) to get a taste of React.
+- Use [CodeSandbox Playgrounds](https://documentation.engagespot.co/docs/playgrounds) to try out Engagespot instantly.
 - [Add Engagespot to a Website](https://documentation.engagespot.co/docs/javascript-guide/using-javascript-ui-kit) as a `<script>` tag.
 
 You can use Engagespot as a `<script>` tag from a [CDN](https://documentation.engagespot.co/docs/javascript-guide/using-javascript-ui-kit), or as a `react` package on [npm](https://www.npmjs.com/package/@engagespot/react-component).
