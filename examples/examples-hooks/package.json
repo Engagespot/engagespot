@@ -3,8 +3,8 @@
   "private": true,
   "version": "0.1.12-alpha.2",
   "scripts": {
-    "dev2": "vite",
-    "build2": "tsc && vite build",
+    "develop": "vite",
+    "build-example": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {

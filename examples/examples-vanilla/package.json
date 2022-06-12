@@ -3,8 +3,8 @@
   "version": "0.1.12-alpha.2",
   "private": "true",
   "scripts": {
-    "dev2": "vite --port 3008",
-    "build2": "vite build",
+    "develop": "vite --port 3008",
+    "build-example": "vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
