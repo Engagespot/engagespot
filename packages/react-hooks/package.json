@@ -23,7 +23,7 @@
     "tsc": "tsc",
     "docs": "api-documenter markdown --input-folder spec --output ./spec/markdown",
     "clean": "rimraf dist",
-    "prepare": "yarn build",
+    "prepare": "tsup",
     "test:dev": "jest --watchAll",
     "test": "jest",
     "lint:css": "stylelint './src/**/*.js'",
