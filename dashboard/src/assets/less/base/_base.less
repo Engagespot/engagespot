@@ -1,0 +1,454 @@
+::selection {
+  background: @primary-4;
+  color: @primary-1;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+a:hover {
+  color: @primary-1;
+}
+
+img {
+  user-select: none;
+  max-width: 100%;
+}
+
+.@{class-prefix}-img-cover {
+  object-fit: cover;
+}
+
+.@{class-prefix}-img-contain {
+  object-fit: contain;
+}
+
+.@{class-prefix}-scrollbar-y-hidden {
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+}
+
+.@{class-prefix}-scrollbar-x-hidden {
+  &::-webkit-scrollbar {
+    height: 0;
+  }
+}
+
+// App Layout
+.@{class-prefix}-app-layout {
+  &-bg {
+    position: relative;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 270px;
+      background: @b-0;
+    }
+  }
+}
+
+// Card Modal Padding
+.@{class-prefix}-modal-p-24 {
+  .ant-modal-body {
+    padding: 24px;
+  }
+}
+
+// Line Height
+.@{class-prefix}-line-height-normal {
+  line-height: normal;
+}
+
+// Overflow Control
+.@{class-prefix}-overflow-hidden {
+  overflow: hidden;
+}
+
+.@{class-prefix}-overflow-scroll {
+  overflow: scroll;
+}
+
+// Flex Control
+.@{class-prefix}-d-flex {
+  display: flex;
+}
+
+.@{class-prefix}-flex-wrap {
+  flex-wrap: wrap;
+}
+
+.@{class-prefix}-d-flex-center {
+  display: flex !important;
+  align-items: center;
+}
+
+.@{class-prefix}-d-flex-full-center {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.@{class-prefix}-d-flex-between {
+  justify-content: space-between;
+}
+
+.@{class-prefix}-d-block {
+  display: block;
+}
+
+.@{class-prefix}-d-inline {
+  display: inline;
+}
+
+.@{class-prefix}-d-inline-block {
+  display: inline-block;
+}
+
+.@{class-prefix}-d-inline-flex {
+  display: inline-flex;
+}
+
+.@{class-prefix}-primary-shadow {
+  box-shadow: @primary-shadow;
+}
+
+//Position
+.@{class-prefix}-position-relative {
+  position: relative;
+}
+
+.@{class-prefix}-position-absolute {
+  position: absolute;
+}
+
+.@{class-prefix}-position-absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.@{class-prefix}-position-absolute-top-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.@{class-prefix}-position-absolute-top-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.@{class-prefix}-position-absolute-bottom-left {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.@{class-prefix}-position-absolute-bottom-right {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+// RTL
+html[dir='rtl'] {
+  .@{class-prefix}-position-absolute-top-left {
+    right: 0;
+    left: auto;
+  }
+
+  .@{class-prefix}-position-absolute-top-right {
+    left: 0;
+    right: auto;
+  }
+
+  .@{class-prefix}-position-absolute-bottom-left {
+    right: 0;
+    left: auto;
+  }
+
+  .@{class-prefix}-position-absolute-bottom-right {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: auto;
+  }
+}
+
+// Float
+@float: ~'left', ~'right', ~'none';
+
+.float-classes(@prefix, @list) {
+  .iter(length(@list));
+
+  .iter(@i) when (@i > 0) {
+    .iter(@i - 1);
+    @pair: extract(@list, @i);
+    @value: extract(@pair, 1);
+
+    .@{class-prefix}-@{prefix}-@{value} {
+      float: @value;
+    }
+  }
+}
+
+.float-classes(@prefix, @list) {
+  .iter(length(@list));
+
+  .iter(@i) when (@i > 0) {
+    .iter(@i - 1);
+    @pair: extract(@list, @i);
+    @value: extract(@pair, 1);
+
+    .@{class-prefix}-@{prefix}-xs-@{value} {
+      @media @xs {
+        float: @value;
+      }
+    }
+  }
+}
+
+.float-classes(float, @float);
+
+// Width
+.@{class-prefix}-w-auto {
+  width: auto !important;
+}
+
+.@{class-prefix}-w-100 {
+  width: 100% !important;
+}
+
+// Text Alignment
+.@{class-prefix}-text-xl-left {
+  @media @xl {
+    text-align: left !important;
+  }
+}
+
+.@{class-prefix}-text-lg-left {
+  @media @lg {
+    text-align: left !important;
+  }
+}
+
+.@{class-prefix}-text-md-left {
+  @media @md {
+    text-align: left !important;
+  }
+}
+
+.@{class-prefix}-text-sm-left {
+  @media @sm {
+    text-align: left !important;
+  }
+}
+
+.@{class-prefix}-text-xs-left {
+  @media @xs {
+    text-align: left !important;
+  }
+}
+
+.@{class-prefix}-text-xl-right {
+  @media @xl {
+    text-align: right !important;
+  }
+}
+
+.@{class-prefix}-text-lg-right {
+  @media @lg {
+    text-align: right !important;
+  }
+}
+
+.@{class-prefix}-text-md-right {
+  @media @md {
+    text-align: right !important;
+  }
+}
+
+.@{class-prefix}-text-sm-right {
+  @media @sm {
+    text-align: right !important;
+  }
+}
+
+.@{class-prefix}-text-xs-right {
+  @media @xs {
+    text-align: right !important;
+  }
+}
+
+.@{class-prefix}-text-xl-center {
+  @media @xl {
+    text-align: center !important;
+  }
+}
+
+.@{class-prefix}-text-lg-center {
+  @media @lg {
+    text-align: center !important;
+  }
+}
+
+.@{class-prefix}-text-md-center {
+  @media @md {
+    text-align: center !important;
+  }
+}
+
+.@{class-prefix}-text-sm-center {
+  @media @sm {
+    text-align: center !important;
+  }
+}
+
+.@{class-prefix}-text-xs-center {
+  @media @xs {
+    text-align: center !important;
+  }
+}
+
+.@{class-prefix}-text-center {
+  text-align: center;
+}
+
+.@{class-prefix}-text-right {
+  text-align: right;
+}
+
+.@{class-prefix}-text-left {
+  text-align: left;
+}
+
+// RTL
+html[dir='rtl'] {
+  .@{class-prefix}-text-right {
+    text-align: left;
+  }
+
+  .@{class-prefix}-text-left {
+    text-align: right;
+  }
+}
+
+// Height
+.@{class-prefix}-h-auto {
+  height: auto !important;
+}
+
+.@{class-prefix}-h-100 {
+  height: 100% !important;
+}
+
+// Align
+.@{class-prefix}-vertical-align-bottom {
+  vertical-align: bottom;
+}
+
+.@{class-prefix}-vertical-align-middle {
+  vertical-align: middle !important;
+}
+
+.@{class-prefix}-align-self-center {
+  align-self: center;
+}
+
+.@{class-prefix}-align-items-center {
+  align-items: center;
+}
+
+.@{class-prefix}-align-items-end {
+  align-items: flex-end;
+}
+
+// Z Index
+.@{class-prefix}-z-index {
+  z-index: 1;
+}
+
+// Cursor
+.@{class-prefix}-cursor-pointer {
+  cursor: pointer;
+}
+
+// Transition
+.@{class-prefix}-transition {
+  transition: 0.4s;
+}
+
+// Scale
+html[dir='rtl'] {
+  .@{class-prefix}-rtl-scale-x-n1 {
+    transform: scale(-1, 1);
+  }
+}
+
+// Code
+code {
+  padding: 4px;
+  border-radius: 4px;
+  background: #fff0;
+  margin: 0 1px;
+}
+
+.show-code {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(0, 20px);
+  transition: 0.5s;
+
+  &-active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(0, 0);
+  }
+}
+
+// Drag
+.row-dragging {
+  background: #fafafa;
+  border: 1px solid #ccc;
+}
+
+.row-dragging td {
+  padding: 16px;
+}
+
+.row-dragging .drag-visible {
+  visibility: visible;
+}
+
+// Scroll to Top
+.scroll-to-top > div {
+  z-index: 3;
+}
+
+html[dir='rtl'] {
+  .scroll-to-top > div {
+    left: 30px;
+    right: auto !important;
+  }
+}
+
+// Wish Button
+.@{class-prefix}-wish-button {
+  svg {
+    transition: 0.3s;
+  }
+
+  &:hover {
+    svg {
+      transform: scale(1.15);
+    }
+  }
+}

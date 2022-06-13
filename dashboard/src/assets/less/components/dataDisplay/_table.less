@@ -1,0 +1,88 @@
+.virtual-table-cell {
+  padding: 18px 16px;
+}
+
+.@{class-prefix}-table-menu {
+  .ant-menu {
+    margin-top: 0;
+    padding: 10px 0;
+    border-radius: 8px;
+    border: 1px solid @b-40;
+    position: sticky;
+    top: 0;
+  }
+
+  .ant-menu li {
+    height: 30px;
+    line-height: normal;
+    padding: 0px !important;
+  }
+
+  span.ant-menu-title-content > span {
+    padding: 0 14px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    transition: 0.4s;
+  }
+
+  .ant-menu li {
+    background: none !important;
+    overflow: hidden;
+    color: #636e72;
+  }
+
+  span.ant-menu-title-content {
+    height: 100%;
+  }
+
+  span.ant-menu-title-content > span:after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    right: 5px;
+    border-radius: 2px;
+    padding: 8px 0;
+    border-right: 2px solid @primary-1;
+    transform: scaleY(0.0001);
+    opacity: 0;
+    transition: transform 0.15s cubic-bezier(0.215, 0.61, 0.355, 1),
+      opacity 0.15s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  span.ant-menu-title-content > span.active:after {
+    opacity: 1;
+    transform: scale(1);
+    transition: transform 0.15s cubic-bezier(0.645, 0.045, 0.355, 1),
+      opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+
+  span.ant-menu-title-content > span.active {
+    color: @primary-1;
+    background: @primary-4;
+  }
+
+  span.ant-menu-title-content > span > span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+  }
+
+  .ant-menu li:after {
+    visibility: hidden;
+  }
+
+  @media @lg {
+    display: none;
+  }
+}
+
+// RTL
+html[dir='rtl'] {
+  .ant-table-filter-trigger {
+    margin-left: 0;
+    margin-right: 4px;
+  }
+}

@@ -10,3 +10,4 @@
 *.config.js
 **/example/**
 jest.config.js
+dashboard/

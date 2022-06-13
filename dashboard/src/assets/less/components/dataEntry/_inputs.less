@@ -1,0 +1,83 @@
+.ant-input:focus,
+.ant-input-focused {
+  border-color: @primary-2;
+  box-shadow: @input-focus;
+}
+
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused {
+  outline: 0;
+  box-shadow: @input-focus;
+}
+
+.ant-input-prefix {
+  margin-right: 8px;
+  font-size: 16px;
+  color: @b-80;
+}
+
+.ant-input-suffix {
+  margin-left: 8px;
+  font-size: 16px;
+  color: @b-80;
+}
+
+.ant-input-textarea-show-count::after {
+  font-size: @input-description;
+}
+
+.ant-input-affix-wrapper-sm {
+  padding: 4px 15px;
+}
+
+// Input Number
+.ant-input-number:focus,
+.ant-input-number-focused {
+  border-color: @primary-2;
+  box-shadow: @input-focus;
+}
+
+.ant-input-number-handler-up-inner,
+.ant-input-number-handler-down-inner {
+  color: @b-80;
+}
+
+.ant-form-item-has-warning .ant-input:focus,
+.ant-form-item-has-warning .ant-input-affix-wrapper:focus,
+.ant-form-item-has-warning .ant-input-focused,
+.ant-form-item-has-warning .ant-input-affix-wrapper-focused {
+  box-shadow: 0px 0px 10px rgba(255, 194, 18, 0.35);
+}
+
+.ant-form-item-has-error .ant-input:focus,
+.ant-form-item-has-error .ant-input-affix-wrapper:focus,
+.ant-form-item-has-error .ant-input-focused,
+.ant-form-item-has-error .ant-input-affix-wrapper-focused {
+  box-shadow: 0px 0px 10px rgba(255, 0, 34, 0.35);
+}
+
+.@{class-prefix}-xl-search-button
+  .ant-input-group
+  > .ant-input-group-addon:last-child
+  .ant-input-search-button {
+  padding: 0 64px;
+
+  @media @sm {
+    padding: 0 16px;
+  }
+}
+
+// RTL
+html[dir='rtl'] {
+  .ant-input-group > .ant-input:last-child,
+  .ant-input-group-addon:last-child {
+    border-radius: 7px 0 0 7px;
+  }
+
+  .ant-input-search
+    > .ant-input-group
+    > .ant-input-group-addon:last-child
+    .ant-input-search-button {
+    border-radius: 7px 0 0 7px;
+  }
+}

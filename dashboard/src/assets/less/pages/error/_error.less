@@ -1,0 +1,25 @@
+.@{class-prefix}-error-content {
+  min-height: calc(100vh - 60px);
+
+  &-circle {
+    position: absolute;
+    top: 40%;
+    left: 53%;
+    transform: translate(-50%, -50%);
+    width: 504px;
+    height: 504px;
+    border-radius: 100%;
+
+    @media @sm {
+      width: 80vw;
+      height: 80vw;
+      left: 50%;
+    }
+  }
+
+  @media @sm {
+    &-title {
+      font-size: 32px;
+    }
+  }
+}

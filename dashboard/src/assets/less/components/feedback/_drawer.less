@@ -1,0 +1,31 @@
+.ant-drawer-close {
+  top: 50%;
+  transform: translate(0px, -50%);
+}
+
+.ant-drawer {
+  &-header-no-title {
+    height: 50px;
+    position: relative;
+  }
+
+  @media @sm {
+    &.@{class-prefix}-drawer-mobile {
+      .ant-drawer-content-wrapper {
+        width: 85% !important;
+      }
+    }
+  }
+}
+
+.@{class-prefix}-drawer-submit .ant-drawer-content-wrapper {
+  max-width: 720px;
+
+  @media @md {
+    max-width: 60%;
+  }
+
+  @media @sm {
+    max-width: 90%;
+  }
+}
