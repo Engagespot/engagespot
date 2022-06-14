@@ -35,14 +35,12 @@ const defaultStyle = {
   transition: `opacity ${duration}ms ease-in-out`,
   opacity: 0,
 };
-const transitionStyles = {
+const transitionStyles: { [id: string]: React.CSSProperties } = {
   entering: { opacity: 1 },
   entered: { opacity: 1 },
   exiting: { opacity: 0 },
   exited: { opacity: 0 },
 };
-
-type TransitionState = keyof typeof transitionStyles;
 
 export interface NotificationFeedProps {
   empty?: boolean;
@@ -124,7 +122,7 @@ export function NotificationFeed({
       onScroll={onNotificationScroll}
     >
       <Transition in={showJumpToTop} timeout={duration}>
-        {(state: TransitionState) => (
+        {state => (
           <JumpToTopPositioning
             style={{
               ...defaultStyle,

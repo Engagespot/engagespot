@@ -24,3 +24,10 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 **/etc/**
+
+# Yarn
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions

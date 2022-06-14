@@ -11,5 +11,6 @@ export default defineConfig(options => {
     metafile: options.metafile,
     dts: true,
     sourcemap: options.sourcemap,
+    legacyOutput: true,
   };
 });

@@ -1,7 +1,6 @@
 {
   "name": "example-core",
   "version": "0.1.12-alpha.2",
-  "private": "true",
   "scripts": {
     "dev": "vite --port 3009",
     "build:example": "vite build",

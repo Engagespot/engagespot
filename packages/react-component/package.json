@@ -3,7 +3,7 @@
   "version": "0.1.12-alpha.2",
   "source": "./src/index.ts",
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "module": "./dist/esm/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist/**/*"
@@ -45,6 +45,7 @@
     "react-i18next": "11.8.10",
     "react-popper": "^2.2.5",
     "react-transition-group": "4.4.1",
+    "react-use": "^17.3.2",
     "styled-components": "^5.2.1"
   },
   "devDependencies": {

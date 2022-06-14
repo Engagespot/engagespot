@@ -9,6 +9,7 @@
     "core",
     "examples",
     "docs",
-    "all"
+    "all",
+    "dashboard"
   ]
 }

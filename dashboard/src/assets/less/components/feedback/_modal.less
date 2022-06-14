@@ -1,0 +1,23 @@
+.ant-modal-close-x {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    margin-right: 2px;
+  }
+}
+
+.popup-modal {
+  .ant-modal-body {
+    padding-bottom: 24px;
+  }
+}
+
+// RTL
+html[dir='rtl'] {
+  .ant-modal-confirm .ant-modal-confirm-btns .ant-btn + .ant-btn {
+    margin-right: 8px;
+    margin-left: 0;
+  }
+}

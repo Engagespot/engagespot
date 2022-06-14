@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, ReactNode, useContext } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { getTheme, ThemeOverrides } from '../../theme/theme';
 import { onFeedItemClickType } from '../notificationFeedItem/NotificationFeedItem';
@@ -33,7 +33,7 @@ export function EngagespotProvider({
 }: EngagespotProviderProps) {
   return (
     <EngagespotContext.Provider value={state}>
-      <ThemeProvider theme={getTheme(theme)}>{children}</ThemeProvider>
+      <ThemeProvider theme={getTheme(theme)}>{children as any}</ThemeProvider>
     </EngagespotContext.Provider>
   );
 }

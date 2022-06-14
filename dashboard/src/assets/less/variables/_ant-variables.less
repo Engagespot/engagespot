@@ -1,0 +1,263 @@
+@import '../../../../../node_modules/antd/lib/style/themes/default.less';
+
+// ANT DESIGN VARIABLES-For full variable list you can visit https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
+@font-family: @font-family;
+@primary-color: @primary-1;
+@info-color: @info-1;
+@text-color: @b-100;
+@link-color: @primary-1;
+@highlight-color: @danger-1;
+@success-color: @success-1;
+@warning-color: @warning-1;
+@error-color: @danger-1;
+@processing-color: @primary-1;
+@primary-5: @primary-2;
+@heading-color: @b-100;
+@normal-color: @b-80;
+
+@font-size-base: 14px; // major text font size
+
+@border-radius-lg: 10px;
+@border-radius-base: 7px;
+@border-radius-sm: 4px;
+
+@padding-lg: 38px;
+@padding-md: 24px;
+@padding-sm: 16px;
+@padding-xs: 8px;
+@padding-xss: 4px;
+
+@item-active-bg: @primary-4;
+
+// Link
+@link-color: @primary-color;
+@link-hover-color: @primary-2;
+@link-active-color: @primary-2;
+
+// Borders
+@border-color-base: @b-40;
+
+// Disabled states
+@disabled-color: @b-60;
+@disabled-bg: @b-40;
+@disabled-color-dark: fade(#fff, 35%);
+
+// Button
+@btn-font-weight: @font-weight-medium;
+@btn-padding-horizontal-base: @padding-md;
+@btn-padding-horizontal-lg: @btn-padding-horizontal-base;
+@btn-padding-horizontal-sm: @padding-xs;
+@btn-shadow: none;
+@btn-primary-shadow: none;
+@btn-text-shadow: none;
+@height-base: 40px;
+@height-lg: 48px;
+@height-sm: 32px;
+
+@btn-default-ghost-color: @primary-1 !important;
+@btn-default-ghost-border: @primary-1 !important;
+
+@btn-disable-color: @disabled-color;
+@btn-disable-bg: @disabled-bg;
+@btn-disable-border: @border-color-base;
+
+@btn-square-only-icon-size-sm: @font-size-base;
+
+@btn-text-hover-bg: @b-10;
+@btn-line-height: @button-line-height;
+
+// Inputs
+@input-placeholder-color: @b-60;
+@input-icon-hover-color: @primary-2;
+@input-hover-border-color: @primary-2;
+@input-icon-color: @primary-1;
+@input-addon-bg: @b-20;
+
+//Input Number
+@input-number-handler-hover-bg: @primary-2;
+@input-number-handler-active-bg: @b-0;
+
+//Icon class
+@iconfont-css-prefix: remix-icon;
+
+// Header
+@layout-header-padding: 0 24px;
+
+// Menu
+@menu-icon-size: 24px;
+@menu-icon-margin-right: 8px;
+@menu-highlight-color: @primary-2;
+@menu-inline-submenu-bg: @b-0;
+@menu-item-active-bg: @primary-4;
+@menu-item-group-title-font-size: @caption;
+@menu-item-group-title-color: @b-80;
+@menu-item-color: @b-80;
+@menu-item-active-border-width: 2px;
+
+// Breadcrumb
+@breadcrumb-base-color: @primary-1;
+@breadcrumb-last-item-color: @b-80;
+@breadcrumb-link-color: @primary-1;
+@breadcrumb-link-color-hover: @primary-2;
+@breadcrumb-separator-color: @b-60;
+
+// Checkbox
+@checkbox-border-width: 2px;
+
+// Radio
+@radio-border-width: 2px;
+@radio-dot-size: @radio-size - 8px;
+
+// Radio Button
+@radio-button-checked-bg: @primary-4;
+@radio-button-color: @primary-1;
+@radio-disabled-button-checked-bg: @b-60;
+@radio-disabled-button-checked-color: @b-40;
+
+// Alert
+@alert-success-border-color: @success-4;
+@alert-success-bg-color: @success-4;
+@alert-success-icon-color: @success-1;
+
+@alert-info-border-color: @info-4;
+@alert-info-bg-color: @info-4;
+@alert-info-icon-color: @info-1;
+
+@alert-warning-border-color: @warning-4;
+@alert-warning-bg-color: @warning-4;
+@alert-warning-icon-color: @warning-1;
+
+@alert-error-border-color: @danger-4;
+@alert-error-bg-color: @danger-4;
+@alert-error-icon-color: @danger-1;
+
+@alert-with-description-padding: 20px 15px;
+
+// Progress
+@progress-default-color: @primary-1;
+@progress-remaining-color: @b-40;
+@progress-info-text-color: @b-80;
+@progress-text-color: @b-80; // This is for circle text color, should be renamed better
+@progress-circle-text-font-size: 14px;
+
+// Slider
+@slider-margin: 0px;
+@slider-rail-background-color: @b-40;
+@slider-track-background-color: @primary-1;
+@slider-track-background-color-hover: @primary-2;
+@slider-handle-color: @primary-1;
+@slider-handle-color-hover: @primary-2;
+
+// Notification
+@notification-padding-vertical: 16px;
+@notification-padding-horizontal: 24px;
+
+// DatePicker
+@picker-time-panel-column-width: 40px;
+@picker-time-panel-column-height: 224px;
+@picker-time-panel-cell-height: 40px;
+@picker-panel-cell-height: 40px;
+@picker-panel-cell-width: 40px;
+@picker-text-height: 40px;
+@picker-basic-cell-active-with-range-color: @primary-4;
+@picker-basic-cell-hover-with-range-color: @primary-3;
+
+// Select
+@select-item-selected-bg: @primary-4;
+@select-item-selected-font-weight: @font-weight-regular;
+@select-item-selected-color: @primary-1;
+@select-dropdown-height: 32px;
+
+// Form
+@form-item-margin-bottom: 24px;
+@form-item-label-height: @input-height-base;
+
+// Tree
+@tree-directory-selected-bg: @primary-4;
+@tree-node-selected-bg: @primary-4;
+
+// Cascader
+@cascader-item-selected-bg: @primary-4;
+
+// Rate
+@rate-star-color: @warning-1;
+@rate-star-bg: @b-40;
+
+// Avatar
+@avatar-color: @primary-1;
+@avatar-bg: @primary-4;
+@avatar-size-lg: 48px;
+@avatar-size-sm: 24px;
+@avatar-font-size-base: 18px;
+@avatar-font-size-lg: 24px;
+@avatar-font-size-sm: 14px;
+
+// Tag
+@tag-line-height: 22px;
+@tag-font-size: @badge-text;
+@tag-default-bg: @b-20;
+@tag-default-color: @b-80;
+@tag-font-size: @font-size-sm;
+@tag-line-height: 20px;
+
+// Popover
+@popover-color: rgba(0, 0, 0, 0.65);
+
+//Table
+@table-selected-row-bg: @primary-4;
+@table-padding-vertical-md: @table-padding-vertical;
+@table-padding-horizontal-md: @table-padding-horizontal;
+@table-padding-vertical-sm: (@table-padding-vertical / 2);
+@table-padding-horizontal-sm: @table-padding-horizontal;
+@table-header-bg: @b-10;
+@table-border-color: @b-40;
+
+// Modal
+@modal-header-border-color-split: @b-40;
+@modal-header-padding-vertical: @padding-sm;
+@modal-header-padding-horizontal: @padding-md;
+
+@modal-body-padding: 48px @padding-md;
+@modal-footer-padding-vertical: 24px;
+@modal-footer-padding-horizontal: 24px;
+
+@modal-footer-border-color-split: @b-40;
+@modal-footer-padding-vertical: @padding-md;
+@modal-footer-padding-horizontal: @padding-md;
+
+@modal-mask-bg: fade(@b-100, 40%);
+
+// Drawer
+@drawer-header-padding: @padding-sm @padding-md;
+@drawer-body-padding: @padding-md;
+
+// Skeleton
+@skeleton-color: @b-20;
+@skeleton-paragraph-margin-top: 40px;
+@skeleton-title-paragraph-margin-top: 16px;
+
+// Switch
+@switch-height: 24px;
+
+// Badge
+@badge-color: @primary-1;
+
+//Tooltip
+@tooltip-color: @primary-1;
+@tooltip-bg: @primary-4 !important;
+
+// Menu
+@menu-inline-toplevel-item-height: 48px;
+@menu-item-height: 48px;
+@menu-highlight-color: @primary-1;
+@menu-item-active-danger-bg: @danger-1;
+
+// Dropdown
+@dropdown-vertical-padding: 12px;
+@dropdown-edge-child-vertical-padding: 8px;
+
+// Collapse
+@collapse-header-padding: @padding-lg !important;
+@collapse-content-padding: @padding-sm @padding-lg !important;
+@collapse-header-bg: @b-0;
+@collapse-content-bg: @b-0;

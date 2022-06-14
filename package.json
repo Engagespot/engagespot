@@ -6,24 +6,31 @@
     "packages/*",
     "examples/*",
     "docs/",
-    "worker/*"
+    "worker/*",
+    "dashboard/"
   ],
   "version": "0.1.0",
   "scripts": {
     "start": "lerna run --parallel dev",
-    "build": "lerna bootstrap && lerna run build",
+    "start:docs": "yarn workspace docs dev",
+    "start:dashboard": "yarn workspace engagespot-dashboard dev",
+    "build": "yarn workspaces foreach --include '@engagespot/*' --topological-dev run build",
+    "build:dashboard": "yarn workspace engagespot-dashboard build",
+    "build:docs": "yarn workspace docs build",
+    "build:all": "yarn build && yarn build:dashboard && yarn build:docs",
     "clean": "lerna run clean && lerna clean",
-    "build:examples": "lerna run build:examples",
+    "build:examples": "yarn workspaces foreach --include 'examples-*' -p run build:examples",
     "deploy:docs": "netlify deploy --dir=./packages/docs/build",
-    "ci": "yarn install --frozen-lockfile",
+    "ci": "yarn install -immutable",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "lint:fix": "lerna run lint -- --fix",
+    "lint:fix": "yarn workspaces foreach run lint -- --fix",
     "test": "jest",
     "test:ci": "cross-env CI=true jest",
     "publish": "lerna publish",
     "format": "prettier --write 'packages/*/*.js' 'packages/*/!(node_modules)/**/*.js'",
     "prepare": "husky install",
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "postinstall": "yarn build"
   },
   "devDependencies": {
     "@types/jest": "^27.0.3",

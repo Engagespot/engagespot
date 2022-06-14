@@ -1,5 +1,5 @@
 {
-  "name": "examples2",
+  "name": "examples-component",
   "version": "0.1.12-alpha.2",
   "private": true,
   "dependencies": {
@@ -37,7 +37,7 @@
     "eslint-plugin-prettier": "4.0.0",
     "jest": "^27.4.5",
     "msw": "^0.36.3",
-    "react-scripts": "5.0.0",
+    "react-scripts": "^5.0.0",
     "rimraf": "^3.0.2",
     "ts-jest": "27.1.2",
     "tsup": "^6.1.2",
