@@ -24,8 +24,8 @@
     "ci": "yarn install -immutable",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "yarn workspaces foreach run lint -- --fix",
-    "test": "jest",
-    "test:ci": "cross-env CI=true jest",
+    "test": "lerna run --parallel test --scope '@engagespot/*'",
+    "test:ci": "cross-env CI=true yarn test",
     "publish": "lerna publish",
     "format": "prettier --write 'packages/*/*.js' 'packages/*/!(node_modules)/**/*.js'",
     "prepare": "husky install",
@@ -33,7 +33,6 @@
     "postinstall": "yarn build"
   },
   "devDependencies": {
-    "@types/jest": "^27.0.3",
     "@types/node": "^16.11.10",
     "@typescript-eslint/eslint-plugin": "5.4.0",
     "@typescript-eslint/parser": "5.4.0",
@@ -42,16 +41,15 @@
     "eslint": "8.3.0",
     "eslint-plugin-prettier": "4.0.0",
     "husky": "^7.0.0",
-    "jest": "^27.4.5",
     "lerna": "^4.0.0",
     "lint-staged": "^12.1.2",
     "netlify-cli": "8.4.2",
     "prettier": "2.5.0",
     "pretty-quick": "3.1.2",
-    "ts-jest": "27.1.2",
     "tsup": "5.10.0",
     "typedoc": "^0.20.28",
     "typescript": "4.2.4",
+    "vitest": "^0.15.1",
     "whatwg-fetch": "3.6.2"
   },
   "lint-staged": {

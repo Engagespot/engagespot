@@ -1,4 +1,4 @@
-import './utils/setupServer';
+import { describe, it, expect } from 'vitest';
 import { waitFor, screen } from '@testing-library/react';
 import { renderNotificationPanel } from './utils/renderPanel';
 
