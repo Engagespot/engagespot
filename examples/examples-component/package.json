@@ -9,11 +9,10 @@
     "@testing-library/user-event": "^12.1.10",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "ts-jest": "27.1.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "dev": "react-scripts start",
+    "dev": "react-scripts start --port 3012",
     "build:examples": "react-scripts build",
     "eject": "react-scripts eject"
   },
@@ -39,7 +38,7 @@
     "msw": "^0.36.3",
     "react-scripts": "^5.0.0",
     "rimraf": "^3.0.2",
-    "ts-jest": "27.1.2",
+    "ts-jest": "^27.1.2",
     "tsup": "^6.1.2",
     "typedoc": "^0.22.10",
     "typedoc-plugin-markdown": "^3.11.11",

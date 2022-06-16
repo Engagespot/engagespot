@@ -37,17 +37,14 @@
     "redux-thunk": "^2.3.0",
     "timezone-support": "^2.0.2",
     "vite": "^2.9.12",
+    "vitest": "^0.15.1",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
     "dev": "vite",
     "build": "vite build && copyfiles service-worker.js _redirects manifest.json robots.txt dist",
-    "preview": "vite preview"
-  },
-  "jest": {
-    "transformIgnorePatterns": [
-      "/node_modules/(?!antd|@ant-design|rc-.+?|@babel/runtime).+(js|jsx)$"
-    ]
+    "preview": "vite preview",
+    "test": "vitest --globals"
   },
   "eslintConfig": {
     "extends": []

@@ -25,7 +25,6 @@
     "**/dist",
     "**/examples",
     "**/stories",
-    "**/*.stories.*",
-    "**/*.test.*"
+    "**/*.stories.*"
   ]
 }
