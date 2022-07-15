@@ -15,6 +15,7 @@ import { Dot } from './icons/Dot';
 function App() {
   const scrollRootRef = useRef<HTMLElement | null>();
   scrollRootRef.current = document.getElementById('engagespot-scroll-root');
+
   const {
     notifications,
     getButtonProps,
@@ -25,10 +26,10 @@ function App() {
     hasMore,
     setLoaderRef,
     panelVisibility,
-  } = useEngagespot<RawNotification>({
+  } = useEngagespot({
     apiKey: 'q7nkhsrgfppexca9aj1nq',
     userId: 'hemanditwiz@gmail.com',
-    plugins: [useInfiniteScroll, useBrowserWebPush, useFloatingNotification],
+    plugins: [useInfiniteScroll] as const,
     formatDate(dateString, dateFns) {
       return dateFns.formatDistance(new Date(dateString), new Date(), {
         addSuffix: true,

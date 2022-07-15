@@ -132,13 +132,14 @@ export function NotificationFeedItem({
   };
 
   const getSrc = () => {
-    if (isImageBroken) {
-      return placeholderImage;
-    }
     if (imageUrl) {
       return imageUrl;
     }
-    return 'false';
+    if (isImageBroken) {
+      return placeholderImage;
+    }
+
+    return placeholderImage;
   };
 
   return (
