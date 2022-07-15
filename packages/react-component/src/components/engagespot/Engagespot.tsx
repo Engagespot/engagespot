@@ -35,7 +35,7 @@ import { customRenderFn, renderCustom } from '../../utils/renderCustom';
 export type useEngagespotReturnType = ReturnType<typeof useEngagespot>;
 
 export interface EngagespotProps
-  extends Omit<UseEngagespotOptions, 'floatingPanelOptions'> {
+  extends Omit<UseEngagespotOptions<any>, 'floatingPanelOptions'> {
   theme?: ThemeOverrides;
   panelOpenByDefault?: boolean;
   panelOnly?: boolean;
@@ -117,12 +117,7 @@ export function Engagespot({
     preferences,
     getPreferences,
     setPreferences,
-  } = useEngagespot<
-    RawNotification,
-    InfiniteScrollInstance,
-    FloatingNotificationInstance,
-    BrowserWebPushInstance
-  >({
+  } = useEngagespot({
     apiKey,
     userId,
     ...options,
@@ -161,7 +156,9 @@ export function Engagespot({
         panelProps={getPanelProps}
         panelOffsetProps={getPanelOffsetProps}
         arrowProps={getArrowProps}
-        showPreferences={allowWebPush}
+        showPreferences={
+          preferences.userPreferences && preferences.userPreferences.length > 0
+        }
         renderNotificationContent={renderNotificationContent}
         renderEmptyPlaceholderImage={renderEmptyPlaceholderImage}
         togglePanelVisibility={togglePanelVisibility}

@@ -1,7 +1,9 @@
 import EngagespotCore, { Options, SetPreference } from '@engagespot/core';
 import { UseEngagespotOptions } from 'src/hooks/useEngagespot';
+import { Scrolling, ScrollingFloatingWebPush } from './applyDefaults';
 import { Hooks } from './hookUtils';
-import { Preferences, RawDataObject } from './initialState';
+import { Preferences, RawDataObject, RawNotification } from './initialState';
+import { Plugins } from './plugins';
 
 export type GetHooks = () => Hooks;
 
@@ -9,41 +11,36 @@ export interface EngagespotCoreInstance {
   core: EngagespotCore;
 }
 
-export type Instance<T = RawDataObject> = Partial<EngagespotCoreInstance> &
-  Partial<UseEngagespotOptions> & {
+export type Instance<T extends Plugins> = Partial<EngagespotCoreInstance> &
+  Partial<UseEngagespotOptions<T>> & {
     [key: string]: any;
     hooks?: Hooks;
     getHooks?: GetHooks;
     dispatch?: React.Dispatch<any>;
-    notifications?: T[];
+    notifications: T extends ScrollingFloatingWebPush
+      ? RawNotification[]
+      : RawDataObject[];
     unreadCount?: number;
     deleteNotification?: (notificationId: string) => void;
     markAsRead?: (notificationId: string) => void;
     markAllAsSeen?: () => void;
   };
 
-export type FinalInstance<
-  T = RawDataObject,
-  U = void,
-  V = void,
-  W = void,
-  X = void
-> = UseEngagespotOptions &
+export type FinalInstance<T extends Plugins> = UseEngagespotOptions<T> &
   EngagespotCoreInstance & {
     hooks: Hooks;
     getHooks: GetHooks;
     dispatch: React.Dispatch<any>;
-    notifications: T[];
+    notifications: T extends ScrollingFloatingWebPush | Scrolling
+      ? RawNotification[]
+      : RawDataObject[];
     preferences: Preferences;
     unreadCount: number;
     deleteNotification: (notificationId: string) => void;
     markAsRead: (notificationId: string) => void;
     markAllAsSeen: () => void;
     setPreferences: (preferences: SetPreference[]) => void;
-  } & U &
-  V &
-  W &
-  X & { [key: string]: any };
+  } & { [key: string]: any };
 
 function getEngagespotClient(
   apiKey: string,
@@ -57,7 +54,7 @@ function getEngagespotClient(
   return engagespotClient;
 }
 
-export function registerClient<T>(instance: Instance<T>) {
+export function registerClient<T extends Plugins>(instance: Instance<T>) {
   const { userId, apiKey, ...options } = instance;
   const clientChanged =
     instance.core != undefined &&

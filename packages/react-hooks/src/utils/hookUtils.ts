@@ -1,12 +1,13 @@
 import { useRef, useCallback } from 'react';
 import { Instance } from './getInstance';
 import { Action, InitialState, RawData } from './initialState';
+import { Plugins } from './plugins';
 
 export type StateReducer = <T, U>(
   state: T & InitialState,
   action: Action,
   prevState: T & InitialState,
-  instance: Instance<U>
+  instance: Instance<Plugins>
 ) => T;
 
 export type DataTransformer = (
@@ -14,7 +15,7 @@ export type DataTransformer = (
   transformedData: unknown
 ) => unknown;
 
-export type UseInstance = (instance: Required<Instance>) => void;
+export type UseInstance = (instance: Required<Instance<Plugins>>) => void;
 
 export type Hooks = {
   stateReducers: StateReducer[];
@@ -41,21 +42,3 @@ export function makeDefaultPluginHooks(): Hooks {
     useInstance: [],
   };
 }
-
-type VerifyAgeFunc = {
-  (age: number): boolean;
-  usedBy: string;
-};
-
-// the function itself that
-// satisfies the above type alias
-let verifyAge: VerifyAgeFunc = <VerifyAgeFunc>(
-  ((age: number) => (age > 18 ? true : false))
-);
-
-<VerifyAgeFunc>function foo(age: number) {
-  return true;
-};
-
-// add a property called `usedBy`
-//verifyAge.usedBy = "Admin"; // allowed ✅.

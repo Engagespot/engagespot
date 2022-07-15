@@ -8,6 +8,7 @@ import { Actions, createAction } from 'src/utils/actions';
 import { dateTransformer, defaultDateFormatter } from 'src/utils/dateUtils';
 import { DataTransformer, Hooks, StateReducer } from 'src/utils/hookUtils';
 import { initialState } from 'src/utils/initialState';
+import { Plugins } from 'src/utils/plugins';
 import { Instance } from '../utils/getInstance';
 
 export interface FetchOptions {
@@ -169,7 +170,7 @@ export function useNotifications(hooks: Hooks) {
 
 useNotifications.pluginName = 'useNotifications';
 
-function useInstance(instance: Required<Instance>) {
+function useInstance(instance: Required<Instance<Plugins>>) {
   const events = instance.events;
   const setNotificationData = (result: any) => {
     instance.dispatch({
