@@ -17,22 +17,19 @@ import {
 } from 'src/utils/hookUtils';
 import { Actions } from 'src/utils/actions';
 import { initialState, RawDataObject } from 'src/utils/initialState';
+import { Plugin, Plugins } from 'src/utils/plugins';
 
-export interface UseEngagespotOptions
+export interface UseEngagespotOptions<T extends Plugins>
   extends Options,
-    UseEngagespotCommonProps {}
+    UseEngagespotCommonProps<T> {}
 
-export function useEngagespot<
-  T = RawDataObject,
-  U = void,
-  V = void,
-  W = void,
-  X = void
->(props: UseEngagespotOptions) {
+export function useEngagespot<T extends Plugins>(
+  props: UseEngagespotOptions<T>
+) {
   let actualProps = applyDefaults(props);
   let { apiKey, userId, plugins, stateReducer, dataTransformer, ...options } =
     actualProps;
-  let instanceRef = useRef<Instance<T>>({});
+  let instanceRef = useRef<Instance<T>>({} as any);
   const getInstance = useGetLatest(instanceRef.current);
   Object.assign(getInstance(), {
     ...actualProps,
@@ -116,5 +113,5 @@ export function useEngagespot<
     notifications: transformer(getInstance().reducerState.rawData),
   });
 
-  return getInstance() as FinalInstance<T, U, V, W, X>;
+  return getInstance() as FinalInstance<T>;
 }

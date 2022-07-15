@@ -85,9 +85,10 @@ export function NotificationPanel({
   };
 
   const dropDownItems = useMemo(() => {
-    return [{ name: 'Preferences', action: setRouteAsPreferences }].concat(
-      headerDropdownItems
-    );
+    const preferences = showPreferences
+      ? [{ name: 'Preferences', action: setRouteAsPreferences }]
+      : [];
+    return preferences.concat(headerDropdownItems);
   }, []);
 
   const [preferenceModal, showPreferenceModal] = useState(true);
@@ -158,11 +159,14 @@ export function NotificationPanel({
           <Back />
         </NotificationPreferenceBackButton>
         <NotificationHeaderTextStyled>{label}</NotificationHeaderTextStyled>
-        <DropdownMenu
-          items={dropDownItems}
-          isVisible={true}
-          theme={themeConfig.headerDropdown}
-        />
+        {dropDownItems.length > 0 ? (
+          <DropdownMenu
+            items={dropDownItems}
+            isVisible={true}
+            theme={themeConfig.headerDropdown}
+          />
+        ) : null}
+
         <NotificationHeaderCloseButtonStyled
           onClick={() => {
             togglePanelVisibility?.();
@@ -183,7 +187,7 @@ export function NotificationPanel({
         {renderRoute(route)}
         <NotificationFooter
           footerContent={footerContent}
-          showPreferences={true}
+          showPreferences={showPreferences}
         />
       </NotificationPanelStyled>
     </NotificationPanelPopper>

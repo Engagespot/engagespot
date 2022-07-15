@@ -8,6 +8,7 @@ import {
 } from 'src/utils/documentTitle';
 import { Instance } from 'src/utils/getInstance';
 import { StateReducer } from 'src/utils/hookUtils';
+import { Plugins } from 'src/utils/plugins';
 
 Actions.SetWebPushData = 'SetWebPushData';
 
@@ -64,7 +65,7 @@ export function useBrowserWebPush(hooks: any) {
   hooks.useInstance.push(useInstance);
 }
 
-export function useInstance(instance: Required<Instance>) {
+export function useInstance(instance: Required<Instance<Plugins>>) {
   const allowWebPush =
     instance.core.enableWebPush && instance.core.isWebPushSupported();
 
