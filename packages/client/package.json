@@ -16,10 +16,10 @@
     "in-app notifications"
   ],
   "scripts": {
-    "build": "yarn tsc && yarn build:package && yarn build:cdn",
+    "build": "yarn build:package && yarn build:cdn",
     "build:package": "tsup",
     "build:cdn": "tsup --config ./tsup.cdn.config.ts",
-    "dev": "tsup --minify false --sourcemap inline",
+    "dev": "tsup --minify false --clean false --sourcemap inline",
     "tsc": "tsc",
     "clean": "rimraf dist",
     "declarations": "api-extractor run --local --verbose",

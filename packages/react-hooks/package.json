@@ -18,8 +18,8 @@
     "notification center"
   ],
   "scripts": {
-    "build": "yarn tsc && tsup",
-    "dev": "tsup --minify false --sourcemap inline",
+    "build": "tsup",
+    "dev": "tsup --minify false --clean false --sourcemap inline",
     "tsc": "tsc",
     "docs": "api-documenter markdown --input-folder spec --output ./spec/markdown",
     "clean": "rimraf dist",

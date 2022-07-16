@@ -7,7 +7,7 @@ export default defineConfig(options => {
     platform: 'browser',
     replaceNodeEnv: true,
     minify: options.minify || true,
-    clean: true,
+    clean: options.clean || true,
     metafile: options.metafile,
     dts: true,
     sourcemap: options.sourcemap,

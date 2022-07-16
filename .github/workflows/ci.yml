@@ -13,6 +13,5 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - run: |
-          yarn install --immutable
-          yarn build
+          yarn install
           yarn test:ci

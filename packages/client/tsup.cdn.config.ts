@@ -8,7 +8,7 @@ export default defineConfig(options => {
     noExternal: [/.*/],
     replaceNodeEnv: true,
     minify: options.minify || true,
-    clean: true,
+    clean: options.clean || true,
     metafile: options.metafile,
     sourcemap: options.sourcemap,
     inject: ['./react-shim.js'],
