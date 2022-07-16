@@ -1,5 +1,6 @@
 {
   "name": "example-core",
+  "private": true,
   "version": "1.0.1",
   "scripts": {
     "dev": "vite --port 3009",
@@ -14,5 +15,6 @@
     "tsup": "^6.1.2",
     "typescript": "^4.5.5",
     "vite": "^2.7.2"
-  }
+  },
+  "gitHead": "bb4c648c4dd07cd88d4c57edd58f1e7ed0d96302"
 }
