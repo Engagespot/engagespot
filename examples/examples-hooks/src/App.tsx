@@ -38,6 +38,8 @@ function App() {
     scrollRoot: scrollRootRef.current,
   });
 
+  console.log('notifications', notifications);
+
   return (
     <div className="container">
       <nav className="mb-2 border border-t-0 border-l-0 border-r-0 border-gray-200">

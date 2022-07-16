@@ -595,6 +595,8 @@ export default class Engagespot {
   async getWebPushRegistrationState() {
     await this._resolveInstanceState();
 
+    if (!this.isWebPushSupported()) return PermissionState.PERMISSION_DENIED;
+
     if (Notification.permission === 'denied') {
       return PermissionState.PERMISSION_DENIED;
     }

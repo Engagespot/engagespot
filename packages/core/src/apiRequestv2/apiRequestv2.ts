@@ -31,7 +31,7 @@ export class APIRequestV2 {
   ) {
     const options: RequestInit = {
       method: method,
-      cache: 'no-cache',
+      cache: 'no-store',
       ...(['POST', 'PUT', 'PATCH'].includes(method) && {
         body: JSON.stringify(body),
       }),

@@ -109,6 +109,9 @@ paths:
                 category:
                   type: string
                   description: Category to tag this notification. If category doesn't exist, it will be created.
+                data:
+                  type: object
+                  description: Add any key value pair or meta data to be passed along with this notification.
                 override:
                   type: object
                   description: Override delivery preferences configured in your account.
@@ -245,7 +248,51 @@ paths:
         '200':
           description: Successful response
           content:
-            application/json: {}
+            application/json:
+              schema:
+                type: object
+                description: >-
+                  Returns the notification list along with pagination details
+                properties:
+                  unreadCount:
+                    type: number
+                    description: The unread notification count.
+                  pagination:
+                    type: object
+                    properties:
+                      totalCount:
+                        type: number
+                        description: Total number of notifications.
+                  data:
+                    type: array
+                    description: List of notifications for this user.
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                          description: Id of notification
+                        title:
+                          type: string
+                          description: Notification title
+                        message:
+                          type: string
+                          description: Body of notification
+                        icon:
+                          type: string
+                          description: URL of image
+                        data:
+                          type: object
+                          description: Custom key value pair (JSON)
+                        createdAt:
+                          type: string
+                          description: Notification created at timestamp
+                        seenAt:
+                          type: string
+                          description: Notification Seen timestamp
+                        clickedAt:
+                          type: string
+                          description: Notification Clicked timestamp
   /v3/notifications/428107:
     get:
       tags:
@@ -706,5 +753,43 @@ paths:
                             name:
                               type: string
                               description: Name of the category
+        '401':
+          description: Unauthorized
+  /v3/users/:
+    post:
+      tags:
+        - Users
+      summary: /users
+      description: >-
+        API to create a new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: ['identifier']
+              properties:
+                identifier:
+                  type: string
+                  description: Any identifier to uniquely identify your user.
+                profile:
+                  type: object
+                  description: Any key value pair that will be attached to the user's profile
+      parameters:
+        - name: X-ENGAGESPOT-API-KEY
+          required: true
+          in: header
+          schema:
+            type: string
+          example: at410rizwpsm6s4jjqmlx
+        - name: X-ENGAGESPOT-API-SECRET
+          required: true
+          in: header
+          schema:
+            type: string
+          example: Xt41rizwprizwpqmlxkriZwpk7huInx
+      responses:
+        '200':
+          description: Successful response
         '401':
           description: Unauthorized

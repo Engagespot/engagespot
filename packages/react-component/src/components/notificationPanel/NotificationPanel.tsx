@@ -84,12 +84,10 @@ export function NotificationPanel({
     setRoute('preference');
   };
 
-  const dropDownItems = useMemo(() => {
-    const preferences = showPreferences
-      ? [{ name: 'Preferences', action: setRouteAsPreferences }]
-      : [];
-    return preferences.concat(headerDropdownItems);
-  }, []);
+  const preferences = showPreferences
+    ? [{ name: 'Preferences', action: setRouteAsPreferences }]
+    : [];
+  const dropDownItems = preferences.concat(headerDropdownItems);
 
   const [preferenceModal, showPreferenceModal] = useState(true);
   const [showNotificationOverlay, setLocalStorageValue, remove] =
