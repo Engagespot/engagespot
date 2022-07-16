@@ -1,6 +1,6 @@
 {
   "name": "examples-react-native",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "scripts": {
     "develop": "expo start",
@@ -14,7 +14,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@engagespot/react-hooks": "1.0.0",
+    "@engagespot/react-hooks": "1.0.1",
     "@expo/vector-icons": "^12.0.0",
     "@react-navigation/bottom-tabs": "^6.0.5",
     "@react-navigation/native": "^6.0.2",

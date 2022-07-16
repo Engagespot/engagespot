@@ -1,6 +1,6 @@
 {
   "name": "@engagespot/core",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Engagespot Javascript Core Functions",
   "source": "./src/index.ts",
   "main": "./dist/index.js",
