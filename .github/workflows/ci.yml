@@ -13,6 +13,6 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - run: |
-          yarn install --frozen-lockfile
+          yarn install --immutable
           yarn build
           yarn test:ci
