@@ -7,7 +7,14 @@
       "ignoreChanges": ["ignored-file", "*.md", "**/etc/**"],
       "message": "chore(release): 🏷 publish version"
     },
+    "version": {
+      "allowBranch": "master",
+      "conventionalCommits": true,
+      "createRelease": "github",
+      "exact": true
+    },
     "bootstrap": {}
   },
+
   "packages": ["packages/*", "examples/*", "docs/", "worker/*", "dashboard/"]
 }
