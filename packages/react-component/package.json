@@ -1,6 +1,6 @@
 {
   "name": "@engagespot/react-component",
-  "version": "0.1.12-alpha.2",
+  "version": "1.0.0",
   "source": "./src/index.ts",
   "main": "./dist/index.js",
   "module": "./dist/esm/index.js",
@@ -35,7 +35,7 @@
     "react-dom": "^16.8.3 || ^17.0.0-0 || ^18.0.0-0"
   },
   "dependencies": {
-    "@engagespot/react-hooks": "^0.1.12-alpha.2",
+    "@engagespot/react-hooks": "1.0.0",
     "@popperjs/core": "^2.9.1",
     "i18next": "19.9.2",
     "intersection-observer": "0.12.0",
