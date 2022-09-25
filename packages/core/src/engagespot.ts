@@ -16,6 +16,7 @@ import {
   SetPreference,
 } from './apiRequestv2/interfaces/user-preference.interface';
 import { NotificationItem } from './interfaces/NotificationItem';
+import { Channel } from './enums/Channel';
 
 export default class Engagespot {
   /**
@@ -70,6 +71,8 @@ export default class Engagespot {
    * Whether web push needs to be enabled.
    */
   enableWebPush = false;
+
+  enabledChannels: Array<Channel> = [];
 
   /**
    * Unread notifications count.
@@ -223,6 +226,7 @@ export default class Engagespot {
     this.hideBranding = response.app.hideBranding;
     this.publicKey = response.app.publicKey;
     this.enableWebPush = response.app.enableWebPush;
+    this.enabledChannels = response.app.channels;
 
     this._log('Response from connect API is given below ');
     this._log(response);
