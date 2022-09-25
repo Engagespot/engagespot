@@ -8,13 +8,7 @@ export const initialState = {
   unreadCount: 0,
   webPushData: {},
   preferences: {
-    channels: [
-      { name: 'In-App', id: 'inApp' },
-      { name: 'Web Push', id: 'webPush' },
-      { name: 'Email', id: 'email' },
-      { name: 'Mobile Push', id: 'mobilePush' },
-      { name: 'SMS', id: 'sms' },
-    ] as const,
+    channels: [],
     userPreferences: {} as UserPreferences[],
   },
 };

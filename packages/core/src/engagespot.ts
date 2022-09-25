@@ -72,6 +72,29 @@ export default class Engagespot {
    */
   enableWebPush = false;
 
+  supportedChannels = {
+    inApp: {
+      name: 'In-App',
+      id: 'inApp',
+    },
+    webPush: {
+      name: 'Web Push',
+      id: 'webPush',
+    },
+    email: {
+      name: 'Email',
+      id: 'email',
+    },
+    mobilePush: {
+      name: 'Mobile Push',
+      id: 'mobilePush',
+    },
+    sms: {
+      name: 'SMS',
+      id: 'sms',
+    },
+  };
+
   enabledChannels: Array<Channel> = [];
 
   /**
@@ -226,7 +249,7 @@ export default class Engagespot {
     this.hideBranding = response.app.hideBranding;
     this.publicKey = response.app.publicKey;
     this.enableWebPush = response.app.enableWebPush;
-    this.enabledChannels = response.app.channels;
+    this.enabledChannels = response.app.channels || [];
 
     this._log('Response from connect API is given below ');
     this._log(response);

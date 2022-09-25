@@ -10,6 +10,7 @@ export default defineConfig(options => {
     clean: options.clean || true,
     metafile: options.metafile,
     dts: true,
+    watch: options.watch || false,
     sourcemap: options.sourcemap,
     legacyOutput: true,
   };

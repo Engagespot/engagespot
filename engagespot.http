@@ -1,0 +1,31 @@
+### Get categories
+GET https://api.engagespot.co/v3/categories
+X-Engagespot-Api-Key: q7nkhsrgfppexca9aj1nq
+X-Engagespot-User-Id: hemanditwiz@gmail.com 
+
+### Add Category
+
+POST https://api.engagespot.co/v3/categories
+X-Engagespot-Api-Key: q7nkhsrgfppexca9aj1nq
+X-Engagespot-User-Id: hemanditwiz@gmail.com 
+
+{
+    "name": "New Friend Requests"
+}
+
+### Send notification
+
+POST https://api.engagespot.co/v3/notifications
+Content-Type: application/json
+X-Engagespot-Api-Key: q7nkhsrgfppexca9aj1nq
+X-Engagespot-Api-Secret: {{$processEnv ENGAGESPOT_SECRET}}
+
+{
+  "notification": {
+    "title": "Rose accepted your friend request"
+  },
+  "recipients": [
+    "hemanditwiz@gmail.com"
+  ],
+  "category": "New Friend Requests"
+}

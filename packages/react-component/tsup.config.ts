@@ -12,6 +12,7 @@ export default defineConfig(options => {
     dts: true,
     sourcemap: options.sourcemap,
     inject: ['./react-shim.js'],
+    watch: options.watch || false,
     legacyOutput: true,
   };
 });

@@ -12,5 +12,6 @@ export default defineConfig(options => {
     dts: true,
     sourcemap: options.sourcemap,
     legacyOutput: true,
+    watch: options.watch || false,
   };
 });

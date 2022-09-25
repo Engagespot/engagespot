@@ -98,24 +98,6 @@ export function NotificationPreference({
                     )
                   }
                 />
-
-                {/* <Toggle
-                  checked={preference.channels[channel.id].enabled}
-                  icons={false}
-                  // disabled={
-                    channel.id === 'webPush' &&
-                    ['denied'].includes(webPushState)
-                  }
-                  onChange={evt =>
-                    handleToggleChange(
-                      {
-                        categoryId: preference.category.id,
-                        channel: channel.id,
-                      },
-                      evt
-                    )
-                  }
-                /> */}
               </NotificationPreferenceLabelStyled>
             ))}
           </NotificationCategories>

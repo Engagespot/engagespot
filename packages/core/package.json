@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "build": "tsup",
-    "dev": "tsup --minify false --clean false --sourcemap inline",
+    "dev": "tsup --minify false --clean false --sourcemap inline --watch",
     "tsc": "tsc",
     "clean": "rimraf dist",
     "docs": "api-documenter markdown --input-folder spec --output ./spec/markdown",

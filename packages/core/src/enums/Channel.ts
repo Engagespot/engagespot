@@ -1,7 +1,1 @@
-export enum Channel{
-    inApp,
-    webPush,
-    mobilePush, 
-    email, 
-    sms
-}
+export type Channel = 'inApp' | 'webPush' | 'mobilePush' | 'email' | 'sms';

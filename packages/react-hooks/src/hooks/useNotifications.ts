@@ -124,7 +124,7 @@ const reducer: StateReducer = function (state, action, _, instance) {
     const userPreferences = action.payload?.preferences;
     return {
       ...state,
-      preferences: { ...state.preferences, ...userPreferences },
+      preferences: { ...userPreferences },
     };
   } else if (action.type === Actions.SetPreferences) {
     const preferences = action.payload?.preferences;
@@ -239,21 +239,35 @@ function useInstance(instance: Required<Instance<Plugins>>) {
       if (!instance.apiKey || !instance.userId) return;
       const isReady = await instance.core.isReady();
       if (!isReady) return;
+      const enabledChannelsIds = instance.core.enabledChannels;
+      const enabledChannels = enabledChannelsIds.map(channelId => {
+        return instance.core.supportedChannels[channelId];
+      });
       const preferences = await instance.core.getPreferences();
       const categories = await instance.core.getCategories();
+
       var preferenceArr = categories.map(category => {
         const preference = { category, channels: {} } as any;
         const userPreference = preferences.find(
           pref => preference.category.id === pref.category.id
         );
         Object.assign(preference, userPreference || {});
-        channels.forEach(channel => {
+        enabledChannelsIds.forEach(channel => {
+          let enabled = false;
+          const preferenceExist = preferences.find((channelObj: any) => {
+            return channelObj.channel === channel;
+          });
+          if (!userPreference || !preferenceExist) {
+            enabled = true;
+          }
+
           preference.channels[channel] = {
-            enabled: false,
+            enabled,
           };
         });
         preference?.channelPreferences?.forEach((channelPreference: any) => {
           var channel = channelPreference.channel;
+          if (!enabledChannelsIds.includes(channel)) return;
           preference.channels[channel].enabled = Boolean(
             channelPreference.enabled
           );
@@ -266,6 +280,7 @@ function useInstance(instance: Required<Instance<Plugins>>) {
         createAction(Actions.SetInitialPreferences, {
           preferences: {
             userPreferences: preferenceArr,
+            channels: enabledChannels,
           },
         })
       );
