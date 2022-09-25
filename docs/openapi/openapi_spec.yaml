@@ -639,7 +639,7 @@ paths:
       tags:
         - Category
       summary: /categories
-      description: Gets a user's profile.
+      description: Lists all categories in the app.
       parameters:
         - name: X-ENGAGESPOT-API-KEY
           required: true
@@ -678,6 +678,54 @@ paths:
                     identifier:
                       type: string
                       description: Category Identifier
+    post:
+      tags:
+        - Category
+      summary: /categories
+      description: Create a new category.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: ['identifier', 'name']
+              properties:
+                identifier:
+                  type: string
+                  description: A unique identifier for the new category (Example - comment_replies)
+                name:
+                  type: string
+                  description: A name for the new category (Example - Comment Replies). This will be shown to your users.
+      parameters:
+        - name: X-ENGAGESPOT-API-KEY
+          required: true
+          in: header
+          schema:
+            type: string
+          example: at410rizwpsm6s4jjqmlx
+        - name: X-ENGAGESPOT-SECRET-KEY
+          required: true
+          in: header
+          schema:
+            type: string
+          example: Ht410rCJ09Hy8Uyzwpsm6s4jjqmlx
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                    description: Category Id
+                  name:
+                    type: string
+                    description: Name of the category
+                  identifier:
+                    type: string
+                    description: Category Identifier
   /v3/sdk/connect:
     post:
       tags:
