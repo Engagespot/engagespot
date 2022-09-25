@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.2](https://github.com/Engagespot/engagespot/compare/v1.0.1...v1.0.2) (2022-09-25)
+
+### Bug Fixes
+
+- enable unset preferences by default ([ae32511](https://github.com/Engagespot/engagespot/commit/ae32511b017ecc5d479c9a056753849fece61d4b))
+
+### Features
+
+- **core:** :sparkles: adds enabledChannels property to Engagespot ([6e41656](https://github.com/Engagespot/engagespot/commit/6e4165619778277ddb8ada7382b4ea4668a143c2))
+
 ## [1.0.1](https://github.com/Engagespot/engagespot/compare/v1.0.0...v1.0.1) (2022-07-16)
 
 ### Bug Fixes
