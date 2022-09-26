@@ -726,6 +726,27 @@ paths:
                   identifier:
                     type: string
                     description: Category Identifier
+    delete:
+      tags:
+        - Category
+      summary: /categories/:id
+      description: Deletes a category.
+      parameters:
+        - name: X-ENGAGESPOT-API-KEY
+          required: true
+          in: header
+          schema:
+            type: string
+          example: at410rizwpsm6s4jjqmlx
+        - name: X-ENGAGESPOT-SECRET-KEY
+          required: true
+          in: header
+          schema:
+            type: string
+          example: Ht410rCJ09Hy8Uyzwpsm6s4jjqmlx
+      responses:
+        '200':
+          description: Successful response
   /v3/sdk/connect:
     post:
       tags:
