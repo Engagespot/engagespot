@@ -53,17 +53,22 @@ For Email channel, we support the following providers.
 
 We make use of Sendgrid to give you a default email provider than you can simply use without any additional configuration. The only limitation is that, emails will be sent from our domain - esnotifications.com.
 
-#### Sendgrid Email Provider
+#### AWS SES
+
+Use AWS SES to send email notifications from Engagespot.
+[Read more about configuring AWS SES](configuring-providers/email/ses.mdx)
+
+#### Sendgrid
 
 If you have a Sendgrid account, you can configure that as your email provider in Engagespot. You'll get all Engagespot features and the power of Sendgrid's email delivery infrastructure!
 [Read more about configuring Sendgrid](configuring-providers/email/sendgrid-provider)
 
-#### Mailgun Email Provider
+#### Mailgun
 
 Use Mailgun to send email notifications from Engagespot.
 [Read more about configuring Mailgun](configuring-providers/email/mailgun.md)
 
-#### SMTP Email Provider
+#### SMTP
 
 Send Email notifications via any SMTP Server of your choice.
 [Read more about configuring SMTP](configuring-providers/email/smtp-provider)
