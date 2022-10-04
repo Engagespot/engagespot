@@ -62,4 +62,4 @@ Providers enables delivery through a particular channel. For example to deliver 
 1. In-App - Inbuilt
 2. Web Push - Inbuilt
 3. Mobile Push - Firebase (FCM)
-4. Email - Inbuilt, Sendgrid, Mailgun, SMTP
+4. Email - Inbuilt, AWS SES, Sendgrid, Mailgun, SMTP
