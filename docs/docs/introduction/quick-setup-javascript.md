@@ -58,7 +58,7 @@ export class AppComponent implements AfterViewInit {
   @ViewChild('engagespotBellIcon') engagespotBellIcon: ElementRef;
 
   ngAfterViewInit() {
-    renderWidget(this.engagespotBellIcon.nativeElement, {
+    render(this.engagespotBellIcon.nativeElement, {
       apiKey: "ENGAGESPOT_API_KEY",
       userId: "YOUR_USERS_UNIQUE_ID",
     });
