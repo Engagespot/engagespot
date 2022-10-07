@@ -65,6 +65,9 @@ export class AppComponent implements AfterViewInit {
   }
 }
 ```
+:::info
+The above Angular code would not work in online IDEs such as Codesandbox or Stackblitz due to some configuration issues. But it will work fine when you run Angular app directly.
+:::
 
 ## Other Javascript Apps
 
