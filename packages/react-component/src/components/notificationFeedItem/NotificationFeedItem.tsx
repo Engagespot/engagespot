@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { Fragment, useMemo, useRef, useState } from 'react';
 
 import {
   FeedItemStyled,
@@ -18,6 +18,8 @@ import {
 import { DropdownMenu } from '../dropdownMenu';
 import { Circle as FeedItemReadDot } from '../icons/Circle';
 import themeConfig from '../../theme/themeConfig';
+import { customNotificationContentType } from '../notificationFeed';
+import { renderCustom } from 'src/utils/renderCustom';
 
 interface ClickableNotificationPayload {
   url: string;
@@ -44,6 +46,8 @@ export interface NotificationFeedItemProps {
   onFeedItemClick?: onFeedItemClickType;
   markAsClicked: () => unknown;
   deleteNotification: () => unknown;
+  renderNotificationBody: customNotificationContentType;
+  data: Record<string, any>;
 }
 
 export function FeedItemPlaceholder({ loaderRef }: any) {
@@ -79,20 +83,23 @@ export function FeedItemPlaceholder({ loaderRef }: any) {
   );
 }
 
-export function NotificationFeedItem({
-  heading,
-  description,
-  imageUrl,
-  clickableUrl,
-  placeholderImage,
-  read,
-  time,
-  id,
-  isMobile,
-  onFeedItemClick,
-  markAsClicked,
-  deleteNotification,
-}: NotificationFeedItemProps) {
+export function NotificationFeedItem(notification: NotificationFeedItemProps) {
+  const {
+    heading,
+    description,
+    imageUrl,
+    clickableUrl,
+    placeholderImage,
+    read,
+    time,
+    id,
+    data,
+    renderNotificationBody,
+    isMobile,
+    onFeedItemClick,
+    markAsClicked,
+    deleteNotification,
+  } = notification;
   const [isMenuVisible, setMenuVisibility] = useState(false);
   const [isImageBroken, setImageBroken] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -119,7 +126,11 @@ export function NotificationFeedItem({
     }
 
     if (onFeedItemClick) {
-      onFeedItemClick(event, { id, url: clickableUrl, markAsClicked });
+      onFeedItemClick(event, {
+        url: clickableUrl,
+        ...notification,
+        markAsClicked,
+      });
       return;
     }
 
@@ -158,11 +169,15 @@ export function NotificationFeedItem({
         }}
       />
       <FeedItemTextContent>
-        <FeedItemHeader dangerouslySetInnerHTML={{ __html: heading }} />
-        <FeedItemDescription
-          dangerouslySetInnerHTML={{ __html: description }}
-        />
-        <FeedItemTimeAgo>{time}</FeedItemTimeAgo>
+        {renderCustom(renderNotificationBody, notification) || (
+          <Fragment>
+            <FeedItemHeader dangerouslySetInnerHTML={{ __html: heading }} />
+            <FeedItemDescription
+              dangerouslySetInnerHTML={{ __html: description }}
+            />
+            <FeedItemTimeAgo>{time}</FeedItemTimeAgo>
+          </Fragment>
+        )}
       </FeedItemTextContent>
       <FeedItemMenu ref={dropdownRef}>
         <DropdownMenu

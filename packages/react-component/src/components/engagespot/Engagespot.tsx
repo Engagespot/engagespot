@@ -47,6 +47,7 @@ export interface EngagespotProps
   renderNotificationIcon?: customRenderFn;
   renderEmptyPlaceholderImage?: customRenderFn;
   renderNotificationContent?: customRenderFn<customNotificationContentType>;
+  renderNotificationBody?: customRenderFn<customNotificationContentType>;
   onFeedItemClick?: onFeedItemClickType;
   headerDropdownItems?: DropdownMenuProps['items'];
 }
@@ -59,6 +60,7 @@ const notificationItemResponseMap = {
   id: 'id',
   created: 'time',
   clickedAt: 'clickedAt',
+  data: 'data',
   markAsClicked: 'markAsClicked',
   deleteNotification: 'deleteNotification',
 };
@@ -89,6 +91,7 @@ export function Engagespot({
   renderNotificationIcon,
   renderEmptyPlaceholderImage,
   renderNotificationContent,
+  renderNotificationBody,
   onFeedItemClick,
   headerDropdownItems,
   ...options
@@ -160,6 +163,7 @@ export function Engagespot({
           preferences.userPreferences && preferences.userPreferences.length > 0
         }
         renderNotificationContent={renderNotificationContent}
+        renderNotificationBody={renderNotificationBody}
         renderEmptyPlaceholderImage={renderEmptyPlaceholderImage}
         togglePanelVisibility={togglePanelVisibility}
         enableWebPush={enableWebPush}

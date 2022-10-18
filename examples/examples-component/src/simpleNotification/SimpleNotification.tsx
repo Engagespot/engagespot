@@ -66,13 +66,22 @@ export function SimpleNotification() {
           <NavItem style={{ marginRight: '10rem' }}>Login</NavItem>
           <NavItem>
             <Engagespot
-              apiKey="q7nkhsrgfppexca9aj1nq"
+              apiKey="od9t6x45udt1m3g0nznag"
               headerDropdownItems={[
                 { name: 'Open All Notifications', action: () => true },
               ]}
               userId={user}
               onFeedItemClick={(evt, options) => {
                 options.markAsClicked();
+              }}
+              renderNotificationBody={res => {
+                console.log('content', res);
+                if (res.data && res.data.type === 'invoice') {
+                  const url = res.data.url;
+                  return `<p>
+                      ${res.heading} <a href="${url}">Download</a>
+                    </p>`;
+                }
               }}
               debug={true}
             />

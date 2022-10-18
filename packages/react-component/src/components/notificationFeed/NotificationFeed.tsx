@@ -46,6 +46,7 @@ export interface NotificationFeedProps {
   empty?: boolean;
   placeholderText?: string;
   renderCustomPlaceholderContent?: customPlaceholderContentType;
+  renderNotificationBody?: customNotificationContentType;
   renderCustomNotificationContent?: customNotificationContentType;
   notifications: NotificationFeedItemProps[];
 }
@@ -68,7 +69,8 @@ const renderNotificationContent = (
   isMobile: boolean,
   onFeedItemClick: onFeedItemClickType | undefined,
   deleteNotification: (id: string) => void,
-  markAsRead: (id: string) => void
+  markAsRead: (id: string) => void,
+  renderNotificationBody: customNotificationContentType
 ): React.ReactNode => {
   return (
     renderCustom(customRenderer, notification) || (
@@ -82,10 +84,12 @@ const renderNotificationContent = (
         placeholderImage={placeholderImage}
         key={notification.id}
         id={notification.id}
+        data={notification.data}
         markAsClicked={() => markAsRead(notification.id)}
         deleteNotification={() => deleteNotification(notification.id)}
         isMobile={isMobile}
         onFeedItemClick={onFeedItemClick}
+        renderNotificationBody={renderNotificationBody}
       />
     )
   );
@@ -95,6 +99,7 @@ export function NotificationFeed({
   empty = false,
   renderCustomPlaceholderContent,
   renderCustomNotificationContent,
+  renderNotificationBody,
   notifications = [],
   placeholderText = `Shh! It's quiet around here...`,
 }: NotificationFeedProps) {
@@ -147,7 +152,8 @@ export function NotificationFeed({
               isMobile,
               onFeedItemClick,
               deleteNotification!!,
-              markAsRead!!
+              markAsRead!!,
+              renderNotificationBody
             );
           })}
           {hasMore && <FeedItemPlaceholder loaderRef={setLoaderRef} />}

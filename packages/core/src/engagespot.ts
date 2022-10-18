@@ -367,6 +367,7 @@ export default class Engagespot {
         title: message.data.notification.title,
         message: message.data.notification.description,
         icon: message.data.notification.icon,
+        data: message.data.notification.data,
         url: message.data.notification.url,
         createdAt: message.data.notification.created_at,
       });

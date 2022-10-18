@@ -17,15 +17,19 @@ X-Engagespot-User-Id: hemanditwiz@gmail.com
 
 POST https://api.engagespot.co/v3/notifications
 Content-Type: application/json
-X-Engagespot-Api-Key: q7nkhsrgfppexca9aj1nq
-X-Engagespot-Api-Secret: {{$processEnv ENGAGESPOT_SECRET}}
+X-Engagespot-Api-Key: od9t6x45udt1m3g0nznag
+X-Engagespot-Api-Secret: fjtjb5kjsig21at4h1ijbphd1f31726e48372b0deddb29db5
 
 {
   "notification": {
-    "title": "Rose accepted your friend request"
+    "title": "Custom content"
   },
   "recipients": [
     "hemanditwiz@gmail.com"
   ],
-  "category": "New Friend Requests"
+  "data": {
+      "type": "invoice",
+      "url": "https://google.com"
+    },
+  "category": "hhhh"
 }
