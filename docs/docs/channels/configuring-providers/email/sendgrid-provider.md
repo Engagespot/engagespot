@@ -36,7 +36,7 @@ Sendgrid provider allows you to override all the above configurations (and you c
 
 To override the configurations, you must supply them via `override.sendgrid_email` parameter of the above API. Within the `override` parameter, you can supply any parameter that we'll directly pass to Sendgrid `/v3/mail/send` API [See doc](https://docs.sendgrid.com/api-reference/mail-send/mail-send). This makes sure you can use the complete features of Sendgrid API while still using Engagespot to control your notifications!
 
-For example,
+For example, the below example shows how to send attachments using Sendgrid provier.
 
 **POST** `/notifications`
 
@@ -50,7 +50,7 @@ For example,
   },
   "recipients": ["steve@example.com"],
   "override": {
-    "sendgrid": {
+    "sendgrid_email": {
       "_config": {
         "API_KEY": "SG.ju725hFjsj9inbV44VcGdtejKLe645JDkd99374gbh395cyhRg424Goloplo8vc"
       },
@@ -67,7 +67,15 @@ For example,
           }
         }
       ],
-      "template_id": "t.18hfgcba64g464jck"
+      "template_id": "t.18hfgcba64g464jck",
+      "attachments": [
+      {
+        "content": "PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KCiAgICA8aGVhZD4KICAgICAgICA8bWV0YSBjaGFyc2V0PSJVVEYtOCI+CiAgICAgICAgPG1ldGEgaHR0cC1lcXVpdj0iWC1VQS1Db21wYXRpYmxlIiBjb250ZW50PSJJRT1lZGdlIj4KICAgICAgICA8bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLCBpbml0aWFsLXNjYWxlPTEuMCI+CiAgICAgICAgPHRpdGxlPkRvY3VtZW50PC90aXRsZT4KICAgIDwvaGVhZD4KCiAgICA8Ym9keT4KCiAgICA8L2JvZHk+Cgo8L2h0bWw+Cg==",
+        "filename": "index.html",
+        "type": "text/html",
+        "disposition": "attachment"
+      }
+  ],
     }
   }
 }

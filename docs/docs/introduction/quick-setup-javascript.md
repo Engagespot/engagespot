@@ -35,6 +35,40 @@ This will render a beautiful notification inbox like this in your app.
 
 Our ReactJS component comes with a lot of powerful configurations and customizations that you can change. Read the [react component examples](../learn-by-examples/react-component/simple-notification.mdx) to learn more.
 
+## Instructions for Angular
+
+You can install the package from npm or from the CDN.
+
+```bash
+npm i @engagespot/client
+```
+
+Then import the `render` function and use that to render the notification center.
+
+```javascript
+import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { render } from '@engagespot/client';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+})
+
+export class AppComponent implements AfterViewInit {
+  @ViewChild('engagespotBellIcon') engagespotBellIcon: ElementRef;
+
+  ngAfterViewInit() {
+    render(this.engagespotBellIcon.nativeElement, {
+      apiKey: "ENGAGESPOT_API_KEY",
+      userId: "YOUR_USERS_UNIQUE_ID",
+    });
+  }
+}
+```
+:::info
+The above Angular code would not work in online IDEs such as Codesandbox or Stackblitz due to some configuration issues. But it will work fine when you run Angular app directly.
+:::
+
 ## Other Javascript Apps
 
 You can use our CDN hosted Javascript library to install Engagespot to any Javascript based web apps (irrespective of the framework).

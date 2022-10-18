@@ -1,0 +1,117 @@
+# Amazon SES
+
+You can send email notifications through your AWS SES service.
+
+## Unique Identifier
+
+Each provider is identified by a unique identifier. Unique identifier of SMTP provider is `ses`
+
+## Enabling AWS SES
+
+To enable AWS SES provider, login to your Engagespot dashboard, goto Channels -> Email and enable AES SES Provider.
+
+:::info
+
+AWS SES provider uses `email` attribute in your user's [profile](../../../profile/what-are-user-profiles.mdx) as the primary address to deliver the notifications. So make sure your user's profile has the `email` attribute set.
+
+:::
+
+### Create an AWS SES API Key and Secret using your AWS IAM Service
+
+To connect your AWS SES service with Engagespot, you must create an IAM user with `SendEmail` permission.
+
+1. After logging into your <a href="https://console.aws.amazon.com" target="_blank">AWS Console</a>, search for the `IAM` service.
+<img src="https://cdn.engagespot.co/images/docs/aws_iam.png"/>
+
+2. Then, on the sidebar, navigate to <strong>Access Management -> Users</strong>, and click <strong> Add Users </strong>
+<img src="https://cdn.engagespot.co/images/docs/Screenshot%202022-10-04%20at%204.13.19%20PM.png"/>
+
+3. Set a username, and credential type to <strong>Access Key - Programmatic Access</strong>
+<img src="https://cdn.engagespot.co/images/docs/Screenshot 2022-10-04 at 4.15.54 PM.png"/>
+
+4. In the next step (Permissions), select <strong>Attach Existing Policies Directly</strong>, and click <strong> Create Policy</strong>
+<img src="https://cdn.engagespot.co/images/docs/Screenshot 2022-10-04 at 4.17.59 PM.png"/>
+
+5. In the create policy dialog, select "JSON" tab, and paste the following policy. After that, click on the <strong>Next:Tags</strong> button at the bottom, then <strong>Next:Review</strong> button, and specify a name for your policy and finally click <strong>Create policy</strong> button.
+
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "VisualEditor0",
+      "Effect": "Allow",
+      "Action": ["ses:SendRawEmail", "ses:SendEmail", "ses:GetSendStatistics"],
+      "Resource": "*"
+    }
+  ]
+}
+
+```
+<img src="https://cdn.engagespot.co/images/docs/Screenshot 2022-10-04 at 4.20.58 PM.png"/>
+
+6. After creating the policy, go back to the previous tab (Add User -> Set Permissions), and choose the policy you've just created. After that, click on the <strong>Next:Tags</strong> button at the bottom, then <strong>Next:Review</strong> button and finally <strong>Create user</strong> button.
+
+<img src="https://cdn.engagespot.co/images/docs/Screenshot 2022-10-04 at 4.25.18 PM.png"/>
+
+7. Note the <strong>AWS Access Key ID</strong> and <strong>Secret Access Key</strong>
+<img src="https://cdn.engagespot.co/images/docs/Screenshot 2022-10-04 at 4.27.06 PM.png"/>
+
+8. Now, goto your <a href="https://portal.engagespot.co">Engagespot dashboard</a> -> Channels -> Email -> AWS SES.
+
+9. Add the Access Key ID, Secret, Region and From Email. (Region where you created your AWS SES service, for example `us-east`)
+<img src="https://cdn.engagespot.co/images/docs/Screenshot 2022-10-04 at 4.31.04 PM.png" width="300"/>
+
+:::info
+The `FROM_EMAIL` should be created as a <a href="https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html">Verified Identity</a> in your SES account.
+:::
+
+:::warning
+Also, by default your AWS SES account will be in <b>sandbox mode</b> which means you can send emails only to verified identities.To enable production access, you must send a request to AWS. Read more details <a href="https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html" target="_blank">here</a>
+:::
+
+
+## AWS SES Configurations.
+
+AWS SES requires the following configurations.
+
+| Configuration | Description                                          | Required | Example        |
+| ------------- | ---------------------------------------------------- | -------- | -------------- |
+| ACCESS_KEY_ID | AWS IAM Access Key ID | Yes      | 
+| SECRET_ACCESS_KEY | AWS IAM Secret Access Key                              | Yes      |              |
+| REGION | Your AWS SES Region                         | Yes      |  us-west-2  |
+| FROM_EMAIL | Verified <b>From Email</b> identity on your SES account                         | Yes      |    |
+
+## Overriding Configurations
+
+SES provider allows you to override all the above configurations (and you can specify several more options) while sending a notification through Engagespot API, using the `https://api.engagespot.co/v3/notifications` endpoint.
+
+To override the configurations, you must supply them via `override` -> `ses` parameter of the above API. Configurations override values should be passed via `_config` object, and you can override `subject`, `text`, `html` and `from_name`
+
+For example,
+
+```json
+{
+  "notification": {
+    "title": "Anand commented on your photo",
+    "message": "Hey Steve, you're looking cool 😎. Who took this photo?",
+    "url": "https://your-app.com/photos/17293739",
+    "category": "comment"
+  },
+  "recipients": ["steve@example.com"],
+  "override": {
+    "ses": {
+      "_config": {
+        "ACCESS_KEY_ID": "ANNHYAAJMLCPWRWGCNBSKHFY",
+        "SECRET_ACCESS_KEY": "nxxkjjuUtgVvcHjKpOJfdERFCJklytVbnkkksjshsgHHhsn",
+        "REGION": "us-west-2",
+        "FROM_EMAIL": "from@yourverifieddomain.com",
+      },
+      "from_name": "From Name",
+      "subject": "Custom email subject",
+      "text": "Email body plaintext",
+      "html": "Email body with <h1>HTML</h1> support",
+    }
+  }
+}
+```
