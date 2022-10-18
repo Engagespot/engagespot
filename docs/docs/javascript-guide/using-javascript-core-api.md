@@ -111,6 +111,7 @@ interface NotificationItem {
   seenAt?: string | null;
   clickedAt?: string | null;
   createdAt?: string | null;
+  data?: T | null;
 
   fetch?:  () => Promise<this>;
   markAsClicked?:  () => Promise<this>;
@@ -149,6 +150,10 @@ Timestamp of click event of this notification. This can be null.
 #### createdAt
 
 Timestamp of created event of this notification.
+
+#### data
+
+The data object passed to the send notifications API.
 
 ### Methods
 
