@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.3-alpha.0](https://github.com/Engagespot/engagespot/compare/v1.0.2...v1.0.3-alpha.0) (2022-10-18)
+
+### Features
+
+- support for custom notification data ([7e7aa95](https://github.com/Engagespot/engagespot/commit/7e7aa951c7aa2eade222b8d958c2147a9cc2dfd0))
+
 ## [1.0.2](https://github.com/Engagespot/engagespot/compare/v1.0.1...v1.0.2) (2022-09-25)
 
 ### Bug Fixes
