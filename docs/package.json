@@ -1,6 +1,6 @@
 {
   "name": "docs",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
@@ -18,8 +18,8 @@
     "@docusaurus/core": "2.0.0-beta.15",
     "@docusaurus/plugin-sitemap": "2.0.0-beta.15",
     "@docusaurus/preset-classic": "2.0.0-beta.15",
-    "@engagespot/react-component": "1.1.0",
-    "@engagespot/react-hooks": "1.1.0",
+    "@engagespot/react-component": "1.1.1",
+    "@engagespot/react-hooks": "1.1.1",
     "@mdx-js/react": "^1.6.21",
     "clsx": "^1.1.1",
     "docusaurus-theme-redoc": "0.6.0",
