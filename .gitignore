@@ -11,6 +11,7 @@
 **/dist/**
 **/lib/**
 **/temp/**
+**/.turbo/**
 
 # misc
 .DS_Store
