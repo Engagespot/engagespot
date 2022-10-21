@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.1.3
+
+### Patch Changes
+
+- target es5 for engagespot-core
+- Updated dependencies
+  - @engagespot/react-hooks@1.1.3
+
 ## 1.1.2
 
 ### Patch Changes

@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { waitFor, screen } from '@testing-library/react';
 import { renderNotificationPanel } from './utils/renderPanel';
+import React from 'react';
 
 describe('Render Props', () => {
   describe('renderEmptyPlaceholderImage', () => {

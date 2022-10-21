@@ -18,7 +18,7 @@
     "build": "turbo run build --filter='@engagespot/*'",
     "build:core": "turbo run build --filter core",
     "build:dashboard": "turbo run build --filter='engagespot-dashboard'",
-    "build:docs": "turbo run build --filter='engagespot-dashboard'",
+    "build:docs": "turbo run build --filter='docs'",
     "build:all": "yarn build && yarn build:dashboard && yarn build:docs",
     "clean": "turbo run clean --parallel",
     "build:examples": "turbo run build:examples --parallel --filter='examples-*'",

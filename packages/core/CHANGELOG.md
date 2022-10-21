@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.3
+
+### Patch Changes
+
+- target es5 for engagespot-core
+
 ## 1.1.2
 
 ### Patch Changes

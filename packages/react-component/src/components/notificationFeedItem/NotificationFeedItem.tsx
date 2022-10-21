@@ -19,7 +19,7 @@ import { DropdownMenu } from '../dropdownMenu';
 import { Circle as FeedItemReadDot } from '../icons/Circle';
 import themeConfig from '../../theme/themeConfig';
 import { customNotificationContentType } from '../notificationFeed';
-import { renderCustom } from 'src/utils/renderCustom';
+import { renderCustom } from '../../../src/utils/renderCustom';
 
 interface ClickableNotificationPayload {
   url: string;
