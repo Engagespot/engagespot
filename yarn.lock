@@ -4555,7 +4555,7 @@ __metadata:
     "@popperjs/core": ^2.9.1
     "@testing-library/react-hooks": ^7.0.2
     "@types/react": 17.0.37
-    date-fns: 2.27.0
+    date-fns: ^2.29.3
     dotenv: ^16.0.1
     intersection-observer: 0.12.0
     jest: ^27.4.5
@@ -16466,14 +16466,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-fns@npm:2.27.0":
-  version: 2.27.0
-  resolution: "date-fns@npm:2.27.0"
-  checksum: db62036b3816eb0322c9532b353beac7f660a91e1a55dbd21c14893c621ebb8509f21c66ba287844dabd34dee0207edd54a9537bce6bb7cab9383dedc6b8bc90
-  languageName: node
-  linkType: hard
-
-"date-fns@npm:2.x":
+"date-fns@npm:2.x, date-fns@npm:^2.29.3":
   version: 2.29.3
   resolution: "date-fns@npm:2.29.3"
   checksum: e01cf5b62af04e05dfff921bb9c9933310ed0e1ae9a81eb8653452e64dc841acf7f6e01e1a5ae5644d0337e9a7f936175fd2cb6819dc122fdd9c5e86c56be484

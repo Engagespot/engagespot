@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.2
+
+### Patch Changes
+
+- Bump up date-fns version
+
 ## 1.1.1
 
 ### Patch Changes

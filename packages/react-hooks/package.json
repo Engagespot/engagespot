@@ -1,6 +1,6 @@
 {
   "name": "@engagespot/react-hooks",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "source": "./src/index.ts",
   "main": "./dist/index.js",
   "module": "./dist/esm/index.js",
@@ -34,9 +34,9 @@
     "react": "^16.8.3 || ^17.0.0-0 || ^18.0.0-0"
   },
   "dependencies": {
-    "@engagespot/core": "1.1.1",
+    "@engagespot/core": "1.1.2",
     "@popperjs/core": "^2.9.1",
-    "date-fns": "2.27.0",
+    "date-fns": "^2.29.3",
     "intersection-observer": "0.12.0",
     "lodash.merge": "4.6.2",
     "react-popper": "^2.2.5",
