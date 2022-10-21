@@ -18,5 +18,5 @@ To quickly send notification to a user from the Engagespot dashboard,
 Now you can see the notification arriving realtime inside the notification center widget! If you want to deliver the same notification via other channels such as Web Push, Email etc, please read channel setup instructions in the `Channels` chapter.
 
 :::info
-If you cannot find any recipients in the list, that means your user's are not being properly registered with Engagespot. Make sure you've configured the front-end SDK properly.
+If you cannot find any recipients in the list, that means your user's are not being properly registered with Engagespot. Make sure you've configured the front-end SDK properly or you have created the user through REST API.
 :::
