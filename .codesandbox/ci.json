@@ -10,6 +10,7 @@
   "sandboxes": [
     "/examples/examples-component",
     "/examples/examples-hooks",
-    "/examples/examples-vanilla"
+    "/examples/examples-vanilla",
+    "/examples/examples-angular"
   ]
 }

@@ -6,6 +6,7 @@ import {
   screen,
   act,
 } from '@testing-library/react';
+import React from 'react';
 
 export const renderNotificationPanel = async (
   props?: Partial<EngagespotProps>
