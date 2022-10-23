@@ -15,10 +15,12 @@ const config = {
   favicon: 'img/engagespot.svg',
   organizationName: 'engagespot', // Usually your GitHub org/user name.
   projectName: 'engagespot', // Usually your repo name.
-  scripts:[{
-    async:true,
-    src:'/js/drift.js'
-  }],
+  scripts: [
+    {
+      async: true,
+      src: '/js/drift.js',
+    },
+  ],
   presets: [
     [
       'classic',
@@ -57,6 +59,25 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      typesense: {
+        typesenseCollectionName: 'engagespot_docs_1666511600', // Replace with your own doc site's name. Should match the collection name in the scraper settings.
+
+        typesenseServerConfig: {
+          nodes: [
+            {
+              host: '0mbtdiuf4sovc6g2p-1.a1.typesense.net',
+              port: 443,
+              protocol: 'https',
+            },
+          ],
+          apiKey: 'VGITIeAMS8CjEXt2jNJ28SnimnFX5jxN',
+        },
+      },
+      // Optional: Typesense search parameters: https://typesense.org/docs/0.21.0/api/search.md#search-parameters
+      typesenseSearchParameters: {},
+
+      // Optional
+      contextualSearch: true,
       navbar: {
         title: 'Engagespot',
         logo: {
@@ -91,7 +112,7 @@ const config = {
             to: 'https://portal.engagespot.co/auth/register/',
             label: 'Sign Up',
             position: 'left',
-          }
+          },
         ],
       },
       footer: {

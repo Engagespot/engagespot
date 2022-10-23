@@ -14,7 +14,7 @@
       "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts", "test/**/*.tsx"]
     },
     "dev": {
-      "dependsOn": [],
+      "dependsOn": ["build"],
       "outputs": [],
       "cache": false
     },
