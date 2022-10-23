@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Engagespot',
-  tagline: 'Notification Center for your product',
+  tagline: 'Notification infrastructure for developers and product managers.',
   url: 'https://documentation.engagespot.co/',
   baseUrl: '/',
   onBrokenLinks: 'throw',
@@ -15,7 +15,10 @@ const config = {
   favicon: 'img/engagespot.svg',
   organizationName: 'engagespot', // Usually your GitHub org/user name.
   projectName: 'engagespot', // Usually your repo name.
-
+  scripts:[{
+    async:true,
+    src:'/js/drift.js'
+  }],
   presets: [
     [
       'classic',
@@ -84,6 +87,11 @@ const config = {
             label: 'Blog',
             position: 'left',
           },
+          {
+            to: 'https://portal.engagespot.co/auth/register/',
+            label: 'Sign Up',
+            position: 'left',
+          }
         ],
       },
       footer: {

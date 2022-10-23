@@ -11,31 +11,29 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
+    title: 'Complete Notification System',
     image: '/img/undraw_docusaurus_mountain.svg',
     description: (
       <>
-        Engagespot was developed by developers, for developers. We've made it as
-        easy as possible to integrate with your product.
+        We've built a scalable multi-channel notification infrastructure so you don't have to. Just plug in our APIs and SDKs, done!
       </>
     ),
-    url: '#',
+    url: '/docs/introduction/understanding-concepts',
   },
   {
-    title: 'React.js SDK',
+    title: 'Front-end UI Components',
     image: '/img/undraw_docusaurus_tree.svg',
     description: (
       <>
-        Use our React.js SDK to turn any <code>&lt;div&gt;</code> in your app to
-        a beautiful Notification Center.
+        Use our front-end Javascript libraries to build a realtime notification feed, and preference manager in your apps.
       </>
     ),
-    url: '#',
+    url: '/docs/javascript-guide/using-react-component',
   },
   {
-    title: 'REST API',
+    title: 'REST APIs & SDKs',
     image: '/img/undraw_docusaurus_react.svg',
-    description: <>Use our REST API to send notifications to your users..</>,
+    description: <>Use our REST APIs and SDKs to send notifications programatically from your app to your users.</>,
     url: '/docs/rest-api',
   },
 ];
