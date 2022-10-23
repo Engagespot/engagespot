@@ -20,7 +20,8 @@ const config = {
       async: true,
       src: '/js/drift.js',
     },
-  ],
+  ], // Replace with your own doc site's name. Should match the collection name in the scraper settings.
+  themes: ['docusaurus-theme-search-typesense'],
   presets: [
     [
       'classic',
@@ -60,7 +61,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       typesense: {
-        typesenseCollectionName: 'engagespot_docs_1666511600', // Replace with your own doc site's name. Should match the collection name in the scraper settings.
+        typesenseCollectionName: 'engagespot_docs', // Replace with your own doc site's name. Should match the collection name in the scraper settings.
 
         typesenseServerConfig: {
           nodes: [
@@ -72,9 +73,10 @@ const config = {
           ],
           apiKey: 'VGITIeAMS8CjEXt2jNJ28SnimnFX5jxN',
         },
+        typesenseSearchParameters: {
+          filter_by: '',
+        },
       },
-      // Optional: Typesense search parameters: https://typesense.org/docs/0.21.0/api/search.md#search-parameters
-      typesenseSearchParameters: {},
 
       // Optional
       contextualSearch: true,

@@ -33,3 +33,26 @@ X-Engagespot-Api-Secret: fjtjb5kjsig21at4h1ijbphd1f31726e48372b0deddb29db5
     },
   "category": "hhhh"
 }
+
+
+
+### TypeSense
+
+POST https://0mbtdiuf4sovc6g2p-1.a1.typesense.net/multi_search?x-typesense-api-key=VGITIeAMS8CjEXt2jNJ28SnimnFX5jxN
+Content-Type: application/json
+x-typesense-api-key: VGITIeAMS8CjEXt2jNJ28SnimnFX5jxN
+
+{
+    "searches": [
+        {
+            "collection": "engagespot_docs",
+            "q": "eng",
+            "query_by": "hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3,hierarchy.lvl4,hierarchy.lvl5,hierarchy.lvl6,content",
+            "include_fields": "hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3,hierarchy.lvl4,hierarchy.lvl5,hierarchy.lvl6,content,anchor,url,type,id",
+            "highlight_full_fields": "hierarchy.lvl0,hierarchy.lvl1,hierarchy.lvl2,hierarchy.lvl3,hierarchy.lvl4,hierarchy.lvl5,hierarchy.lvl6,content",
+            "group_by": "url",
+            "group_limit": 3,
+            "filter_by": "language:=en && docusaurus_tag:=[default,docs-default-current]"
+        }
+    ]
+}
