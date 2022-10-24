@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.1.4
+
+### Patch Changes
+
+- Fix type issues in angular
+- Updated dependencies
+  - @engagespot/react-component@1.1.4
+
 ## 1.1.3
 
 ### Patch Changes

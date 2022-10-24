@@ -4964,11 +4964,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@engagespot/client@1.1.3, @engagespot/client@workspace:packages/client":
+"@engagespot/client@1.1.4, @engagespot/client@workspace:packages/client":
   version: 0.0.0-use.local
   resolution: "@engagespot/client@workspace:packages/client"
   dependencies:
-    "@engagespot/react-component": ^1.1.3
+    "@engagespot/react-component": ^1.1.4
     "@microsoft/api-documenter": ^7.13.77
     "@microsoft/api-extractor": ^7.19.2
     "@types/lodash.mapkeys": 4.6.6
@@ -5007,7 +5007,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@engagespot/core@1.1.3, @engagespot/core@^1.1.3, @engagespot/core@workspace:packages/core":
+"@engagespot/core@1.1.4, @engagespot/core@^1.1.4, @engagespot/core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@engagespot/core@workspace:packages/core"
   dependencies:
@@ -5037,12 +5037,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@engagespot/react-component@1.1.3, @engagespot/react-component@^1.1.3, @engagespot/react-component@workspace:packages/react-component":
+"@engagespot/react-component@1.1.4, @engagespot/react-component@^1.1.4, @engagespot/react-component@workspace:packages/react-component":
   version: 0.0.0-use.local
   resolution: "@engagespot/react-component@workspace:packages/react-component"
   dependencies:
     "@babel/core": ^7.16.5
-    "@engagespot/react-hooks": ^1.1.3
+    "@engagespot/react-hooks": ^1.1.4
     "@microsoft/api-documenter": ^7.13.77
     "@microsoft/api-extractor": ^7.19.2
     "@popperjs/core": ^2.9.1
@@ -5109,11 +5109,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@engagespot/react-hooks@1.1.3, @engagespot/react-hooks@^1.1.3, @engagespot/react-hooks@workspace:packages/react-hooks":
+"@engagespot/react-hooks@1.1.4, @engagespot/react-hooks@^1.1.4, @engagespot/react-hooks@workspace:packages/react-hooks":
   version: 0.0.0-use.local
   resolution: "@engagespot/react-hooks@workspace:packages/react-hooks"
   dependencies:
-    "@engagespot/core": ^1.1.3
+    "@engagespot/core": ^1.1.4
     "@microsoft/api-documenter": ^7.13.77
     "@microsoft/api-extractor": 7.19.4
     "@popperjs/core": ^2.9.1
@@ -18946,8 +18946,8 @@ __metadata:
     "@docusaurus/module-type-aliases": 2.1.0
     "@docusaurus/plugin-sitemap": 2.1.0
     "@docusaurus/preset-classic": 2.1.0
-    "@engagespot/react-component": 1.1.3
-    "@engagespot/react-hooks": 1.1.3
+    "@engagespot/react-component": 1.1.4
+    "@engagespot/react-hooks": 1.1.4
     "@mdx-js/react": ^1.6.21
     "@microsoft/api-documenter": ^7.13.77
     "@microsoft/api-extractor": ^7.19.2
@@ -19553,7 +19553,7 @@ __metadata:
   resolution: "engagespot-dashboard@workspace:dashboard"
   dependencies:
     "@algolia/autocomplete-js": ^1.3.0
-    "@engagespot/react-component": 1.1.3
+    "@engagespot/react-component": 1.1.4
     "@testing-library/jest-dom": ^5.11.4
     "@testing-library/react": ^11.1.0
     "@testing-library/user-event": ^12.1.10
@@ -21445,7 +21445,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-core@workspace:examples/examples-core"
   dependencies:
-    "@engagespot/core": 1.1.3
+    "@engagespot/core": 1.1.4
     dotenv: ^16.0.1
     tsup: ^6.1.2
     typescript: ^4.5.5
@@ -21457,7 +21457,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-hooks@workspace:examples/examples-hooks"
   dependencies:
-    "@engagespot/react-hooks": 1.1.3
+    "@engagespot/react-hooks": 1.1.4
     "@types/react": ^18.0.0
     "@types/react-dom": ^18.0.0
     "@vitejs/plugin-react": ^1.3.0
@@ -21477,7 +21477,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-vanilla@workspace:examples/examples-vanilla"
   dependencies:
-    "@engagespot/client": 1.1.3
+    "@engagespot/client": 1.1.4
     dotenv: ^16.0.1
     tsup: ^6.1.2
     typescript: ^4.5.4
@@ -21501,7 +21501,7 @@ __metadata:
     "@angular/platform-browser": ^12.2.0
     "@angular/platform-browser-dynamic": ^12.2.0
     "@angular/router": ^12.2.0
-    "@engagespot/client": 1.1.3
+    "@engagespot/client": 1.1.4
     "@types/jasmine": 3.6.3
     "@types/jasminewd2": 2.0.8
     "@types/node": 14.14.28
@@ -21528,7 +21528,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "examples-component@workspace:examples/examples-component"
   dependencies:
-    "@engagespot/react-component": 1.1.3
+    "@engagespot/react-component": 1.1.4
     "@microsoft/api-documenter": ^7.13.77
     "@microsoft/api-extractor": ^7.19.2
     "@testing-library/jest-dom": ^5.11.4
@@ -21557,7 +21557,7 @@ __metadata:
   resolution: "examples-react-native@workspace:examples/examples-react-native"
   dependencies:
     "@babel/core": ^7.12.9
-    "@engagespot/react-hooks": 1.1.3
+    "@engagespot/react-hooks": 1.1.4
     "@expo/vector-icons": ^12.0.0
     "@react-navigation/bottom-tabs": ^6.0.5
     "@react-navigation/native": ^6.0.2

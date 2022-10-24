@@ -31,7 +31,11 @@
     "format": "prettier --write 'packages/*/*.js' 'packages/*/!(node_modules)/**/*.js'",
     "prepare": "husky install",
     "pre-commit": "lint-staged",
-    "postinstall": "yarn build"
+    "postinstall": "yarn build",
+    "version": "yarn changeset version",
+    "snapshot": "yarn changeset version --snapshot",
+    "publish": "yarn build && yarn changeset publish",
+    "publish:snapshot": "yarn build && yarn changeset publish --tag testing"
   },
   "devDependencies": {
     "@changesets/cli": "^2.25.0",
