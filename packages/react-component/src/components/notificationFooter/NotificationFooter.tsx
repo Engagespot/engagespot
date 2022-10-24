@@ -1,4 +1,5 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
+import type { ReactNode } from 'react';
 import {
   NotificationFooterStyled,
   NotificationFooterLinkStyled,
@@ -9,7 +10,7 @@ import { EngagespotLogo as EngagespotIcon } from '../icons/EngagespotLogo';
 import { Gear } from '../icons/Gear';
 import { useEngagespotContext } from '../engagespotProvider';
 
-export type FooterContent = (() => React.ReactNode) | undefined;
+export type FooterContent = (() => ReactNode) | undefined;
 
 export interface NotificationFooterProps {
   footerContent: FooterContent;

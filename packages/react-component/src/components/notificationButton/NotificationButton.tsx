@@ -1,4 +1,4 @@
-import React from 'react';
+import type { ReactNode } from 'react';
 
 import {
   NotificationButtonStyled,
@@ -9,7 +9,7 @@ import { useEngagespotReturnType } from '../engagespot/Engagespot';
 import { Bell as NotificationBellIcon } from '../icons/Bell';
 import { renderCustom } from '../../utils/renderCustom';
 
-export type customNotificationIcon = (() => React.ReactNode) | undefined;
+export type customNotificationIcon = (() => ReactNode) | undefined;
 
 export interface NotificationButtonProps {
   /**

@@ -1,7 +1,7 @@
-import React from 'react';
+import type { CSSProperties as ReactCSSProperties } from 'react';
 
 export interface CircleProps {
-  style?: React.CSSProperties | undefined;
+  style?: ReactCSSProperties | undefined;
 }
 
 export function Circle({ style = {} }: CircleProps = {}) {

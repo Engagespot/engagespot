@@ -1,4 +1,5 @@
-import React, { Fragment, useMemo, useRef, useState } from 'react';
+import { Fragment, useMemo, useRef, useState } from 'react';
+import type { MouseEvent as ReactMouseEvent } from 'react';
 
 import {
   FeedItemStyled,
@@ -28,7 +29,7 @@ interface ClickableNotificationPayload {
 }
 
 export type onFeedItemClickType = (
-  evt: React.MouseEvent<HTMLDivElement, MouseEvent>,
+  evt: ReactMouseEvent<HTMLDivElement, MouseEvent>,
   payload: ClickableNotificationPayload
 ) => void;
 
@@ -120,7 +121,7 @@ export function NotificationFeedItem(notification: NotificationFeedItemProps) {
     setMenuVisibility(false);
   };
 
-  const onClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const onClick = (event: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {
     if (dropdownRef.current?.contains(event.target as Node)) {
       return;
     }
