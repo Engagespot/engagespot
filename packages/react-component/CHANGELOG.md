@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.5
+
+### Patch Changes
+
+- Add react reference types for component
+
 ## 1.1.4
 
 ### Patch Changes

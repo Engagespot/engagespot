@@ -4820,11 +4820,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@engagespot/client@1.1.4, @engagespot/client@^1.1.4, @engagespot/client@workspace:packages/client":
+"@engagespot/client@1.1.5, @engagespot/client@^1.1.4, @engagespot/client@workspace:packages/client":
   version: 0.0.0-use.local
   resolution: "@engagespot/client@workspace:packages/client"
   dependencies:
-    "@engagespot/react-component": ^1.1.4
+    "@engagespot/react-component": ^1.1.5
     "@microsoft/api-documenter": ^7.13.77
     "@microsoft/api-extractor": ^7.19.2
     "@types/lodash.mapkeys": 4.6.6
@@ -4873,7 +4873,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@engagespot/react-component@1.1.4, @engagespot/react-component@^1.1.4, @engagespot/react-component@workspace:packages/react-component":
+"@engagespot/react-component@1.1.5, @engagespot/react-component@^1.1.5, @engagespot/react-component@workspace:packages/react-component":
   version: 0.0.0-use.local
   resolution: "@engagespot/react-component@workspace:packages/react-component"
   dependencies:
@@ -17975,7 +17975,7 @@ __metadata:
     "@docusaurus/module-type-aliases": 2.1.0
     "@docusaurus/plugin-sitemap": 2.1.0
     "@docusaurus/preset-classic": 2.1.0
-    "@engagespot/react-component": 1.1.4
+    "@engagespot/react-component": 1.1.5
     "@engagespot/react-hooks": 1.1.4
     "@mdx-js/react": ^1.6.21
     "@microsoft/api-documenter": ^7.13.77
@@ -20224,7 +20224,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-vanilla@workspace:examples/examples-vanilla"
   dependencies:
-    "@engagespot/client": 1.1.4
+    "@engagespot/client": 1.1.5
     dotenv: ^16.0.1
     tsup: ^6.1.2
     typescript: ^4.5.4
@@ -20248,7 +20248,7 @@ __metadata:
     "@angular/platform-browser": ^12.2.0
     "@angular/platform-browser-dynamic": ^12.2.0
     "@angular/router": ^12.2.0
-    "@engagespot/client": 1.1.4
+    "@engagespot/client": 1.1.5
     "@types/jasmine": 3.6.3
     "@types/jasminewd2": 2.0.8
     "@types/node": 14.14.28
@@ -20275,7 +20275,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "examples-component@workspace:examples/examples-component"
   dependencies:
-    "@engagespot/react-component": 1.1.4
+    "@engagespot/react-component": 1.1.5
     "@microsoft/api-documenter": ^7.13.77
     "@microsoft/api-extractor": ^7.19.2
     "@testing-library/jest-dom": ^5.11.4
