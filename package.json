@@ -7,19 +7,16 @@
     "packages/*",
     "examples/*",
     "docs/",
-    "worker/*",
-    "dashboard/"
+    "worker/*"
   ],
   "version": "0.1.0",
   "scripts": {
     "start": "turbo run dev --parallel",
     "start:docs": "turbo run dev --filter docs",
-    "start:dashboard": "turbo run dev --filter engagespot-dashboard",
     "build": "turbo run build --filter='@engagespot/*'",
     "build:core": "turbo run build --filter core",
-    "build:dashboard": "turbo run build --filter='engagespot-dashboard'",
     "build:docs": "turbo run build --filter='docs'",
-    "build:all": "yarn build && yarn build:dashboard && yarn build:docs",
+    "build:all": "yarn build && yarn build:docs",
     "clean": "turbo run clean --parallel",
     "build:examples": "turbo run build:examples --parallel --filter='examples-*'",
     "deploy:docs": "netlify deploy --dir=./packages/docs/build",

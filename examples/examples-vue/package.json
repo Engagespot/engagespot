@@ -1,15 +1,15 @@
 {
-  "name": "my-vue-app",
+  "name": "examples-vue",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "build:examples": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@engagespot/client": "^0.0.0-20221024075531",
+    "@engagespot/client": "^1.1.4",
     "vue": "^3.2.37"
   },
   "devDependencies": {
