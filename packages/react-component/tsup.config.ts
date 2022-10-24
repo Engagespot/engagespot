@@ -11,7 +11,10 @@ export default defineConfig(options => {
     metafile: options.metafile,
     dts: {
       banner: `// Type definitions for @engagespot/react-component
-      // Project: https://github.com/Engagespot/engagespot`,
+// Project: https://github.com/Engagespot/engagespot
+      
+/// <reference types="react" />
+      `,
     },
     sourcemap: options.sourcemap,
     inject: ['./react-shim.js'],
