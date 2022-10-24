@@ -1,5 +1,10 @@
 import { Placement } from '@popperjs/core';
 import { useRef, useCallback, useEffect } from 'react';
+import type {
+  RefObject as ReactRefObject,
+  UIEvent as ReactUIEvent,
+  CSSProperties as ReactCSSProperties,
+} from 'react';
 import { usePopper } from 'react-popper';
 import { useMedia } from 'react-use';
 import { Actions } from 'src/utils/actions';
@@ -37,14 +42,14 @@ export interface FloatingNotificationInstance {
   panelVisibility: boolean;
   getButtonProps: () => {
     onClick: () => void;
-    ref: React.RefObject<HTMLButtonElement>;
+    ref: ReactRefObject<HTMLButtonElement>;
   };
   getArrowProps: () => void;
   getPanelOffsetProps: () => void;
   getPanelProps: () => void;
   useJumpToTop: (offset?: number) => {
     jumpToTop: (scrollableEl: HTMLElement) => void;
-    onNotificationScroll: (evt: React.UIEvent<HTMLElement, UIEvent>) => void;
+    onNotificationScroll: (evt: ReactUIEvent<HTMLElement, UIEvent>) => void;
     showJumpToTop: boolean;
   };
 }
@@ -245,7 +250,7 @@ function useInstance(instance: any) {
               panelVisibility && placementOptions?.enableArrow
                 ? 'block'
                 : 'none',
-          } as React.CSSProperties),
+          } as ReactCSSProperties),
     } as any;
   };
 

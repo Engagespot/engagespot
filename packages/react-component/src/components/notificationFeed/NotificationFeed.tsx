@@ -1,4 +1,9 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
+import type {
+  ReactNode,
+  CSSProperties as ReactCSSProperties,
+  MouseEvent as ReactMouseEvent,
+} from 'react';
 import { Transition } from 'react-transition-group';
 
 import {
@@ -22,11 +27,11 @@ import { onFeedItemClickType } from '../notificationFeedItem/NotificationFeedIte
 import { renderCustom } from '../../utils/renderCustom';
 
 export type customPlaceholderContentType =
-  | (() => React.ReactNode | string)
+  | (() => ReactNode | string)
   | undefined;
 
 export type customNotificationContentType =
-  | ((notification: NotificationFeedItemProps) => React.ReactNode)
+  | ((notification: NotificationFeedItemProps) => ReactNode)
   | undefined;
 
 const duration = 150;
@@ -35,7 +40,7 @@ const defaultStyle = {
   transition: `opacity ${duration}ms ease-in-out`,
   opacity: 0,
 };
-const transitionStyles: { [id: string]: React.CSSProperties } = {
+const transitionStyles: { [id: string]: ReactCSSProperties } = {
   entering: { opacity: 1 },
   entered: { opacity: 1 },
   exiting: { opacity: 0 },
@@ -51,7 +56,7 @@ export interface NotificationFeedProps {
   notifications: NotificationFeedItemProps[];
 }
 
-const renderPlaceholderContent = (placeholderText: string): React.ReactNode => {
+const renderPlaceholderContent = (placeholderText: string): ReactNode => {
   return (
     <Fragment>
       <NotificationEmptyPlaceholder />
@@ -71,7 +76,7 @@ const renderNotificationContent = (
   deleteNotification: (id: string) => void,
   markAsRead: (id: string) => void,
   renderNotificationBody: customNotificationContentType
-): React.ReactNode => {
+): ReactNode => {
   return (
     renderCustom(customRenderer, notification) || (
       <NotificationFeedItem
@@ -114,7 +119,7 @@ export function NotificationFeed({
   const deleteNotification = engagespotContext.deleteNotification;
   const markAsRead = engagespotContext.markAsRead;
   const onJumpToTopClick = (
-    evt: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    evt: ReactMouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     const notificationFeedEl = evt.currentTarget.parentNode?.parentElement;
     jumpToTop?.(notificationFeedEl as HTMLElement);

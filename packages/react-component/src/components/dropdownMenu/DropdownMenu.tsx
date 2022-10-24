@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef, Fragment } from 'react';
+import { useState, useEffect, useRef, Fragment } from 'react';
 import { usePopper } from 'react-popper';
+import type { MouseEvent as ReactMouseEvent } from 'react';
 
 import theme from '../../theme/themeConfig';
 
@@ -68,7 +69,7 @@ export function DropdownMenu({
   }
 
   function onItemClick(
-    evt: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    evt: ReactMouseEvent<HTMLDivElement, MouseEvent>,
     actionFn: any
   ) {
     evt.stopPropagation();

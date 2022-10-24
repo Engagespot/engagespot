@@ -1,3 +1,5 @@
+import type { Dispatch as ReactDispatch } from 'react';
+
 import EngagespotCore, { Options, SetPreference } from '@engagespot/core';
 import { UseEngagespotOptions } from 'src/hooks/useEngagespot';
 import { Scrolling, ScrollingFloatingWebPush } from './applyDefaults';
@@ -16,7 +18,7 @@ export type Instance<T extends Plugins> = Partial<EngagespotCoreInstance> &
     [key: string]: any;
     hooks?: Hooks;
     getHooks?: GetHooks;
-    dispatch?: React.Dispatch<any>;
+    dispatch?: ReactDispatch<any>;
     notifications: T extends ScrollingFloatingWebPush
       ? RawNotification[]
       : RawDataObject[];
@@ -30,7 +32,7 @@ export type FinalInstance<T extends Plugins> = UseEngagespotOptions<T> &
   EngagespotCoreInstance & {
     hooks: Hooks;
     getHooks: GetHooks;
-    dispatch: React.Dispatch<any>;
+    dispatch: ReactDispatch<any>;
     notifications: T extends ScrollingFloatingWebPush | Scrolling
       ? RawNotification[]
       : RawDataObject[];

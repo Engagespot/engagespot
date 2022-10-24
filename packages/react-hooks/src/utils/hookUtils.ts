@@ -1,4 +1,5 @@
 import { useRef, useCallback } from 'react';
+import type { MutableRefObject as ReactMutableRefObject } from 'react';
 import { Instance } from './getInstance';
 import { Action, InitialState, RawData } from './initialState';
 import { Plugins } from './plugins';
@@ -24,7 +25,7 @@ export type Hooks = {
 };
 
 export function useGetLatest<T>(obj: T) {
-  const ref = useRef<T>() as React.MutableRefObject<T>;
+  const ref = useRef<T>() as ReactMutableRefObject<T>;
   ref.current = obj;
 
   return useCallback(() => ref.current, []);

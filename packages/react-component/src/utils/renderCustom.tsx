@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
-type defaultRenderFn = (...args: unknown[]) => React.ReactNode | string;
+type defaultRenderFn = (...args: unknown[]) => ReactNode | string;
 
 export type customRenderFn<T = defaultRenderFn> = T | undefined;
 

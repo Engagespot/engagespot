@@ -1,5 +1,6 @@
 import { EngagespotChannel } from '@engagespot/core';
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
+import type { ChangeEvent as ReactChangeEvent } from 'react';
 import { useEngagespotContext } from '../engagespotProvider';
 
 import { Close } from '../icons/Close';
@@ -42,7 +43,7 @@ export function NotificationPreference({
   const { preferences, setPreferences } = engagespotContext;
   const handleToggleChange = (
     changedPreference: ChangedPreference,
-    e: React.ChangeEvent<HTMLInputElement>
+    e: ReactChangeEvent<HTMLInputElement>
   ) => {
     let enabled = e.target.checked;
     if (changedPreference.channel === 'webPush' && webPushState !== 'granted') {

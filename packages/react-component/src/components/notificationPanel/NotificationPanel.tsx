@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { useLocalStorage } from 'react-use';
 
 import {

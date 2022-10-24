@@ -1,5 +1,7 @@
-import React, { createContext, ReactNode, useContext } from 'react';
+import { createContext, useContext } from 'react';
+import type { ReactNode, Dispatch, SetStateAction } from 'react';
 import { ThemeProvider } from 'styled-components';
+
 import { getTheme, ThemeOverrides } from '../../theme/theme';
 import { onFeedItemClickType } from '../notificationFeedItem/NotificationFeedItem';
 import { useEngagespotReturnType } from '../engagespot/Engagespot';
@@ -7,7 +9,7 @@ import { useEngagespotReturnType } from '../engagespot/Engagespot';
 export interface EngagespotProviderProps {
   theme?: ThemeOverrides;
   state: object;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 type BaseProps = Partial<useEngagespotReturnType['floatingPanel']> &
@@ -16,7 +18,7 @@ type BaseProps = Partial<useEngagespotReturnType['floatingPanel']> &
 export interface EngagespotContextProps extends BaseProps {
   placeholderImage?: string;
   preference?: boolean;
-  togglePreference?: React.Dispatch<React.SetStateAction<boolean>>;
+  togglePreference?: Dispatch<SetStateAction<boolean>>;
   onFeedItemClick?: onFeedItemClickType;
 }
 

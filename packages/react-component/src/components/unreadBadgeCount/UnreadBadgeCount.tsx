@@ -1,4 +1,3 @@
-import React from 'react';
 import { UnreadBadgeCountStyled } from './UnreadBadgeCount.styled';
 
 export interface UnreadBadgeCountProps {

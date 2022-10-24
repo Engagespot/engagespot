@@ -1,12 +1,13 @@
-import React from 'react';
+import type { MouseEventHandler as ReactMouseEventHandler } from 'react';
+
 import { JumpToTopStyled } from './JumpToTop.styled';
-import { ChevronUp } from '..//icons/ChevronUp';
+import { ChevronUp } from '../icons/ChevronUp';
 
 export interface JumpToTopProps {
   /**
    * onClick Handler
    */
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  onClick: ReactMouseEventHandler<HTMLButtonElement>;
 }
 
 export function JumpToTop({ onClick }: JumpToTopProps) {

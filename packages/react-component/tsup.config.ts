@@ -9,7 +9,10 @@ export default defineConfig(options => {
     minify: options.minify || true,
     clean: options.clean || true,
     metafile: options.metafile,
-    dts: true,
+    dts: {
+      banner: `// Type definitions for @engagespot/react-component
+      // Project: https://github.com/Engagespot/engagespot`,
+    },
     sourcemap: options.sourcemap,
     inject: ['./react-shim.js'],
     watch: options.watch || false,

@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState } from 'react';
+import { Fragment, useRef, useState } from 'react';
 import mapKeys from 'lodash.mapkeys';
 import {
   useEngagespot,
@@ -20,10 +20,7 @@ import {
 } from '../notificationButton';
 import { ThemeOverrides } from '../../theme/theme';
 import { NotificationFeedItemProps } from '../notificationFeedItem';
-import {
-  customPlaceholderContentType,
-  customNotificationContentType,
-} from '../notificationFeed';
+import { customNotificationContentType } from '../notificationFeed';
 import { EngagespotStyled } from './Engagespot.styled';
 import { Route } from '../notificationPanel/NotificationPanel';
 import { defaultFooterContent, FooterContent } from '../notificationFooter';

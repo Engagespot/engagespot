@@ -1,13 +1,9 @@
-import React from 'react';
-import {
-  NotificationHeaderStyled,
-  NotificationHeaderCloseButtonStyled,
-  NotificationHeaderTextStyled,
-} from './NotificationHeader.styled';
-import { useEngagespotContext } from '../engagespotProvider';
-import { Route } from '../notificationPanel/NotificationPanel';
+import type { ReactNode } from 'react';
+
+import { NotificationHeaderStyled } from './NotificationHeader.styled';
+
 export interface NotificationHeaderProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export function NotificationHeader({ children }: NotificationHeaderProps) {
