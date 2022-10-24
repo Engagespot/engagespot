@@ -42,11 +42,11 @@ Also checkout the `examples` directory on this repo to find even more.
 
 ## Contributing
 
-The main purpose of this repository is to continue evolving React core, making it faster and easier to use. Development of React happens in the open on GitHub, and we are grateful to the community for contributing bugfixes and improvements. Read below to learn how you can take part in improving React.
+ Read below to learn how you can take part in improving Engagespot.
 
 ### [Contributing Guide](https://github.com/Engagespot/engagespot/blob/master/CONTRIBUTING.md)
 
-Read our [contributing guide](https://github.com/Engagespot/engagespot/blob/master/CONTRIBUTING.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to React.
+Read our [contributing guide](https://github.com/Engagespot/engagespot/blob/master/CONTRIBUTING.md) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to Engagespot.
 
 ### License
 

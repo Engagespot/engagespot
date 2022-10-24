@@ -22,9 +22,7 @@ Before proceeding with development, ensure you match one of the following criter
 
 ## Development Workflow
 
-This monorepo is configured using `lerna` and `yarn`. So make sure to have them installed globally.
-
-`npm i -g lerna`
+This monorepo is configured using and `yarn` workspaces. So make sure to have it installed globally.
 
 `npm i -g yarn`
 
