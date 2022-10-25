@@ -862,3 +862,36 @@ paths:
           description: Successful response
         '401':
           description: Unauthorized
+  /v3/users/{identifier}:
+    put:
+      tags:
+        - Users
+      summary: /users/:identifier
+      description: >-
+        Create or update a User with profile data
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Any key value pair to be attached to this user's profile
+      parameters:
+        - name: X-ENGAGESPOT-API-KEY
+          required: true
+          in: header
+          schema:
+            type: string
+          example: at410rizwpsm6s4jjqmlx
+        - name: X-ENGAGESPOT-API-SECRET
+          required: true
+          in: header
+          schema:
+            type: string
+          example: Xt41rizwprizwpqmlxkriZwpk7huInx
+      responses:
+        '200':
+          description: Successful response
+        '401':
+          description: Unauthorized
+        '422':
+          description: Unprocessable entity. Usually happens if you include a profile parameter named 'identifier'
