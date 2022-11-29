@@ -1,3 +1,6 @@
+---
+sidebar_position: 1
+---
 # Using Engagespot on Bubble.io App
 
 If your app is built using <a href="https://bubble.io" rel="nofollow" target="_blank">Bubble.io</a>, you can use the <a href="https://bubble.io/plugin/engagespot-notifications-1646149514133x734161642066018300" target="_blank" rel="nofollow">Engagespot plugin</a> to add notifications to your Bubble app in minutes.
