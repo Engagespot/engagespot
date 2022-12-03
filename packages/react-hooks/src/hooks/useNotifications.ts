@@ -7,7 +7,7 @@ import { useCallback, useEffect } from 'react';
 import { Actions, createAction } from 'src/utils/actions';
 import { dateTransformer, defaultDateFormatter } from 'src/utils/dateUtils';
 import { DataTransformer, Hooks, StateReducer } from 'src/utils/hookUtils';
-import { initialState } from 'src/utils/initialState';
+import { initialState, RawData } from 'src/utils/initialState';
 import { Plugins } from 'src/utils/plugins';
 import { Instance } from '../utils/getInstance';
 
@@ -158,13 +158,44 @@ const reducer: StateReducer = function (state, action, _, instance) {
   return state;
 };
 
-const dataTransformer: DataTransformer = function (rawData) {
-  return rawData;
+const dataTransformer = function (
+  rawData: RawData,
+  _: any,
+  instance: Instance<Plugins>
+) {
+  const formatDate = instance.formatDate || defaultDateFormatter;
+  const transformDate = dateTransformer(formatDate);
+  const transformNotification = (notification: any) => {
+    return {
+      ...transformDate(notification),
+    };
+  };
+  console.log('inside data...', rawData);
+  // const newRawData = rawData.map((pagedData: any, page: any) => {
+  //   const notifications = pagedData.notifications.map((notification: any) => {
+  //     if (notification.id !== notificationId || notification.clickedAt)
+  //       return notification;
+  //     return { ...notification, clickedAt: new Date().toUTCString() };
+  //   });
+  //   return { ...pagedData, notifications };
+  // });
+  // return {
+  //   ...state,
+  //   rawData: newRawData,
+  // };
+  //return rawData;
+  return rawData.map(rawItem => {
+    const item = {
+      ...rawItem,
+      notifications: rawItem.notifications.map(transformNotification),
+    };
+    return item;
+  });
 };
 
 export function useNotifications(hooks: Hooks) {
   hooks.stateReducers.push(reducer);
-  hooks.dataTransformer.push(dataTransformer);
+  hooks.dataTransformer.push(dataTransformer as DataTransformer);
   hooks.useInstance.push(useInstance);
 }
 

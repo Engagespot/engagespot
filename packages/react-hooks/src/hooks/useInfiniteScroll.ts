@@ -63,8 +63,9 @@ function reducer(state: any, action: any) {
   return state;
 }
 
-function dataTransformer(rawData: RawData, transformedData: unknown) {
-  return rawData.flatMap(data => data.notifications);
+function dataTransformer(transformedData: RawData, rawData: RawData) {
+  const data = transformedData.flatMap(data => data.notifications);
+  return data;
 }
 
 useInfiniteScroll.pluginName = 'useInfiniteScroll';

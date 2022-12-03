@@ -75,7 +75,6 @@ export function SimpleNotification() {
                 options.markAsClicked();
               }}
               renderNotificationBody={res => {
-                console.log('content', res);
                 if (res.data && res.data.type === 'invoice') {
                   const url = res.data.url;
                   return `<p>
