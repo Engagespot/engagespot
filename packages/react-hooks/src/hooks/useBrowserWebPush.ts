@@ -91,6 +91,7 @@ export function useInstance(instance: Required<Instance<Plugins>>) {
       let permissionState: globalThis.PermissionState = 'denied';
       if (state === PermissionState.PERMISSION_GRANTED) {
         permissionState = 'granted';
+        instance.core.httpsWebPushSubscribe();
       } else if (state === PermissionState.PERMISSION_DENIED) {
         permissionState = 'denied';
       } else if (state === PermissionState.PERMISSION_REQUIRED) {

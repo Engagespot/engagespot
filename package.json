@@ -7,7 +7,7 @@
     "packages/*",
     "examples/*",
     "docs/",
-    "worker/*"
+    "worker/"
   ],
   "version": "0.1.0",
   "scripts": {
@@ -16,6 +16,7 @@
     "build": "turbo run build --filter='@engagespot/*'",
     "build:core": "turbo run build --filter core",
     "build:docs": "turbo run build --filter='docs'",
+    "build:worker": "turbo run build --filter='worker'",
     "build:all": "yarn build && yarn build:docs",
     "clean": "turbo run clean --parallel",
     "build:examples": "turbo run build:examples --parallel --filter='examples-*'",

@@ -170,20 +170,6 @@ const dataTransformer = function (
       ...transformDate(notification),
     };
   };
-  console.log('inside data...', rawData);
-  // const newRawData = rawData.map((pagedData: any, page: any) => {
-  //   const notifications = pagedData.notifications.map((notification: any) => {
-  //     if (notification.id !== notificationId || notification.clickedAt)
-  //       return notification;
-  //     return { ...notification, clickedAt: new Date().toUTCString() };
-  //   });
-  //   return { ...pagedData, notifications };
-  // });
-  // return {
-  //   ...state,
-  //   rawData: newRawData,
-  // };
-  //return rawData;
   return rawData.map(rawItem => {
     const item = {
       ...rawItem,

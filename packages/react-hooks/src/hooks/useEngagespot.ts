@@ -101,11 +101,9 @@ export function useEngagespot<T extends Plugins>(
           ? getDataTransformer()
           : [getDataTransformer()]),
       ];
-      console.log(transformers);
       const transformedData = transformers.reduce(
         (transformedData, handler) => {
           const transformed = handler(transformedData, rawData, getInstance());
-          console.log('transofmred', transformed);
           return transformed;
         },
         rawData

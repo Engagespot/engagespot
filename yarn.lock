@@ -4939,7 +4939,6 @@ __metadata:
     intersection-observer: 0.12.0
     jest: ^27.4.5
     lodash.merge: 4.6.2
-    microbundle: 0.14.2
     msw: ^0.36.3
     react: 17.0.2
     react-popper: ^2.2.5
@@ -42130,6 +42129,16 @@ __metadata:
   checksum: 8f8607506172f44c05490f3ccf13e5c1f430eeb9b6116a405919c186b8b17add13bbb22467a0dbcd18ec7fcb080709a15738182e0003c5fbe2144721ea00f357
   languageName: node
   linkType: hard
+
+"worker@workspace:worker":
+  version: 0.0.0-use.local
+  resolution: "worker@workspace:worker"
+  dependencies:
+    rimraf: ^3.0.2
+    tsup: ^6.1.2
+    typescript: 4.2.4
+  languageName: unknown
+  linkType: soft
 
 "wrap-ansi@npm:^3.0.1":
   version: 3.0.1
