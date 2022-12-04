@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.1.6
+
+### Patch Changes
+
+- Updated dependencies
+  - @engagespot/client@1.1.6
+
 ## 1.1.5
 
 ### Patch Changes
