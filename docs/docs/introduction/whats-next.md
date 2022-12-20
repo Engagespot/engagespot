@@ -11,8 +11,8 @@ Now you can read other chapters to make use of all functionalities provided by t
 3. [Building a notification preference center in your app using REST API](../learn-by-examples/notification-preference-center/concepts.md)
 
 4. [Enabling and configuring other channels such as Web Push, Email](../channels/what-are-channels.md)
-5. [Notification Templates](../templates/introduction)
-5. [Batched Notifications](../batching/introduction)
+5. [Notification Templates](../../templates/introduction)
+5. [Batched Notifications](../../batching/introduction)
 
 ## Support
 
