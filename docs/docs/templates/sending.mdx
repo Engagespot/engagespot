@@ -1,0 +1,57 @@
+---
+sidebar_position: 2
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Sending Templated Notification
+Once you've created the template using your Engagespot dashboard, it can be sent using the <a href="/docs/rest-api#tag/Notifications/paths/~1v3~1notifications/post">send notification API</a> itself.
+You just need to specify the `templateId` (which you can see on your dashboard), and the key value pairs for the placeholders that you want to be replaced in your template.
+
+<Tabs>
+<TabItem value="node" label="Node">
+
+```js
+const { EngagespotClient } = require("@engagespot/node");
+const client = EngagespotClient({
+    apiKey: "YOUR_ENGAGESPOT_API_KEY",
+    apiSecret: "YOUR_ENGAGESPOT_API_SECRET"
+});
+
+client.send({
+    notification:{
+        templateId:483561
+    },
+    recipients:['<your-users-unique-identifier>']
+});
+```
+
+</TabItem>
+
+<TabItem value="curl" label="cURL">
+
+```bash
+curl --location --request POST 'https://api.engagespot.co/v3/notifications' \
+--header 'X-ENGAGESPOT-API-KEY: YOUR_ENGAGESPOT_API_KEY' \
+--header 'X-ENGAGESPOT-API-SECRET: YOUR_ENGAGESPOT_API_SECRET' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    {
+    "notification": {
+        "templateId": 483561        
+    },
+    "data":{
+        "taskId":"T-17394",
+        "comment":"I will do it"
+    },
+    "recipients": [
+        "<your-users-unique-identifier>"
+    ]
+  }
+}'
+```
+
+</TabItem>
+
+</Tabs>

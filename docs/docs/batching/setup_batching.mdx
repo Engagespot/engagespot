@@ -1,0 +1,36 @@
+---
+sidebar_position: 2
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Enabling Batching
+To enable notification batching, you must create a [notification template](../templates/introduction) first. 
+Let's take the example of "Comment" notification.
+
+You'll create a template that goes like -
+**{{commenterName}} commented on your post**
+
+To enable batching, click on the "Enable Batching" toggle at the bottom of the template editor.
+
+**Batching Window** - Batch window is the time duration where the batch will be open since the first trigger happens. Recipient will get batched notification after the window period.
+
+:::info
+Batching is specific to a channel within your template. You have the flexibility to enable batching only for specific channels in your template.
+:::
+
+Now, for the batched template, you need to create another version of the sample content. 
+In the batched version, Engagespot expose you some predefined variables that you can use in your template.
+
+### Batching placeholders
+
+Here is a list of variables that you can use to build your notification's batched version.
+
+* `batching.totalCount` : Total number of notifications included in the batch. It includes the final batched notification too.
+* `batching.totalCountExceptThis` : Total number of notifications except the batched notification.
+* `batching.notifications` : An array that lists all batched notifications.
+
+For example, the batched version of your template content could be like -
+
+**{{commenterName}} and {{batching.totalCountExceptThis}} commented on your post**

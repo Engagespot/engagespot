@@ -91,10 +91,13 @@ paths:
               properties:
                 notification:
                   type: object
-                  required: [title]
                   properties:
+                    templateId:
+                      type: number
+                      description: If you want to send a templated notification, just specify the template id which you get from Engagespot dashboard. And no need to use `title` or any other fields.
                     title:
                       type: string
+                      description: If you are not using the `templateId` field, then title is mandatory.
                     message:
                       type: string
                     url:
@@ -108,10 +111,10 @@ paths:
                     type: string
                 category:
                   type: string
-                  description: Category to tag this notification. If category doesn't exist, it will be created.
+                  description: Category identifier to tag this notification. If category doesn't exist, it will be created. For templated notifications, no need to use this field because category can be specified when you create the template using Engagespot dashboard.
                 data:
                   type: object
-                  description: Add any key value pair or meta data to be passed along with this notification.
+                  description: Add any key value pair or meta data to be passed along with this notification. This will also be used to replace the placeholders (if you're using templates)
                 override:
                   type: object
                   description: Override delivery preferences configured in your account.
