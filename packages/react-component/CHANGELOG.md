@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.1.6
+
+### Patch Changes
+
+- Support re-enabling desktop notifications when preferences are not set. Fix notifications not delivering through webpush after service worker expiry
+- Updated dependencies
+  - @engagespot/react-hooks@1.1.5
+
 ## 1.1.5
 
 ### Patch Changes

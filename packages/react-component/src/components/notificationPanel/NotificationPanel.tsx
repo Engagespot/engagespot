@@ -88,6 +88,13 @@ export function NotificationPanel({
 
   const preferences = showPreferences
     ? [{ name: 'Preferences', action: setRouteAsPreferences }]
+    : webPushState === 'prompt'
+    ? [
+        {
+          name: 'Enable Desktop Notifications',
+          action: enableWebPush,
+        },
+      ]
     : [];
   const dropDownItems = preferences.concat(headerDropdownItems);
 
@@ -107,11 +114,7 @@ export function NotificationPanel({
   };
 
   const renderPreferenceModal = () => {
-    if (
-      preferenceModal &&
-      showPreferences &&
-      showNotificationOverlay == 'true'
-    ) {
+    if (preferenceModal && showNotificationOverlay == 'true') {
       return (
         <Fragment>
           <NotificationPreferenceOverlay />

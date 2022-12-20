@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.1.5
+
+### Patch Changes
+
+- Updated dependencies
+  - @engagespot/react-hooks@1.1.5
+
 ## 1.1.4
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "examples-angular",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -20,7 +20,7 @@
     "@angular/platform-browser": "^12.2.0",
     "@angular/platform-browser-dynamic": "^12.2.0",
     "@angular/router": "^12.2.0",
-    "@engagespot/client": "1.1.5",
+    "@engagespot/client": "1.1.6",
     "core-js": "3.8.3",
     "rxjs": "6.6.3",
     "tslib": "2.1.0",

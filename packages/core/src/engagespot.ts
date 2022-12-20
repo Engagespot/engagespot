@@ -531,7 +531,7 @@ export default class Engagespot {
       );
 
     try {
-      await this.clearWebPushSubscription();
+      //await this.clearWebPushSubscription();
       return await this.serviceWorkerRegistration.pushManager.subscribe({
         userVisibleOnly: true,
         //applicationServerKey: utils.urlBase64ToUInt8Array(this.publicKey),

@@ -54,7 +54,7 @@ export {};
 
 self.addEventListener('push', (event: PushEvent) => {
   let payload: any;
-
+  console.log('Inside push event listener', event.data);
   try {
     payload = event.data?.json();
   } catch (_) {

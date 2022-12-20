@@ -42,7 +42,11 @@ const NavItem = styled.li`
   }
 `;
 
-const users = ['hemanditwiz@gmail.com', 'hemandev@gmail.com'];
+const users = [
+  'anand@engagespot.co',
+  'hemanditwiz@gmail.com',
+  'hemandev@gmail.com',
+];
 
 export function SimpleNotification() {
   const [user, setUser] = useState(users[0]);
@@ -66,16 +70,16 @@ export function SimpleNotification() {
           <NavItem style={{ marginRight: '10rem' }}>Login</NavItem>
           <NavItem>
             <Engagespot
-              apiKey="od9t6x45udt1m3g0nznag"
+              apiKey="tp0errhr36iqofoyoltk"
               headerDropdownItems={[
                 { name: 'Open All Notifications', action: () => true },
               ]}
               userId={user}
+              endPointOverride={'https://api.staging.engagespot.co/v3/'}
               onFeedItemClick={(evt, options) => {
                 options.markAsClicked();
               }}
               renderNotificationBody={res => {
-                console.log('content', res);
                 if (res.data && res.data.type === 'invoice') {
                   const url = res.data.url;
                   return `<p>

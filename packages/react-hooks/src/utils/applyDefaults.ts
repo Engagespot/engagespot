@@ -37,7 +37,7 @@ export function applyDefaults(props: UseEngagespotOptions<Plugins>) {
   const {
     formatDate = defaultDateFormatter,
     stateReducer = (state, action, prevState) => state,
-    dataTransformer = (rawData, transformedData) => transformedData,
+    dataTransformer = (transformedData, rawData) => transformedData,
     plugins = [],
     ...options
   } = props;

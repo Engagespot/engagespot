@@ -12,8 +12,8 @@ export type StateReducer = <T, U>(
 ) => T;
 
 export type DataTransformer = (
-  rawData: RawData,
-  transformedData: unknown
+  transformedData: RawData,
+  rawData: RawData
 ) => unknown;
 
 export type UseInstance = (instance: Required<Instance<Plugins>>) => void;

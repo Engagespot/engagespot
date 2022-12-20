@@ -1,4 +1,4 @@
-import { useRef, useReducer, useCallback, useEffect } from 'react';
+import { useRef, useReducer, useCallback } from 'react';
 import { Options } from '@engagespot/core';
 import {
   FinalInstance,
@@ -16,8 +16,8 @@ import {
   useGetLatest,
 } from 'src/utils/hookUtils';
 import { Actions } from 'src/utils/actions';
-import { initialState, RawDataObject } from 'src/utils/initialState';
-import { Plugin, Plugins } from 'src/utils/plugins';
+import { initialState } from 'src/utils/initialState';
+import { Plugins } from 'src/utils/plugins';
 
 export interface UseEngagespotOptions<T extends Plugins>
   extends Options,
@@ -95,16 +95,21 @@ export function useEngagespot<T extends Plugins>(
 
   const transformer = useCallback(
     rawData => {
-      return [
+      const transformers = [
         ...getHooks().dataTransformer,
         ...(Array.isArray(getDataTransformer())
           ? getDataTransformer()
           : [getDataTransformer()]),
-      ].reduce(
-        (transformedData, handler) =>
-          handler(rawData, transformedData, getInstance()),
+      ];
+      const transformedData = transformers.reduce(
+        (transformedData, handler) => {
+          const transformed = handler(transformedData, rawData, getInstance());
+          return transformed;
+        },
         rawData
       );
+
+      return transformedData;
     },
     [getHooks, getDataTransformer]
   );
