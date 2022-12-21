@@ -1,3 +1,6 @@
+---
+sidebar_position: 1
+---
 # Mailgun
 
 Use your own Mailgun account to deliver notifications to your users via Engagespot. For this you need a Mailgun account, and few other credentials from Mailgun.

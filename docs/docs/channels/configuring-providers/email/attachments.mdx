@@ -1,0 +1,82 @@
+---
+sidebar_position: 5
+---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Email Attachments
+
+You can send attachments with your emails. This works for both [templated emails](../../../templates/introduction.mdx) and hardcoded emails.
+
+## How to send email attachments with Engagespot?
+
+In the `data` payload of your **send notification request** (API or SDK), include an `attachments` array which can contain one or more attachment objects as mentioned below.
+
+```javascript
+{
+  "content":"base64 encoded file content (Max - 10MB)",
+  "name":"Filename for example - sample.pdf",
+  "contentType":"MIME Type of attachment for example - application/pdf"
+}
+```
+
+### Here is a full example of send notification request with attachment.
+
+<Tabs>
+<TabItem value="node" label="Node">
+
+```javascript
+
+const { EngagespotClient } = require("@engagespot/node");
+
+const client = EngagespotClient({
+    apiKey: "YOUR_ENGAGESPOT_API_KEY",
+    apiSecret: "YOUR_ENGAGESPOT_API_SECRET"
+});
+
+client.send({
+    notification: {
+        templateId:485729
+        
+    },
+    data:{
+        attachments:[{
+            content:"JVBERi0xLjMNCiXi48/TDQoNCjEgMCBvYmoNCjw8DQovVHlwZSAvQ2F0YWxvZw0KL091dGxpbmVzIDIgMCBSDQovUGFnZXMgMyAwIFINCj4+DQplbmRvYmoNCg0KMiAwIG9iag0KPDwNCi9UeXBlIC9PdXRsaW5lcw0KL0NvdW50IDANCj4LjI1MDAgNjA0Ljk0NDAgVGQNCiggbW9yZSB0ZXh0LiBBbmQgbW9yZSB0ZXh0LiBBbmQgbW9yZSB0ZXh0LiBBbmQgbW9yZSB0ZXh0LiBBbmQgbW9yZSB0ZXh0LiA==",
+            name:"sample.pdf",
+            contentType:"application/pdf"
+        }]
+    },
+    recipients: [
+        "unique-user-id"
+    ]
+});
+```
+</TabItem>
+<TabItem value="curl" label="cURL">
+
+```bash
+curl --location --request POST 'https://api.engagespot.co/v3/notifications' \
+--header 'X-ENGAGESPOT-API-KEY: YOUR_ENGAGESPOT_API_KEY' \
+--header 'X-ENGAGESPOT-API-SECRET: YOUR_ENGAGESPOT_API_SECRET' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "notification": {
+        "templateId":485729
+        
+    },
+    "data":{
+        "attachments":[{
+            "content":"JVBERi0xLjMNCiXi48/TDQoNCjEgMCBvYmoNCjw8DQovVHlwZSAvQ2F0YWxvZw0KL091dGxpbmVzIDIgMCBSDQovUGFnZXMgMyAwIFINCj4+DQplbmRvYmoNCg0KMiAwIG9iag0KPDwNCi9UeXBlIC9PdXRsaW5lcw0KL0NvdW50IDANCj4LjI1MDAgNjA0Ljk0NDAgVGQNCiggbW9yZSB0ZXh0LiBBbmQgbW9yZSB0ZXh0LiBBbmQgbW9yZSB0ZXh0LiBBbmQgbW9yZSB0ZXh0LiBBbmQgbW9yZSB0ZXh0LiA==",
+            "name":"sample.pdf",
+            "contentType":"application/pdf"
+        }]
+    },
+    "recipients": [
+        "unique-user-id"
+    ]
+}'
+```
+
+</TabItem>
+
+</Tabs>

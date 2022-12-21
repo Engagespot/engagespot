@@ -1,3 +1,6 @@
+---
+sidebar_position: 2
+---
 # Sendgrid
 
 Use your own Sendgrid email account to deliver notifications to your users via Engagespot. For this you need a Sendgrid account, and an API KEY from Sendgrid.

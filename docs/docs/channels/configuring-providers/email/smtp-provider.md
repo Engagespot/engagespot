@@ -1,3 +1,6 @@
+---
+sidebar_position: 4
+---
 # SMTP Provider
 
 SMTP Provider allows your to deliver notifications via email channel using any SMTP server of your choice.
