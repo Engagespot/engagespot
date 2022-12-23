@@ -101,4 +101,4 @@ Providers enables delivery through a particular channel. For example to deliver 
 * [Gupshup](/docs/channels/configuring-providers/whatsapp/gupshup)
 
 #### Slack
-* [Slack](/docs/channels/configuring-providers/slack/slack)
+* Slack

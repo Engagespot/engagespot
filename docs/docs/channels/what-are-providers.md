@@ -61,7 +61,7 @@ In addition to the default providers, following Providers supported in each chan
 * [Gupshup](/docs/channels/configuring-providers/whatsapp/gupshup)
 
 #### Slack
-* [Slack](/docs/channels/configuring-providers/slack/slack)
+* Slack
 
 ## Provider Requirements
 
