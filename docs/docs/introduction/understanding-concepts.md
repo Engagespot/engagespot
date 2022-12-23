@@ -31,6 +31,22 @@ Give your users the power to decide how and when they want to be notified. Engag
 
 <img src="https://954874.smushcdn.com/2618921/wp-content/uploads/2022/02/Group-866.png?lossy=1&strip=1&webp=1" width="400px"/>
 
+### Templates
+
+With our UI based template editor, you can design beautiful push notifications, emails, whatsapp messages and many more. With the templates feature, you no longer need to hardcode your notification content in your source code. Update them anytime from the Engagespot dashboard.
+
+[Read more about notification templates](/docs/templates/introduction)
+
+### Batching
+
+Batching feature let's you combine multiple notifications into one, and thus avoids spamming users. For example, if you are building a social network, you might have a notification in place to notify your users whenever someone comments on their post.
+
+It will be like - <i>**User A commented on your post**</i>
+
+With batching, you can combine several instances of this notifications and make it look like <i>**User A and 10 others commented on your post**</i>. All this without writing complex logic or maintaining your own infrastructure!
+
+[Read more about notification batching](/docs/batching/introduction)
+
 ## Concepts
 
 Let's familiarize few terms that we'll frequently use throughout this guide.
@@ -53,13 +69,36 @@ Channels are the medium through which a notification is delivered. Engagespot su
 2. Web Push
 3. Email
 4. Mobile Push
-5. SMS (Coming Soon)
+5. SMS
+6. WhatsApp
+7. Slack
 
 ### Providers
 
 Providers enables delivery through a particular channel. For example to deliver notifications via Email channel, you can use a generic SMTP service, or an API such as Sendgrid within Engagespot. Currently Engagespot supports the following providers for each channel.
 
-1. In-App - Inbuilt
-2. Web Push - Inbuilt
-3. Mobile Push - Firebase (FCM)
-4. Email - Inbuilt, AWS SES, Sendgrid, Mailgun, SMTP
+#### InApp
+* Engagespot In-App with Inbox
+
+#### Web Push
+* Engagespot Web Push
+
+#### Email
+* [Sendgrid](/docs/channels/configuring-providers/email/sendgrid-provider)
+* [Mailgun](/docs/channels/configuring-providers/email/mailgun)
+* [AWS SES](/docs/channels/configuring-providers/email/ses)
+* [SMTP](/docs/channels/configuring-providers/email/smtp-provider)
+
+#### Mobile Push
+* [Firebase Cloud Messaging (FCM)](/docs/channels/configuring-providers/mobile-push/FCM-provider)
+
+#### SMS
+* [Twilio](/docs/channels/configuring-providers/sms/twilio)
+* [Textlocal](/docs/channels/configuring-providers/sms/textlocal)
+* [Gupshup](/docs/channels/configuring-providers/sms/gupshup)
+
+#### WhatsApp
+* [Gupshup](/docs/channels/configuring-providers/whatsapp/gupshup)
+
+#### Slack
+* [Slack](/docs/channels/configuring-providers/slack/slack)

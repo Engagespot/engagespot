@@ -37,50 +37,31 @@ For advanced features, you can configure any of the supported third party provid
 
 In addition to the default providers, following Providers supported in each channel.
 
-### In-App Channel Providers
+#### InApp
+* Engagespot In-App with Inbox
 
-For the In-App channel, currently we support only Engagespot default in-app notification provider with the notification inbox widget. This provider is enabled by default and there is no additional configuration required.
+#### Web Push
+* Engagespot Web Push
 
-### Web Push Channel Providers
+#### Email
+* [Sendgrid](/docs/channels/configuring-providers/email/sendgrid-provider)
+* [Mailgun](/docs/channels/configuring-providers/email/mailgun)
+* [AWS SES](/docs/channels/configuring-providers/email/ses)
+* [SMTP](/docs/channels/configuring-providers/email/smtp-provider)
 
-For the Web Push channel, currently we support only Engagespot default web push notification provider. This provider is enabled by default and there is no additional configuration required.
+#### Mobile Push
+* [Firebase Cloud Messaging (FCM)](/docs/channels/configuring-providers/mobile-push/FCM-provider)
 
-### Email Channel Providers
+#### SMS
+* [Twilio](/docs/channels/configuring-providers/sms/twilio)
+* [Textlocal](/docs/channels/configuring-providers/sms/textlocal)
+* [Gupshup](/docs/channels/configuring-providers/sms/gupshup)
 
-For Email channel, we support the following providers.
+#### WhatsApp
+* [Gupshup](/docs/channels/configuring-providers/whatsapp/gupshup)
 
-#### Default Zero Config Email Provider
-
-We make use of Sendgrid to give you a default email provider than you can simply use without any additional configuration. The only limitation is that, emails will be sent from our domain - esnotifications.com.
-
-#### AWS SES
-
-Use AWS SES to send email notifications from Engagespot.
-[Read more about configuring AWS SES](configuring-providers/email/ses.mdx)
-
-#### Sendgrid
-
-If you have a Sendgrid account, you can configure that as your email provider in Engagespot. You'll get all Engagespot features and the power of Sendgrid's email delivery infrastructure!
-[Read more about configuring Sendgrid](configuring-providers/email/sendgrid-provider)
-
-#### Mailgun
-
-Use Mailgun to send email notifications from Engagespot.
-[Read more about configuring Mailgun](configuring-providers/email/mailgun.md)
-
-#### SMTP
-
-Send Email notifications via any SMTP Server of your choice.
-[Read more about configuring SMTP](configuring-providers/email/smtp-provider)
-
-### Mobile Push Channel Providers
-
-For sending push notifications to Android and iOS mobile apps, we support the following providers.
-
-#### Firebase (FCM)
-
-Use your Firebase Cloud Messaging (FCM) account to deliver push notifications to your apps!
-[Read more about configuring FCM](configuring-providers/mobile-push/FCM-provider.md)
+#### Slack
+* [Slack](/docs/channels/configuring-providers/slack/slack)
 
 ## Provider Requirements
 
@@ -124,11 +105,3 @@ Frequntly asked questions around Providers
 ### Is it possible to have two providers in a channel?
 
 No. A channel can have only one provider. If you try to enable a new provider, the existing provider will be turned OFF.
-
-### Can I edit "From Name" & "From Email" for the default email provider?
-
-No. Default email provider uses our own Sendgrid account. If you'd like to have your own name and email in your email notifications, you must setup your own Email Service provider.
-
-### How can customize the look and feel of email notifications?
-
-If you are using default email provider, you cannot customize the emails. But if you use your own provider such as Sendgrid or SMTP provider, you can use any custom HTML content, or leverage email template features of those providers.

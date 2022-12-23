@@ -18,6 +18,9 @@ Engagespot helps you add the following notifications channels to your product qu
 | Web Push    | webPush    |
 | Email       | email      |
 | Mobile Push | mobilePush |
+| WhatsApp    | whatsapp   |
+| SMS         | sms        |
+| Slack       | slack      |
 
 :::tip
 You will have to use the channel identifier value in many APIs across this doc.
@@ -43,4 +46,6 @@ With Engagespot, you can send push notifications to iOS and Android apps through
 
 ## SMS
 
-Coming Soon
+## WhatsApp
+
+## Slack
