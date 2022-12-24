@@ -64,7 +64,7 @@ export default class Engagespot {
    */
   realtimeClient!: Realtime;
 
-  _ready: Promise<unknown>;
+_ready: Promise<unknown>;
   enableNonHttpsWebPush = false;
 
   /**

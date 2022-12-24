@@ -57,14 +57,13 @@ export function NotificationPreference({
     ]);
   };
 
-  const channels = preferences?.channels.filter(
-    channel => channel.id !== 'sms'
-  );
+  console.log('prefs', preferences);
+  const channels = preferences?.channels as any;
   const userPreferences = preferences?.userPreferences;
 
   return (
     <NotificationPreferenceStyled>
-      {channels?.map(channel => (
+      {channels?.map((channel: any) => (
         <Fragment key={channel?.id}>
           <NotificationProviderHeading>
             {channel?.name}
@@ -76,7 +75,7 @@ export function NotificationPreference({
             </NotificationProviderLabel>
           ) : null}
           <NotificationCategories>
-            {userPreferences?.map(preference => (
+            {userPreferences?.map((preference: any) => (
               <NotificationPreferenceLabelStyled key={preference.category.id}>
                 <label htmlFor={`${channel.id}-${preference.category.id}`}>
                   {preference.category.name}
