@@ -93,6 +93,10 @@ export default class Engagespot {
       name: 'SMS',
       id: 'sms',
     },
+    whatsapp: {
+      name: 'WhatsApp',
+      id: 'whatsapp',
+    },
   };
 
   enabledChannels: Array<Channel> = [];
