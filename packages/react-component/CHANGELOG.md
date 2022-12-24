@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.1.7
+
+### Patch Changes
+
+- added support for whatsapp and other channels
+- Updated dependencies
+  - @engagespot/react-hooks@1.1.6
+
 ## 1.1.6
 
 ### Patch Changes

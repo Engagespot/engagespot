@@ -1,14 +1,14 @@
 {
   "name": "example-hooks",
   "private": true,
-  "version": "1.1.5",
+  "version": "1.1.6",
   "scripts": {
     "develop": "vite",
     "build-example": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@engagespot/react-hooks": "1.1.5",
+    "@engagespot/react-hooks": "1.1.6",
     "autoprefixer": "10.4.7",
     "postcss": "8.4.14",
     "react": "^18.0.0",

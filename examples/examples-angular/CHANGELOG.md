@@ -1,5 +1,12 @@
 # examples-angular
 
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies
+  - @engagespot/client@1.1.7
+
 ## 0.0.4
 
 ### Patch Changes

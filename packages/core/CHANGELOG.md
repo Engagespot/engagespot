@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.6
+
+### Patch Changes
+
+- added support for whatsapp and other channels
+
 ## 1.1.5
 
 ### Patch Changes
