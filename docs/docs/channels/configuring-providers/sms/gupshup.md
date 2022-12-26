@@ -12,10 +12,8 @@ To enable Gupshup provider, login to your Engagespot dashboard, goto Channels ->
 | -----------|-----------------------------------|----------|
 | USER_ID    | USER ID of your Gupshup account. | Yes |
 | PASSWORD     | The password used to log on to the Enterprise SMS Gupshup dashboard. | Yes |
-|  SENDER    | Sender id to be sent with the SMS. It has to be preconfigured 6
-characters alphabetical sender id for the enterprise account. | Yes |
-|  DLT_PRINCIPAL_ENTITY_ID    | The Entity ID registered with the DLT platform. Every entity has to
-register themselves on operators DLT portal to send messages. | Only for India |
+|  SENDER    | Sender id to be sent with the SMS. It has to be preconfigured 6 characters alphabetical sender id for the enterprise account. | Yes |
+|  DLT_PRINCIPAL_ENTITY_ID    | The Entity ID registered with the DLT platform. Every entity has to register themselves on operators DLT portal to send messages. | Only for India |
 
 
 
