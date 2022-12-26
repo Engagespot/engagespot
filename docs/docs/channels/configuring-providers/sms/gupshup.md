@@ -10,9 +10,12 @@ To enable Gupshup provider, login to your Engagespot dashboard, goto Channels ->
 
 |    Key     |            Description            | Required |
 | -----------|-----------------------------------|----------|
-| API_KEY    | API Key of your Gupshup account, which can be seen by clicking on the top right profile icon in your gupshup dashboard. | Yes |
-| SOURCE     | The sender ID associated with the approved template message. It's a field specific to DLT template for Indian businesses | Required only for India |
-|  APP_ID    | An app's appid can be found in the cURL request generated on the gupshup dashboard, and also on the app URL. It looks like d7233f89-bf13-27e4-70d1-a981b1427249 | Yes |
+| USER_ID    | USER ID of your Gupshup account. | Yes |
+| PASSWORD     | The password used to log on to the Enterprise SMS Gupshup dashboard. | Yes |
+|  SENDER    | Sender id to be sent with the SMS. It has to be preconfigured 6
+characters alphabetical sender id for the enterprise account. | Yes |
+|  DLT_PRINCIPAL_ENTITY_ID    | The Entity ID registered with the DLT platform. Every entity has to
+register themselves on operators DLT portal to send messages. | Only for India |
 
 
 
@@ -27,4 +30,4 @@ To learn how to update your user's phone number in Engagespot, read our [REST AP
 
 Gupshup provider allows you to override all the above configurations and data while sending a notification through Engagespot API, using the `https://api.engagespot.co/v3/notifications` endpoint.
 
-To override the configurations, you must supply them via `override.gushup_sms` parameter of the above API. Within the `override` parameter, you can supply any object that we'll directly pass to Gupshup SMS API Body [See doc](https://www.gupshup.io/developer/docs/bot-platform/guide/international-sms-api-documentation-en#outboundTextMessage).
+To override the configurations, you must supply them via `override.gushup_sms` parameter of the above API. Within the `override` parameter, you can supply any object that we'll directly pass to Gupshup SMS API Body [See doc](https://enterprise.smsgupshup.com/help/in/EnterpriseAPIDocument.pdf).
