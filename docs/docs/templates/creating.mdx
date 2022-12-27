@@ -1,0 +1,100 @@
+---
+sidebar_position: 2
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Creating Notification Templates
+
+Notification templates can be created from Engagespot dashboard -> Templates menu. 
+Engagespot provides a web-based template designer so anyone, even without coding knowledge can design notification templates for any channel.
+
+Consider a template as a particular message that you want to notify your user. For example, a One Time Password, or another user triggered event.
+Designing a notification template includes 3 steps -
+
+* 1. Create a template
+* 2. Add content for each channel (such as in-app, email, sms etc)
+* 3. Triggering the notification via API
+
+## 1. Create a template
+
+To create a template, navigate to `Templates` menu from your dashboard, and click `Create New Template` button. 
+Specify a name for the tempalte (for eg: welcome message) and click Create Template.
+
+<img src="/img/create_template.png" width="50%" />
+
+## 2. Add content for each channel
+Now you've created a template. To design the notification content, you can add channels to this template. 
+You can do this by clicking the `Manage template content` icon. 
+
+<img src="/img/manage_template.png" width="50%" />
+
+Choose a channel for which you want to design the notification content for this template.
+<img src="/img/add_content.png" width="50%" />
+
+You can use the UI based notification editor to design notification.
+
+### Using placeholders in template
+You can use variables in your template which can be replaced dynamically when you trigger a notification programatically using
+our <a href="/docs/rest-api">REST API</a> or SDKs. You can supply the values for these variable placeholders through the `data` parameter
+in the API or SDK.
+
+<img src="/img/template_designer.png" width="70%" />
+
+## 3. Triggering the notification via API
+
+After creating the notification template, you can trigger it from your backend code using our <a href="/docs/rest-api">Send Notification API</a> or SDKs.
+All you need is the `Template ID` which you can see on your dashboard.
+
+<Tabs>
+<TabItem value="node" label="Node">
+
+```js
+const { EngagespotClient } = require("@engagespot/node");
+const client = EngagespotClient({
+    apiKey: "YOUR_ENGAGESPOT_API_KEY",
+    apiSecret: "YOUR_ENGAGESPOT_API_SECRET"
+});
+
+client.send({
+    notification:{
+        templateId:483561
+    },
+    data:{
+        "otp":"58365",
+        "validity":"5"
+    }
+    recipients:['<your-users-unique-identifier>']
+});
+```
+
+</TabItem>
+
+<TabItem value="curl" label="cURL">
+
+```bash
+curl --location --request POST 'https://api.engagespot.co/v3/notifications' \
+--header 'X-ENGAGESPOT-API-KEY: YOUR_ENGAGESPOT_API_KEY' \
+--header 'X-ENGAGESPOT-API-SECRET: YOUR_ENGAGESPOT_API_SECRET' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    {
+    "notification": {
+        "templateId": 483561        
+    },
+    "data":{
+        "otp":"58365",
+        "validity":"5"
+    },
+    "recipients": [
+        "<your-users-unique-identifier>"
+    ]
+  }
+}'
+```
+
+</TabItem>
+
+</Tabs>
+
