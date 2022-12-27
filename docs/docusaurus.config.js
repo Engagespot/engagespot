@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Engagespot',
   tagline: 'Notification infrastructure for developers and product managers.',
-  url: 'https://documentation.engagespot.co/',
+  url: 'https://documentation.engagespot.co',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
