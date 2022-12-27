@@ -56,9 +56,11 @@ In addition to the default providers, following Providers supported in each chan
 * [Twilio](/docs/channels/configuring-providers/sms/twilio)
 * [Textlocal](/docs/channels/configuring-providers/sms/textlocal)
 * [Gupshup](/docs/channels/configuring-providers/sms/gupshup)
+* [Plivo](/docs/channels/configuring-providers/sms/plivo)
 
 #### WhatsApp
 * [Gupshup](/docs/channels/configuring-providers/whatsapp/gupshup)
+* [Twilio](/docs/channels/configuring-providers/whatsapp/twilio)
 
 #### Slack
 * Slack
