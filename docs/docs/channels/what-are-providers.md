@@ -30,6 +30,12 @@ We've included one provider in some channels that is enabled by default and need
 | inApp   | Engagespot Inbox    | default_inapp   |
 | webPush | Engagespot Web Push | default_webpush |
 | email   | Default Email       | default_email   |
+| sms     | Default SMS         | default_sms   |
+
+:::info
+With `default_sms` provider, you get free 50 SMS credits. After that, it will start throwing error. All default providers
+are meant to be used in testing environment only. For production usage, you must use a proper provider for each channel.
+:::
 
 For advanced features, you can configure any of the supported third party provider.
 
@@ -53,6 +59,7 @@ In addition to the default providers, following Providers supported in each chan
 * [Firebase Cloud Messaging (FCM)](/docs/channels/configuring-providers/mobile-push/FCM-provider)
 
 #### SMS
+* Engagespot SMS
 * [Twilio](/docs/channels/configuring-providers/sms/twilio)
 * [Textlocal](/docs/channels/configuring-providers/sms/textlocal)
 * [Gupshup](/docs/channels/configuring-providers/sms/gupshup)

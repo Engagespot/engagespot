@@ -93,6 +93,7 @@ Providers enables delivery through a particular channel. For example to deliver 
 * [Firebase Cloud Messaging (FCM)](/docs/channels/configuring-providers/mobile-push/FCM-provider)
 
 #### SMS
+* Engagespot SMS
 * [Twilio](/docs/channels/configuring-providers/sms/twilio)
 * [Textlocal](/docs/channels/configuring-providers/sms/textlocal)
 * [Gupshup](/docs/channels/configuring-providers/sms/gupshup)
