@@ -52,7 +52,7 @@ The constructor accepts the following arguments.
 | apiKey                            | string                                                                                                  | Engagespot API Key                                                                                                 |
 | options                           | Object                                                                                                  | `Options` Object. (Properties explained below)                                                                     |
 | options.userId                    | string                                                                                                  | Any unique identifier to identify your app user                                                                    |
-| options.userSignature             | string                                                                                                  | Required if your app has [HMAC Authentication](../users/HMAC-authentication.mdx) turned on. |
+| options.userSignature             | string                                                                                                  | Required if your app has [HMAC Authentication](../users/enabling-HMAC-authentication.mdx) turned on. |
 | options.serviceWorkerRegistration | [ServiceWorkerRegistration](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration) | Use this if your app has an existing Service Worker Registration                                                   |
 
 ### Fetching Notifications
