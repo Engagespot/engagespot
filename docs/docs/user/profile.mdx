@@ -1,0 +1,86 @@
+---
+sidebar_position: 2
+---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# User Profile
+
+In the first chapter when you learned to initialize the Engagespot front-end SDK, you passsed a unique identifier to the `userId` parameter. What if you want to specify more details about your user such as their name, email, location etc?
+
+Engagespot allows you to add more attributes to a user's profile as key-value pairs. This helps you to use those attributes in your email provider's template or for any other purposes.
+
+:::info
+
+Some [providers](../channels/what-are-providers.md) look for certain attributes in your user's profile inorder to send notifications.
+For example, [FCM](../channels/configuring-providers/mobile-push/FCM-provider) needs your user's profile to have a `token` attribute inorder to deliver push notification to them.
+Make sure you set the required profile attributes in your user profile.
+
+:::
+
+## Adding attributes to user's profile.
+
+You can add attributes as key-value pairs to your user's profile either via REST API or our client SDKs (For example - ReactJS or Core Javascript).
+
+## Using Javascript Core SDK
+
+You should use the `setProfileAttributes` method to store key value pairs to your user's profile
+
+```js
+const engagespotClient = new Engagespot('API_KEY', {
+  userId: '123e4567-e89b-12d3-a456-426614174000',
+});
+
+engagespotClient.setProfileAttributes({
+  email: 'myuser@myexamplesite.com',
+  phone: '+19876543210',
+  name: 'Anand',
+});
+```
+
+This will add three profile attributes - `email`, `phone` and `name` to your user's (123e4567-e89b-12d3-a456-426614174000) profile.
+
+## Using REST API
+
+You can use the `PUT` method on `/users` end point or `PUT` method of `/profile` endpoint in the REST API to update your user's profile. 
+Read [API Docs](../rest-api#tag/Profile/paths/~1v3~1profile/put) for more information.
+
+<Tabs>
+<TabItem value="node" label="Node">
+
+```js
+import { EngagespotClient } from "@engagespot/node";
+
+  const client = EngagespotClient({
+    apiKey:'ENGAGESPOT_API_KEY',
+    apiSecret:'ENGAGESPOT_API_SECRET'
+  })
+
+  client.createOrUpdateUser("identifier",{
+    "email":"xxx@xxx.com",
+    "phoneNumber":"+xxxxxxxxx"
+  })
+```
+
+</TabItem>
+
+<TabItem value="curl" label="cURL">
+
+```bash
+curl --location --request PUT 'https://api.engagespot.co/v3/users/{identifier}' \
+--header 'X-ENGAGESPOT-API-KEY: ENGAGESPOT_API_KEY' \
+--header 'X-ENGAGESPOT-API-SECRET: ENGAGESPOT_API_SECRET' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+"email":"xxx@xxx.com",
+"phoneNumber":"+xxxxxxxxx"
+}'
+```
+
+</TabItem>
+
+</Tabs>
+
+:::info
+Alternatively, you can use **PATCH** method on `/profile` endpoint which uses [JSON Patch](http://jsonpatch.com/) syntax to do complex operations on your Profile object.
+:::

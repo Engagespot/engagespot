@@ -1,0 +1,109 @@
+---
+sidebar_position: 1
+---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# User
+User is the recipient who can receive notifications from your app. 
+You should use our API or front-end SDK to identify your app users with Engagespot.
+
+## Why Engagespot needs to identify your users?
+When you use a third party service like Engagespot to build your multi-channel product notification infrastructure, 
+we manage the delivery, store your user's notification preferences etc. So it is essential that you share your user's 
+details like email, phone number etc to our system. We store your user's information in a highly secure and encrypted environment.
+
+## Structure of user data
+Every user should have a unique `identifier`. It could be the auto-increment id from your database, 
+or any other unique value such as their Email or Phone number.
+
+:::info
+The unique identifier you choose for the user should be unique across your entire application. It should never change.
+:::
+
+### Additional attributes
+Along with the unique identifier, a user can have multiple attributes attached to their profile. 
+This could be their Email id, phone number, FCM token, profile picture, name or anything. 
+Some notification channels requires certain attributes in the user's profile to work. For example, the SMS channel works only for users who have `phoneNumber` attribute set in their profile.
+To read more about profiles, and how to set them, read <a href="../profile/what-are-user-profiles">User Profile guide</a>
+
+Here are some of the attributes that is recommended for your users.
+
+|   Attribute     |                         Usage                       |
+| --------------- | --------------------------------------------------- |
+| `email`          | Used to deliver emails to the user. If you set your identifier itself as the email, then this property will be auto created. |
+| `phoneNumber`    | Used to deliver SMS and WhatsApp messages. Make sure to use the <a href="https://www.twilio.com/docs/glossary/what-e164" target="_blank" rel="nofollow">E.164 format</a>
+
+
+## Sending your user's data to Engagespot
+
+You can let Engagespot identify your app users via multiple ways.
+
+If you use Engagespot notification feed component in your front-end app such as React, Angular, Vue or any other Javascript stack,
+you can directly use the component to initialize and identify a user who logged into your app. Or else you can use the <a href="/docs/rest-api#tag/Users/paths/~1v3~1users~1%7Bidentifier%7D/put">User REST API</a> directly.
+
+<Tabs>
+
+<TabItem value="react" label="React">
+
+```js 
+<Engagespot apiKey="ENGAGESPOT_API_KEY" userId="XXXX" />
+```
+
+</TabItem>
+
+<TabItem value="javascript" label="Javascript">
+
+```js
+Engagespot.render('#bellIcon', {
+  apiKey: "ENGAGESPOT_API_KEY",
+  userId: "XXXXX",
+});
+```
+</TabItem>
+
+<TabItem value="node" label="NodeJS">
+
+```js
+import { EngagespotClient } from "@engagespot/node";
+
+  const client = EngagespotClient({
+    apiKey:'ENGAGESPOT_API_KEY',
+    apiSecret:'ENGAGESPOT_API_SECRET'
+  })
+
+  client.createOrUpdateUser("identifier",{
+    "email":"xxx@xxx.com",
+    "phoneNumber":"+xxxxxxxxx"
+  })
+
+```
+</TabItem>
+
+<TabItem value="curl" label="Curl">
+
+```js
+curl --location --request PUT 'https://api.engagespot.co/v3/users/{identifier}' \
+--header 'X-ENGAGESPOT-API-KEY: ENGAGESPOT_API_KEY' \
+--header 'X-ENGAGESPOT-API-SECRET: ENGAGESPOT_API_SECRET' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+"email":"xxx@xxx.com",
+"phoneNumber":"+xxxxxxxxx"
+}'
+
+```
+
+</TabItem>
+  
+
+</Tabs>
+
+## When should you send your user's data?
+
+The simple rule is to send the user's data whenever it is available. For example, during signup, login, or profile update operation in your app.
+Make sure you share the user's data before sending any notification to them.
+
+:::warning
+If you try to send a notification to a user whose data isn't available in Engagespot, it will be discarded.
+:::
