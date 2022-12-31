@@ -7,7 +7,7 @@ You can update your user's notification preference in your app using [Engagespot
 You should use the `preferences` [endpoint](/docs/rest-api#tag/Preferences/paths/~1v3~1preferences/get) to read and set preferences of a user.
 
 :::tip
-When you make this API call, you're authenticating yourself as the User of your app. And this is achieved using the X-ENGAGESPOT-USER-ID header. (Also, make sure to pass **X-ENGAGESPOT-API-SECRET** if your app has [HMAC Authentication](../../users/enabling-HMAC-authentication.mdx) turned ON.)
+When you make this API call, you're authenticating yourself as the User of your app. And this is achieved using the X-ENGAGESPOT-USER-ID header. (Also, make sure to pass **X-ENGAGESPOT-API-SECRET** if your app has [HMAC Authentication](../../user/enabling-HMAC-authentication.mdx) turned ON.)
 :::
 
 ### Reading Existing Preferences
