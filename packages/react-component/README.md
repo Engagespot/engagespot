@@ -1,6 +1,8 @@
-# Engagespot React Component
+# React Notification Feed Component
 
-[Engagespot](https://engagespot.co) React component helps you to build a notification feed for your React.js app. This library includes React components to build a Notification Inbox component in your app.
+[Engagespot](https://engagespot.co) React notification feed component helps you to build a realtime notification feed in your React.js app. This library includes React components to build a fully customizable notification inbox component in your app.
+
+All you need is a free API Key from Engagespot to get started.
 
 ![Notification Inbox Preview](https://i.postimg.cc/BbPF7Cpk/notifications.png)
 Something like this.
