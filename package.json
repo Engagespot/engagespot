@@ -9,7 +9,7 @@
     "docs/",
     "worker/"
   ],
-  "version": "0.1.0",
+  "version": "0.1.1",
   "scripts": {
     "start": "turbo run dev --parallel",
     "start:docs": "turbo run dev --filter docs",
