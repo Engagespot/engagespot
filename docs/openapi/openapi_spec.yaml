@@ -73,15 +73,11 @@ paths:
       description: >-
         Sends a new notification to one or more recipients.
 
-
-        This request accepts an optional `override` object that you can use to
-        override several configurations specified in your Engagespot. It can
-        also override Provider specific configs and also to directly specify any
-        additional properties supported by your provider.
-
-
-        Read more about providers and their available override configurations from our
-        [docs](https://documentation.engagespot.co/docs/channels/what-are-providers#overriding-configurations-via-api)
+        ## Who is a Recipient?</br>
+        
+        A recipient is any <a target="_blank" href="/docs/user/who-is-user">User</a> identified in your Engagespot app.
+        You should specify the unique ids of the users whom you want send notifications to them.
+        To learn more about creating your app users in Engagespot, read <a target="_blank" href="/docs/user/who-is-user">User</a>
       requestBody:
         content:
           application/json:
@@ -94,7 +90,7 @@ paths:
                   properties:
                     templateId:
                       type: number
-                      description: If you want to send a templated notification, just specify the template id which you get from Engagespot dashboard. And no need to use `title` or any other fields.
+                      description: If you want to send a templated notification, just specify the template id which you get from Engagespot dashboard. And no need to use `title` or any other fields. Read more about templates <a href="/docs/templates/introduction" target="_blank">here</a>
                     title:
                       type: string
                       description: If you are not using the `templateId` field, then title is mandatory.
@@ -106,12 +102,12 @@ paths:
                       type: string
                 recipients:
                   type: array
-                  description: Unique id's of your users to send this notification to.
+                  description: Unique id's of your users to send this notification to. Read <a target="_blank" href="/docs/user/who-is-user">Who is a User?</a>
                   items:
                     type: string
                 category:
                   type: string
-                  description: Category identifier to tag this notification. If category doesn't exist, it will be created. For templated notifications, no need to use this field because category can be specified when you create the template using Engagespot dashboard.
+                  description: Category identifier to tag this notification. If category specified doesn't exist, it will be created. For templated notifications, no need to use this field because category can be specified when you create the template using Engagespot dashboard.
                 data:
                   type: object
                   description: Add any key value pair or meta data to be passed along with this notification. This will also be used to replace the placeholders (if you're using templates)
@@ -187,11 +183,18 @@ paths:
                 notification:
                   title: Rose accepted your friend request
                 recipients:
-                  - jack@example.com
+                  - bd8b8a66-7c76-4a97-a2e0-f85f2f450e7e
+                data:
+                  optional: meta data
                 override:
                   channels:
                     - email
                     - webPush
+                    - mobilePush
+                    - inApp
+                    - sms
+                    - whatsapp
+                    - slack
       parameters:
         - name: X-ENGAGESPOT-API-KEY
           required: true
