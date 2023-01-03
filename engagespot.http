@@ -17,8 +17,7 @@ X-Engagespot-User-Id: hemanditwiz@gmail.com
 
 POST https://api.engagespot.co/v3/notifications
 Content-Type: application/json
-X-Engagespot-Api-Key: od9t6x45udt1m3g0nznag
-X-Engagespot-Api-Secret: fjtjb5kjsig21at4h1ijbphd1f31726e48372b0deddb29db5
+X-Engagespot-Api-Key: 14b90lje36icbm6of8f64a
 
 {
   "notification": {

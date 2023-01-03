@@ -49,7 +49,7 @@ const users = [
 ];
 
 export function SimpleNotification() {
-  const [user, setUser] = useState(users[0]);
+  const [user, setUser] = useState(users[1]);
   return (
     <>
       <GlobalStyles />
@@ -70,12 +70,12 @@ export function SimpleNotification() {
           <NavItem style={{ marginRight: '10rem' }}>Login</NavItem>
           <NavItem>
             <Engagespot
-              apiKey="xtnt5gw20dq5vq1jmx5lk"
+              apiKey="14b90lje36icbm6of8f64a"
               headerDropdownItems={[
                 { name: 'Open All Notifications', action: () => true },
               ]}
               userId={user}
-              endPointOverride={'https://api.staging.engagespot.co/v3/'}
+              //endPointOverride={'https://api.staging.engagespot.co/v3/'}
               onFeedItemClick={(evt, options) => {
                 options.markAsClicked();
               }}
