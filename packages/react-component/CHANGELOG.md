@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.1.8
+
+### Patch Changes
+
+- Fix title getting freezed while sending multiple notifications
+- Updated dependencies
+  - @engagespot/react-hooks@1.1.7
+
 ## 1.1.7
 
 ### Patch Changes

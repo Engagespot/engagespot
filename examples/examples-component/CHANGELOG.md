@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.1.8
+
+### Patch Changes
+
+- Updated dependencies
+  - @engagespot/react-component@1.1.8
+
 ## 1.1.7
 
 ### Patch Changes

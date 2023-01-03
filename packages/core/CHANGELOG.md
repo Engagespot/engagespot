@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.7
+
+### Patch Changes
+
+- Fix title getting freezed while sending multiple notifications
+
 ## 1.1.6
 
 ### Patch Changes
