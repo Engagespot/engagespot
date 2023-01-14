@@ -1,7 +1,7 @@
 {
   "name": "example-vanilla",
   "private": true,
-  "version": "1.1.8",
+  "version": "1.1.9",
   "scripts": {
     "develop": "vite --port 3008",
     "build-example": "vite build",
@@ -14,6 +14,6 @@
     "vite": "^2.9.9"
   },
   "dependencies": {
-    "@engagespot/client": "1.1.8"
+    "@engagespot/client": "1.1.9"
   }
 }

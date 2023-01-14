@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.1.9
+
+### Patch Changes
+
+- add react-types as dependency
+- Updated dependencies
+  - @engagespot/react-component@1.1.9
+
 ## 1.1.8
 
 ### Patch Changes

@@ -1,14 +1,14 @@
 {
   "name": "example-core",
   "private": true,
-  "version": "1.1.7",
+  "version": "1.1.8",
   "scripts": {
     "dev": "vite --port 3009",
     "build:example": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@engagespot/core": "1.1.7"
+    "@engagespot/core": "1.1.8"
   },
   "devDependencies": {
     "dotenv": "^16.0.1",
