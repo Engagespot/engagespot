@@ -46,7 +46,7 @@ export class AppComponent implements AfterViewInit {
 }
 ```
 
-You can find your ENGAGESPOT_API_KEY from your [Engagespot dashboard](https://portal.engagespot.co). As explained in the [basic concepts](../introduction/understanding-concepts.md) chapter, `userId` should be any value to uniquely identify your app's users. It can be their email id, or UUID or a numerical id from your database.
+You can find your ENGAGESPOT_API_KEY from your [Engagespot dashboard](https://portal.engagespot.co). As explained in the [basic concepts](../introduction/understanding-concepts.md) chapter, `userId` should be any value to uniquely identify your app's users. It can be their email id, or UUID or a numerical id from your database. Navigate to <a href="/docs/user/who-is-user">User section</a> to learn more about creating your users in Engagespot.
 
 :::info
 The above Angular code would not work in online IDEs such as Codesandbox or Stackblitz due to some configuration issues. But it will work fine when you run Angular app directly.

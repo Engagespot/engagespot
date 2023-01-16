@@ -2,7 +2,7 @@
 sidebar_position: 4
 ---
 
-# Android and iOS Quick Start
+# Android and iOS quick start
 
 In this chapter, we will learn how to quickly setup Engagespot in your Android and iOS App. At the moment, we don't have UI-Kit and Realtime Notifications for Android and iOS. Features you can use in Android and iOS are -
 

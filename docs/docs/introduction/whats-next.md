@@ -1,4 +1,4 @@
-# Advanced Setup
+# Advanced setup
 
 Now you've learned how to setup Notification UI Kit in Javascript apps, initialize Engagespot in Android & iOS apps, and to send notifications programatically from your backend code using our [REST API](/docs/rest-api).
 

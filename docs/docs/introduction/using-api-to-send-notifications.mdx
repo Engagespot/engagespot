@@ -5,7 +5,7 @@ sidebar_position: 5
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Using API to Send Notifications
+# Using API to send notifications
 
 In the previous chapter, we learned how to send a notification directly from the Engagespot dashboard. But that is not always the best solution. In most cases, notifications should be sent programatically from your code.
 
@@ -15,9 +15,9 @@ Well, luckily, it's simple. Let's quickly learn how to send the below notificati
 
 ![img](https://i.postimg.cc/bYDBkf8Y/Screen-Shot-2022-02-05-at-12-14-58-PM.png)
 
-:::warning
-Before you try to send notifications via the REST API, make sure you're authenticating your app users with Engagespot via front-end integration.
-Read Quick start guide for [Javascript](./quick-setup-javascript), or [Android/iOS](./android-ios-quick-start) to learn more.
+:::info
+Before sending notifications via the REST API, make sure you have sent your users information to Engagespot through front-end or backend SDKs / APIs.
+Read more about Users <a href="/docs/user/who-is-user">here</a>.
 
 Notifications sent to a recipient who has not yet identified by Engagespot will be discarded.
 :::
@@ -38,7 +38,7 @@ axios.post(
     notification: {
       title: 'Rose accepted your friend request',
     },
-    recipients: ['jack@example.com'],
+    recipients: ['unique-user-identifier'],
   },
   {
     headers: {
@@ -63,7 +63,7 @@ curl --location --request POST 'https://api.engagespot.co/v3/notifications' \
         "title": "Rose accepted your friend request"
     },
     "recipients": [
-        "jack@example.com"
+        "unique-user-identifier"
     ]
 }'
 ```
@@ -83,7 +83,7 @@ payload = json.dumps({
     "title": "Rose accepted your friend request"
   },
   "recipients": [
-    "jack@example.com"
+    "unique-user-identifier"
   ]
 })
 headers = {
@@ -102,7 +102,10 @@ print(response.text)
 
 </Tabs>
 
-Where `recipients` is the list of users who should receive this notification. Wondering how Engagespot identifies your users? Remember you had passed the email-id (or any unique id) of your users in the front-end SDK? That's how Engagespot identifies your users and sends the notification to them, no matter how many devices they are using.
+Where `recipients` is the list of users's unique id who should receive this notification.
+
+### What is unique-user-identifier?
+Read more about Users <a href="/docs/user/who-is-user">here</a>.
 
 ## Detailed API Guide
 

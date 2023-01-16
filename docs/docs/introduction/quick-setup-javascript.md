@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-# Javascript Quick Start
+# Javascript quick start
 
 In this chapter, we will learn how to quickly setup Engagespot in your Javascript App. Before reading this chapter, make sure you've familiarised with the [basic concepts](./understanding-concepts.md) of Engagespot.
 
@@ -21,7 +21,7 @@ Then in your React.js app, add the Engagespot component wherever you want the no
 ```jsx
 import { Engagespot } from '@engagespot/react-component';
 
-<Engagespot apiKey="ENGAGESPOT_API_KEY" userId="youruser@example.com" />;
+<Engagespot apiKey="ENGAGESPOT_API_KEY" userId="unique-identifier-of-your-user" />;
 ```
 
 :::info
@@ -82,7 +82,7 @@ Replace `HTML_ELEMENT_ID` with the ID of the element where you want the notifica
 <script>
 Engagespot.render('#HTML_Element_ID', {
    apiKey: 'ENGAGESPOT_API_KEY',
-   userId: 'youruser@example.com',
+   userId: 'unique-identifier-of-your-user',
 })
 </script>
 

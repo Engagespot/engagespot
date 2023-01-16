@@ -2,7 +2,7 @@
 sidebar_position: 2
 ---
 
-# Understanding Basic Concepts
+# Basic concepts
 
 In the previous chapter, you've learned the meaning of notifications and why they are important. Now let's learn more about the basic building blocks of Engagespot.
 
