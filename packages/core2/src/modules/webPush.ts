@@ -1,20 +1,50 @@
-import { log } from 'console';
-import { Deps } from 'src/createInstance';
-import { handleError } from 'src/helpers/errorHandler';
-import { isWebPlatform } from 'src/utils/platform';
-import { registerServiceWorker, isWebPushSupported } from 'src/utils/webPush';
+import { Deps } from '../createInstance';
+import { handleError } from '../helpers/errorHandler';
+import { isWebPlatform } from '../utils/platform';
+import {
+  registerServiceWorker,
+  isWebPushSupported,
+  getWebPushRegistrationState,
+  askWebPushPermission,
+  getWebPushSubscription,
+} from '../utils/webPush';
+
+type WebPushParams = {
+  publicKey: string;
+  deviceId: string;
+} & Deps;
 
 const SERVICE_WORKER_URL = '/service-worker.js?sdkVersion=3.0.0';
 
-export async function WebpushService({
+export async function webPushFactory({
+  log,
+  sendRequest,
+  deviceId,
+  publicKey,
   options: { allowNonHttpsWebPush, serviceWorkerRegistration },
-}: Deps) {
+}: WebPushParams) {
   const canRegisterServiceWorker = () => {
     return isWebPlatform() && isWebPushSupported() && !allowNonHttpsWebPush;
   };
 
+  /**
+   * Attach the push subscription for this device
+   */
+  const attachPushSubscription = async (subscription: PushSubscription) => {
+    try {
+      const success = await sendRequest({
+        path: `/devices/${deviceId}/webPushSubscription`,
+        method: 'POST',
+        data: subscription,
+      });
+      if (success) return true;
+    } catch (err) {
+      handleError('pushNotificationRegistrationFailed');
+    }
+  };
+
   const getServiceWorkerRegistration = async () => {
-    log('getServiceWorkerRegistration called');
+    log('getServiceWorkerRegistration invoked');
 
     try {
       if (serviceWorkerRegistration) {
@@ -37,14 +67,44 @@ export async function WebpushService({
     return;
   }
 
-  const ready = await getServiceWorkerRegistration();
-  if (!ready) {
+  const newServiceWorkerRegistration = await getServiceWorkerRegistration();
+  if (!newServiceWorkerRegistration) {
     handleError('serviceWorkerRegistrationFailure');
     return;
   }
 
   return {
-    canRegisterServiceWorker,
+    isSupported: isWebPushSupported,
+    getRegistrationState: getWebPushRegistrationState,
+    /**
+     * Attach the push subscription for this device
+     */
+
+    async subscribe() {
+      if (isWebPushSupported()) {
+        log('Web push is not supported in this browser');
+        return;
+      }
+
+      //Check permission state
+      const permissionState = getWebPushRegistrationState();
+
+      if (permissionState != 'denied') {
+        const permissionResult = await askWebPushPermission();
+        if (permissionResult !== 'granted') {
+          log('Web push permission was not granted.');
+          return;
+        }
+
+        const swRegistration =
+          serviceWorkerRegistration || newServiceWorkerRegistration;
+        const subscription = await getWebPushSubscription(
+          swRegistration,
+          publicKey
+        );
+        await attachPushSubscription(subscription);
+      }
+    },
   };
 }
 

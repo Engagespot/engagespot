@@ -1,12 +1,8 @@
-import { connect } from './connect';
-import Defaults from './defaults';
+import { connect } from './modules/connect';
+import { defaults } from './helpers/defaults';
 import { createApiExecutor } from './helpers/apiCore';
-import { handleError, validateIncomingArgs } from './helpers/errorHandler';
-import {
-  WebpushService,
-  getServiceWorkerRegistration,
-} from './modules/webPush';
-import notification from './notification';
+import { validateIncomingArgs } from './helpers/errorHandler';
+import { webPushFactory } from './modules/webPush';
 import { getOrCreateDeviceId } from './utils/device';
 import { createLogger } from './utils/logger';
 
@@ -50,21 +46,23 @@ export async function createInstance(options: InstanceOptions) {
   validateIncomingArgs(options);
 
   const { apiKey, userId, userSignature, debug = false } = options;
-  const baseUrl = options.endPointOverride || Defaults.apiHost;
+  const baseUrl = options.endPointOverride ?? defaults.apiHost;
   const log = createLogger(debug);
   log('Creating Engagespot instance with options: ', options);
+
+  const deviceId = getOrCreateDeviceId();
 
   const sendRequest = createApiExecutor({
     apiKey,
     userId,
     userSignature,
     baseUrl,
+    deviceId,
   });
 
   const deps = { log, sendRequest, options };
 
-  const deviceId = getOrCreateDeviceId();
-  const response = await connect({ ...deps, deviceId });
+  const response = await connect({ ...deps });
 
   if (!response) {
     return;
@@ -77,12 +75,13 @@ export async function createInstance(options: InstanceOptions) {
 
   log('Connected API Response: ', response);
 
-  //Register Service Worker
-  if (enableWebPush) {
-    const webpushService = await WebpushService({ ...deps });
-  }
+  //Register Service Worker and subscribe to web push
+  const webpush = enableWebPush
+    ? await webPushFactory({ ...deps, publicKey, deviceId })
+    : {};
 
   return {
     notification: {},
+    webpush,
   };
 }

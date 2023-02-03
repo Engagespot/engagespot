@@ -1,9 +1,7 @@
-import { Deps } from './createInstance';
-import { findBrowser } from './utils/platform';
+import { Deps } from '../createInstance';
+import { findBrowser } from '../utils/platform';
 
-type ConnectParams = {
-  deviceId: string;
-} & Deps;
+type ConnectParams = {} & Deps;
 
 type ConnectBody = {
   deviceType: string;
@@ -20,7 +18,7 @@ type ConnectResponse = {
   };
 };
 
-export const connect = async ({ deviceId, ...deps }: ConnectParams) => {
+export const connect = async ({ ...deps }: ConnectParams) => {
   const { sendRequest } = deps;
 
   const response = await sendRequest<ConnectResponse, ConnectBody>({
@@ -30,7 +28,6 @@ export const connect = async ({ deviceId, ...deps }: ConnectParams) => {
       deviceType: 'browser',
       browserType: findBrowser(),
     },
-    headers: { 'X-ENGAGESPOT-DEVICE-ID': deviceId },
   });
 
   return response;

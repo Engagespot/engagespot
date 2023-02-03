@@ -1,6 +1,1 @@
-const notification = {
-  onNotificationReceived: () => {},
-  onNotificationClicked: () => {},
-  onNotificationSeen: () => {},
-  onNotificationDeleted: () => {},
-};
+export const notification = {};

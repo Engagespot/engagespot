@@ -4,6 +4,7 @@ type ApiInstanceOptions = {
   apiKey: string;
   userId: string;
   baseUrl: string;
+  deviceId: string;
   userSignature?: string;
   headers?: Record<string, string>;
 };
@@ -23,7 +24,7 @@ const STATUS_OK = 'ok';
 const statusOk = (status: string) => status.toLowerCase() === STATUS_OK;
 
 function createApiInstance(options: ApiInstanceOptions) {
-  const { apiKey, userId, userSignature, baseUrl, headers = {} } = options;
+  const { apiKey, userId, deviceId, userSignature, baseUrl, headers = {} } = options;
 
   const instance = axios.create({
     baseURL: baseUrl,
@@ -32,6 +33,7 @@ function createApiInstance(options: ApiInstanceOptions) {
       'Content-Type': 'application/json',
       'X-ENGAGESPOT-API-KEY': apiKey,
       'X-ENGAGESPOT-USER-ID': userId,
+      'X-ENGAGESPOT-DEVICE-ID': deviceId
       ...(userSignature && {
         'X-ENGAGESPOT-USER-SIGNATURE': userSignature,
       }),
