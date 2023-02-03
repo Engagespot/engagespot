@@ -45,7 +45,8 @@
     "vitest": "^0.15.1"
   },
   "dependencies": {
-    "ably": "^1.2.15"
+    "ably": "^1.2.15",
+    "axios": "^1.2.6"
   },
   "publishConfig": {
     "access": "public"

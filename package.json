@@ -24,7 +24,7 @@
     "ci": "yarn install -immutable",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "turbo run lint --parallel --filter='@engagespot/*'-- --fix",
-    "test": "turbo run test --filter='@engagespot/*'",
+    "test": "turbo run test --filter core2",
     "test:ci": "cross-env CI=true yarn test",
     "format": "prettier --write 'packages/*/*.js' 'packages/*/!(node_modules)/**/*.js'",
     "prepare": "husky install",
@@ -54,7 +54,8 @@
     "turbo": "1.4.6",
     "typedoc": "^0.20.28",
     "typescript": "4.2.4",
-    "vitest": "^0.15.1",
+    "vite": "^4.1.1",
+    "vitest": "^0.28.3",
     "whatwg-fetch": "3.6.2"
   },
   "lint-staged": {

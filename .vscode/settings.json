@@ -11,5 +11,6 @@
     "docs",
     "all",
     "dashboard"
-  ]
+  ],
+  "vitest.commandLine": "yarn test --"
 }
