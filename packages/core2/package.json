@@ -1,0 +1,62 @@
+{
+  "name": "@engagespot/core2",
+  "version": "1.1.8",
+  "description": "Engagespot Javascript Core Functions",
+  "source": "./src/index.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build": "tsup --target es5",
+    "dev": "tsup --minify false --clean false --sourcemap inline --watch",
+    "tsc": "tsc",
+    "clean": "rimraf dist",
+    "docs": "api-documenter markdown --input-folder spec --output ./spec/markdown",
+    "prepare": "tsup --target es5",
+    "test:dev": "vitest",
+    "test": "vitest"
+  },
+  "keywords": [
+    "engagespot",
+    "client",
+    "javascript",
+    "notifications",
+    "engagespot core",
+    "engagespot vanilla"
+  ],
+  "author": "Engagespot",
+  "license": "MIT",
+  "devDependencies": {
+    "@microsoft/api-documenter": "^7.13.77",
+    "@microsoft/api-extractor": "^7.19.2",
+    "@swc/core": "^1.3.10",
+    "@testing-library/dom": "^8.11.1",
+    "dotenv": "^16.0.1",
+    "microbundle": "0.14.2",
+    "msw": "^0.36.3",
+    "rimraf": "^3.0.2",
+    "tsup": "^6.1.2",
+    "typedoc": "^0.22.10",
+    "typedoc-plugin-markdown": "^3.11.11",
+    "typescript": "^4.5.5",
+    "vitest": "^0.28.3"
+  },
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "ably": "^1.2.15",
+    "axios": "^1.2.6",
+    "vite": "^4.1.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "eslintConfig": {
+    "extends": [
+      "../../.eslint.rc.js"
+    ]
+  },
+  "gitHead": "bb4c648c4dd07cd88d4c57edd58f1e7ed0d96302"
+}
