@@ -25,5 +25,5 @@ export const validateIncomingArgs = (options: InstanceOptions) => {
 
   if (!options.userId) handleError('noUserId');
 
-  if (!options.userSignature) handleError('noUserId');
+  if (!options.userSignature) handleError('noUserSignature');
 };

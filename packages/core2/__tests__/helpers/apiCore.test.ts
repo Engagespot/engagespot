@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import axios, { AxiosInstance, AxiosError } from 'axios';
-import { executeRequest, ApiRequestOptions } from '../src/helpers/apiCore';
+import { executeRequest, ApiRequestOptions } from '../../src/helpers/apiCore';
 
 describe('executeRequest', () => {
   let instance: AxiosInstance;
@@ -24,7 +24,7 @@ describe('executeRequest', () => {
       data: {},
     };
 
-    const result = await executeRequest<any>(options);
+    const result = await executeRequest<any, any>(options);
     expect(result).toEqual({ message: 'Success' });
     expect(instance.request).toHaveBeenCalledWith({
       method: 'GET',
@@ -50,9 +50,11 @@ describe('executeRequest', () => {
     };
 
     try {
-      await executeRequest<any>(options);
+      await executeRequest<any, any>(options);
     } catch (err) {
-      expect(err.toString()).toEqual("Error: Unexpected status code 400: [object Object], Some error");
+      expect(err.toString()).toEqual(
+        'Error: Unexpected status code 400: [object Object], Some error'
+      );
     }
   });
 });

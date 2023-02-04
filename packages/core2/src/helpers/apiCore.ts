@@ -33,7 +33,7 @@ function createApiInstance(options: ApiInstanceOptions) {
       'Content-Type': 'application/json',
       'X-ENGAGESPOT-API-KEY': apiKey,
       'X-ENGAGESPOT-USER-ID': userId,
-      'X-ENGAGESPOT-DEVICE-ID': deviceId
+      'X-ENGAGESPOT-DEVICE-ID': deviceId,
       ...(userSignature && {
         'X-ENGAGESPOT-USER-SIGNATURE': userSignature,
       }),
@@ -53,7 +53,7 @@ export type ApiRequestOptions<T = any> = {
   data?: T;
 };
 
-async function executeRequest<TResponse, TData>(
+export async function executeRequest<TResponse, TData>(
   options: ApiRequestOptions<TData>
 ) {
   const { instance, method, path, headers, data } = options;
@@ -76,7 +76,6 @@ async function handleError(error: AxiosError) {
   const errorMessage = new Error(
     `Unexpected status code ${error.response?.status}: ${error}, ${error.message}`
   );
-  console.log('eeee', errorMessage);
   throw errorMessage;
 }
 

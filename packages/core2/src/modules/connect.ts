@@ -1,5 +1,4 @@
 import { Deps } from '../createInstance';
-import { findBrowser } from '../utils/platform';
 
 type ConnectParams = {} & Deps;
 
@@ -19,33 +18,16 @@ type ConnectResponse = {
 };
 
 export const connect = async ({ ...deps }: ConnectParams) => {
-  const { sendRequest } = deps;
+  const { sendRequest, browserType } = deps;
 
   const response = await sendRequest<ConnectResponse, ConnectBody>({
     method: 'post',
     path: '/sdk/connect',
     data: {
       deviceType: 'browser',
-      browserType: findBrowser(),
+      browserType: browserType,
     },
   });
 
   return response;
 };
-
-//   //Connect to RTM Server for realtime notifications
-//   try {
-//     realtimeConnect();
-//   } catch (error) {
-//     throw error;
-//   }
-
-//   if (!isNative) {
-//     //Listen for WebPushPermissionChange events
-//     listenForWebPushPermissionChanges();
-//   }
-
-//   //If all fine, then return connected instance state
-//   instanceState = 'connected';
-//   return this;
-// };

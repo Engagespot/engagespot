@@ -47,7 +47,7 @@ export const getWebPushSubscription = async (
       applicationServerKey: serverKey,
     });
   } catch (error) {
-    return error;
+    throw new Error('Failed to subscribe to push notifications');
   }
 };
 

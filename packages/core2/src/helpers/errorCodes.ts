@@ -46,4 +46,9 @@ export const errorCodes = {
     code: 'ES1006',
     severity: 'error',
   },
+  errorCreatingTokenRequest: {
+    message: 'Error creating token request',
+    code: 'ES10012',
+    severity: 'warn',
+  },
 };

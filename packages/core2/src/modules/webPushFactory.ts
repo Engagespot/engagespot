@@ -9,6 +9,8 @@ import {
   getWebPushSubscription,
 } from '../utils/webPush';
 
+const PERMISSION_QUERY_KEY = 'notifications';
+
 type WebPushParams = {
   publicKey: string;
   deviceId: string;
@@ -16,11 +18,12 @@ type WebPushParams = {
 
 const SERVICE_WORKER_URL = '/service-worker.js?sdkVersion=3.0.0';
 
-export async function webPushFactory({
+export async function WebPushFactory({
   log,
   sendRequest,
   deviceId,
   publicKey,
+  eventManager,
   options: { allowNonHttpsWebPush, serviceWorkerRegistration },
 }: WebPushParams) {
   const canRegisterServiceWorker = () => {
@@ -58,6 +61,25 @@ export async function webPushFactory({
     }
   };
 
+  /**
+   * Initialize a listener for Web Push Permission Changes
+   */
+  const listenForWebPushPermissionChanges = () => {
+    navigator.permissions
+      .query({ name: PERMISSION_QUERY_KEY })
+      .then(permission => {
+        // Initial status is available at permission.state
+        permission.onchange = e => {
+          const target = e.target as PermissionStatus;
+          const state = target.state;
+
+          eventManager.trigger('webpushPermissionChange', {
+            permission: state,
+          });
+        };
+      });
+  };
+
   if (!canRegisterServiceWorker()) {
     if (!allowNonHttpsWebPush) {
       handleError('nonHttpsWebPushDisabled');
@@ -66,6 +88,7 @@ export async function webPushFactory({
     handleError('webPushNotSupported');
     return;
   }
+  listenForWebPushPermissionChanges();
 
   const newServiceWorkerRegistration = await getServiceWorkerRegistration();
   if (!newServiceWorkerRegistration) {
@@ -73,7 +96,7 @@ export async function webPushFactory({
     return;
   }
 
-  return {
+  const returnValues = {
     isSupported: isWebPushSupported,
     getRegistrationState: getWebPushRegistrationState,
     /**
@@ -105,6 +128,13 @@ export async function webPushFactory({
         await attachPushSubscription(subscription);
       }
     },
+  };
+  return {
+    publicApi: {
+      isSupported: returnValues.isSupported,
+      subscribe: returnValues.subscribe,
+    },
+    ...returnValues,
   };
 }
 

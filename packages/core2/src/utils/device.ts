@@ -34,7 +34,6 @@ export const getOrCreateDeviceId = () => {
   //Read from local storage to know if this device already has an id. If yes, then save it.
   //If not create a new device id and save.
   const locallySavedDeviceId = getDeviceId();
-
   if (!locallySavedDeviceId) return createNewDevice();
   return locallySavedDeviceId;
 };
