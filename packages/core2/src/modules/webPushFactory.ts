@@ -14,20 +14,32 @@ const PERMISSION_QUERY_KEY = 'notifications';
 type WebPushParams = {
   publicKey: string;
   deviceId: string;
+  enableWebPush: boolean;
 } & Deps;
 
 const SERVICE_WORKER_URL = '/service-worker.js?sdkVersion=3.0.0';
 
-export async function WebPushFactory({
+type WebPushFactoryPublicReturn = {
+  isSupported: () => boolean;
+  getRegistrationState: () => NotificationPermission;
+  subscribe(): Promise<void>;
+};
+
+type WebPushFactoryReturn = WebPushFactoryPublicReturn & {
+  publicApi: WebPushFactoryPublicReturn;
+};
+
+export async function webPushFactory({
   log,
   sendRequest,
   deviceId,
   publicKey,
   eventManager,
+  enableWebPush,
   options: { allowNonHttpsWebPush, serviceWorkerRegistration },
 }: WebPushParams) {
   const canRegisterServiceWorker = () => {
-    return isWebPlatform() && isWebPushSupported() && !allowNonHttpsWebPush;
+    return isWebPlatform() && isWebPushSupported() && allowNonHttpsWebPush;
   };
 
   /**
@@ -80,21 +92,27 @@ export async function WebPushFactory({
       });
   };
 
-  if (!canRegisterServiceWorker()) {
-    if (!allowNonHttpsWebPush) {
-      handleError('nonHttpsWebPushDisabled');
+  const initiateRegistration = async () => {
+    if (!canRegisterServiceWorker()) {
+      if (!allowNonHttpsWebPush) {
+        handleError('nonHttpsWebPushDisabled');
+        return;
+      }
+      handleError('webPushNotSupported');
       return;
     }
-    handleError('webPushNotSupported');
-    return;
-  }
-  listenForWebPushPermissionChanges();
 
-  const newServiceWorkerRegistration = await getServiceWorkerRegistration();
-  if (!newServiceWorkerRegistration) {
-    handleError('serviceWorkerRegistrationFailure');
-    return;
-  }
+    const sWorkerRegistration = await getServiceWorkerRegistration();
+    if (!sWorkerRegistration) {
+      handleError('serviceWorkerRegistrationFailure');
+      return;
+    }
+    return sWorkerRegistration;
+  };
+
+  const workerRegistration = await initiateRegistration();
+  if (!workerRegistration) return {} as WebPushFactoryReturn;
+  listenForWebPushPermissionChanges();
 
   const returnValues = {
     isSupported: isWebPushSupported,
@@ -104,7 +122,7 @@ export async function WebPushFactory({
      */
 
     async subscribe() {
-      if (isWebPushSupported()) {
+      if (!isWebPushSupported()) {
         log('Web push is not supported in this browser');
         return;
       }
@@ -119,8 +137,7 @@ export async function WebPushFactory({
           return;
         }
 
-        const swRegistration =
-          serviceWorkerRegistration || newServiceWorkerRegistration;
+        const swRegistration = workerRegistration;
         const subscription = await getWebPushSubscription(
           swRegistration,
           publicKey
@@ -137,32 +154,3 @@ export async function WebPushFactory({
     ...returnValues,
   };
 }
-
-/**
- * HTTPS Web Push Subscription
- */
-// const subscribeToWebPush = async () => {
-//   if (isWebPushSupported()) {
-//     log('Web push is not supported in this browser');
-//     return;
-//   }
-
-//   //Check permission state
-//   const permissionState = await this.getWebPushRegistrationState();
-
-//   if (permissionState != PermissionState.PERMISSION_DENIED) {
-//     const permissionResult = await this.askWebPushPermission();
-//     if (permissionResult !== 'granted') {
-//       this._log('Web push permission was not granted.');
-//       return;
-//     }
-
-//     const subscription = await this.getWebPushSubscription(this.publicKey);
-//     await this.attachPushSubscription(subscription);
-//   }
-// };
-
-// if (!this.serviceWorkerRegistration)
-// throw new Error(
-//   'ES1005 - A service worker must be registered before push can be subscribed'
-// );

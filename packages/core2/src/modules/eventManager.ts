@@ -1,7 +1,7 @@
 type NotificationReceiveEvent = { notification: Notification };
-type NotificationDeleteEvent = { notificationId: string; status: string };
-type NotificationClickEvent = { notificationId: string; status: string };
-type NotificationSeenEvent = { notificationId: string; status: string };
+type NotificationDeleteEvent = { id: string };
+type NotificationClickEvent = { id: string };
+type NotificationSeenEvent = { id: string };
 type WebPushPermissionChange = { permission: PermissionState };
 
 type NotificationEventParams = {

@@ -1,25 +1,55 @@
 import { Realtime, Types } from 'ably';
 import { Deps } from '../createInstance';
 import { handleError } from '../helpers/errorHandler';
+import { CreateNotification } from './notificationFactory';
 
-type RealTimeClientParams = {} & Deps;
+type RealTimeClientParams<TData, UType> = {
+  createNotification: CreateNotification<TData, UType>;
+} & Deps<TData, UType>;
 
 type RealtimeClientBody = {
   deviceType: string;
   browserType: string;
 };
 
+type RealtimeNotificationObject<T> = {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  data: T;
+  url: string;
+  created_at: string;
+};
+
+type RealtimeMessage<T = any> = Omit<Types.Message, 'data'> & {
+  name: 'NOTIFICATION_SEEN' | 'NOTIFICATION_DELETED' | 'NEW_NOTIFICATION';
+  data: { notification: RealtimeNotificationObject<T> };
+};
+
 type RealtimeClientResponse = string;
 
-export async function initiateRealtimeConnection({
+export async function initiateRealtimeConnection<TData, UType>({
   options: { apiKey, userId },
   sendRequest,
   browserType,
   eventManager,
+  createNotification,
   log,
-}: RealTimeClientParams) {
-  const transformMessageToNotificationId = (message: any) => {
-    return { ...message.data.notificationId };
+}: RealTimeClientParams<TData, UType>) {
+  const transformMessageToNotificationId = (message: RealtimeMessage) => {
+    return { id: message.data.notification.id };
+  };
+  const transformMessageToNotification = ({
+    data: { notification },
+  }: RealtimeMessage<TData>) => {
+    return createNotification({
+      ...notification,
+      clickedAt: '',
+      createdAt: notification.created_at,
+      seenAt: '',
+      message: notification.description,
+    });
   };
   const eventMap = {
     NEW_NOTIFICATION: {
@@ -82,7 +112,7 @@ export async function initiateRealtimeConnection({
       log('Subscribing to ' + apiKey + '_' + userId);
       const channel = realtimeClient.channels.get(apiKey + '_' + userId);
       channel.subscribe(message => {
-        handleIncomingRealtimeMessage(message);
+        handleIncomingRealtimeMessage(message as RealtimeMessage);
       });
     });
   };
@@ -91,10 +121,9 @@ export async function initiateRealtimeConnection({
    * Incoming Realtime Message Handler. This function is used by realtimeConnect() function
    * @param message
    */
-  const handleIncomingRealtimeMessage = (message: Types.Message) => {
-    type MessageTypes = keyof typeof eventMap;
+  const handleIncomingRealtimeMessage = (message: RealtimeMessage) => {
     log(message);
-    const { name, transformInput } = eventMap[message.name as MessageTypes];
+    const { name, transformInput } = eventMap[message.name];
     const transformedMessage = transformInput(message);
     eventManager.trigger(name, transformedMessage);
   };

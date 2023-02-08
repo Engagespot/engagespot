@@ -62,5 +62,8 @@
     "*.{js,json,css,scss,ts,tsx,md,mdx}": [
       "pretty-quick --staged"
     ]
+  },
+  "dependencies": {
+    "dayjs": "^1.11.7"
   }
 }

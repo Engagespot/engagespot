@@ -23,7 +23,7 @@ export const errorCodes = {
     message:
       'Service worker registration failed. This error is probably due to missing service-worker file. Try turning off web-push channel in your Engagespot dashboard',
     code: 'ES1003',
-    severity: 'warn',
+    severity: 'error',
   },
   serviceWorkerFileMissing: {
     message:
@@ -44,7 +44,7 @@ export const errorCodes = {
   pushNotificationRegistrationFailed: {
     message: 'Failed to register push notification with Engagespot server',
     code: 'ES1006',
-    severity: 'error',
+    severity: 'warn',
   },
   errorCreatingTokenRequest: {
     message: 'Error creating token request',

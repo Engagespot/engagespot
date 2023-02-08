@@ -10,14 +10,13 @@ describe('connect', () => {
   test('should send a POST request to the correct path with the correct data', async () => {
     const sendRequest = vi.fn().mockResolvedValue({});
 
-    await connect({ sendRequest, log, options });
+    await connect({ sendRequest, log, options } as any);
 
     expect(sendRequest).toHaveBeenCalledWith({
       method: 'post',
       path: '/sdk/connect',
       data: {
         deviceType: 'browser',
-        browserType: 'other',
       },
     });
   });

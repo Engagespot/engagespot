@@ -6,7 +6,7 @@ type LogParams = Parameters<typeof console.log>;
  * @param message
  */
 const log = (message: LogParams) => {
-  console.log('[Engagespot-Core] ', message);
+  console.log('[Engagespot-Core] ', ...message);
 };
 
 export const createLogger = (debug: boolean) => {

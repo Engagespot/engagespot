@@ -11,10 +11,10 @@ export const handleError = (
   const errorMessage = `[${code}]: ${message}`;
   const additionalInfo = additionalParams ?? '';
   if (severity === 'error') {
-    throw new Error(`${errorMessage} ${additionalInfo}`);
+    console.error(`${errorMessage} ${additionalInfo}`);
   }
   if (severity === 'warn') {
-    console.warn(errorMessage, additionalInfo);
+    console.warn(errorMessage, additionalInfo.toString());
   }
 };
 

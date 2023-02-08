@@ -10,12 +10,12 @@
     "dist/**/*"
   ],
   "scripts": {
-    "build": "tsup --target es5",
+    "build": "tsup",
     "dev": "tsup --minify false --clean false --sourcemap inline --watch",
     "tsc": "tsc",
     "clean": "rimraf dist",
     "docs": "api-documenter markdown --input-folder spec --output ./spec/markdown",
-    "prepare": "tsup --target es5",
+    "prepare": "tsup",
     "test:dev": "vitest",
     "test": "vitest"
   },
@@ -48,6 +48,7 @@
     "@types/axios": "^0.14.0",
     "ably": "^1.2.15",
     "axios": "^1.2.6",
+    "dayjs": "^1.11.7",
     "vite": "^4.1.1"
   },
   "publishConfig": {

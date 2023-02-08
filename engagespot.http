@@ -1,12 +1,13 @@
 ### Get categories
 GET https://api.engagespot.co/v3/categories
-X-Engagespot-Api-Key: q7nkhsrgfppexca9aj1nq
+X-Engagespot-Api-Key: 14b90lje36icbm6of8f64a
 X-Engagespot-User-Id: hemanditwiz@gmail.com 
 
 ### Add Category
 
 POST https://api.engagespot.co/v3/categories
-X-Engagespot-Api-Key: q7nkhsrgfppexca9aj1nq
+X-Engagespot-Api-Key: 14b90lje36icbm6of8f64a
+X-ENGAGESPOT-API-SECRET: 4s9omcnshtjkdt2mji1f9jbga44eh1589ccb8g75hejc8fia
 X-Engagespot-User-Id: hemanditwiz@gmail.com 
 
 {
@@ -18,10 +19,12 @@ X-Engagespot-User-Id: hemanditwiz@gmail.com
 POST https://api.engagespot.co/v3/notifications
 Content-Type: application/json
 X-Engagespot-Api-Key: 14b90lje36icbm6of8f64a
+X-ENGAGESPOT-API-SECRET: 4s9omcnshtjkdt2mji1f9jbga44eh1589ccb8g75hejc8fia
 
 {
   "notification": {
-    "title": "Custom content"
+    "title": "yoasfdsdfsalooo",
+    "createdAt":"2021-03"
   },
   "recipients": [
     "hemanditwiz@gmail.com"

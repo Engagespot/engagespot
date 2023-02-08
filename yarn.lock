@@ -4852,7 +4852,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@engagespot/core2@workspace:packages/core2":
+"@engagespot/core2@workspace:^, @engagespot/core2@workspace:packages/core2":
   version: 0.0.0-use.local
   resolution: "@engagespot/core2@workspace:packages/core2"
   dependencies:
@@ -4863,6 +4863,7 @@ __metadata:
     "@types/axios": ^0.14.0
     ably: ^1.2.15
     axios: ^1.2.6
+    dayjs: ^1.11.7
     dotenv: ^16.0.1
     microbundle: 0.14.2
     msw: ^0.36.3
@@ -17391,6 +17392,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dayjs@npm:^1.11.7":
+  version: 1.11.7
+  resolution: "dayjs@npm:1.11.7"
+  checksum: 5003a7c1dd9ed51385beb658231c3548700b82d3548c0cfbe549d85f2d08e90e972510282b7506941452c58d32136d6362f009c77ca55381a09c704e9f177ebb
+  languageName: node
+  linkType: hard
+
 "dayjs@npm:^1.8.15":
   version: 1.11.5
   resolution: "dayjs@npm:1.11.5"
@@ -20561,6 +20569,16 @@ __metadata:
   checksum: ad4e1577f1a6b721c7800dcc7c733fe01f6c310732bb5bf2240245c2a5b45a38518b91d8be2c610611623160b9d1c0e91f1ce96d639f8b53e8894625cf20fa45
   languageName: node
   linkType: hard
+
+"example-core2@workspace:examples/example-core2":
+  version: 0.0.0-use.local
+  resolution: "example-core2@workspace:examples/example-core2"
+  dependencies:
+    "@engagespot/core2": "workspace:^"
+    typescript: ^4.9.3
+    vite: ^4.1.0
+  languageName: unknown
+  linkType: soft
 
 "example-core@workspace:examples/examples-core":
   version: 0.0.0-use.local
@@ -36196,6 +36214,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": 5.4.0
     "@typescript-eslint/parser": 5.4.0
     cross-env: 7.0.3
+    dayjs: ^1.11.7
     dot-env: 0.0.1
     eslint: 8.3.0
     eslint-plugin-prettier: 4.0.0
@@ -40382,6 +40401,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"typescript@npm:^4.9.3":
+  version: 4.9.5
+  resolution: "typescript@npm:4.9.5"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: ee000bc26848147ad423b581bd250075662a354d84f0e06eb76d3b892328d8d4440b7487b5a83e851b12b255f55d71835b008a66cbf8f255a11e4400159237db
+  languageName: node
+  linkType: hard
+
 "typescript@npm:~4.3.5":
   version: 4.3.5
   resolution: "typescript@npm:4.3.5"
@@ -40459,6 +40488,16 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 563a0ef47abae6df27a9a3ab38f75fc681f633ccf1a3502b1108e252e187787893de689220f4544aaf95a371a4eb3141e4a337deb9895de5ac3c1ca76430e5f0
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@^4.9.3#~builtin<compat/typescript>":
+  version: 4.9.5
+  resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=7ad353"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 2eee5c37cad4390385db5db5a8e81470e42e8f1401b0358d7390095d6f681b410f2c4a0c496c6ff9ebd775423c7785cdace7bcdad76c7bee283df3d9718c0f20
   languageName: node
   linkType: hard
 
@@ -41411,7 +41450,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^3.0.0 || ^4.0.0, vite@npm:^4.1.1":
+"vite@npm:^3.0.0 || ^4.0.0, vite@npm:^4.1.0, vite@npm:^4.1.1":
   version: 4.1.1
   resolution: "vite@npm:4.1.1"
   dependencies:

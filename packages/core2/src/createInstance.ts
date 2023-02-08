@@ -1,16 +1,23 @@
 import { connect } from './modules/connect';
 import { defaults } from './helpers/defaults';
-import { createApiExecutor } from './helpers/apiCore';
+import { createApiExecutor } from './modules/apiCore';
 import { validateIncomingArgs } from './helpers/errorHandler';
-import { WebPushFactory } from './modules/webPushFactory';
+import { webPushFactory } from './modules/webPushFactory';
 import { EventManager } from './modules/eventManager';
 import { initiateRealtimeConnection } from './modules/realtimeClient';
 import { getOrCreateDeviceId } from './utils/device';
 import { createLogger } from './utils/logger';
 import { findBrowser } from './utils/platform';
 import { preferencesFactory } from './modules/preferences';
+import { notificationFactory, Notification } from './modules/notificationFactory';
+import {
+  TransformNotificationFn,
+  createTransformer,
+} from './modules/transformer';
 
-export type InstanceOptions = {
+export type { Notification } from './modules/notificationFactory';
+
+export type InstanceOptions<T = any, U = any> = {
   // unique identifier for the user
   userId: string;
 
@@ -33,15 +40,16 @@ export type InstanceOptions = {
   debug?: boolean;
 
   // function to transform the notification
-  transformNotification?: (notification: any) => any;
+  transformNotification?: TransformNotificationFn<T, U>;
 };
 
-export type Deps = {
+export type Deps<T = any, U = any> = {
   log: ReturnType<typeof createLogger>;
   sendRequest: ReturnType<typeof createApiExecutor>;
-  options: InstanceOptions;
+  options: InstanceOptions<T, U>;
   browserType: string;
   eventManager: ReturnType<typeof EventManager>;
+  transform: ReturnType<typeof createTransformer<T, U>>
 };
 
 /**
@@ -51,7 +59,7 @@ export type Deps = {
  * @param {InstanceOptions} options
  * @return {*}
  */
-export async function createInstance<TData>(options: InstanceOptions) {
+export async function createInstance<TData, UType=Notification<TData>>(options: InstanceOptions<TData, UType>) {
   validateIncomingArgs(options);
 
   const { apiKey, userId, userSignature, debug = false } = options;
@@ -70,9 +78,19 @@ export async function createInstance<TData>(options: InstanceOptions) {
     deviceId,
   });
 
+  const transformNotification = options.transformNotification;
+
+  const transform = createTransformer(transformNotification);
   const eventManager = EventManager();
 
-  const deps = { log, sendRequest, options, browserType, eventManager };
+  const deps: Deps<TData, UType> = {
+    log,
+    sendRequest,
+    options,
+    browserType,
+    eventManager,
+    transform,
+  };
 
   const response = await connect({ ...deps });
 
@@ -89,18 +107,17 @@ export async function createInstance<TData>(options: InstanceOptions) {
   log('Connected API Response: ', response);
 
   //Register Service Worker and subscribe to web push
-  const webpush =
-    enableWebPush && (await WebPushFactory({ ...deps, publicKey, deviceId }));
+  const webpush = (await webPushFactory({ ...deps, publicKey, deviceId, enableWebPush }));
 
-  const webPushApi = webpush && webpush.publicApi;
+  const preference = preferencesFactory({...deps});
 
-  await initiateRealtimeConnection({ ...deps });
+  const notification = notificationFactory<TData, UType>({...deps});
 
-  const preference = preferencesFactory({ ...deps });
+  //await initiateRealtimeConnection<TData, UType>({...deps, createNotification: notification.createNotification});
 
   return {
-    notification: {},
-    webpush: webPushApi || {},
+    notification: notification.publicApi,
+    webpush: webpush.publicApi,
     events: eventManager.publicApi,
     preference: preference.publicApi,
   };
