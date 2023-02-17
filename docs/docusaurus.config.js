@@ -18,7 +18,7 @@ const config = {
   scripts: [
     {
       async: true,
-      src: '/js/drift.js',
+      src: '/js/intercom.js',
     },
   ], // Replace with your own doc site's name. Should match the collection name in the scraper settings.
   themes: ['docusaurus-theme-search-typesense'],
