@@ -87,6 +87,7 @@ Providers enables delivery through a particular channel. For example to deliver 
 * [Sendgrid](/docs/channels/configuring-providers/email/sendgrid-provider)
 * [Mailgun](/docs/channels/configuring-providers/email/mailgun)
 * [AWS SES](/docs/channels/configuring-providers/email/ses)
+* [Postmark](/docs/channels/configuring-providers/email/postmark)
 * [SMTP](/docs/channels/configuring-providers/email/smtp-provider)
 
 #### Mobile Push
