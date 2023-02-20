@@ -104,6 +104,6 @@ curl --location --request PUT 'https://api.engagespot.co/v3/users/{identifier}' 
 The simple rule is to send the user's data whenever it is available. For example, during signup, login, or profile update operation in your app.
 Make sure you share the user's data before sending any notification to them.
 
-:::warning
+:::caution
 If you try to send a notification to a user whose data isn't available in Engagespot, it will be discarded.
 :::

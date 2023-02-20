@@ -1,0 +1,62 @@
+---
+sidebar_position: 4
+---
+# Postmark
+
+You can send email notifications through Postmark transactional email API.
+
+## Unique Identifier
+
+Each provider is identified by a unique identifier. Unique identifier of Postmark provider is `postmark_email`
+
+## Enabling Postmark
+
+To enable Postmark provider, login to your Engagespot dashboard, goto Channels -> Email and enable Postmark.
+
+:::info
+
+Postmark provider uses `email` attribute in your user's [profile](../../../profile/what-are-user-profiles.mdx) as the primary address to deliver the notifications. So make sure your user's profile has the `email` attribute set.
+
+:::
+
+
+## Postmark Configurations.
+
+Postmark requires the following configurations.
+
+| Configuration | Description                                          | Required | Example        |
+| ------------- | ---------------------------------------------------- | -------- | -------------- |
+| SERVER_API_TOKEN | Server token from your Postmark dashboard | Yes      | 
+| FROM_EMAIL | Sender signature created in your Postmark dashboard                             | Yes      |              |
+
+## Overriding Configurations
+
+Postmark provider allows you to override all the above configurations (and you can specify several more options) while sending a notification through Engagespot API, using the `https://api.engagespot.co/v3/notifications` endpoint.
+
+To override the configurations, you must supply them via `override` -> `postmark_email` parameter of the above API. 
+Configurations override values should be passed via `_config` object, and you can directly supply any additional parameters that will be passed to Postmark API.
+
+For example,
+
+```json
+{
+  "notification": {
+    "title": "Anand commented on your photo",
+    "message": "Hey Steve, you're looking cool 😎. Who took this photo?",
+    "url": "https://your-app.com/photos/17293739",
+    "category": "comment"
+  },
+  "recipients": ["steve@example.com"],
+  "override": {
+    "postmark_email": {
+      "_config": {
+        "SERVER_API_TOKEN": "ANNHYAAJMLCPWRWGCNBSKHFY",
+      },
+      "From": "sender@example.com",
+      "To": "receiver@example.com",
+      "Subject": "Postmark test",
+      "TextBody": "Hello dear Postmark user.",
+    }
+  }
+}
+```
