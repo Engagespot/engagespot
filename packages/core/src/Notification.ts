@@ -30,6 +30,15 @@ export default class Notification<T> implements NotificationItem<T> {
   }
 
   /**
+   * This should be the accurate name of this function.
+   * @returns 
+   */
+
+  async markAsRead(){
+    return this.markAsClicked();
+  }
+
+  /**
    * Marks this notification as clicked
    * @returns
    */
@@ -64,6 +73,67 @@ export default class Notification<T> implements NotificationItem<T> {
   }
 
   /**
+   * Mark as Unseen
+   * @returns 
+   */
+  async markAsUnSeen() {
+
+    const options: apiRequestOptions = {
+      url: this._client.baseURL + '/notifications/' + this.id + '/views',
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-ENGAGESPOT-API-KEY': this._client.apiKey,
+        'X-ENGAGESPOT-USER-ID': this._client.userId,
+        ...(this._client.userSignature && {
+          'X-ENGAGESPOT-USER-SIGNATURE': this._client.userSignature,
+        }),
+      },
+    };
+
+    try {
+      const response = await sendRequest(options);
+
+      if (response) return this;
+
+      throw 'Cannot mark notification as clicked';
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Mark as UnRead
+   * @returns 
+   */
+  async markAsUnRead() {
+
+    const options: apiRequestOptions = {
+      url: this._client.baseURL + '/notifications/' + this.id + '/reads',
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-ENGAGESPOT-API-KEY': this._client.apiKey,
+        'X-ENGAGESPOT-USER-ID': this._client.userId,
+        ...(this._client.userSignature && {
+          'X-ENGAGESPOT-USER-SIGNATURE': this._client.userSignature,
+        }),
+      },
+    };
+
+    try {
+      const response = await sendRequest(options);
+
+      if (response) return this;
+
+      throw 'Cannot mark notification as clicked';
+    } catch (error) {
+      throw error;
+    
+    }
+  }
+
+  /**
    * Fetches this notification & also marks this notification as seen
    * @returns
    */
@@ -86,14 +156,14 @@ export default class Notification<T> implements NotificationItem<T> {
 
       if (response) {
         //We should update this object with the notification details received from API
-        this.title = response.data.title;
-        this.message = response.data.message;
-        this.icon = response.data.icon;
-        this.url = response.data.url;
-        this.seenAt = response.data.seenAt;
-        this.clickedAt = response.data.clickedAt;
-        this.createdAt = response.data.createdAt;
-        this.data = response.data.data;
+        this.title = response.title;
+        this.message = response.message;
+        this.icon = response.icon;
+        this.url = response.url;
+        this.seenAt = response.seenAt;
+        this.clickedAt = response.clickedAt;
+        this.createdAt = response.createdAt;
+        this.data = response.data;
 
         return this;
       }

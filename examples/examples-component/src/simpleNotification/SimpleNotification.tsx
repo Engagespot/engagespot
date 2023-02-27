@@ -70,12 +70,12 @@ export function SimpleNotification() {
           <NavItem style={{ marginRight: '10rem' }}>Login</NavItem>
           <NavItem>
             <Engagespot
-              apiKey="14b90lje36icbm6of8f64a"
+              apiKey="ywxewq2tbc7mytcda4btye"
               headerDropdownItems={[
                 { name: 'Open All Notifications', action: () => true },
               ]}
               userId={user}
-              //endPointOverride={'https://api.staging.engagespot.co/v3/'}
+              endPointOverride={'http://localhost:3002/v3/'}
               onFeedItemClick={(evt, options) => {
                 options.markAsClicked();
               }}

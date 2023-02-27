@@ -113,8 +113,11 @@ interface NotificationItem {
   createdAt?: string | null;
   data?: T | null;
 
-  fetch?:  () => Promise<this>;
-  markAsClicked?:  () => Promise<this>;
+  fetch?:  () => Promise<this> // This will mark the notification as seen.
+  markAsClicked?:  () => Promise<this> //@deprecated. Use markAsRead() instead.
+  markAsRead?:  () => Promise<this>
+  markAsUnSeen?: () => Promise<this>
+  markAsUnRead? () => Promise<this>
   delete? () => Promise<this>
 }
 ```
@@ -159,15 +162,29 @@ The data object passed to the send notifications API.
 
 The `NotificationItem` interface has the following methods.
 
-#### fetch
+#### fetch()
 
 Calls **GET** `/notifications/:notificationId` API and sets the properties of this class.
 
-#### markAsClicked
+#### markAsClicked()
 
-Calls **POST** `/notifications/:notificationId/click` API and marks this notification as clicked.
+:::caution
+markAsClicked() method is deprecated. Use `markAsRead()` instead
+:::
 
-#### delete
+#### markAsRead()
+
+Calls **POST** `/notifications/:notificationId/click` API and marks this notification as read.
+
+#### markAsUnSeen()
+
+Calls **DELETE** `/notifications/:notificationId/views` API and marks this notification as unseen.
+
+#### markAsUnRead()
+
+Calls **DELETE** `/notifications/:notificationId/reads` API and marks this notification as unread.
+
+#### delete()
 
 Calls **DELETE** `/notifications/:notificationId` API and deletes this notification.
 
@@ -190,6 +207,11 @@ engagespot.onNotificationReceive(notification => {
 ```
 
 ### onNotificationClick
+:::caution
+onNotificationClick() is deprecated. Use `onNotificationRead` instead.
+:::
+
+### onNotificationRead
 
 ```js
 import Engagespot from '@engagespot/core';
@@ -198,7 +220,7 @@ const engagespot = new Engagespot('YOUR_ENGAGESPOT_API_KEY', {
   userId: 'youruser@example.com',
 });
 
-engagespot.onNotificationClick(notification => {
+engagespot.onNotificationRead(notification => {
   //You'll get the notification object.
 });
 ```

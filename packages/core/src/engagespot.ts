@@ -717,10 +717,22 @@ _ready: Promise<unknown>;
   }
 
   /**
+   * @deprecated
+   * Use onNotificationRead() instead.
    * Subscriber function for NOTIFICATION_CLICKED
    * @param handler
    */
   onNotificationClick(handler: Function) {
+    this.eventListenerStore.NOTIFICATION_CLICKED.push(handler);
+    return true;
+  }
+
+  /**
+   * 
+   * @param handler 
+   * @returns 
+   */
+  onNotificationRead(handler: Function) {
     this.eventListenerStore.NOTIFICATION_CLICKED.push(handler);
     return true;
   }

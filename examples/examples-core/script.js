@@ -1,9 +1,9 @@
 import Engagespot from '../../packages/core/';
 
-const engagespot = new Engagespot('ujtmjxnp5efmfn5ddsbdj', {
-  userId: 'anandrmedia@gmail.com',
+const engagespot = new Engagespot('ywxewq2tbc7mytcda4btye', {
+  userId: 'anand@logidots.com',
   debug: true,
-  endPointOverride: 'https://api.staging.engagespot.co/v3/',
+  endPointOverride: 'http://localhost:3002/v3',
 });
 
 const init = async () => {
