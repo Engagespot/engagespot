@@ -1,4 +1,4 @@
-import { Deps } from '../createInstance';
+import { Deps, Slice, State } from '../createInstance';
 
 export type Notification<T = any> = {
   id: string;
@@ -25,8 +25,23 @@ type GetNotificationResponse<TData> = {
   };
 };
 
+export type NotificationSlice = {
+  unreadCount: number;
+  page: number;
+  limit: number;
+  isLoading: boolean;
+  setLoader: (isLoading: boolean) => void;
+  notifications: Notification[];
+  notif: () => Notification[];
+  getNotifications: (params: GetNotificationsParams) => void;
+  markAsRead: (id: string) => void;
+  markAllAsRead: () => void;
+  removeNotification: (id: string) => void;
+  addNotification: (notification: Notification) => void;
+};
+
 export type CreateNotification<T, U> = ReturnType<
-  typeof notificationFactory<T,U>
+  typeof notificationFactory<T, U>
 >['createNotification'];
 
 export function notificationFactory<TData, UType>({
@@ -117,6 +132,80 @@ export function notificationFactory<TData, UType>({
     }
   };
 
+  const createNotificationSlice: Slice<NotificationSlice> = (
+    set,
+    getState
+  ) => ({
+    unreadCount: 0,
+    isLoading: false,
+    notifications: [] as Notification<UType>[],
+    notif: () => {
+      return [...getState().notifications];
+    },
+    limit: 15,
+    page: 1,
+    setLoader: (isLoading: boolean) => {
+      set(state => {
+        state.isLoading = isLoading;
+      });
+    },
+    getNotifications: async (
+      { page = 1, limit = 15 } = { page: 1, limit: 15 }
+    ) => {
+      getState().setLoader(true);
+      const notifications = await get({ page, limit });
+      getState().setLoader(false);
+      set(state => {
+        state.notifications.unshift(...(notifications as any));
+      });
+    },
+    markAsRead: async id => {
+      const success = await markAsRead(id);
+      if (success) {
+        set(state => ({
+          ...state,
+          notifications: state.notifications.map(notification => {
+            if (notification.id === id) {
+              return {
+                ...notification,
+                clickedAt: new Date().toISOString(),
+              };
+            }
+            return notification;
+          }),
+        }));
+      }
+    },
+    markAllAsRead: async () => {
+      const success = await markAllAsSeen();
+      if (success) {
+        set(state => ({
+          ...state,
+          notifications: state.notifications.map(notification => ({
+            ...notification,
+            clickedAt: new Date().toISOString(),
+          })),
+        }));
+      }
+    },
+    removeNotification: async id => {
+      const success = await remove(id);
+      if (success) {
+        set(state => {
+          state.notifications = state.notifications.filter(
+            notification => notification.id !== id
+          );
+        });
+      }
+    },
+    addNotification: notification => {
+      set(state => ({
+        ...state,
+        notifications: [notification, ...state.notifications],
+      }));
+    },
+  });
+
   const returnValues = {
     get,
     markAsRead,
@@ -124,5 +213,9 @@ export function notificationFactory<TData, UType>({
     markAllAsSeen,
     createNotification,
   };
-  return { ...returnValues, publicApi: { ...returnValues } };
+  return {
+    ...returnValues,
+    createNotificationSlice,
+    publicApi: { ...returnValues },
+  };
 }

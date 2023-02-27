@@ -1,15 +1,21 @@
-import { connect } from './modules/connect';
+import { createStore, StateCreator } from 'zustand/vanilla';
+import { immer } from 'zustand/middleware/immer';
+import { connectFactory, ConnectSlice } from './modules/connect';
 import { defaults } from './helpers/defaults';
 import { createApiExecutor } from './modules/apiCore';
 import { validateIncomingArgs } from './helpers/errorHandler';
-import { webPushFactory } from './modules/webPushFactory';
+import { webPushFactory, WebPushSlice } from './modules/webPushFactory';
 import { EventManager } from './modules/eventManager';
-import { initiateRealtimeConnection } from './modules/realtimeClient';
+import { realtimeClient } from './modules/realtimeClient';
 import { getOrCreateDeviceId } from './utils/device';
 import { createLogger } from './utils/logger';
 import { findBrowser } from './utils/platform';
-import { preferencesFactory } from './modules/preferences';
-import { notificationFactory, Notification } from './modules/notificationFactory';
+import { PreferenceSlice, preferencesFactory } from './modules/preferences';
+import {
+  notificationFactory,
+  Notification,
+  NotificationSlice,
+} from './modules/notificationFactory';
 import {
   TransformNotificationFn,
   createTransformer,
@@ -49,8 +55,15 @@ export type Deps<T = any, U = any> = {
   options: InstanceOptions<T, U>;
   browserType: string;
   eventManager: ReturnType<typeof EventManager>;
-  transform: ReturnType<typeof createTransformer<T, U>>
+  transform: ReturnType<typeof createTransformer<T, U>>;
 };
+
+export type State = {} & NotificationSlice &
+  PreferenceSlice &
+  ConnectSlice &
+  WebPushSlice;
+
+export type Slice<T> = StateCreator<State, [['zustand/immer', unknown]], [], T>;
 
 /**
  *
@@ -59,7 +72,9 @@ export type Deps<T = any, U = any> = {
  * @param {InstanceOptions} options
  * @return {*}
  */
-export async function createInstance<TData, UType=Notification<TData>>(options: InstanceOptions<TData, UType>) {
+export function createInstance<TData, UType = Notification<TData>>(
+  options: InstanceOptions<TData, UType>
+) {
   validateIncomingArgs(options);
 
   const { apiKey, userId, userSignature, debug = false } = options;
@@ -92,33 +107,44 @@ export async function createInstance<TData, UType=Notification<TData>>(options: 
     transform,
   };
 
-  const response = await connect({ ...deps });
-
-  if (!response) {
-    log('No response');
-    return;
-  }
-
-  const {
-    unreadCount,
-    app: { hideBranding, publicKey, enableWebPush, channels = [] },
-  } = response;
-
-  log('Connected API Response: ', response);
+  const { connectPromise, connectSlice, getAppInfo } = connectFactory({
+    ...deps,
+  });
 
   //Register Service Worker and subscribe to web push
-  const webpush = (await webPushFactory({ ...deps, publicKey, deviceId, enableWebPush }));
+  const webpush = webPushFactory({
+    ...deps,
+    deviceId,
+    connectPromise,
+  });
 
-  const preference = preferencesFactory({...deps});
+  const preference = preferencesFactory({ ...deps });
 
-  const notification = notificationFactory<TData, UType>({...deps});
+  const notification = notificationFactory<TData, UType>({ ...deps });
 
-  //await initiateRealtimeConnection<TData, UType>({...deps, createNotification: notification.createNotification});
+  realtimeClient<TData, UType>({
+    ...deps,
+    createNotification: notification.createNotification,
+  }).connect();
+
+  const store = createStore(
+    immer<State>((...a) => ({
+      ...connectSlice(...a),
+      ...notification.createNotificationSlice(...a),
+      ...preference.createPreferencesSlice(...a),
+      ...webpush.createWebPushSlice(...a),
+    }))
+  );
+
+  // @ts-ignore
+  window.store = store;
 
   return {
+    appInfo: getAppInfo,
     notification: notification.publicApi,
     webpush: webpush.publicApi,
     events: eventManager.publicApi,
     preference: preference.publicApi,
+    __store: store,
   };
 }

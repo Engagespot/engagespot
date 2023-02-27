@@ -5,7 +5,6 @@ module.exports = {
     amd: true,
     node: true,
   },
-  parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'prettier'],
   rules: {
     'prettier/prettier': 'warn',

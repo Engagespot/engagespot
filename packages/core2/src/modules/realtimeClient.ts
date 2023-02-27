@@ -29,7 +29,7 @@ type RealtimeMessage<T = any> = Omit<Types.Message, 'data'> & {
 
 type RealtimeClientResponse = string;
 
-export async function initiateRealtimeConnection<TData, UType>({
+export function realtimeClient<TData, UType>({
   options: { apiKey, userId },
   sendRequest,
   browserType,
@@ -128,5 +128,7 @@ export async function initiateRealtimeConnection<TData, UType>({
     eventManager.trigger(name, transformedMessage);
   };
 
-  await connect();
+  return {
+    connect,
+  };
 }

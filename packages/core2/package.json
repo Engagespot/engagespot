@@ -49,7 +49,9 @@
     "ably": "^1.2.15",
     "axios": "^1.2.6",
     "dayjs": "^1.11.7",
-    "vite": "^4.1.1"
+    "immer": "^9.0.19",
+    "vite": "^4.1.1",
+    "zustand": "^4.3.3"
   },
   "publishConfig": {
     "access": "public"

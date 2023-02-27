@@ -1,4 +1,4 @@
-import { Deps } from '../createInstance';
+import { Deps, Slice } from '../createInstance';
 
 export type Category = {
   id: number;
@@ -27,6 +27,15 @@ export type SetPreference = {
 };
 
 export type SetUserAttributes = Record<string, any>;
+
+export type PreferenceSlice = {
+  preferences: UserPreference[];
+  categories: Category[];
+  getPreferences: () => void;
+  getCategories: () => void;
+  setPreferences: (preferences: SetPreference[]) => void;
+  setProfileAttributes: (attributes: SetUserAttributes) => void;
+};
 
 export function preferencesFactory({ log, sendRequest }: Deps) {
   /**
@@ -88,6 +97,32 @@ export function preferencesFactory({ log, sendRequest }: Deps) {
     return response;
   };
 
+  const createPreferencesSlice: Slice<PreferenceSlice> = set => ({
+    preferences: [],
+    categories: [],
+    getPreferences: async () => {
+      const preferences = (await getPreferences()) || [];
+      set({ preferences });
+    },
+    getCategories: async () => {
+      const categories = (await getCategories()) || [];
+      set({ categories });
+    },
+    setPreferences: async (preferences: SetPreference[]) => {
+      const response = await setPreferences(preferences);
+      if (response) {
+        log('worked');
+        //set({ preferences });
+      }
+    },
+    setProfileAttributes: async (attributes: SetUserAttributes) => {
+      const response = await setProfileAttributes(attributes);
+      if (response) {
+        //set({ preferences: attributes });
+      }
+    },
+  });
+
   const returnValues = {
     getPreferences,
     setPreferences,
@@ -96,6 +131,7 @@ export function preferencesFactory({ log, sendRequest }: Deps) {
   };
   return {
     ...returnValues,
+    createPreferencesSlice,
     publicApi: { ...returnValues },
   };
 }

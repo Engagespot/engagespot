@@ -1,4 +1,4 @@
-import { Deps } from '../createInstance';
+import { Deps, Slice } from '../createInstance';
 import { handleError } from '../helpers/errorHandler';
 import { isWebPlatform } from '../utils/platform';
 import {
@@ -8,13 +8,13 @@ import {
   askWebPushPermission,
   getWebPushSubscription,
 } from '../utils/webPush';
+import { ConnectResponse } from './connect';
 
 const PERMISSION_QUERY_KEY = 'notifications';
 
 type WebPushParams = {
-  publicKey: string;
   deviceId: string;
-  enableWebPush: boolean;
+  connectPromise: Promise<false | ConnectResponse>;
 } & Deps;
 
 const SERVICE_WORKER_URL = '/service-worker.js?sdkVersion=3.0.0';
@@ -29,15 +29,30 @@ type WebPushFactoryReturn = WebPushFactoryPublicReturn & {
   publicApi: WebPushFactoryPublicReturn;
 };
 
-export async function webPushFactory({
+export type WebPushSlice = {
+  subscribe: () => Promise<void>;
+};
+
+export function webPushFactory({
   log,
   sendRequest,
   deviceId,
-  publicKey,
   eventManager,
-  enableWebPush,
+  connectPromise,
   options: { allowNonHttpsWebPush, serviceWorkerRegistration },
 }: WebPushParams) {
+  let workerRegistrationPromise: Promise<
+    ServiceWorkerRegistration | undefined
+  > | null = null;
+
+  const isWebPushEnabled = async () => {
+    const connectRes = await connectPromise;
+    if (!connectRes) return;
+    const { app } = connectRes;
+    if (!app.enableWebPush) return false;
+    return true;
+  };
+
   const canRegisterServiceWorker = () => {
     return isWebPlatform() && isWebPushSupported() && allowNonHttpsWebPush;
   };
@@ -92,7 +107,7 @@ export async function webPushFactory({
       });
   };
 
-  const initiateRegistration = async () => {
+  const initiateRegistration = () => {
     if (!canRegisterServiceWorker()) {
       if (!allowNonHttpsWebPush) {
         handleError('nonHttpsWebPushDisabled');
@@ -102,21 +117,27 @@ export async function webPushFactory({
       return;
     }
 
-    const sWorkerRegistration = await getServiceWorkerRegistration();
-    if (!sWorkerRegistration) {
-      handleError('serviceWorkerRegistrationFailure');
-      return;
-    }
-    return sWorkerRegistration;
+    // TODO: Need some refactoring here.
+    (async () => {
+      const enabled = await isWebPushEnabled();
+      if (!enabled) {
+        log('Web push is not enabled for this app');
+        return;
+      }
+      workerRegistrationPromise = getServiceWorkerRegistration();
+      listenForWebPushPermissionChanges();
+    })();
   };
 
-  const workerRegistration = await initiateRegistration();
-  if (!workerRegistration) return {} as WebPushFactoryReturn;
-  listenForWebPushPermissionChanges();
+  const createWebPushSlice: Slice<WebPushSlice> = set => ({
+    subscribe: returnValues.subscribe,
+  });
 
   const returnValues = {
     isSupported: isWebPushSupported,
     getRegistrationState: getWebPushRegistrationState,
+    initiateRegistration,
+    createWebPushSlice,
     /**
      * Attach the push subscription for this device
      */
@@ -126,9 +147,17 @@ export async function webPushFactory({
         log('Web push is not supported in this browser');
         return;
       }
+      if (await isWebPushEnabled()) {
+        log('Web push is not enabled for this app');
+        return;
+      }
 
       //Check permission state
       const permissionState = getWebPushRegistrationState();
+      const res = await connectPromise;
+      if (!res) return;
+
+      const publicKey = res.app.publicKey;
 
       if (permissionState != 'denied') {
         const permissionResult = await askWebPushPermission();
@@ -137,7 +166,16 @@ export async function webPushFactory({
           return;
         }
 
-        const swRegistration = workerRegistration;
+        if (!workerRegistrationPromise) {
+          log('Service worker registration not found.');
+          return;
+        }
+        const swRegistration = await workerRegistrationPromise;
+        if (!swRegistration) {
+          log('Service worker registration not found.');
+          return;
+        }
+
         const subscription = await getWebPushSubscription(
           swRegistration,
           publicKey
@@ -146,6 +184,7 @@ export async function webPushFactory({
       }
     },
   };
+
   return {
     publicApi: {
       isSupported: returnValues.isSupported,

@@ -26,7 +26,7 @@ type CustomData = {
 };
 
 async function main() {
-  const engagespot = await createInstance<CustomData>({
+  const engagespot = createInstance<CustomData>({
     apiKey: '14b90lje36icbm6of8f64a',
     userId: 'hemanditwiz@gmail.com',
     debug: true,
@@ -40,8 +40,7 @@ async function main() {
     },
   });
 
-  if (!engagespot) return;
-  console.log(engagespot);
+  console.log('appinfo', await engagespot.appInfo())
 
   const notifications = await engagespot.notification.get({
     page: 1,

@@ -1,7 +1,6 @@
 ### Get categories
-GET https://api.engagespot.co/v3/categories
+GET https://api.engagespot.co/v3/notifications
 X-Engagespot-Api-Key: 14b90lje36icbm6of8f64a
-X-Engagespot-User-Id: hemanditwiz@gmail.com 
 
 ### Add Category
 
