@@ -304,7 +304,7 @@ paths:
       tags:
         - Notifications
       summary: /notifications/:notificationId
-      description: Gets the details of a notification
+      description: Gets the details of a notification. This will also mark the notification as `seen`
       parameters:
         - name: X-ENGAGESPOT-API-KEY
           required: true
@@ -334,7 +334,8 @@ paths:
       tags:
         - Notifications
       summary: /markAllNotificationsAsSeen
-      description: Marks all notifications as "seen" for the given user.
+      deprecated: true
+      description: Marks the first 15 unseen notifications as `seen` for the given user.
       requestBody:
         content: {}
       parameters:
@@ -388,12 +389,87 @@ paths:
             type: string
           description: Required If HMAC Authentication is Turned On
           example: USER-SIGNATURE
-        - name: notificationId
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+          description: Notification ID
+          example: '428152'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v3/notifications/{notificationId}/views:
+    delete:
+      tags:
+        - Notifications
+      summary: /notifications/:id/views
+      description: Marks a notification as Unseen.
+      parameters:
+        - name: X-ENGAGESPOT-API-KEY
+          required: true
+          in: header
+          schema:
+            type: string
+          example: shiynklpz18l3ktqyy6d9a
+        - name: X-ENGAGESPOT-USER-ID
+          required: true
+          in: header
+          schema:
+            type: string
+          example: yourUser@example.com
+        - name: X-ENGAGESPOT-USER-SIGNATURE
+          in: header
+          schema:
+            type: string
+          description: Required If HMAC Authentication is Turned On
+          example: USER-SIGNATURE
+        - name: id
           in: path
           schema:
             type: integer
           required: true
           example: '428152'
+          description: Notification ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /v3/notifications/{notificationId}/reads:
+    delete:
+      tags:
+        - Notifications
+      summary: /notifications/:id/reads
+      description: Marks a notification as Unread.
+      parameters:
+        - name: X-ENGAGESPOT-API-KEY
+          required: true
+          in: header
+          schema:
+            type: string
+          example: shiynklpz18l3ktqyy6d9a
+        - name: X-ENGAGESPOT-USER-ID
+          required: true
+          in: header
+          schema:
+            type: string
+          example: yourUser@example.com
+        - name: X-ENGAGESPOT-USER-SIGNATURE
+          in: header
+          schema:
+            type: string
+          description: Required If HMAC Authentication is Turned On
+          example: USER-SIGNATURE
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+          example: '428152'
+          description: Notification ID
       responses:
         '200':
           description: Successful response
@@ -424,6 +500,13 @@ paths:
             type: string
           description: Required If HMAC Authentication is Turned On
           example: USER-SIGNATURE
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+          description: id of notification to be deleted.
+          example: '428152'
       responses:
         '200':
           description: Successful response
