@@ -4852,7 +4852,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@engagespot/core@1.1.8, @engagespot/core@^1.1.8, @engagespot/core@workspace:packages/core":
+"@engagespot/core@1.1.9, @engagespot/core@^1.1.8, @engagespot/core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@engagespot/core@workspace:packages/core"
   dependencies:
@@ -20192,7 +20192,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-core@workspace:examples/examples-core"
   dependencies:
-    "@engagespot/core": 1.1.8
+    "@engagespot/core": 1.1.9
     dotenv: ^16.0.1
     tsup: ^6.1.2
     typescript: ^4.5.5

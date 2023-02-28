@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.9
+
+### Patch Changes
+
+- Added markAsRead and markAsUnread
+
 ## 1.1.8
 
 ### Patch Changes
