@@ -22,8 +22,7 @@ npm i @engagespot/core --save
 
 yarn add @engagespot/core
 ```
-
-Now let's add this library to a project with basic configurations.
+### Initializing the SDK
 
 ```js
 import Engagespot from '@engagespot/core';
@@ -31,13 +30,20 @@ import Engagespot from '@engagespot/core';
 const engagespot = new Engagespot('YOUR_ENGAGESPOT_API_KEY', {
   userId: 'youruser@example.com',
 });
-
+```
+### Fetching notifications
+```js
 const notificationList = engagespot.getNotificationList();
 await notificationList.fetch();
 notificationList.data.forEach(notification => {
   console.log(notification.title, notification.message);
 });
 ```
+To fetch notification list, you should use the `getNotificationList()` method, which returns the `NotificationList` object. Note that, the `NotificationList` object will be empty, and you need to call the `fetch()` method to pull the latest notification data from server.
+
+We've seen this in the example above. After calling `fetch()` which returns `Promise<this>`, you can access the notifications from `data[]`
+
+Let's learn more about `NotificationList` class below.
 
 ## Engagespot Class
 
@@ -55,13 +61,20 @@ The constructor accepts the following arguments.
 | options.userSignature             | string                                                                                                  | Required if your app has [HMAC Authentication](../user/enabling-HMAC-authentication.mdx) turned on. |
 | options.serviceWorkerRegistration | [ServiceWorkerRegistration](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration) | Use this if your app has an existing Service Worker Registration                                                   |
 
-### Fetching Notifications
 
-To fetch notification list, you should use the `getNotificationList()` method, which returns the `NotificationList` object. Note that, the `NotificationList` object will be empty, and you need to call the `fetch()` method to pull the latest notification data from server.
+### Web Push Notification
 
-We've seen this in the example above. After calling `fetch()` which returns `Promise<this>`, you can access the notifications from `data[]`
+Core Javascript API also includes methods to enable web push notifications via the `default_webpush` provider. If you have enabled `default_webpush` provider in your Engagespot, you can make use of the following methods to work with the web push functionality.
 
-Let's learn more about `NotificationList` class below.
+The following methods are available in the `Engagespot` class.
+
+#### httpsWebPushSubscribe()
+This function triggers the web push subscription prompt and attaches the subscription with Engagespot. After this, the user can receive web push notifications.
+
+:::info
+Make sure you have enabled web push for your app in Engagespot dashboard, and the <a target="blank" href="/docs/channels/configuring-providers/web-push/default-web-push-provider">service worker setup</a> is completed. Otherwise, this error will be shown - ES1005 - A service worker must be registered before push can be subscribed
+:::
+
 
 ## NotificationList Class
 
