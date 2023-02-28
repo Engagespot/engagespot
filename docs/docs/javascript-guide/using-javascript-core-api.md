@@ -75,6 +75,75 @@ This function triggers the web push subscription prompt and attaches the subscri
 Make sure you have enabled web push for your app in Engagespot dashboard, and the <a target="blank" href="/docs/channels/configuring-providers/web-push/default-web-push-provider">service worker setup</a> is completed. Otherwise, this error will be shown - ES1005 - A service worker must be registered before push can be subscribed
 :::
 
+### Preference Manager
+
+Using Core Javascript API, you can build a custom notification preference manager for your users. To learn more about how to build a notification preference manager, <a href="/docs/preference/what-are-preferences" target="_blank">read this guide</a>.
+
+### Event Listeners
+
+Engagespot Core emits several events which you can susbcribe to do custom actions.
+
+#### onNotificationReceive
+
+```js
+import Engagespot from '@engagespot/core';
+
+const engagespot = new Engagespot('YOUR_ENGAGESPOT_API_KEY', {
+  userId: 'youruser@example.com',
+});
+
+engagespot.onNotificationReceive(notification => {
+  //You'll get the notification object.
+});
+```
+
+#### onNotificationClick
+:::caution
+onNotificationClick() is deprecated. Use `onNotificationRead` instead.
+:::
+
+#### onNotificationRead
+
+```js
+import Engagespot from '@engagespot/core';
+
+const engagespot = new Engagespot('YOUR_ENGAGESPOT_API_KEY', {
+  userId: 'youruser@example.com',
+});
+
+engagespot.onNotificationRead(notification => {
+  //You'll get the notification object.
+});
+```
+
+#### onNotificationDelete
+
+```js
+import Engagespot from '@engagespot/core';
+
+const engagespot = new Engagespot('YOUR_ENGAGESPOT_API_KEY', {
+  userId: 'youruser@example.com',
+});
+
+engagespot.onNotificationDelete(notification => {
+  //You'll get the notification object.
+});
+```
+
+#### onNotificationSee
+
+```js
+import Engagespot from '@engagespot/core';
+
+const engagespot = new Engagespot('YOUR_ENGAGESPOT_API_KEY', {
+  userId: 'youruser@example.com',
+});
+
+engagespot.onNotificationSee(notification => {
+  //You'll get the notification object.
+});
+```
+ 
 
 ## NotificationList Class
 
@@ -200,68 +269,3 @@ Calls **DELETE** `/notifications/:notificationId/reads` API and marks this notif
 #### delete()
 
 Calls **DELETE** `/notifications/:notificationId` API and deletes this notification.
-
-## Events
-
-Engagespot Core emits several events which you can susbcribe to do custom actions.
-
-### onNotificationReceive
-
-```js
-import Engagespot from '@engagespot/core';
-
-const engagespot = new Engagespot('YOUR_ENGAGESPOT_API_KEY', {
-  userId: 'youruser@example.com',
-});
-
-engagespot.onNotificationReceive(notification => {
-  //You'll get the notification object.
-});
-```
-
-### onNotificationClick
-:::caution
-onNotificationClick() is deprecated. Use `onNotificationRead` instead.
-:::
-
-### onNotificationRead
-
-```js
-import Engagespot from '@engagespot/core';
-
-const engagespot = new Engagespot('YOUR_ENGAGESPOT_API_KEY', {
-  userId: 'youruser@example.com',
-});
-
-engagespot.onNotificationRead(notification => {
-  //You'll get the notification object.
-});
-```
-
-### onNotificationDelete
-
-```js
-import Engagespot from '@engagespot/core';
-
-const engagespot = new Engagespot('YOUR_ENGAGESPOT_API_KEY', {
-  userId: 'youruser@example.com',
-});
-
-engagespot.onNotificationDelete(notification => {
-  //You'll get the notification object.
-});
-```
-
-### onNotificationSee
-
-```js
-import Engagespot from '@engagespot/core';
-
-const engagespot = new Engagespot('YOUR_ENGAGESPOT_API_KEY', {
-  userId: 'youruser@example.com',
-});
-
-engagespot.onNotificationSee(notification => {
-  //You'll get the notification object.
-});
-```

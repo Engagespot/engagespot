@@ -11,8 +11,14 @@ Building such a fine-graned preference system can take you several days or month
 
 You can add user preference for each category either via REST API or our client SDKs (For example - ReactJS or Core Javascript).
 
-## Using Javascript Core SDK
+### Using Javascript Core SDK
 
+Using the <a href="/docs/javascript-guide/using-javascript-core-api" target="_blank">Engagespot Javascript Core SDK</a>, you can build a custom notification preference manager in your app. 
+
+#### Getting categories
+Use the `getCategories()` method to get the list of categories in your app.
+
+#### Setting Preferences
 You should use the `setPreferences` method to store key value pairs to your user's profile.
 
 ```js
