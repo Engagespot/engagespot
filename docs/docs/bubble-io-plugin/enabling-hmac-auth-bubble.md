@@ -6,7 +6,7 @@ sidebar_position: 2
 ## What is HMAC Authentication?
 HMAC Authentication is an added security mechanism to prevent other people from reading your user's notifications. Read more about HMAC [here](../user/enabling-HMAC-authentication.mdx)
 
-:::warning
+:::caution
 By default HMAC Authentication is turned off for all Engagespot apps. But we highly recommend to turn it ON before making your app live.
 :::
 

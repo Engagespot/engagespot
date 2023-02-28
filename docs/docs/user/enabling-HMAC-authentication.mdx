@@ -14,6 +14,11 @@ This will ensure that each user in your app will get a unique secret token, and 
 
 Here is how you can do this.
 
+:::caution
+By default, HMAC Authentication is turned off for all Engagespot apps. We highly recommend to turn it ON before making your app live.
+Production app without HMAC authentication is highly insecure.
+:::
+
 ## Generating HMAC Signature
 
 In you backend, use any crypto library to generate an HMAC signature for your user's unique identifier (For example, if you're passing your user's email id as `userId` to Engagespot front-end SDK, then you should hash the user's email). Use your Engagespot API-SECRET (NOT your API KEY) as the secret key for generating this hash. And you should pass this base64 encoded value of this hash to `userSignature` parameter in your front-end Engagespot SDK.
