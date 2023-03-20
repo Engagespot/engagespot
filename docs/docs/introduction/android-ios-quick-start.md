@@ -26,17 +26,22 @@ For authenticating your app's user with Engagespot, you must call the `/sdk/conn
 Please read the [API Doc](/docs/rest-api#tag/SDK/paths/~1v3~1sdk~1connect/post) to know more about the required headers & parameters.
 :::
 
-```json
-{
-  "deviceType": "android" //or iOS
-}
-```
-
 This API will return `200 OK` if your user has been authenticated with Engagespot.
 
 ## Listing Notifications
 
-To list all the notifications for the current user, you should use the **GET** `/notifications` endpoint. [Read API Doc](/docs/rest-api#tag/Notifications/paths/~1v3~1notifications/get).
+To build an In-App notification center in your Android or iOS app, you can use the List Notifications API to list all the notifications for the current user, you should use the **GET** `/notifications` endpoint. [Read API Doc](/docs/rest-api#tag/Notifications/paths/~1v3~1notifications/get).
+
+You will also get the un-read notifications count from this API.
+
+## Updating Notification Statuses
+
+You can update the notification statuses using the following APIs.
+
+* GET <a href="/docs/rest-api#tag/Notifications/paths/~1v3~1notifications~1428107/get">`/notifications/:notificationId`</a> - Fetch the details of a specific notification, and also mark it as `seen` by the user.
+* POST <a href="/docs/rest-api#tag/Notifications/paths/~1v3~1notifications~1%7BnotificationId%7D~1click/post">`/notifications/:notificationId/click`</a> - Mark a notification as `read` by the user.
+* DELETE <a href="/docs/rest-api#tag/Notifications/paths/~1v3~1notifications~1%7BnotificationId%7D~1reads/delete">`/notifications/:notificationId/reads`</a> Mark a notification as `unread` by the user. Please note that `read` and `seen` are two events. `read` is synonymous to `clicked`, whereas `seen` refers to the event of opening the notification center and just seeing the notification.
+* DELETE <a href="/docs/rest-api#tag/Notifications/paths/~1v3~1notifications~1428019~1/delete">`/notifications/:notificationId/reads`</a> Delete a notification
 
 ## Sending Notifications
 
