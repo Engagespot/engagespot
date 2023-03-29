@@ -245,3 +245,106 @@ const theme = {
 :::tip
 You can check out [examples](https://codesandbox.io/s/engagespot-react-component-example-c8udz?file=/src/App.tsx) in Codesandbox to learn how to customize different elements of the notification inbox component.
 :::
+
+
+## Extending Components
+Engagespot React library allows you to customize the pre-built UI components to match your needs and requirements. Let's look at few customization options available.
+
+### Rendering a custom notification item
+A notification item is an individual notification component in the notification center. You can completely customize it using the `renderNotificationBody` property which accepts a call back function with the `notification` item. The function should return a custom React component which will be rendered instead of the default notification item component.
+
+For example, you can render a custom notification item like the one below -
+<img src="https://engagespotcdn3.s3.amazonaws.com/blog/images/custom_notification_card.png" width="80%"/>
+
+Sample code for rendering a custom notification item using the `renderNotificationBody` prop is shown below.
+```javascript
+<Engagespot
+      apiKey="tcyj57u29ferlgqt58qcl"
+      userId="user@codesanbox.io"
+      feedItemPlaceholderImage="https://cdn.iconscout.com/icon/premium/png-256-thumb/notification-165-723675.png"
+      theme={theme}
+      renderNotificationBody={(notification) => {
+        if (notification.data?.type === "invoice") {
+          return (
+            <>
+              <h5
+                style={{
+                  fontSize: "14px",
+                  padding: "0px",
+                  color: "#4f4b4b",
+                  marginBottom: "2px",
+                  fontWeight: "normal",
+                  fontSize: "14px"
+                }}
+                dangerouslySetInnerHTML={{ __html: notification.heading }}
+              ></h5>
+
+              <div>
+                <div style={{ width: "15%", float: "left" }}>
+                  <img
+                    style={{
+                      marginLeft: "-10px",
+                      width: "80%",
+                      borderRadius: "5px",
+                      paddingTop: "8px"
+                    }}
+                    src={notification.data.attachmentIcon}
+                    alt="icon"
+                  />
+                </div>
+                <div
+                  style={{
+                    width: "50%",
+                    float: "left",
+                    marginLeft: "-20px",
+
+                    paddingTop: "15px",
+                    fontSize: "13px"
+                  }}
+                >
+                  <a
+                    style={{ textDecoration: "none", color: "#3f62be" }}
+                    href={notification.data.downloadUrl}
+                  >
+                    {notification.data.filename}
+                  </a>
+                </div>
+                <div
+                  class="actionItems"
+                  style={{
+                    width: "25%",
+                    float: "right",
+                    paddingTop: "10px",
+                    fontSize: "14px"
+                  }}
+                >
+                  <a
+                    href="#"
+                    style={{
+                      width: "50px",
+                      borderRadius: "5px",
+                      display: "block",
+                      backgroundColor: "#3f62be",
+                      color: "#fff",
+                      textDecoration: "none",
+                      padding: "8px 10px",
+                      fontSize: "12px",
+                      marginBottom: "5px"
+                    }}
+                  >
+                    Pay Now
+                  </a>
+                </div>
+              </div>
+
+              <div>
+                <p style={{ fontSize: "0.7rem", color: "rgb(136, 136, 136)" }}>
+                  2m ago . Billing
+                </p>
+              </div>
+            </>
+          );
+        }
+      }}
+    />
+```
