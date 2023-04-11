@@ -12,7 +12,7 @@ const config = {
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/engagespot.svg',
+  favicon: 'img/engagespot.ico',
   organizationName: 'engagespot', // Usually your GitHub org/user name.
   projectName: 'engagespot', // Usually your repo name.
   scripts: [
@@ -84,7 +84,7 @@ const config = {
         title: 'Engagespot',
         logo: {
           alt: 'Engagespot Logo',
-          src: 'img/engagespot.svg',
+          src: 'img/engagespot.ico',
         },
         items: [
           {
