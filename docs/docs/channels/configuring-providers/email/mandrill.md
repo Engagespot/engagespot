@@ -30,6 +30,34 @@ Mandrill Provider requires the following configurations.
 | FROM_EMAIL    | Sender email address    | Yes      | noreply@myapp.com                 |
 | FROM_NAME     | Sender name    | Yes      | john doe                          |
 
+## Advanced Delivery Tracking
+It is **strongly advised** to follow the steps below for complete integration. Adding a webhook is the only way to receive timely updates on the result of the process after the message has been sent.
+
+If you want the delivery status of your Email notifications to be available in Engagespot, you have to specify a call back URL in your Mandrill account.
+
+1. For this, open your Mandrill App, then go to - **Settings -> Webhooks -> Create Webhook**
+Paste the following URL into the  **Post to URL** input field
+
+```
+https://analytics.egspt.co/api/v1/apps/YOUR_ENGAGESPOT_APP_API_KEY/webhook/mandrill_email
+```
+Make sure to add your Engagespot app's API Key in the above URL, or else tracking won't work.
+
+2. As the next step, Check all events, so all those events can be tracked by Engagespot.
+
+3. Finally, click the create webhook button.
+
+### What events can be tracked?
+
+Currently, Engagespot tracks the following events from your Mandrill WhatsApp API.
+
+|     Event      |            Description             |
+|----------------|------------------------------------|
+| sent           |This is a status from Engagespot. This means, your notification has been successfully accepted by Mandrill API. But that may not guarantee delivery. |
+| delivered      |Your Email has been delivered to your user, but has not been seen yet |
+| seen           |Your Email was seen by the user. This event is tracked only for users who have open tracking enabled  |
+| discarded      |For some reason, your message was not delivered. There will be an explanation along with the status |
+
 
 ## Overriding Configurations
 
