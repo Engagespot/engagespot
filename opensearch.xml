@@ -4,7 +4,7 @@
   <ShortName>Engagespot</ShortName>
   <Description>Search Engagespot</Description>
   <InputEncoding>UTF-8</InputEncoding>
-  <Image width="16" height="16" type="image/x-icon">https://documentation.engagespot.co/img/engagespot.svg</Image>
+  <Image width="16" height="16" type="image/x-icon">https://documentation.engagespot.co/img/engagespot.ico</Image>
   <Url type="text/html" method="get" template="https://documentation.engagespot.co/search?q={searchTerms}"/>
   <Url type="application/opensearchdescription+xml" rel="self" template="https://documentation.engagespot.co/opensearch.xml" />
   <moz:SearchForm>https://documentation.engagespot.co/</moz:SearchForm>
