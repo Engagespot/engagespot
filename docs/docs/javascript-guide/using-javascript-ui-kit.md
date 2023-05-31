@@ -57,3 +57,45 @@ This example is hosted in Codesandbox. [View](https://codesandbox.io/s/engagespo
 ## Customizing Theme
 
 You can customize the look and feel of the Engagespot Notification Inbox using the `theme` property. All the customization options mentioned in [React Component](./using-react-component#available-themeing-options) are available in this library too.
+
+## Optional initialization props
+
+You can pass through optional props to the `render()` function.
+
+```javascript
+Engagespot.render(selectorString, props: EngagespotProps)
+```
+
+```javascript
+interface EngagespotProps {
+  theme?: ThemeOverrides;
+  panelOpenByDefault?: boolean;
+  panelOnly?: boolean;
+  feedItemPlaceholderImage?: string;
+  hideNotificationAvatar?: boolean;
+  hideJumpToTop?: boolean;
+  headerText?: string;
+  renderFooterContent?: customRenderFn;
+  renderNotificationIcon?: customRenderFn;
+  renderEmptyPlaceholderImage?: customRenderFn;
+  renderNotificationContent?: customRenderFn<customNotificationContentType>;
+  renderNotificationBody?: customRenderFn<customNotificationContentType>;
+  onFeedItemClick?: (evt, payload: ClickableNotificationPayload) => void;
+  headerDropdownItems?: DropdownMenuProps['items'];
+}
+```
+
+### `onFeedItemClick`
+Callback function passed to this property will be invoked whenever a notification is clicked.
+
+Example usage
+
+```javascript
+Engagespot.render('#bellIcon', {
+  apiKey: 'ENGAGESPOT_API_KEY',
+  userId: 'unique-id-of-user',
+  onFeedItemClick: (evt ,payload) => {
+    console.log("A notification was clicked, and the payload is", payload)
+  }
+});
+```

@@ -30,7 +30,7 @@ You can find your ENGAGESPOT_API_KEY from your [Engagespot dashboard](https://po
 
 ## Props
 
-The Engagespot notification react component can be customized to suit your application's look and feel. The `Engagespot` component accepts the following props.
+The Engagespot notification react component can be customized to suit your application's look and feel. The `Engagespot` component accepts the following props (`EngagespotProps` interface).
 
 | Property                    | Description                                                                          | Type             |
 | --------------------------- | ------------------------------------------------------------------------------------ | ---------------- |
@@ -42,6 +42,27 @@ The Engagespot notification react component can be customized to suit your appli
 | renderEmptyPlaceholderImage | Component to show when notification feed is empty                                    | Component        |
 | headerText                  | Text that will be shown on Notification feed title                                   | `string`         |
 | theme                       | Object with multiple properties to customize the look and feel of notification feed. | `ThemeOverrides` |
+
+### `EngagespotProps` interface
+
+```javascript
+interface EngagespotProps {
+  theme?: ThemeOverrides;
+  panelOpenByDefault?: boolean;
+  panelOnly?: boolean;
+  feedItemPlaceholderImage?: string;
+  hideNotificationAvatar?: boolean;
+  hideJumpToTop?: boolean;
+  headerText?: string;
+  renderFooterContent?: customRenderFn;
+  renderNotificationIcon?: customRenderFn;
+  renderEmptyPlaceholderImage?: customRenderFn;
+  renderNotificationContent?: customRenderFn<customNotificationContentType>;
+  renderNotificationBody?: customRenderFn<customNotificationContentType>;
+  onFeedItemClick?: (evt, payload: ClickableNotificationPayload) => void;
+  headerDropdownItems?: DropdownMenuProps['items'];
+}
+```
 
 ### Available Themeing Options
 
