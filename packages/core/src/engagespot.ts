@@ -599,6 +599,7 @@ _ready: Promise<unknown>;
    * Gets notification categories of this app.
    */
   async getCategories() {
+    await this._resolveInstanceState();
     const url = this.baseURL + '/categories';
     return (await this.apiRequestv2.get(url)) as Array<Category>;
   }
