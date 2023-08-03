@@ -14,6 +14,10 @@ In this chapter, we will learn how to quickly setup Engagespot in your Android a
 
 We use Firebase Cloud Messaging (FCM) to deliver push notifications to your Android and iOS Apps. To enable FCM, login to your Engagespot dashboard. Enable FCM from Channels -> Mobile push menu. To enable FCM, you need to paste the content of your service account JSON which can be generated from your Google Firebase dashboard. Read [Firebase documentation](https://firebase.google.com/docs/admin/setup#initialize-sdk) to learn how to generate your Service Account JSON File.
 
+:::info
+You should register your user's devices with FCM on your Android/iOS code, and attach the fcm token to Engagespot user's profile as defined in the <a href="/docs/channels/configuring-providers/mobile-push/FCM-provider">FCM Provider Setup Guide</a>
+:::
+
 ## Authenticating your App's user with Engagespot
 
 As explained in the [Basic Concepts](./understanding-concepts.md) chapter, you should pass any unique identifier of your app's user to Engagespot. Since Engagespot doesn't have a native Android & iOS SDK, we'll use REST APIs to implement this.
