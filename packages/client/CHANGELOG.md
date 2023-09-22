@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.1.10
+
+### Patch Changes
+
+- Fixes issue with channel names
+- Updated dependencies
+  - @engagespot/react-component@1.1.10
+
 ## 1.1.9
 
 ### Patch Changes

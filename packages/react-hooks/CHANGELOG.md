@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.1.9
+
+### Patch Changes
+
+- Fixes issue with channel names
+- Updated dependencies
+  - @engagespot/core@1.1.10
+
 ## 1.1.8
 
 ### Patch Changes

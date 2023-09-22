@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.10
+
+### Patch Changes
+
+- Fixes issue with channel names
+
 ## 1.1.9
 
 ### Patch Changes

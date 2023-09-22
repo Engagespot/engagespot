@@ -57,7 +57,6 @@ export function NotificationPreference({
     ]);
   };
 
-
   const channels = preferences?.channels as any;
   const userPreferences = preferences?.userPreferences;
 
