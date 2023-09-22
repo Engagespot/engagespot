@@ -8,7 +8,8 @@ export type EngagespotChannel =
   | 'webPush'
   | 'email'
   | 'mobilePush'
-  | 'sms';
+  | 'sms'
+  | 'chat' | 'whatsapp' | 'slack';
 
 export interface UserPreferenceForChannel {
   channel: EngagespotChannel;

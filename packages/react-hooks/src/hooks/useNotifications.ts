@@ -27,7 +27,7 @@ Actions.SetPreferences = 'SetPreferences';
 Actions.SetCategories = 'SetCategories';
 Actions.SetInitialPreferences = 'SetInitialPreferences';
 
-const channels = ['inApp', 'webPush', 'email', 'sms', 'mobilePush'] as const;
+const channels = ['inApp', 'webPush', 'email', 'sms', 'mobilePush', 'slack', 'chat', 'whatsapp'] as const;
 
 const reducer: StateReducer = function (state, action, _, instance) {
   const formatDate = instance.formatDate || defaultDateFormatter;

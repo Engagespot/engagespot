@@ -57,7 +57,7 @@ export function NotificationPreference({
     ]);
   };
 
-  console.log('prefs', preferences);
+
   const channels = preferences?.channels as any;
   const userPreferences = preferences?.userPreferences;
 

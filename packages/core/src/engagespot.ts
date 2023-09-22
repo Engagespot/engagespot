@@ -97,6 +97,14 @@ _ready: Promise<unknown>;
       name: 'WhatsApp',
       id: 'whatsapp',
     },
+    slack:{
+      name: 'Slack',
+      id: 'slack'
+    },
+    chat:{
+      name:'Chat',
+      id: 'chat'
+    }
   };
 
   enabledChannels: Array<Channel> = [];
