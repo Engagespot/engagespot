@@ -36,7 +36,6 @@
   "dependencies": {
     "@engagespot/core": "^1.1.8",
     "@popperjs/core": "^2.9.1",
-    "@types/react": "17.0.37",
     "date-fns": "^2.29.3",
     "intersection-observer": "0.12.0",
     "lodash.merge": "4.6.2",
@@ -47,6 +46,7 @@
     "@microsoft/api-documenter": "^7.13.77",
     "@microsoft/api-extractor": "7.19.4",
     "@testing-library/react-hooks": "^7.0.2",
+    "@types/react": "^17.0.2",
     "dotenv": "^16.0.1",
     "jest": "^27.4.5",
     "msw": "^0.36.3",

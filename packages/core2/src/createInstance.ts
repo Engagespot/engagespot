@@ -1,27 +1,33 @@
-import { createStore, StateCreator } from 'zustand/vanilla';
-import { immer } from 'zustand/middleware/immer';
-import { connectFactory, ConnectSlice } from './modules/connect';
+import { connectFactory } from './modules/connect';
 import { defaults } from './helpers/defaults';
 import { createApiExecutor } from './modules/apiCore';
 import { validateIncomingArgs } from './helpers/errorHandler';
-import { webPushFactory, WebPushSlice } from './modules/webPushFactory';
+import { webPushFactory } from './modules/webPushFactory';
 import { EventManager } from './modules/eventManager';
 import { realtimeClient } from './modules/realtimeClient';
 import { getOrCreateDeviceId } from './utils/device';
 import { createLogger } from './utils/logger';
 import { findBrowser } from './utils/platform';
-import { PreferenceSlice, preferencesFactory } from './modules/preferences';
+import { preferencesFactory } from './modules/preferences';
 import {
   notificationFactory,
   Notification,
-  NotificationSlice,
+  Filters,
 } from './modules/notificationFactory';
 import {
   TransformNotificationFn,
   createTransformer,
 } from './modules/transformer';
 
-export type { Notification } from './modules/notificationFactory';
+export type {
+  Notification as EngagespotNotification,
+  NotificationStates as EngagespotNotificationStates,
+} from './modules/notificationFactory';
+
+export type Store = {
+  id: string;
+  filters?: Filters;
+};
 
 export type InstanceOptions<T = any, U = any> = {
   // unique identifier for the user
@@ -45,6 +51,9 @@ export type InstanceOptions<T = any, U = any> = {
   // flag to enable debug mode
   debug?: boolean;
 
+  // stores to filter notifications
+  filteredStores?: Store[];
+
   // function to transform the notification
   transformNotification?: TransformNotificationFn<T, U>;
 };
@@ -57,13 +66,6 @@ export type Deps<T = any, U = any> = {
   eventManager: ReturnType<typeof EventManager>;
   transform: ReturnType<typeof createTransformer<T, U>>;
 };
-
-export type State = {} & NotificationSlice &
-  PreferenceSlice &
-  ConnectSlice &
-  WebPushSlice;
-
-export type Slice<T> = StateCreator<State, [['zustand/immer', unknown]], [], T>;
 
 /**
  *
@@ -107,7 +109,7 @@ export function createInstance<TData, UType = Notification<TData>>(
     transform,
   };
 
-  const { connectPromise, connectSlice, getAppInfo } = connectFactory({
+  const { connectPromise, getAppInfo } = connectFactory({
     ...deps,
   });
 
@@ -117,6 +119,7 @@ export function createInstance<TData, UType = Notification<TData>>(
     deviceId,
     connectPromise,
   });
+  webpush.initiateRegistration();
 
   const preference = preferencesFactory({ ...deps });
 
@@ -127,24 +130,11 @@ export function createInstance<TData, UType = Notification<TData>>(
     createNotification: notification.createNotification,
   }).connect();
 
-  const store = createStore(
-    immer<State>((...a) => ({
-      ...connectSlice(...a),
-      ...notification.createNotificationSlice(...a),
-      ...preference.createPreferencesSlice(...a),
-      ...webpush.createWebPushSlice(...a),
-    }))
-  );
-
-  // @ts-ignore
-  window.store = store;
-
   return {
     appInfo: getAppInfo,
     notification: notification.publicApi,
     webpush: webpush.publicApi,
     events: eventManager.publicApi,
     preference: preference.publicApi,
-    __store: store,
   };
 }

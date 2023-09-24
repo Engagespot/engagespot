@@ -1,5 +1,4 @@
 import './style.css';
-import typescriptLogo from './typescript.svg';
 import { createInstance, Notification } from '@engagespot/core2';
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
@@ -8,7 +7,6 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <img src="/vite.svg" class="logo" alt="Vite logo" />
     </a>
     <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
     </a>
     <h1>Vite + TypeScript</h1>
     <div class="card">
@@ -27,20 +25,25 @@ type CustomData = {
 
 async function main() {
   const engagespot = createInstance<CustomData>({
-    apiKey: '14b90lje36icbm6of8f64a',
-    userId: 'hemanditwiz@gmail.com',
+    apiKey: 'ywxewq2tbc7mytcda4btye',
+    userId: 'anandrmedia@gmail.com',
+    endPointOverride: 'http://localhost:3002/v3/',
     debug: true,
     allowNonHttpsWebPush: true,
-    transformNotification({ notification, helpers }) {
-      return {
-        ...notification,
-        createdAt: helpers.fromNow(notification.createdAt),
-        hello: 'world',
-      };
-    },
+
+    // transformNotification({ notification, helpers }) {
+    //   return {
+    //     ...notification,
+    //     createdAt: helpers.fromNow(notification.createdAt),
+    //     hello: 'world',
+    //   };
+    // },
   });
 
-  console.log('appinfo', await engagespot.appInfo())
+  // @ts-ignore
+  window.engagespot = engagespot;
+
+  console.log('appinfo', await engagespot.appInfo());
 
   const notifications = await engagespot.notification.get({
     page: 1,
@@ -58,6 +61,7 @@ async function main() {
   const button = document.querySelector<HTMLButtonElement>('#counter')!;
   button.addEventListener('click', _ => {
     console.log('clicked');
+
     engagespot.webpush.subscribe();
   });
 }

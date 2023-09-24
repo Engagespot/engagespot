@@ -1,28 +1,40 @@
 import { useState } from 'react';
 import './App.css';
-import { useEngagespot } from './useEngagespot';
+import { useEngagespot } from '@engagespot/react-hooks2';
+import { createInstance } from '@engagespot/core2';
+
+window.Engagespot = createInstance({
+  apiKey: '14b90lje36icbm6of8f64a',
+  userId: 'hemanditwiz@gmail.com',
+});
 
 function App() {
   const [inputValue, setInputValue] = useState('');
-  const [page, setPage] = useState(1);
+
   const {
     notifications,
-    getNotifications,
+    loadMore,
+    isLoading = false,
     removeNotification,
-    isLoading,
-    notif,
+    currentPage,
   } = useEngagespot({
     apiKey: '14b90lje36icbm6of8f64a',
     userId: 'hemanditwiz@gmail.com',
-    debug: false,
-    allowNonHttpsWebPush: true,
   });
 
-  console.log('notif', notif());
+  console.log('notifications', notifications);
 
   return (
     <div className="App">
       <h2>{`isLoading... ${isLoading}`}</h2>
+      <h2>Current Page: {currentPage}</h2>
+      <button
+        onClick={() => {
+          loadMore();
+        }}
+      >
+        Load more
+      </button>
       <input
         type="text"
         value={inputValue}
@@ -34,7 +46,7 @@ function App() {
       <h1>Notifications</h1>
       <button
         onClick={async () => {
-          await getNotifications({ page });
+          await loadMore();
           setPage(page + 1);
         }}
       >
@@ -48,14 +60,14 @@ function App() {
         remove notification
       </button>
       <ul>
-        {notif().map(notification => (
+        {notifications.map((notification: any) => (
           <li
             onClick={() => {
               setInputValue(notification.id);
             }}
             key={notification.id}
           >
-            {notification.title}
+            {notification.id}: {notification.title}
           </li>
         ))}
       </ul>

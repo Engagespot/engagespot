@@ -10,7 +10,10 @@ describe('createLogger', () => {
 
       createDebugLogger(...logParams);
 
-      expect(consoleSpy).toHaveBeenCalledWith('[Engagespot-Core] ', logParams);
+      expect(consoleSpy).toHaveBeenCalledWith(
+        '[Engagespot-Core] ',
+        ...logParams
+      );
     });
   });
 

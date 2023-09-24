@@ -13,6 +13,7 @@
     "vite": "^4.1.0"
   },
   "dependencies": {
-    "@engagespot/core2": "workspace:^"
+    "@engagespot/core2": "workspace:^",
+    "@nanostores/react": "^0.7.1"
   }
 }

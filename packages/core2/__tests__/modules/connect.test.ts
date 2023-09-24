@@ -1,31 +1,55 @@
-import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
-import { createLogger } from '../../src/utils/logger';
+import { connectFactory, ConnectResponse } from '../../src/modules/connect';
+import { describe, it, beforeEach, expect, vi } from 'vitest';
+// Mocking the dependencies
+const sendRequest = vi.fn();
+const log = vi.fn();
+const browserType = 'someBrowser';
 
-import { connect } from '../../src/modules/connect';
+const mockDeps = {
+  sendRequest,
+  browserType,
+  log,
+} as any;
 
-describe('connect', () => {
-  const log = createLogger(false);
-  const options = {} as any;
-  const deps = { log, options } as any;
-  test('should send a POST request to the correct path with the correct data', async () => {
-    const sendRequest = vi.fn().mockResolvedValue({});
+const mockResponse: ConnectResponse = {
+  unreadCount: 10,
+  app: {
+    hideBranding: false,
+    publicKey: 'testPublicKey',
+    enableWebPush: true,
+    channels: ['channel1', 'channel2'],
+  },
+};
 
-    await connect({ sendRequest, log, options } as any);
+describe('connectFactory', () => {
+  beforeEach(() => {
+    sendRequest.mockReset();
+    log.mockReset();
+  });
 
+  it('should handle initial connection to api', async () => {
+    sendRequest.mockResolvedValue(mockResponse);
+
+    const { connectPromise } = connectFactory(mockDeps);
+    const response = await connectPromise;
+
+    expect(response).toEqual(mockResponse);
     expect(sendRequest).toHaveBeenCalledWith({
       method: 'post',
       path: '/sdk/connect',
       data: {
         deviceType: 'browser',
+        browserType: browserType,
       },
     });
   });
 
-  test.skip('should return the response from the API', async () => {
-    const sendRequest = vi.fn().mockResolvedValue({ foo: 'bar' });
+  it('should return app information', async () => {
+    sendRequest.mockResolvedValue(mockResponse);
 
-    const response = await connect({ sendRequest, ...deps });
+    const { getAppInfo } = connectFactory(mockDeps);
+    const response = await getAppInfo();
 
-    expect(response).toEqual({ foo: 'bar' });
+    expect(response).toEqual(mockResponse.app);
   });
 });

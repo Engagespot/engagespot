@@ -1,4 +1,4 @@
-import { Deps, Slice } from '../createInstance';
+import { Deps } from '../createInstance';
 import { handleError } from '../helpers/errorHandler';
 import { isWebPlatform } from '../utils/platform';
 import {
@@ -33,6 +33,19 @@ export type WebPushSlice = {
   subscribe: () => Promise<void>;
 };
 
+/**
+ * Handles the web push subscription
+ *
+ * @param {WebPushParams} {
+ *   log,
+ *   sendRequest,
+ *   deviceId,
+ *   eventManager,
+ *   connectPromise,
+ *   options: { allowNonHttpsWebPush, serviceWorkerRegistration },
+ * }
+ * @return {*}
+ */
 export function webPushFactory({
   log,
   sendRequest,
@@ -49,8 +62,7 @@ export function webPushFactory({
     const connectRes = await connectPromise;
     if (!connectRes) return;
     const { app } = connectRes;
-    if (!app.enableWebPush) return false;
-    return true;
+    return app.enableWebPush;
   };
 
   const canRegisterServiceWorker = () => {
@@ -120,6 +132,7 @@ export function webPushFactory({
     // TODO: Need some refactoring here.
     (async () => {
       const enabled = await isWebPushEnabled();
+      console.log('enabled???', enabled);
       if (!enabled) {
         log('Web push is not enabled for this app');
         return;
@@ -129,15 +142,10 @@ export function webPushFactory({
     })();
   };
 
-  const createWebPushSlice: Slice<WebPushSlice> = set => ({
-    subscribe: returnValues.subscribe,
-  });
-
   const returnValues = {
     isSupported: isWebPushSupported,
     getRegistrationState: getWebPushRegistrationState,
     initiateRegistration,
-    createWebPushSlice,
     /**
      * Attach the push subscription for this device
      */
@@ -147,7 +155,8 @@ export function webPushFactory({
         log('Web push is not supported in this browser');
         return;
       }
-      if (await isWebPushEnabled()) {
+      const webpushEnabled = await isWebPushEnabled();
+      if (!webpushEnabled) {
         log('Web push is not enabled for this app');
         return;
       }

@@ -10,7 +10,7 @@
     "dev": "tsup --minify false --clean false --sourcemap inline --watch",
     "tsc": "tsc",
     "clean": "rimraf dist",
-    "prepare": "yarn build"
+    "prepare": "pnpm build"
   },
   "devDependencies": {
     "rimraf": "^3.0.2",

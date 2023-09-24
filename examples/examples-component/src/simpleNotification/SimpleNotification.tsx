@@ -41,7 +41,6 @@ const NavItem = styled.li`
     transition: all 0.5s;
   }
 `;
-
 const users = [
   'ulli.yodhav@gmail.com',
   'hemanditwiz@gmail.com',

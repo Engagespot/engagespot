@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@engagespot/core2": "workspace:^",
+    "@engagespot/react-hooks2": "workspace:^",
+    "@nanostores/react": "^0.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

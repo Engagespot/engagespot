@@ -1,4 +1,4 @@
-import { Deps, Slice } from '../createInstance';
+import { Deps } from '../createInstance';
 
 type ConnectParams = {} & Deps;
 
@@ -17,16 +17,17 @@ export type ConnectResponse = {
   };
 };
 
-export type ConnectSlice = {
-  connect: () => Promise<void>;
-  app: {
-    hideBranding: boolean;
-    publicKey: string;
-    enableWebPush: boolean;
-    channels: string[];
-  };
-};
-
+/**
+ *
+ *
+ * Handles the initial connection to engagespot api
+ * @param {ConnectParams} {
+ *   sendRequest,
+ *   browserType,
+ *   log,
+ * }
+ * @return {*}
+ */
 export function connectFactory({
   sendRequest,
   browserType,
@@ -58,22 +59,7 @@ export function connectFactory({
     return app;
   };
 
-  const connectSlice: Slice<ConnectSlice> = set => ({
-    app: {} as ConnectSlice['app'],
-    connect: async () => {
-      const response = await connectPromise;
-      if (!response) {
-        log('No response');
-        return;
-      }
-      const { unreadCount, app } = response;
-      set({
-        app,
-      });
-    },
-  });
-
-  const returnValues = { connectPromise, connectSlice, getAppInfo };
+  const returnValues = { connectPromise, getAppInfo };
 
   return {
     ...returnValues,

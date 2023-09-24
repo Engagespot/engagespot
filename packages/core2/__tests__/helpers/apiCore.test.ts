@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import axios, { AxiosInstance, AxiosError } from 'axios';
-import { executeRequest, ApiRequestOptions } from '../../src/helpers/apiCore';
+import { executeRequest, ApiRequestOptions } from '../../src/modules/apiCore';
 
 describe('executeRequest', () => {
   let instance: AxiosInstance;
@@ -13,6 +13,7 @@ describe('executeRequest', () => {
   it('should make a successful request and return data', async () => {
     instance.request = vi.fn().mockResolvedValue({
       statusText: 'OK',
+      status: 200,
       data: { message: 'Success' },
     });
 

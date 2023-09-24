@@ -80,10 +80,8 @@ export async function executeRequest<TResponse, TData>(
 }
 
 async function handleError(error: AxiosError) {
-  const errorMessage = new Error(
-    `Unexpected status code ${error.response?.status}: ${error}, ${error.message}`
-  );
-  throw errorMessage;
+  const errorMessage = `Unexpected status code ${error.response?.status}: ${error}, ${error.message}`;
+  console.error(errorMessage);
 }
 
 export const createApiExecutor = (options: ApiInstanceOptions) => {

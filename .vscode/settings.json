@@ -12,5 +12,6 @@
     "all",
     "dashboard"
   ],
-  "vitest.commandLine": "yarn test --"
+  "vitest.commandLine": "pnpm test --",
+  "vitest.enable": false
 }

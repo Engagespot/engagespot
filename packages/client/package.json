@@ -16,7 +16,7 @@
     "in-app notifications"
   ],
   "scripts": {
-    "build": "yarn build:package && yarn build:cdn",
+    "build": "pnpm build:package && pnpm build:cdn",
     "build:package": "tsup",
     "build:cdn": "tsup --config ./tsup.cdn.config.ts",
     "dev": "tsup --minify false --clean false --sourcemap inline",
@@ -32,7 +32,9 @@
   "dependencies": {
     "@engagespot/react-component": "^1.1.9",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "@types/react-dom": "^17.0.2",
+    "@types/react": "^17.0.2"
   },
   "devDependencies": {
     "@microsoft/api-documenter": "^7.13.77",

@@ -132,3 +132,5 @@ export function realtimeClient<TData, UType>({
     connect,
   };
 }
+
+export type RealtimeClient = ReturnType<typeof realtimeClient>;
