@@ -60,6 +60,7 @@ const notificationItemResponseMap = {
   data: 'data',
   markAsClicked: 'markAsClicked',
   deleteNotification: 'deleteNotification',
+  blocks: 'blocks'
 };
 
 const transformNotificationItem = (

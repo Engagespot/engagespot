@@ -374,6 +374,7 @@ _ready: Promise<unknown>;
         data: message.data.notification.data,
         url: message.data.notification.url,
         createdAt: message.data.notification.created_at,
+        blocks: message.data.notification.blocks
       });
 
       //Now let's publish this to all listeners who need

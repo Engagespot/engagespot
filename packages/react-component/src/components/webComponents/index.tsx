@@ -31,7 +31,7 @@ const TemplateBlocks = ({ blocks }: { blocks: TemplateBlock[] }) => {
    }
 
    return (
-      <div>
+      <div style={{padding: '0 0 0.3rem 0'}}>
          {Object.keys(configGroupingBasedOnElements).map((section) => {
             const typeOfSection = configGroupingBasedOnElements[section]?.[0]?.type
 

@@ -95,6 +95,7 @@ const renderNotificationContent = (
         isMobile={isMobile}
         onFeedItemClick={onFeedItemClick}
         renderNotificationBody={renderNotificationBody}
+        blocks={notification.blocks}
       />
     )
   );

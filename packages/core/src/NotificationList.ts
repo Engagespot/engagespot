@@ -76,6 +76,7 @@ export default class NotificationList<T> implements NotificationList<T> {
         seenAt: notification.seenAt,
         data: notification.data,
         clickedAt: notification.clickedAt,
+        blocks: notification.blocks
       });
 
       this.data.push(notificationItem);
