@@ -5,7 +5,8 @@ export interface DefaultConfig {
 }
 
 const Defaults: DefaultConfig = {
-  apiHost: 'https://api.engagespot.co/v3',
+  // apiHost: 'https://api.engagespot.co/v3',
+  apiHost: 'https://coreapi-refactored.staging.engagespot.co/v3',
   wssHost: 'wss://rtm.engagespot.co',
   wssPort: 80,
 };
