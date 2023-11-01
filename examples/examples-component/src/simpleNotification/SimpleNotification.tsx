@@ -1,5 +1,4 @@
 import styled, { createGlobalStyle } from 'styled-components';
-
 import { Engagespot } from '@engagespot/react-component';
 import { useState } from 'react';
 
@@ -79,14 +78,14 @@ export function SimpleNotification() {
               onFeedItemClick={(evt, options) => {
                 options.markAsClicked();
               }}
-              renderNotificationBody={res => {
-                if (res.data && res.data.type === 'invoice') {
-                  const url = res.data.url;
-                  return `<p>
-                      ${res.heading} <a href="${url}">Download</a>
-                    </p>`;
-                }
-              }}
+              // renderNotificationBody={res => {
+              //   if (res.data && res.data.type === 'invoice') {
+              //     const url = res.data.url;
+              //     return `<p>
+              //         ${res.heading} <a href="${url}">Download</a>
+              //       </p>`;
+              //   }
+              // }}
               debug={true}
             />
           </NavItem>

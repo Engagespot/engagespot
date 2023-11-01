@@ -14,7 +14,6 @@
 }
 
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,4 +34,122 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/********** Web Component Styling Start **********/
+.card-basic {
+  color: black;
+  font-size: 0.8rem;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  width: 100%;
+
+  --padding: 0.8rem;
+}
+
+.accept-button::part(base) {
+  background: #be185d;
+  border: #be185d;
+}
+
+.accept-button::part(label) {
+  color: white;
+}
+
+.reject-button::part(base) {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  color: black;
+  marginleft: 10px;
+}
+
+.reject-button::part(base),
+.accept-button::part(base) {
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.reject-button::part(label),
+.accept-button::part(label) {
+  padding: 4px 8px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.card-basic::part(body) {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.card-basic::part(base) {
+  border-radius: 2px;
+}
+
+.parent__container::part(base) {
+  background: #f7f7f8;
+}
+
+.header::part(base) {
+  font-weight: 400;
+  margin-top: 0;
+  margin-bottom: 5px;
+  display: flex;
+  gap: 0.3rem;
+  font-size: 14px;
+}
+
+.header--highlight::part(base) {
+  font-weight: 600;
+}
+
+.header--reject-highlight::part(base) {
+  color: red;
+}
+
+.header--accept-highlight::part(base) {
+  color: blue;
+}
+
+.notification__text::part(base) {
+  margin: 0 0 0.8rem 0;
+}
+
+.button__parent::part(base) {
+  display: flex;
+  gap: 10px;
+}
+
+.more__options {
+  margin-left: auto;
+}
+
+.more__options::part(base) {
+  display: flex;
+  alignitems: flex-start;
+}
+.more__options__image::part(base) {
+  width: 18px;
+}
+
+.text__blue::part(base) {
+  color: blue;
+}
+
+/********** Web Component Styling End **********/
+
+
+/* tailwind styling */
+.flex {
+  display: flex;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.gap-2 {
+  gap: 1rem;
 }

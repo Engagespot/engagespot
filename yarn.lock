@@ -4219,6 +4219,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ctrl/tinycolor@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "@ctrl/tinycolor@npm:4.0.2"
+  checksum: e2e7f587c5cd64f3f6f6363924ef8e1ddf3d5050a7437f67710e011cf9881a31563070ebbf5477cfb935b313749d6e5a4bed40e0b0aec8a230a2e0f95e99daf0
+  languageName: node
+  linkType: hard
+
 "@dabh/diagnostics@npm:^2.0.2":
   version: 2.0.3
   resolution: "@dabh/diagnostics@npm:2.0.3"
@@ -5335,6 +5342,32 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@floating-ui/core@npm:^1.4.2":
+  version: 1.5.0
+  resolution: "@floating-ui/core@npm:1.5.0"
+  dependencies:
+    "@floating-ui/utils": ^0.1.3
+  checksum: 54b4fe26b3c228746ac5589f97303abf158b80aa5f8b99027259decd68d1c2030c4c637648ebd33dfe78a4212699453bc2bd7537fd5a594d3bd3e63d362f666f
+  languageName: node
+  linkType: hard
+
+"@floating-ui/dom@npm:^1.5.3":
+  version: 1.5.3
+  resolution: "@floating-ui/dom@npm:1.5.3"
+  dependencies:
+    "@floating-ui/core": ^1.4.2
+    "@floating-ui/utils": ^0.1.3
+  checksum: 00053742064aac70957f0bd5c1542caafb3bfe9716588bfe1d409fef72a67ed5e60450d08eb492a77f78c22ed1ce4f7955873cc72bf9f9caf2b0f43ae3561c21
+  languageName: node
+  linkType: hard
+
+"@floating-ui/utils@npm:^0.1.3":
+  version: 0.1.6
+  resolution: "@floating-ui/utils@npm:0.1.6"
+  checksum: b34d4b5470869727f52e312e08272edef985ba5a450a76de0917ba0a9c6f5df2bdbeb99448e2c60f39b177fb8981c772ff1831424e75123471a27ebd5b52c1eb
+  languageName: node
+  linkType: hard
+
 "@gar/promisify@npm:^1.0.1, @gar/promisify@npm:^1.1.3":
   version: 1.1.3
   resolution: "@gar/promisify@npm:1.1.3"
@@ -6033,6 +6066,31 @@ __metadata:
   version: 2.0.4
   resolution: "@leichtgewicht/ip-codec@npm:2.0.4"
   checksum: 468de1f04d33de6d300892683d7c8aecbf96d1e2c5fe084f95f816e50a054d45b7c1ebfb141a1447d844b86a948733f6eebd92234da8581c84a1ad4de2946a2d
+  languageName: node
+  linkType: hard
+
+"@lit-labs/ssr-dom-shim@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "@lit-labs/ssr-dom-shim@npm:1.1.2"
+  checksum: 73fd787893851d4ec4aaa5c775405ed2aae4ca0891b2dd3c973b32c2f4bf70ada5481dd0224e52b786d037aa8a00052186ad1623c44551affd66f6409cca8da6
+  languageName: node
+  linkType: hard
+
+"@lit/react@npm:^1.0.0":
+  version: 1.0.1
+  resolution: "@lit/react@npm:1.0.1"
+  peerDependencies:
+    "@types/react": 17 || 18
+  checksum: a81dd202b9e0a379c77ea73c3822cec2a17730347767d12c090b1519d2ed602f34900a913347f17cd839c2eb8cc284d8816367d90dec4431cd78da5d477b74bd
+  languageName: node
+  linkType: hard
+
+"@lit/reactive-element@npm:^2.0.0":
+  version: 2.0.1
+  resolution: "@lit/reactive-element@npm:2.0.1"
+  dependencies:
+    "@lit-labs/ssr-dom-shim": ^1.1.2
+  checksum: e9cacc3743c28b7b417739ffb292288076df115d08d9e9a895e2879c7087938d50c6b8141986743535e06156efd1ca505c8cf6ef8702db99966d190df9f8e869
   languageName: node
   linkType: hard
 
@@ -7997,6 +8055,36 @@ __metadata:
     "@angular-devkit/schematics": 12.2.18
     jsonc-parser: 3.0.0
   checksum: d1e5a3ee2d7e35314972f3185645431b12232f73e90b56f8606e8dd695c854b9191ca3e80d81801c0b39be91a1bede1321eff14d356c49bb68c743f53bbabc40
+  languageName: node
+  linkType: hard
+
+"@shoelace-style/animations@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@shoelace-style/animations@npm:1.1.0"
+  checksum: 65a9782d27c4e295501298a033d6e102c7dcec7d71a906eeec7bfee7421156a7d7b5bde1f09d586d6efe55212233a6c134f38e70bb3a9b2de247a5e11ddb221e
+  languageName: node
+  linkType: hard
+
+"@shoelace-style/localize@npm:^3.1.2":
+  version: 3.1.2
+  resolution: "@shoelace-style/localize@npm:3.1.2"
+  checksum: 2e4cbf2e35ead87d70eae43746322a44a1666ed17287b681369a3972438a1888845174015144159699ec320028eac934b80e3f66d741a15a293de8b70c3fd84c
+  languageName: node
+  linkType: hard
+
+"@shoelace-style/shoelace@npm:^2.11.2":
+  version: 2.11.2
+  resolution: "@shoelace-style/shoelace@npm:2.11.2"
+  dependencies:
+    "@ctrl/tinycolor": ^4.0.2
+    "@floating-ui/dom": ^1.5.3
+    "@lit/react": ^1.0.0
+    "@shoelace-style/animations": ^1.1.0
+    "@shoelace-style/localize": ^3.1.2
+    composed-offset-position: ^0.0.4
+    lit: ^3.0.0
+    qr-creator: ^1.0.0
+  checksum: 6aebb31b5b94296c0a5a71877425dfedcee80ea762f9a1b0710b01e9eaa30e2b522a4d54dd98cc7bd33d13423c701f14e3525788156122aede66b678eced2085
   languageName: node
   linkType: hard
 
@@ -15768,6 +15856,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"composed-offset-position@npm:^0.0.4":
+  version: 0.0.4
+  resolution: "composed-offset-position@npm:0.0.4"
+  checksum: a95ce7604025cbc1e37d3a836198bcad1b1c66620a480dac373afa1c801f128ca65f108f89548fa81d1d8daf873f1f1bc49f1d74a1784a28768beca15454b0a6
+  languageName: node
+  linkType: hard
+
 "compress-brotli@npm:^1.3.8":
   version: 1.3.8
   resolution: "compress-brotli@npm:1.3.8"
@@ -20278,6 +20373,7 @@ __metadata:
     "@engagespot/react-component": 1.1.9
     "@microsoft/api-documenter": ^7.13.77
     "@microsoft/api-extractor": ^7.19.2
+    "@shoelace-style/shoelace": ^2.11.2
     "@testing-library/jest-dom": ^5.11.4
     "@testing-library/react": ^11.1.0
     "@testing-library/user-event": ^12.1.10
@@ -27235,6 +27331,37 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lit-element@npm:^4.0.0":
+  version: 4.0.1
+  resolution: "lit-element@npm:4.0.1"
+  dependencies:
+    "@lit-labs/ssr-dom-shim": ^1.1.2
+    "@lit/reactive-element": ^2.0.0
+    lit-html: ^3.0.0
+  checksum: f5915ecc6d56f2a3c822cd58567b5faadb4977ee8b66492beef6ef319ed94a5157ff59b957f581a3ae1708d6f5ca5d7ffa1c8a0d1027d087111ef93855c40499
+  languageName: node
+  linkType: hard
+
+"lit-html@npm:^3.0.0":
+  version: 3.0.1
+  resolution: "lit-html@npm:3.0.1"
+  dependencies:
+    "@types/trusted-types": ^2.0.2
+  checksum: f142989ce606d34b6dd9f6a27e6c1c235e6c6c9e73a6e03d8f853c4f5801e2389bd7efe0b1eb357646b98a79a44230c49efb23e3a148128ad0572354548d943e
+  languageName: node
+  linkType: hard
+
+"lit@npm:^3.0.0":
+  version: 3.0.1
+  resolution: "lit@npm:3.0.1"
+  dependencies:
+    "@lit/reactive-element": ^2.0.0
+    lit-element: ^4.0.0
+    lit-html: ^3.0.0
+  checksum: e1ddf822fefe636ef54c7dc52f52773bb261ecf2059ab3fbd6ab3c25b8ebc695761eb1f5bebc73da3b97e51a4498db88caa0c301d3f2122813dd935599debac2
+  languageName: node
+  linkType: hard
+
 "load-json-file@npm:^1.0.0":
   version: 1.1.0
   resolution: "load-json-file@npm:1.1.0"
@@ -33576,6 +33703,13 @@ __metadata:
   version: 1.2.0
   resolution: "qjobs@npm:1.2.0"
   checksum: eb64c00724d2fecaf9246383b4eebc3a4c34845b25d41921dd57f41b30a4310cef661543facac27ceb6911aab64a1acdf45b5d8f1d5e2838554d0c010ee56852
+  languageName: node
+  linkType: hard
+
+"qr-creator@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "qr-creator@npm:1.0.0"
+  checksum: 64d2c67493eef1d5a165ba0017e10bc2d36f4964676e886a6bcc0b2cee686ce92727d2964f81744511af44052e34c93c184b18eefe0adefa933957ad2dcb14a1
   languageName: node
   linkType: hard
 

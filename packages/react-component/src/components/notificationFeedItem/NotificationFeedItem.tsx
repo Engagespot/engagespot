@@ -21,6 +21,7 @@ import { Circle as FeedItemReadDot } from '../icons/Circle';
 import themeConfig from '../../theme/themeConfig';
 import { customNotificationContentType } from '../notificationFeed';
 import { renderCustom } from '../../../src/utils/renderCustom';
+import TemplateBlocks from '../webComponents';
 
 interface ClickableNotificationPayload {
   url: string;
@@ -154,6 +155,22 @@ export function NotificationFeedItem(notification: NotificationFeedItemProps) {
     return placeholderImage;
   };
 
+  const blocks = [
+            {
+        id: "t1_default_1",
+        type: "button" as const,
+        text: 'accept',
+        variant: "primary"  as const,
+      },
+      {
+        id: "t1_default_2",
+        type: "button" as const,
+        text: 'reject',
+        variant: "secondary" as const,
+      },
+
+  ]
+
   return (
     <FeedItemStyled
       clickable={clickableUrl != null}
@@ -176,6 +193,7 @@ export function NotificationFeedItem(notification: NotificationFeedItemProps) {
             <FeedItemDescription
               dangerouslySetInnerHTML={{ __html: description }}
             />
+            <TemplateBlocks blocks={blocks}></TemplateBlocks>
             <FeedItemTimeAgo>{time}</FeedItemTimeAgo>
           </Fragment>
         )}
