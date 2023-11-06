@@ -25,6 +25,7 @@ import { useEngagespotContext } from '../engagespotProvider';
 import { PLACEHOLDER_DEFAULT } from '../../constants';
 import { onFeedItemClickType } from '../notificationFeedItem/NotificationFeedItem';
 import { renderCustom } from '../../utils/renderCustom';
+import { ChangeNotificationRequest } from '@engagespot/core';
 
 export type customPlaceholderContentType =
   | (() => ReactNode | string)
@@ -75,6 +76,7 @@ const renderNotificationContent = (
   onFeedItemClick: onFeedItemClickType | undefined,
   deleteNotification: (id: string) => void,
   markAsRead: (id: string) => void,
+  changeNotificationState: (id: string, data: ChangeNotificationRequest) => void,
   renderNotificationBody: customNotificationContentType
 ): ReactNode => {
   return (
@@ -91,6 +93,7 @@ const renderNotificationContent = (
         id={notification.id}
         data={notification.data}
         markAsClicked={() => markAsRead(notification.id)}
+        changeNotificationState={(data: ChangeNotificationRequest) => changeNotificationState(notification.id, data)}
         deleteNotification={() => deleteNotification(notification.id)}
         isMobile={isMobile}
         onFeedItemClick={onFeedItemClick}
@@ -119,6 +122,7 @@ export function NotificationFeed({
   const hasMore = engagespotContext.hasMore;
   const deleteNotification = engagespotContext.deleteNotification;
   const markAsRead = engagespotContext.markAsRead;
+  const changeNotificationState = engagespotContext.changeNotificationState;
   const onJumpToTopClick = (
     evt: ReactMouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -159,6 +163,7 @@ export function NotificationFeed({
               onFeedItemClick,
               deleteNotification!!,
               markAsRead!!,
+              changeNotificationState!!,
               renderNotificationBody
             );
           })}

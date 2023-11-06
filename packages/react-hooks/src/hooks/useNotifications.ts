@@ -2,6 +2,7 @@ import {
   Notification,
   SetPreference,
   EngagespotChannel,
+  ChangeNotificationRequest
 } from '@engagespot/core';
 import { useCallback, useEffect } from 'react';
 import { Actions, createAction } from 'src/utils/actions';
@@ -26,6 +27,7 @@ Actions.MarkAllAsSeen = 'MarkAllAsSeen';
 Actions.SetPreferences = 'SetPreferences';
 Actions.SetCategories = 'SetCategories';
 Actions.SetInitialPreferences = 'SetInitialPreferences';
+Actions.ChangeNotificationState = 'ChangeNotificationState';
 
 const channels = ['inApp', 'webPush', 'email', 'sms', 'mobilePush'] as const;
 
@@ -106,6 +108,7 @@ const reducer: StateReducer = function (state, action, _, instance) {
       rawData: newRawData,
     };
   } else if (action.type === Actions.MarkAsRead) {
+    console.log({ markUseNotificationAction: action, state });
     const rawData = state.rawData;
     const notificationId = action.payload?.notificationId;
     const newRawData = rawData.map((pagedData: any, page: any) => {
@@ -113,6 +116,21 @@ const reducer: StateReducer = function (state, action, _, instance) {
         if (notification.id !== notificationId || notification.clickedAt)
           return notification;
         return { ...notification, clickedAt: new Date().toUTCString() };
+      });
+      return { ...pagedData, notifications };
+    });
+    return {
+      ...state,
+      rawData: newRawData,
+    };
+  } else if (action.type === Actions.ChangeNotificationState) {
+    console.log({ changeNotificationStateAction: action, state });
+    const rawData = state.rawData;
+    const notificationId = action.payload?.notificationId;
+    const newRawData = rawData.map((pagedData: any, page: any) => {
+      const notifications = pagedData.notifications.map((notification: any) => {
+        if (notification.id !== notificationId) return notification;
+        return { ...notification, ...action.payload?.result, title : "Dummy Title for now" };
       });
       return { ...pagedData, notifications };
     });
@@ -204,9 +222,32 @@ function useInstance(instance: Required<Instance<Plugins>>) {
     );
   }, []);
   const markAsRead = useCallback((notificationId: string) => {
+    console.log({ markUseNotificationUseInstance: notificationId });
     instance.core.markAsRead(notificationId);
     instance.dispatch(createAction(Actions.MarkAsRead, { notificationId }));
   }, []);
+  const changeNotificationState = useCallback(
+    async (notificationId: string, data: ChangeNotificationRequest) => {
+      console.log({ changeNotificationStateUseInstance: notificationId });
+
+      const result = await instance.core.changeNotificationState(
+        notificationId,
+        data
+      );
+
+      console.log({
+        changeNotificationStateApiResult: result,
+      });
+
+      instance.dispatch(
+        createAction(Actions.ChangeNotificationState, {
+          notificationId,
+          result,
+        })
+      );
+    },
+    []
+  );
 
   const markAllAsSeen = useCallback(() => {
     instance.core.getNotificationList().markAllAsSeen();
@@ -324,5 +365,6 @@ function useInstance(instance: Required<Instance<Plugins>>) {
     deleteNotification,
     markAsRead,
     markAllAsSeen,
+    changeNotificationState,
   });
 }

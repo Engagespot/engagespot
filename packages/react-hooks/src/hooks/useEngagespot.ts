@@ -51,7 +51,6 @@ export function useEngagespot<T extends Plugins>(
   const reducer = useCallback(
     (state, action) => {
       if (!action.type) {
-        console.info({ action });
         throw new Error('Unknown Action 👆');
       }
       const userStateReducer = getStateReducer();
@@ -86,6 +85,7 @@ export function useEngagespot<T extends Plugins>(
     reducerState,
     dispatch,
   });
+    
   Object.assign(getInstance(), {
     hideBranding: getInstance().core?.hideBranding,
   });

@@ -118,6 +118,7 @@ export function Engagespot({
     preferences,
     getPreferences,
     setPreferences,
+    changeNotificationState
   } = useEngagespot({
     apiKey,
     userId,
@@ -210,6 +211,7 @@ export function Engagespot({
         markAsRead,
         preferences,
         setPreferences,
+        changeNotificationState
       }}
     >
       <EngagespotStyled>{renderButtonAndPanel()}</EngagespotStyled>

@@ -17,6 +17,7 @@ import {
 } from './apiRequestv2/interfaces/user-preference.interface';
 import { NotificationItem } from './interfaces/NotificationItem';
 import { Channel } from './enums/Channel';
+import { ChangeNotificationRequest } from './interfaces/NotificationState';
 
 export default class Engagespot {
   /**
@@ -442,12 +443,26 @@ _ready: Promise<unknown>;
   }
 
   async markAsRead(id: string) {
+    console.log({markCore: id});
     await this._resolveInstanceState();
     const options = {
       id,
     } as NotificationItem;
     const notification = new EngagespotNotification(this, options);
     return notification.markAsClicked();
+  }
+
+  async changeNotificationState(id: string, data: ChangeNotificationRequest) {
+    console.log({changeStateCore: id});
+    
+    // await this._resolveInstanceState();
+
+    const options = {
+      id,
+      data
+    } as NotificationItem;
+    const notification = new EngagespotNotification(this, options);
+    return notification.changeState();
   }
 
   async deleteNotification(id: string) {

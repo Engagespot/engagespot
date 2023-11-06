@@ -9,4 +9,5 @@ export type {
   SetPreference,
   EngagespotChannel,
 } from './apiRequestv2/interfaces/user-preference.interface';
+export type { ChangeNotificationRequest } from './interfaces/NotificationState'
 export default Engagespot;

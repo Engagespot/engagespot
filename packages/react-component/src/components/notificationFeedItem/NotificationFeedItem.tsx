@@ -23,6 +23,7 @@ import { customNotificationContentType } from '../notificationFeed';
 import { renderCustom } from '../../../src/utils/renderCustom';
 import TemplateBlocks from '../webComponents';
 import { TemplateBlock } from '../webComponents/types';
+import { ChangeNotificationRequest } from '@engagespot/core';
 
 interface ClickableNotificationPayload {
   url: string;
@@ -48,6 +49,7 @@ export interface NotificationFeedItemProps {
   isMobile?: boolean;
   onFeedItemClick?: onFeedItemClickType;
   markAsClicked: () => unknown;
+  changeNotificationState: (data: ChangeNotificationRequest) => unknown;
   deleteNotification: () => unknown;
   renderNotificationBody: customNotificationContentType;
   data: Record<string, any>;
@@ -103,7 +105,8 @@ export function NotificationFeedItem(notification: NotificationFeedItemProps) {
     onFeedItemClick,
     markAsClicked,
     deleteNotification,
-    blocks
+    blocks,
+    changeNotificationState,
   } = notification;
   const [isMenuVisible, setMenuVisibility] = useState(false);
   const [isImageBroken, setImageBroken] = useState(false);
@@ -182,8 +185,25 @@ export function NotificationFeedItem(notification: NotificationFeedItemProps) {
             />
             {blocks && blocks.length > 0 && (
               <TemplateBlocks blocks={blocks}></TemplateBlocks>
-              )
-            }
+            )}
+            
+            {/* test button */}
+            <button
+              style={{
+                border: '1px solid black',
+                background: 'green',
+              }}
+              onClick={evt => {
+                console.log('state change dummy button fire');
+                evt.stopPropagation();
+                changeNotificationState({
+                  state: 'reject'
+                });
+              }}
+            >
+              state change
+            </button>
+
             <FeedItemTimeAgo>{time}</FeedItemTimeAgo>
           </Fragment>
         )}

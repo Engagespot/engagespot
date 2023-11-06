@@ -25,6 +25,7 @@ export type Instance<T extends Plugins> = Partial<EngagespotCoreInstance> &
     unreadCount?: number;
     deleteNotification?: (notificationId: string) => void;
     markAsRead?: (notificationId: string) => void;
+    changeNotificationState?: (notificationId: string) => void;
     markAllAsSeen?: () => void;
   };
 
@@ -40,6 +41,7 @@ export type FinalInstance<T extends Plugins> = UseEngagespotOptions<T> &
     unreadCount: number;
     deleteNotification: (notificationId: string) => void;
     markAsRead: (notificationId: string) => void;
+    changeNotificationState?: (notificationId: string) => void;
     markAllAsSeen: () => void;
     setPreferences: (preferences: SetPreference[]) => void;
   } & { [key: string]: any };

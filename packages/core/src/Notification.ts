@@ -1,3 +1,4 @@
+import { urlToHttpOptions } from 'url';
 import sendRequest, { apiRequestOptions } from './apiRequest';
 import Engagespot from './engagespot';
 import { NotificationItem, TemplateBlock } from './interfaces/NotificationItem';
@@ -57,9 +58,50 @@ export default class Notification<T> implements NotificationItem<T> {
     try {
       const response = await sendRequest(options);
 
+      console.log({markApi: response});
       if (response) return this;
 
       throw 'Cannot mark notification as clicked';
+    } catch (error) {
+      throw error;
+    }
+  }
+
+
+  /**
+   * Changes notification state 
+   * @returns
+   */
+  async changeState() {
+    //Donot publish to eventListeners here. Incorrect implementation. Commenting!
+    // this._client.eventListenerStore?.NOTIFICATION_CLICKED.forEach(handler => {
+    //   handler(this);
+    // });
+
+    const options: apiRequestOptions = {
+      url: this._client.baseURL + '/notifications/' + this.id + '/state',
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-ENGAGESPOT-API-KEY': this._client.apiKey,
+        'X-ENGAGESPOT-USER-ID': this._client.userId,
+        ...(this._client.userSignature && {
+          'X-ENGAGESPOT-USER-SIGNATURE': this._client.userSignature,
+        }),
+      },
+      body: {
+        "state": ( this.data as any )?.state
+        // ...(this.data?.data)
+      }
+    };
+
+    try {
+      const response = await sendRequest(options);
+
+      console.log({changeStateApi: response});
+      if (response) return this;
+
+      throw 'Cannot change notification state';
     } catch (error) {
       throw error;
     }

@@ -7,9 +7,13 @@ export type DateFormat = (
 ) => string;
 
 export const defaultDateFormatter = (dateString: string) => {
-  return formatDistance(new Date(dateString), new Date(), {
-    addSuffix: true,
-  });
+  try{
+    return formatDistance(new Date(dateString), new Date(), {
+      addSuffix: true,
+    });
+  }catch(e){
+    return 'date error'
+  }
 };
 
 export const dateFunctions = {
