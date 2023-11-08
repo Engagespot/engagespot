@@ -1,6 +1,6 @@
 import type { Dispatch as ReactDispatch } from 'react';
 
-import EngagespotCore, { Options, SetPreference } from '@engagespot/core';
+import EngagespotCore, { ChangeNotificationRequest, Options, SetPreference } from '@engagespot/core';
 import { UseEngagespotOptions } from 'src/hooks/useEngagespot';
 import { Scrolling, ScrollingFloatingWebPush } from './applyDefaults';
 import { Hooks } from './hookUtils';
@@ -25,7 +25,7 @@ export type Instance<T extends Plugins> = Partial<EngagespotCoreInstance> &
     unreadCount?: number;
     deleteNotification?: (notificationId: string) => void;
     markAsRead?: (notificationId: string) => void;
-    changeNotificationState?: (notificationId: string) => void;
+    changeNotificationState?: (notificationId: string, data: ChangeNotificationRequest) => void;
     markAllAsSeen?: () => void;
   };
 
@@ -41,7 +41,7 @@ export type FinalInstance<T extends Plugins> = UseEngagespotOptions<T> &
     unreadCount: number;
     deleteNotification: (notificationId: string) => void;
     markAsRead: (notificationId: string) => void;
-    changeNotificationState?: (notificationId: string) => void;
+    changeNotificationState?: (notificationId: string, data: ChangeNotificationRequest) => void;
     markAllAsSeen: () => void;
     setPreferences: (preferences: SetPreference[]) => void;
   } & { [key: string]: any };

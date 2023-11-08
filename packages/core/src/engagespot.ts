@@ -444,7 +444,7 @@ _ready: Promise<unknown>;
 
   async markAsRead(id: string) {
     console.log({markCore: id});
-    await this._resolveInstanceState();
+    // await this._resolveInstanceState();
     const options = {
       id,
     } as NotificationItem;
@@ -466,7 +466,7 @@ _ready: Promise<unknown>;
   }
 
   async deleteNotification(id: string) {
-    await this._resolveInstanceState();
+    // await this._resolveInstanceState();
     const options = {
       id,
     } as NotificationItem;

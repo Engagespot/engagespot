@@ -1,5 +1,6 @@
 import styled, { createGlobalStyle } from 'styled-components';
 import { Engagespot } from '@engagespot/react-component';
+import { useEngagespot } from '@engagespot/react-hooks';
 import { useState } from 'react';
 
 const GlobalStyles = createGlobalStyle`
@@ -50,6 +51,12 @@ const users = [
 
 export function SimpleNotification() {
   const [user, setUser] = useState(users[1]);
+
+  const { changeNotificationState } = useEngagespot({
+    apiKey: '8yicdpsrrkuz6cao3gct9j',
+    userId: user,
+  });
+
   return (
     <>
       <GlobalStyles />
@@ -89,6 +96,32 @@ export function SimpleNotification() {
               //   }
               // }}
               debug={true}
+              eventListenersToRun={[
+                {
+                  targetId: 't48_b0_default_block_item_0',
+                  event: 'click',
+                  callbackFunction: ({ event, notification }) => {
+                    event.stopPropagation();
+                    const notificationId = notification.id;
+
+                    changeNotificationState?.(notificationId, {
+                      state: 'accept',
+                    });
+                  },
+                },
+                {
+                  targetId: 't48_b0_default_block_item_1',
+                  event: 'click',
+                  callbackFunction: ({ event, notification }) => {
+                    event.stopPropagation();
+                    const notificationId = notification.id;
+
+                    changeNotificationState?.(notificationId, {
+                      state: 'reject',
+                    });
+                  },
+                },
+              ]}
             />
           </NavItem>
         </NavList>

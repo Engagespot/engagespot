@@ -26,6 +26,7 @@ import { PLACEHOLDER_DEFAULT } from '../../constants';
 import { onFeedItemClickType } from '../notificationFeedItem/NotificationFeedItem';
 import { renderCustom } from '../../utils/renderCustom';
 import { ChangeNotificationRequest } from '@engagespot/core';
+import { EventListenersToRun } from '../engagespot/Engagespot';
 
 export type customPlaceholderContentType =
   | (() => ReactNode | string)
@@ -77,7 +78,8 @@ const renderNotificationContent = (
   deleteNotification: (id: string) => void,
   markAsRead: (id: string) => void,
   changeNotificationState: (id: string, data: ChangeNotificationRequest) => void,
-  renderNotificationBody: customNotificationContentType
+  renderNotificationBody: customNotificationContentType,
+  eventListenersToRun?: EventListenersToRun[]
 ): ReactNode => {
   return (
     renderCustom(customRenderer, notification) || (
@@ -99,6 +101,7 @@ const renderNotificationContent = (
         onFeedItemClick={onFeedItemClick}
         renderNotificationBody={renderNotificationBody}
         blocks={notification.blocks}
+        eventListenersToRun={eventListenersToRun}
       />
     )
   );
@@ -123,12 +126,17 @@ export function NotificationFeed({
   const deleteNotification = engagespotContext.deleteNotification;
   const markAsRead = engagespotContext.markAsRead;
   const changeNotificationState = engagespotContext.changeNotificationState;
+  const eventListenersToRun = engagespotContext.eventListenersToRun;
   const onJumpToTopClick = (
     evt: ReactMouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     const notificationFeedEl = evt.currentTarget.parentNode?.parentElement;
     jumpToTop?.(notificationFeedEl as HTMLElement);
   };
+  
+  console.log({
+    allMighty: notifications
+  });
 
   return (
     <NotificationFeedStyled
@@ -164,7 +172,8 @@ export function NotificationFeed({
               deleteNotification!!,
               markAsRead!!,
               changeNotificationState!!,
-              renderNotificationBody
+              renderNotificationBody,
+              eventListenersToRun
             );
           })}
           {hasMore && <FeedItemPlaceholder loaderRef={setLoaderRef} />}

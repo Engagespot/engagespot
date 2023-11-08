@@ -1,4 +1,4 @@
-import { Fragment, useMemo, useRef, useState } from 'react';
+import React, { Fragment, useMemo, useRef, useState } from 'react';
 import type { MouseEvent as ReactMouseEvent } from 'react';
 
 import {
@@ -24,6 +24,7 @@ import { renderCustom } from '../../../src/utils/renderCustom';
 import TemplateBlocks from '../webComponents';
 import { TemplateBlock } from '../webComponents/types';
 import { ChangeNotificationRequest } from '@engagespot/core';
+import { EventListenersToRun } from '../engagespot/Engagespot';
 
 interface ClickableNotificationPayload {
   url: string;
@@ -54,6 +55,7 @@ export interface NotificationFeedItemProps {
   renderNotificationBody: customNotificationContentType;
   data: Record<string, any>;
   blocks: TemplateBlock[];
+  eventListenersToRun?: EventListenersToRun[];
 }
 
 export function FeedItemPlaceholder({ loaderRef }: any) {
@@ -107,10 +109,12 @@ export function NotificationFeedItem(notification: NotificationFeedItemProps) {
     deleteNotification,
     blocks,
     changeNotificationState,
+    eventListenersToRun,
   } = notification;
   const [isMenuVisible, setMenuVisibility] = useState(false);
   const [isImageBroken, setImageBroken] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const [eventAttachedBlockIds, setEventAttachedBlockIds] = useState<string[]>([]);
 
   const dropDownItems = useMemo(() => {
     if (read) return [{ name: 'Delete', action: deleteNotification }];
@@ -161,6 +165,80 @@ export function NotificationFeedItem(notification: NotificationFeedItemProps) {
     return placeholderImage;
   };
 
+  React.useEffect(() => {
+    // eventListenersToRun are given
+    if (eventListenersToRun && eventListenersToRun.length > 0) {
+      //  we have actionable blocks
+      if (blocks && blocks.length > 0) {
+        const blockIds = blocks.map(item => item.id);
+
+        const eventTargetIds = eventListenersToRun.map(item => item.targetId);
+
+        const isCurrentNotificationBlockId = eventTargetIds.find(id => {
+          return blockIds.includes(id);
+        });
+
+        // Check if this notification block has any eventListenersToRun ids
+        if (isCurrentNotificationBlockId) {
+          // check if event already attached to a block
+          if(eventAttachedBlockIds?.includes(isCurrentNotificationBlockId)) return;
+          
+          setEventAttachedBlockIds((state) => [...state, isCurrentNotificationBlockId]);
+
+          const selectedEventListenersToRun = eventListenersToRun.find(
+            item => item.targetId === isCurrentNotificationBlockId
+          );
+
+          console.log({
+            blockIds,
+            selectedEventListenersToRun
+          });
+
+          if(!selectedEventListenersToRun) return;
+
+          const selectedElement = document.getElementById(
+            `${selectedEventListenersToRun.targetId}`
+          );
+
+          // we could also disable button or whole parent,
+          // since we have its id
+          // based on a props, if we want conditionally
+          // element.disable
+          // element.parent.style = pointer.event = none /** something like this */
+          const callBackFunctionWithNotificationData = ({
+            event,
+          }: {
+            event: Event;
+          }) => {
+            //  selectedElement.disable  = true;
+
+            selectedEventListenersToRun.callbackFunction({
+              event,
+              notification,
+            });
+
+            //  selectedElement.disable  = false;
+            // conditionally ? element.disable  = false : null
+          };
+
+          // add event listener
+          selectedElement?.addEventListener(
+            `${selectedEventListenersToRun.event}`,
+            event => callBackFunctionWithNotificationData({ event })
+          );
+
+          // remove event listener
+          return () => {
+            selectedElement?.removeEventListener(
+              `${selectedEventListenersToRun.event}`,
+              event => callBackFunctionWithNotificationData({ event })
+            );
+          };
+        }
+      }
+    }
+  }, [blocks, eventListenersToRun, notification]);
+
   return (
     <FeedItemStyled
       clickable={clickableUrl != null}
@@ -186,9 +264,9 @@ export function NotificationFeedItem(notification: NotificationFeedItemProps) {
             {blocks && blocks.length > 0 && (
               <TemplateBlocks blocks={blocks}></TemplateBlocks>
             )}
-            
+
             {/* test button */}
-            <button
+            {/* <button
               style={{
                 border: '1px solid black',
                 background: 'green',
@@ -197,12 +275,12 @@ export function NotificationFeedItem(notification: NotificationFeedItemProps) {
                 console.log('state change dummy button fire');
                 evt.stopPropagation();
                 changeNotificationState({
-                  state: 'reject'
+                  state: 'reject',
                 });
               }}
             >
               state change
-            </button>
+            </button> */}
 
             <FeedItemTimeAgo>{time}</FeedItemTimeAgo>
           </Fragment>

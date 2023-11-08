@@ -31,6 +31,18 @@ import { customRenderFn, renderCustom } from '../../utils/renderCustom';
 
 export type useEngagespotReturnType = ReturnType<typeof useEngagespot>;
 
+export type EventListenersToRun = {
+  targetId: string;
+  event: string;
+  callbackFunction: ({
+    event,
+    notification,
+  }: {
+    event: any;
+    notification: any;
+  }) => void;
+};
+
 export interface EngagespotProps
   extends Omit<UseEngagespotOptions<any>, 'floatingPanelOptions'> {
   theme?: ThemeOverrides;
@@ -47,6 +59,7 @@ export interface EngagespotProps
   renderNotificationBody?: customRenderFn<customNotificationContentType>;
   onFeedItemClick?: onFeedItemClickType;
   headerDropdownItems?: DropdownMenuProps['items'];
+  eventListenersToRun?: EventListenersToRun[];
 }
 
 const notificationItemResponseMap = {
@@ -60,7 +73,7 @@ const notificationItemResponseMap = {
   data: 'data',
   markAsClicked: 'markAsClicked',
   deleteNotification: 'deleteNotification',
-  blocks: 'blocks'
+  blocks: 'blocks',
 };
 
 const transformNotificationItem = (
@@ -92,6 +105,7 @@ export function Engagespot({
   renderNotificationBody,
   onFeedItemClick,
   headerDropdownItems,
+  eventListenersToRun = [],
   ...options
 }: EngagespotProps) {
   const scrollRootRef = useRef<HTMLElement | null>();
@@ -118,7 +132,7 @@ export function Engagespot({
     preferences,
     getPreferences,
     setPreferences,
-    changeNotificationState
+    changeNotificationState,
   } = useEngagespot({
     apiKey,
     userId,
@@ -211,7 +225,8 @@ export function Engagespot({
         markAsRead,
         preferences,
         setPreferences,
-        changeNotificationState
+        changeNotificationState,
+        eventListenersToRun
       }}
     >
       <EngagespotStyled>{renderButtonAndPanel()}</EngagespotStyled>

@@ -2,7 +2,7 @@ import {
   Notification,
   SetPreference,
   EngagespotChannel,
-  ChangeNotificationRequest
+  ChangeNotificationRequest,
 } from '@engagespot/core';
 import { useCallback, useEffect } from 'react';
 import { Actions, createAction } from 'src/utils/actions';
@@ -119,6 +119,11 @@ const reducer: StateReducer = function (state, action, _, instance) {
       });
       return { ...pagedData, notifications };
     });
+    console.log({
+      markRawData: {
+        newRawData,
+      },
+    });
     return {
       ...state,
       rawData: newRawData,
@@ -130,9 +135,14 @@ const reducer: StateReducer = function (state, action, _, instance) {
     const newRawData = rawData.map((pagedData: any, page: any) => {
       const notifications = pagedData.notifications.map((notification: any) => {
         if (notification.id !== notificationId) return notification;
-        return { ...notification, ...action.payload?.result, title : "Dummy Title for now" };
+        return { ...notification, ...action.payload?.result };
       });
       return { ...pagedData, notifications };
+    });
+    console.log({
+      changeNotificationRawData: {
+        newRawData,
+      },
     });
     return {
       ...state,

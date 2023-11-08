@@ -99,7 +99,7 @@ export default class Notification<T> implements NotificationItem<T> {
       const response = await sendRequest(options);
 
       console.log({changeStateApi: response});
-      if (response) return this;
+      if (response) return response;
 
       throw 'Cannot change notification state';
     } catch (error) {
