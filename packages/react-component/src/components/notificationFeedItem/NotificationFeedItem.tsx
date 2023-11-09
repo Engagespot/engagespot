@@ -55,7 +55,8 @@ export interface NotificationFeedItemProps {
   renderNotificationBody: customNotificationContentType;
   data: Record<string, any>;
   blocks: TemplateBlock[];
-  eventListenersToRun?: EventListenersToRun[];
+  eventListenersToRun: EventListenersToRun[];
+  eventAttachedBlockIdsRef: React.MutableRefObject<string[]>;
 }
 
 export function FeedItemPlaceholder({ loaderRef }: any) {
@@ -110,11 +111,11 @@ export function NotificationFeedItem(notification: NotificationFeedItemProps) {
     blocks,
     changeNotificationState,
     eventListenersToRun,
+    eventAttachedBlockIdsRef,
   } = notification;
   const [isMenuVisible, setMenuVisibility] = useState(false);
   const [isImageBroken, setImageBroken] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [eventAttachedBlockIds, setEventAttachedBlockIds] = useState<string[]>([]);
 
   const dropDownItems = useMemo(() => {
     if (read) return [{ name: 'Delete', action: deleteNotification }];
@@ -165,7 +166,7 @@ export function NotificationFeedItem(notification: NotificationFeedItemProps) {
     return placeholderImage;
   };
 
-    React.useEffect(() => {
+  React.useEffect(() => {
     // eventListenersToRun are given
     if (
       eventListenersToRun &&
@@ -173,7 +174,7 @@ export function NotificationFeedItem(notification: NotificationFeedItemProps) {
       blocks &&
       blocks.length > 0
     ) {
-      // create a variable to store the cleanup functions
+      // variable to store the cleanup functions
       let cleanupFunctions: any[] = [];
 
       //  we have actionable blocks
@@ -182,7 +183,7 @@ export function NotificationFeedItem(notification: NotificationFeedItemProps) {
       const unattachedEventTargetIds = eventListenersToRun
         .map(item => item.targetId)
         // check if event already attached to a block
-        .filter(item => !eventAttachedBlockIds?.includes(item));
+        .filter(item => !eventAttachedBlockIdsRef.current?.includes(item));
 
       const currentBlocksMatchingEventArray = unattachedEventTargetIds.filter(
         id => {
@@ -192,10 +193,10 @@ export function NotificationFeedItem(notification: NotificationFeedItemProps) {
 
       // Check if this notification block has any eventListenersToRun ids
       if (currentBlocksMatchingEventArray.length > 0) {
-        setEventAttachedBlockIds(state => [
-          ...state,
+        eventAttachedBlockIdsRef.current = [
+          ...eventAttachedBlockIdsRef.current,
           ...currentBlocksMatchingEventArray,
-        ]);
+        ];
 
         currentBlocksMatchingEventArray.forEach(currentBlockMatchingEvent => {
           const selectedEventListenerToRun = eventListenersToRun.find(
@@ -204,8 +205,8 @@ export function NotificationFeedItem(notification: NotificationFeedItemProps) {
 
           if (!selectedEventListenerToRun) return;
 
-          const selectedElement = document.getElementById(
-            `${selectedEventListenerToRun?.targetId}`
+          const selectedElements = document.querySelectorAll(
+            `#${selectedEventListenerToRun?.targetId}`
           );
 
           // we could also disable button or whole parent,
@@ -230,17 +231,21 @@ export function NotificationFeedItem(notification: NotificationFeedItemProps) {
           };
 
           // add event listener
-          selectedElement?.addEventListener(
-            `${selectedEventListenerToRun?.event}`,
-            event => callBackFunctionWithNotificationData({ event })
-          );
-
-          // push the remove event listener cleanup function to the array
-          cleanupFunctions.push(() => {
-            selectedElement?.removeEventListener(
+          selectedElements?.forEach(element => {
+            element?.addEventListener(
               `${selectedEventListenerToRun?.event}`,
               event => callBackFunctionWithNotificationData({ event })
             );
+          });
+
+          // push the remove event listener cleanup function to the array
+          selectedElements?.forEach(element => {
+            cleanupFunctions.push(() => {
+              element?.removeEventListener(
+                `${selectedEventListenerToRun?.event}`,
+                event => callBackFunctionWithNotificationData({ event })
+              );
+            });
           });
         });
       }

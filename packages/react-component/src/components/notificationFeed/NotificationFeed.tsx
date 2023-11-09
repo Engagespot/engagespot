@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useRef } from 'react';
 import type {
   ReactNode,
   CSSProperties as ReactCSSProperties,
@@ -79,7 +79,8 @@ const renderNotificationContent = (
   markAsRead: (id: string) => void,
   changeNotificationState: (id: string, data: ChangeNotificationRequest) => void,
   renderNotificationBody: customNotificationContentType,
-  eventListenersToRun?: EventListenersToRun[]
+  eventListenersToRun: EventListenersToRun[],
+  eventAttachedBlockIdsRef: React.MutableRefObject<string[]>,
 ): ReactNode => {
   return (
     renderCustom(customRenderer, notification) || (
@@ -102,6 +103,7 @@ const renderNotificationContent = (
         renderNotificationBody={renderNotificationBody}
         blocks={notification.blocks}
         eventListenersToRun={eventListenersToRun}
+        eventAttachedBlockIdsRef={eventAttachedBlockIdsRef}
       />
     )
   );
@@ -133,11 +135,8 @@ export function NotificationFeed({
     const notificationFeedEl = evt.currentTarget.parentNode?.parentElement;
     jumpToTop?.(notificationFeedEl as HTMLElement);
   };
+  const eventAttachedBlockIdsRef = useRef<string[]>([]);
   
-  console.log({
-    allMighty: notifications
-  });
-
   return (
     <NotificationFeedStyled
       id="engagespot-scroll-root"
@@ -173,7 +172,8 @@ export function NotificationFeed({
               markAsRead!!,
               changeNotificationState!!,
               renderNotificationBody,
-              eventListenersToRun
+              eventListenersToRun,
+              eventAttachedBlockIdsRef
             );
           })}
           {hasMore && <FeedItemPlaceholder loaderRef={setLoaderRef} />}
