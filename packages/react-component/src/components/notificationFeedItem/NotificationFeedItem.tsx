@@ -165,39 +165,47 @@ export function NotificationFeedItem(notification: NotificationFeedItemProps) {
     return placeholderImage;
   };
 
-  React.useEffect(() => {
+    React.useEffect(() => {
     // eventListenersToRun are given
-    if (eventListenersToRun && eventListenersToRun.length > 0) {
+    if (
+      eventListenersToRun &&
+      eventListenersToRun?.length > 0 &&
+      blocks &&
+      blocks.length > 0
+    ) {
+      // create a variable to store the cleanup functions
+      let cleanupFunctions: any[] = [];
+
       //  we have actionable blocks
-      if (blocks && blocks.length > 0) {
-        const blockIds = blocks.map(item => item.id);
+      const blockIds = blocks.map(item => item.id);
 
-        const eventTargetIds = eventListenersToRun.map(item => item.targetId);
+      const unattachedEventTargetIds = eventListenersToRun
+        .map(item => item.targetId)
+        // check if event already attached to a block
+        .filter(item => !eventAttachedBlockIds?.includes(item));
 
-        const isCurrentNotificationBlockId = eventTargetIds.find(id => {
+      const currentBlocksMatchingEventArray = unattachedEventTargetIds.filter(
+        id => {
           return blockIds.includes(id);
-        });
+        }
+      );
 
-        // Check if this notification block has any eventListenersToRun ids
-        if (isCurrentNotificationBlockId) {
-          // check if event already attached to a block
-          if(eventAttachedBlockIds?.includes(isCurrentNotificationBlockId)) return;
-          
-          setEventAttachedBlockIds((state) => [...state, isCurrentNotificationBlockId]);
+      // Check if this notification block has any eventListenersToRun ids
+      if (currentBlocksMatchingEventArray.length > 0) {
+        setEventAttachedBlockIds(state => [
+          ...state,
+          ...currentBlocksMatchingEventArray,
+        ]);
 
-          const selectedEventListenersToRun = eventListenersToRun.find(
-            item => item.targetId === isCurrentNotificationBlockId
+        currentBlocksMatchingEventArray.forEach(currentBlockMatchingEvent => {
+          const selectedEventListenerToRun = eventListenersToRun.find(
+            item => item.targetId === currentBlockMatchingEvent
           );
 
-          console.log({
-            blockIds,
-            selectedEventListenersToRun
-          });
-
-          if(!selectedEventListenersToRun) return;
+          if (!selectedEventListenerToRun) return;
 
           const selectedElement = document.getElementById(
-            `${selectedEventListenersToRun.targetId}`
+            `${selectedEventListenerToRun?.targetId}`
           );
 
           // we could also disable button or whole parent,
@@ -212,7 +220,7 @@ export function NotificationFeedItem(notification: NotificationFeedItemProps) {
           }) => {
             //  selectedElement.disable  = true;
 
-            selectedEventListenersToRun.callbackFunction({
+            selectedEventListenerToRun?.callbackFunction({
               event,
               notification,
             });
@@ -223,19 +231,24 @@ export function NotificationFeedItem(notification: NotificationFeedItemProps) {
 
           // add event listener
           selectedElement?.addEventListener(
-            `${selectedEventListenersToRun.event}`,
+            `${selectedEventListenerToRun?.event}`,
             event => callBackFunctionWithNotificationData({ event })
           );
 
-          // remove event listener
-          return () => {
+          // push the remove event listener cleanup function to the array
+          cleanupFunctions.push(() => {
             selectedElement?.removeEventListener(
-              `${selectedEventListenersToRun.event}`,
+              `${selectedEventListenerToRun?.event}`,
               event => callBackFunctionWithNotificationData({ event })
             );
-          };
-        }
+          });
+        });
       }
+
+      // return a function that calls all the cleanup functions
+      return () => {
+        cleanupFunctions?.forEach(cleanup => cleanup());
+      };
     }
   }, [blocks, eventListenersToRun, notification]);
 
