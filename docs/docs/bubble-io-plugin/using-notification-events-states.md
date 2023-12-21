@@ -4,7 +4,14 @@ sidebar_position: 2
 
 # Using Notification Events and States
 
-With version `2.5.0`, you can trigger Bubble workflows based on notification click events.
+With version `2.5.0` and above, you can trigger Bubble workflows based on notification click events.
+
+## Supported Events
+
+|            Event                 |                     Description                   |
+|----------------------------------|---------------------------------------------------|
+| Notification Received            | Triggers when a new notification is received       |
+| Notification Clicked             | Triggers when a new notification is clicked       |
 
 ## Sending custom data with notification send action.
 The first step in triggering custom workflows based on `Notifiction Click` event is to add custom data data attributes to the send action.
@@ -25,3 +32,12 @@ Along with this event, two state variables `Custom Data 1` and `Custom Data 2` w
 ![Accessing custom data states](https://engagespot-website.s3.us-west-2.amazonaws.com/public/using_state_variables_d087468601.png?updated_at=2023-05-26T13:28:42.519Z)
 
 For example, you could save the notification type (eg: `like_notification`) in `Custom Data 1` variable. And any other meta data that you need in your workflow (eg: `post_id`) in `Custom Data 2`. And then use this data in a workflow to navigate the user to the page as per your requirement.
+
+## Listening to notification received events.
+When a notification is received, the `Notification Received` event is triggered that you can listen in Bubble workflow builder. Along with this event, three state variables `Received Notification ID`, `Received Notification Title`, `Received Notification Message` and `Received Notification JSON` will be made available.
+
+You can use this event to build customized experiences such as
+
+* Showing a custom toast upon receiving a notification.
+* Start a workflow.
+* Play a sound.
