@@ -2,7 +2,7 @@
 
 function loadWarning() {
   // Find the element with class "navbar navbar--fixed-top"
-  const navbarElement = document.querySelector('.theme-doc-breadcrumbs');
+  const navbarElement = document.getElementById('__docusaurus');
 
   // Check if the element is found before proceeding
   if (navbarElement) {
@@ -23,12 +23,13 @@ function loadWarning() {
       `;
 
     // Insert the new div after the navbar element
-    navbarElement.insertAdjacentElement('afterend', newDiv);
+    navbarElement.insertAdjacentElement('beforebegin', newDiv);
   } else {
     console.error('Element with class "navbar navbar--fixed-top" not found.');
   }
 }
 window.addEventListener('load', function () {
+  console.log("loading");
   loadWarning();
 });
 
