@@ -20,6 +20,10 @@ const config = {
       async: true,
       src: '/js/intercom.js',
     },
+    {
+      async: true,
+      src: '/js/warning.js',
+    },
   ], // Replace with your own doc site's name. Should match the collection name in the scraper settings.
   themes: ['docusaurus-theme-search-typesense'],
   presets: [
